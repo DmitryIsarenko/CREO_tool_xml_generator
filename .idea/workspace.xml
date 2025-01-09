@@ -7,11 +7,37 @@
     <list default="true" id="48ac9736-8a74-4e0d-b305-20a2e9cc5ab7" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/logs/log.log" beforeDir="false" afterPath="$PROJECT_DIR$/src/logs/log.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tool_updater/catalogs/axial/drills/Osawa/hss_extended_drills/1692LS.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/tool_updater/catalogs/axial/drills/Osawa/hss_extended_drills/1692LS.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tool_updater/catalogs/axial/drills/Osawa/hss_regular_drills/2386STI.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/tool_updater/catalogs/axial/drills/Osawa/hss_regular_drills/2386STI.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tool_updater/catalogs/milling/ballnose_mills/Gesac/SS600-B4/SS600-B4.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/tool_updater/catalogs/milling/ballnose_mills/Gesac/SS600-B4/SS600-B4.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tool_updater/catalogs/milling/ballnose_mills/Gesac/UA100-B2/UA100-B2.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/tool_updater/catalogs/milling/ballnose_mills/Gesac/UA100-B2/UA100-B2.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tool_updater/catalogs/milling/chamfer_mills/Gesac/UP210/UP210-L120.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/tool_updater/catalogs/milling/chamfer_mills/Gesac/UP210/UP210-L120.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tool_updater/catalogs/milling/chamfer_mills/Gesac/UP210/UP210-L60.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/tool_updater/catalogs/milling/chamfer_mills/Gesac/UP210/UP210-L60.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tool_updater/catalogs/milling/chamfer_mills/Gesac/UP210/UP210-L90.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/tool_updater/catalogs/milling/chamfer_mills/Gesac/UP210/UP210-L90.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tool_updater/catalogs/milling/endmills/Gesac/rough_isoP_isoM/UPR210-S4(STR340-S4)/UPR210-S4(STR340-S4).json" beforeDir="false" afterPath="$PROJECT_DIR$/src/tool_updater/catalogs/milling/endmills/Gesac/rough_isoP_isoM/UPR210-S4(STR340-S4)/UPR210-S4(STR340-S4).json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tool_updater/catalogs/milling/endmills/Gesac/univ_isoN/UA100-S2/UA100-S2.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/tool_updater/catalogs/milling/endmills/Gesac/univ_isoN/UA100-S2/UA100-S2.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tool_updater/catalogs/milling/endmills/Gesac/univ_isoN/UA100-S3/UA100-S3.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/tool_updater/catalogs/milling/endmills/Gesac/univ_isoN/UA100-S3/UA100-S3.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tool_updater/catalogs/milling/endmills/Gesac/univ_isoN/UA100-SL3/UA100-SL3.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/tool_updater/catalogs/milling/endmills/Gesac/univ_isoN/UA100-SL3/UA100-SL3.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tool_updater/catalogs/milling/endmills/Gesac/univ_isoP_iso_M/SS600-S4(UH360-S4)/SS600-S4(UH360-S4).json" beforeDir="false" afterPath="$PROJECT_DIR$/src/tool_updater/catalogs/milling/endmills/Gesac/univ_isoP_iso_M/SS600-S4(UH360-S4)/SS600-S4(UH360-S4).json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tool_updater/catalogs/milling/endmills/Gesac/univ_isoP_iso_M/SS600-SL4(UP210-SL4)/SS600-SL4(UP210-SL4).json" beforeDir="false" afterPath="$PROJECT_DIR$/src/tool_updater/catalogs/milling/endmills/Gesac/univ_isoP_iso_M/SS600-SL4(UP210-SL4)/SS600-SL4(UP210-SL4).json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tool_updater/catalogs/milling/gribkovie/Iscar/MultiMaster/GRIT/GRIT.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/tool_updater/catalogs/milling/gribkovie/Iscar/MultiMaster/GRIT/GRIT.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tool_updater/catalogs/milling/gribkovie/Iscar/MultiMaster/GRIT/edit_copy_GRIT.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/tool_updater/catalogs/milling/gribkovie/Iscar/MultiMaster/GRIT/edit_copy_GRIT.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tool_updater/catalogs/milling/gribkovie/Iscar/MultiMaster/TS-H/TS-H.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/tool_updater/catalogs/milling/gribkovie/Iscar/MultiMaster/TS-H/TS-H.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tool_updater/catalogs/milling/gribkovie/Iscar/MultiMaster/TS-H/edit_copy_TS-H.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/tool_updater/catalogs/milling/gribkovie/Iscar/MultiMaster/TS-H/edit_copy_TS-H.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tool_updater/catalogs/milling/gribkovie/Iscar/MultiMaster/TS-N/TS-N.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/tool_updater/catalogs/milling/gribkovie/Iscar/MultiMaster/TS-N/TS-N.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tool_updater/catalogs/milling/gribkovie/Iscar/MultiMaster/TS-N/edit_copy_TS-N.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/tool_updater/catalogs/milling/gribkovie/Iscar/MultiMaster/TS-N/edit_copy_TS-N.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tool_updater/catalogs/milling/otrez_disk/Iscar/SGSF.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/tool_updater/catalogs/milling/otrez_disk/Iscar/SGSF.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tool_updater/catalogs/milling/otrez_disk/Iscar/edit_copy_SGSF.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/tool_updater/catalogs/milling/otrez_disk/Iscar/edit_copy_SGSF.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tool_updater/catalogs/milling/thread_milling/Vardex/Helicool/inch/edit_copy_helicool_g.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/tool_updater/catalogs/milling/thread_milling/Vardex/Helicool/inch/edit_copy_helicool_g.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tool_updater/catalogs/milling/thread_milling/Vardex/Helicool/inch/helicool_g.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/tool_updater/catalogs/milling/thread_milling/Vardex/Helicool/inch/helicool_g.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tool_updater/catalogs/milling/thread_milling/Vardex/Helicool/metric/edit_copy_helicool_m.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/tool_updater/catalogs/milling/thread_milling/Vardex/Helicool/metric/edit_copy_helicool_m.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tool_updater/catalogs/milling/thread_milling/Vardex/Helicool/metric/helicool_m.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/tool_updater/catalogs/milling/thread_milling/Vardex/Helicool/metric/helicool_m.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tool_updater/catalogs/milling/toroidal_endmills/Gesac/isoN/UA100-R3/UA100-R3.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/tool_updater/catalogs/milling/toroidal_endmills/Gesac/isoN/UA100-R3/UA100-R3.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tool_updater/catalogs/milling/toroidal_endmills/Gesac/isoP_isoM/SS600-R4/SS600-R4.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/tool_updater/catalogs/milling/toroidal_endmills/Gesac/isoP_isoM/SS600-R4/SS600-R4.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tool_updater/classes/tool_classes/axial/centerdrill.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/tool_updater/classes/tool_classes/axial/centerdrill.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tool_updater/classes/tool_classes/axial/counterbore.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/tool_updater/classes/tool_classes/axial/counterbore.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tool_updater/classes/tool_classes/axial/countersink.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/tool_updater/classes/tool_classes/axial/countersink.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tool_updater/classes/tool_classes/axial/drill.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/tool_updater/classes/tool_classes/axial/drill.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tool_updater/classes/tool_classes/axial/reamer.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/tool_updater/classes/tool_classes/axial/reamer.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tool_updater/classes/tool_classes/axial/tap.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/tool_updater/classes/tool_classes/axial/tap.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tool_updater/classes/tool_classes/base_tool.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/tool_updater/classes/tool_classes/base_tool.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tool_updater/classes/tool_classes/milling/chamfer_mill.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/tool_updater/classes/tool_classes/milling/chamfer_mill.py" afterDir="false" />
@@ -37,6 +63,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="development" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectColorInfo">{
@@ -57,7 +88,7 @@
     "Python.transform_cut_data.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "ShowUsagesActions.previewPropertyKey": "true",
-    "git-widget-placeholder": "logging",
+    "git-widget-placeholder": "temp__dir__for__tools",
     "last_opened_file_path": "C:/WORK_DIRECTORY/10_Programming/Projects/tool_base/tool_base/src/tool_updater/catalogs/axial/reamers/Guhring/1411",
     "settings.editor.selected.configurable": "com.intellij.pycharm.community.ide.impl.configuration.PythonContentEntriesConfigurable"
   }

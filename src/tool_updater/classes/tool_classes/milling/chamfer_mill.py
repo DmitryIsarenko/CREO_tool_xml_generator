@@ -106,26 +106,32 @@ class ChamferMill(BaseTool):
         l1 = self.clear_str_from_trailing_zeros(str(self.tool_data["FLUTE_LENGTH"]), sep=".").replace(".", "-")
         l2 = self.clear_str_from_trailing_zeros(str(self.tool_data["LENGTH"]), sep=".").replace(".", "-")
 
-        t_name = (f"{t_prefix}"
-                  f"D{d}"
-                  f"x{angle}"
-                  f"_L{l1}"
-                  f"-L{l2}"
-                  f"{t_suffix}"
-                  )
+        t_name = (
+            f"{t_prefix}"
+            f"D{d}"
+            f"x{angle}"
+            f"_L{l1}"
+            f"-L{l2}"
+            # f"{t_suffix}"
+        )
         return t_name
 
     def create_file_name(self):
+        t_prefix = self.tool_data["file_name_prefix"]
+        t_suffix = self.tool_data["file_name_suffix"]
+
         d = self.clear_str_from_trailing_zeros(str(self.tool_data["CUTTER_DIAM"]), sep=".")
         angle = self.get_side_angle() * 2
         l1 = self.clear_str_from_trailing_zeros(str(self.tool_data["FLUTE_LENGTH"]), sep=".")
         l2 = self.clear_str_from_trailing_zeros(str(self.tool_data["LENGTH"]), sep=".")
 
         t_name = (
-                  f"D{d}"
-                  f"x{angle}"
-                  f"_L{l1}"
-                  f"-L{l2}"
+            f"{t_prefix}"
+            f"D{d}"
+            f"x{angle}"
+            f"_L{l1}"
+            f"-L{l2}"
+            f"{t_suffix}"
         )
         return t_name
 

@@ -173,7 +173,7 @@ class GribMill(BaseTool):
                 f"_W{w}"
                 f"_L{l1}"
                 f"_L{l2}"
-                f"{t_suffix}"
+                # f"{t_suffix}"
             )
         elif r == "0" and c != "0":
             t_name = (
@@ -183,7 +183,7 @@ class GribMill(BaseTool):
                 f"_C{c}"
                 f"_L{l1}"
                 f"_L{l2}"
-                f"{t_suffix}"
+                # f"{t_suffix}"
             )
         elif r != "0" and c == "0":
             t_name = (
@@ -193,7 +193,7 @@ class GribMill(BaseTool):
                 f"_R{r}"
                 f"_L{l1}"
                 f"_L{l2}"
-                f"{t_suffix}"
+                # f"{t_suffix}"
             )
         else:
             t_name = (
@@ -204,12 +204,15 @@ class GribMill(BaseTool):
                 f"_C{c}"
                 f"_L{l1}"
                 f"_L{l2}"
-                f"{t_suffix}"
+                # f"{t_suffix}"
             )
 
         return t_name
 
     def create_file_name(self):
+        t_prefix = self.tool_data["file_name_prefix"]
+        t_suffix = self.tool_data["file_name_suffix"]
+
         d = self.clear_str_from_trailing_zeros(self.tool_data["CUTTER_DIAM"], sep=".")
         w = self.clear_str_from_trailing_zeros(self.get_tool_cutter_width_from_complex_size(), sep=".")
         # r = self.clear_str_from_trailing_zeros(self.get_tool_corner_radius_from_complex_size(), sep=".")
@@ -220,35 +223,43 @@ class GribMill(BaseTool):
 
         if r == "0" and c =="0":
             t_name = (
+                f"{t_prefix}"
                 f"D{d}"
                 f"_W{w}"
                 f"_L{l1}"
                 f"_L{l2}"
+                f"{t_suffix}"
             )
         elif r == "0" and c != "0":
             t_name = (
+                f"{t_prefix}"
                 f"D{d}"
                 f"_W{w}"
                 f"_C{c}"
                 f"_L{l1}"
                 f"_L{l2}"
+                f"{t_suffix}"
             )
         elif r != "0" and c == "0":
             t_name = (
+                f"{t_prefix}"
                 f"D{d}"
                 f"_W{w}"
                 f"_R{r}"
                 f"_L{l1}"
                 f"_L{l2}"
+                f"{t_suffix}"
             )
         else:
             t_name = (
+                f"{t_prefix}"
                 f"D{d}"
                 f"_W{w}"
                 f"_R{r}"
                 f"_C{c}"
                 f"_L{l1}"
                 f"_L{l2}"
+                f"{t_suffix}"
             )
         return t_name
 

@@ -4,83 +4,83 @@
     "flute_len": 2,
     "full_body_len": 50,
     "full_body_diam": 4,
-    "order_no": "UA100-B2-01002"
+    "order_no": "Gesac UA100-B2-01002"
   },
   "2.00": {
     "flute_diam": 2,
     "flute_len": 4,
     "full_body_len": 50,
     "full_body_diam": 4,
-    "order_no": "UA100-B2-02004"
+    "order_no": "Gesac UA100-B2-02004"
   },
   "3.00": {
     "flute_diam": 3,
     "flute_len": 6,
     "full_body_len": 50,
     "full_body_diam": 4,
-    "order_no": "UA100-B2-03006"
+    "order_no": "Gesac UA100-B2-03006"
   },
   "4.00": {
     "flute_diam": 4,
     "flute_len": 8,
     "full_body_len": 50,
     "full_body_diam": 4,
-    "order_no": "UA100-B2-04008"
+    "order_no": "Gesac UA100-B2-04008"
   },
   "5.00": {
     "flute_diam": 5,
     "flute_len": 10,
     "full_body_len": 50,
     "full_body_diam": 6,
-    "order_no": "UA100-B2-05010"
+    "order_no": "Gesac UA100-B2-05010"
   },
   "6.00": {
     "flute_diam": 6,
     "flute_len": 12,
     "full_body_len": 50,
     "full_body_diam": 6,
-    "order_no": "UA100-B2-06012"
+    "order_no": "Gesac UA100-B2-06012"
   },
   "7.00": {
     "flute_diam": 7,
     "flute_len": 14,
     "full_body_len": 60,
     "full_body_diam": 8,
-    "order_no": "UA100-B2-07014"
+    "order_no": "Gesac UA100-B2-07014"
   },
   "8.00": {
     "flute_diam": 8,
     "flute_len": 14,
     "full_body_len": 60,
     "full_body_diam": 8,
-    "order_no": "UA100-B2-08014"
+    "order_no": "Gesac UA100-B2-08014"
   },
   "9.00": {
     "flute_diam": 9,
     "flute_len": 16,
     "full_body_len": 75,
     "full_body_diam": 10,
-    "order_no": "UA100-B2-09016"
+    "order_no": "Gesac UA100-B2-09016"
   },
   "10.00": {
     "flute_diam": 10,
     "flute_len": 18,
     "full_body_len": 75,
     "full_body_diam": 10,
-    "order_no": "UA100-B2-10018"
+    "order_no": "Gesac UA100-B2-10018"
   },
   "12.00": {
     "flute_diam": 12,
     "flute_len": 22,
     "full_body_len": 75,
     "full_body_diam": 12,
-    "order_no": "UA100-B2-12022"
+    "order_no": "Gesac UA100-B2-12022"
   },
   "16.00": {
     "flute_diam": 16,
     "flute_len": 26,
     "full_body_len": 100,
     "full_body_diam": 16,
-    "order_no": "UA100-B2-16026"
+    "order_no": "Gesac UA100-B2-16026"
   }
 }

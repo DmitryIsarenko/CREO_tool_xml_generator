@@ -359,20 +359,24 @@ class BaseTool:
             f"D{d}"
             f"_L{l1}"
             f"_L{l2}"
-            f"{t_suffix}"
+            # f"{t_suffix}"
         )
         return t_name
 
     def create_file_name(self):
+        t_prefix = self.tool_data["file_name_prefix"]
+        t_suffix = self.tool_data["file_name_suffix"]
 
         d = self.clear_str_from_trailing_zeros(str(self.tool_data["CUTTER_DIAM"]), sep=".")
         l1 = self.clear_str_from_trailing_zeros(str(self.tool_data["FLUTE_LENGTH"]), sep=".")
         l2 = self.clear_str_from_trailing_zeros(str(self.tool_data["LENGTH"]), sep=".")
 
         t_name = (
+            f"{t_prefix}"
             f"D{d}"
             f"_L{l1}"
             f"_L{l2}"
+            f"{t_suffix}"
         )
         return t_name
 
@@ -399,7 +403,11 @@ class BaseTool:
     def write_new_file(self, path):
         try:
             with io.open(
-                    file=f"{path}\\{self.tool_data["file_name_prefix"]}{self.tool_data["file_name"]}{self.tool_data["file_name_suffix"]}{self.tool_file_extension}",
+                    file=f"{path}\\"
+                         # f"{self.tool_data["file_name_prefix"]}"
+                         f"{self.tool_data["file_name"]}"
+                         # f"{self.tool_data["file_name_suffix"]}"
+                         f"{self.tool_file_extension}",
                     mode="w",
                     encoding="utf-8",
             ) as f:

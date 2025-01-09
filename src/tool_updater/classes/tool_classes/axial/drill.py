@@ -113,6 +113,41 @@ class Drill(BaseTool):
     def calc_radial_depth(self, key_iso_material):
         return 0
 
+    def create_tool_name_for_xml(self):
+        t_prefix = self.tool_data["file_name_prefix"].upper()
+        t_suffix = self.tool_data["file_name_suffix"].upper()
+
+        d = self.clear_str_from_trailing_zeros(str(self.tool_data["CUTTER_DIAM"]), sep=".").replace(".", "-")
+        l1 = self.clear_str_from_trailing_zeros(str(self.tool_data["FLUTE_LENGTH"]), sep=".").replace(".", "-")
+        l2 = self.clear_str_from_trailing_zeros(str(self.tool_data["LENGTH"]), sep=".").replace(".", "-")
+
+        t_name = (
+            f"{t_prefix}"
+            f"D{d}"
+            f"_L{l1}"
+            f"_L{l2}"
+            # f"{t_suffix}"
+        )
+        return t_name
+
+    def create_file_name(self):
+        t_prefix = self.tool_data["file_name_prefix"]
+        t_suffix = self.tool_data["file_name_suffix"]
+
+        d = self.clear_str_from_trailing_zeros(str(self.tool_data["CUTTER_DIAM"]), sep=".")
+        l1 = self.clear_str_from_trailing_zeros(str(self.tool_data["FLUTE_LENGTH"]), sep=".")
+        l2 = self.clear_str_from_trailing_zeros(str(self.tool_data["LENGTH"]), sep=".")
+
+        t_name = (
+            f"{t_prefix}"
+            f"D{d}"
+            f"_L{l1}"
+            f"_L{l2}"
+            f"{t_suffix}"
+        )
+        return t_name
+
+
 
     def set_xml_body_tool_params(self) -> str:
         xml_part_str = f"""\

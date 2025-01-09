@@ -177,6 +177,39 @@ class DiskOtreznoi(BaseTool):
                 f"_R{r}"
                 f"_L{l1}"
                 f"_L{l2}"
+                # f"{t_suffix}"
+            )
+        else:
+            t_name = (
+                f"{t_prefix}"
+                f"D{d}"
+                f"_W{w}"
+                f"_L{l1}"
+                f"_L{l2}"
+                # f"{t_suffix}"
+            )
+
+        return t_name
+
+    def create_file_name(self):
+        t_prefix = self.tool_data["file_name_prefix"]
+        t_suffix = self.tool_data["file_name_suffix"]
+
+        d = self.clear_str_from_trailing_zeros(self.tool_data["CUTTER_DIAM"], sep=".")
+        w = self.clear_str_from_trailing_zeros(self.get_tool_cutter_width_from_complex_size(), sep=".")
+        r = self.clear_str_from_trailing_zeros(self.get_tool_corner_radius_from_complex_size(), sep=".")
+        l1 = self.clear_str_from_trailing_zeros(str(self.calc_len_out_of_holder()), sep=".")
+        # r = self.get_tool_corner_radius_from_complex_size()
+        l2 = self.clear_str_from_trailing_zeros(str(self.get_full_tool_length()), sep=".")
+
+        if r != "0":
+            t_name = (
+                f"{t_prefix}"
+                f"D{d}"
+                f"_W{w}"
+                f"_R{r}"
+                f"_L{l1}"
+                f"_L{l2}"
                 f"{t_suffix}"
             )
         else:
@@ -187,32 +220,6 @@ class DiskOtreznoi(BaseTool):
                 f"_L{l1}"
                 f"_L{l2}"
                 f"{t_suffix}"
-            )
-
-        return t_name
-
-    def create_file_name(self):
-        d = self.clear_str_from_trailing_zeros(self.tool_data["CUTTER_DIAM"], sep=".")
-        w = self.clear_str_from_trailing_zeros(self.get_tool_cutter_width_from_complex_size(), sep=".")
-        r = self.clear_str_from_trailing_zeros(self.get_tool_corner_radius_from_complex_size(), sep=".")
-        l1 = self.clear_str_from_trailing_zeros(str(self.calc_len_out_of_holder()), sep=".")
-        # r = self.get_tool_corner_radius_from_complex_size()
-        l2 = self.clear_str_from_trailing_zeros(str(self.get_full_tool_length()), sep=".")
-
-        if r != "0":
-            t_name = (
-                f"D{d}"
-                f"_W{w}"
-                f"_R{r}"
-                f"_L{l1}"
-                f"_L{l2}"
-            )
-        else:
-            t_name = (
-                f"D{d}"
-                f"_W{w}"
-                f"_L{l1}"
-                f"_L{l2}"
             )
         return t_name
 

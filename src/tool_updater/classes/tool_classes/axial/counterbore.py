@@ -124,11 +124,13 @@ class CounterBore(BaseTool):
             f"_D{d2}"
             f"_L{l1}"
             f"_L{l2}"
-            f"{t_suffix}"
+            # f"{t_suffix}"
         )
         return t_name
 
     def create_file_name(self):
+        t_prefix = self.tool_data["file_name_prefix"]
+        t_suffix = self.tool_data["file_name_suffix"]
 
 
         m = self.tool_size_from_geom_catalogue
@@ -138,11 +140,13 @@ class CounterBore(BaseTool):
         l2 = self.clear_str_from_trailing_zeros(str(self.tool_data["LENGTH"]), sep=".").replace(".", "-")
 
         t_name = (
+            f"{t_prefix}"
             f"{m}"
             f"_D{d1}"
             f"_D{d2}"
             f"_L{l1}"
             f"_L{l2}"
+            f"{t_suffix}"
         )
         return t_name
 

@@ -96,28 +96,35 @@ class ToroidMill(BaseTool):
         d = self.clear_str_from_trailing_zeros(str(self.tool_data["CUTTER_DIAM"]), sep=".").replace(".", "-")
         l1 = self.clear_str_from_trailing_zeros(str(self.tool_data["FLUTE_LENGTH"]), sep=".").replace(".", "-")
         l2 = self.clear_str_from_trailing_zeros(str(self.tool_data["LENGTH"]), sep=".").replace(".", "-")
-        r = self.clear_str_from_trailing_zeros(str(self.get_tool_corner_rad_from_complex_size()), sep=".").replace(".", "-")
+        r = self.clear_str_from_trailing_zeros(str(self.get_tool_corner_rad_from_complex_size()), sep=".").replace(".",
+                                                                                                                   "-")
 
-        t_name = (f"{t_prefix}"
-                  f"D{d}"
-                  f"_R{r}"
-                  f"_L{l1}"
-                  f"-L{l2}"
-                  f"{t_suffix}"
-                  )
+        t_name = (
+            f"{t_prefix}"
+            f"D{d}"
+            f"_R{r}"
+            f"_L{l1}"
+            f"-L{l2}"
+            # f"{t_suffix}"
+        )
         return t_name
 
     def create_file_name(self):
+        t_prefix = self.tool_data["file_name_prefix"]
+        t_suffix = self.tool_data["file_name_suffix"]
+
         d = self.clear_str_from_trailing_zeros(str(self.tool_data["CUTTER_DIAM"]), sep=".")
         l1 = self.clear_str_from_trailing_zeros(str(self.tool_data["FLUTE_LENGTH"]), sep=".")
         l2 = self.clear_str_from_trailing_zeros(str(self.tool_data["LENGTH"]), sep=".")
         r = self.clear_str_from_trailing_zeros(str(self.get_tool_corner_rad_from_complex_size()), sep=".")
 
         t_name = (
-                  f"D{d}"
-                  f"_R{r}"
-                  f"_L{l1}"
-                  f"-L{l2}"
+            f"{t_prefix}"
+            f"D{d}"
+            f"_R{r}"
+            f"_L{l1}"
+            f"-L{l2}"
+            f"{t_suffix}"
         )
         return t_name
 

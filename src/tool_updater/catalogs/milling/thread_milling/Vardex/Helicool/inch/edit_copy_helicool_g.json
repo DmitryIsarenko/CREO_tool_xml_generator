@@ -1,7 +1,7 @@
 
-"1⁄16”x28":{"threads_per_inch": 28, "order_no": "H06058L16-EI28BSPT", "full_body_diam": 6, "flute_diam": 5.8, "full_body_len": 57, "cutter_len": 16.3, "feathers_num": 3, "num_of_teeth": 18, "hole_diam": 6.7},
-"1⁄8”x28":{"threads_per_inch": 28, "order_no": "H08077L20-EI28BSPT", "full_body_diam": 8, "flute_diam": 7.7, "full_body_len": 63, "cutter_len": 20.0, "feathers_num": 3, "num_of_teeth": 22, "hole_diam": 8.7},
-"1⁄4”x19":{"threads_per_inch": 19, "order_no": "H10099L27-EI19BSPT", "full_body_diam": 10, "flute_diam": 9.9, "full_body_len": 73, "cutter_len": 26.7, "feathers_num": 4, "num_of_teeth": 20, "hole_diam": 11.8},
-"3⁄8”x19":{"threads_per_inch": 19, "order_no": "H16134L33-EI19BSPT", "full_body_diam": 16, "flute_diam": 13.4, "full_body_len": 92, "cutter_len": 33.4, "feathers_num": 4, "num_of_teeth": 25, "hole_diam": 15.2},
-"1⁄2”x14":{"threads_per_inch": 14, "order_no": "H16157L44-EI14BSPT", "full_body_diam": 16, "flute_diam": 15.7, "full_body_len": 92, "cutter_len": 43.5, "feathers_num": 5, "num_of_teeth": 24, "hole_diam": 19.0},
-"1”x11":{"threads_per_inch": 11, "order_no": "H20199L42-EI11BSPT", "full_body_diam": 20, "flute_diam": 19.9, "full_body_len": 104, "cutter_len": 41.6, "feathers_num": 5, "num_of_teeth": 18, "hole_diam": 30.7},
+"1⁄16”x28":{"threads_per_inch": 28, "order_no": "Vardex Helicool H06058L16-EI28BSPT", "full_body_diam": 6, "flute_diam": 5.8, "full_body_len": 57, "cutter_len": 16.3, "feathers_num": 3, "num_of_teeth": 18, "hole_diam": 6.7},
+"1⁄8”x28":{"threads_per_inch": 28, "order_no": "Vardex Helicool H08077L20-EI28BSPT", "full_body_diam": 8, "flute_diam": 7.7, "full_body_len": 63, "cutter_len": 20.0, "feathers_num": 3, "num_of_teeth": 22, "hole_diam": 8.7},
+"1⁄4”x19":{"threads_per_inch": 19, "order_no": "Vardex Helicool H10099L27-EI19BSPT", "full_body_diam": 10, "flute_diam": 9.9, "full_body_len": 73, "cutter_len": 26.7, "feathers_num": 4, "num_of_teeth": 20, "hole_diam": 11.8},
+"3⁄8”x19":{"threads_per_inch": 19, "order_no": "Vardex Helicool H16134L33-EI19BSPT", "full_body_diam": 16, "flute_diam": 13.4, "full_body_len": 92, "cutter_len": 33.4, "feathers_num": 4, "num_of_teeth": 25, "hole_diam": 15.2},
+"1⁄2”x14":{"threads_per_inch": 14, "order_no": "Vardex Helicool H16157L44-EI14BSPT", "full_body_diam": 16, "flute_diam": 15.7, "full_body_len": 92, "cutter_len": 43.5, "feathers_num": 5, "num_of_teeth": 24, "hole_diam": 19.0},
+"1”x11":{"threads_per_inch": 11, "order_no": "Vardex Helicool H20199L42-EI11BSPT", "full_body_diam": 20, "flute_diam": 19.9, "full_body_len": 104, "cutter_len": 41.6, "feathers_num": 5, "num_of_teeth": 18, "hole_diam": 30.7},

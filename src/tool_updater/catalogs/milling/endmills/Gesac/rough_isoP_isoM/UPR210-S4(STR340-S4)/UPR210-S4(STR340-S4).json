@@ -4,41 +4,41 @@
     "flute_len": 16,
     "full_body_len": 50,
     "full_body_diam": 6,
-    "order_no": "STR340-S4-06016"
+    "order_no": "Gesac STR340-S4-06016"
   },
   "8.00": {
     "flute_diam": 8,
     "flute_len": 20,
     "full_body_len": 60,
     "full_body_diam": 8,
-    "order_no": "STR340-S4-08020"
+    "order_no": "Gesac STR340-S4-08020"
   },
   "10.00": {
     "flute_diam": 10,
     "flute_len": 25,
     "full_body_len": 75,
     "full_body_diam": 10,
-    "order_no": "STR340-S4-10025"
+    "order_no": "Gesac STR340-S4-10025"
   },
   "12.00": {
     "flute_diam": 12,
     "flute_len": 30,
     "full_body_len": 75,
     "full_body_diam": 12,
-    "order_no": "STR340-S4-12030"
+    "order_no": "Gesac STR340-S4-12030"
   },
   "16.00": {
     "flute_diam": 16,
     "flute_len": 36,
     "full_body_len": 100,
     "full_body_diam": 16,
-    "order_no": "STR340-S4-16036"
+    "order_no": "Gesac STR340-S4-16036"
   },
   "20.00": {
     "flute_diam": 20,
     "flute_len": 45,
     "full_body_len": 100,
     "full_body_diam": 20,
-    "order_no": "STR340-S4-20045"
+    "order_no": "Gesac STR340-S4-20045"
   }
 }

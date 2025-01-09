@@ -79,16 +79,21 @@ class CenterDrill(BaseTool):
         return t_name
 
     def create_file_name(self):
+        t_prefix = self.tool_data["file_name_prefix"]
+        t_suffix = self.tool_data["file_name_suffix"]
+
         d1 = self.clear_str_from_trailing_zeros(str(self.get_tool_drill_diameter()), sep=".")
         d2 = self.clear_str_from_trailing_zeros(str(self.get_tool_cutter_diam()), sep=".")
         l1 = self.clear_str_from_trailing_zeros(str(self.tool_data["FLUTE_LENGTH"]), sep=".")
         l2 = self.clear_str_from_trailing_zeros(str(self.tool_data["LENGTH"]), sep=".")
 
         t_name = (
+            f"{t_prefix}"
             f"D{d1}"
             f"_D{d2}"
             f"_L{l1}"
             f"_L{l2}"
+            f"{t_suffix}"
         )
         return t_name
 
@@ -107,7 +112,7 @@ class CenterDrill(BaseTool):
             f"_D{d2}"
             f"_L{l1}"
             f"_L{l2}"
-            f"{t_suffix}"
+            # f"{t_suffix}"
         )
         return t_name
 

@@ -3,8 +3,6 @@ import logging
 
 from src.tool_updater.classes.tool_classes.base_tool import BaseTool
 
-
-
 logger = logging.getLogger(__name__)
 
 
@@ -80,15 +78,27 @@ class BallMill(BaseTool):
     def create_tool_name_for_xml(self):
         t_prefix = self.tool_data["file_name_prefix"].upper()
         t_suffix = self.tool_data["file_name_suffix"].upper()
-        t_name = f"{t_prefix}D{self.tool_data["CUTTER_DIAM"].replace(".", "-")}_L{self.tool_data["FLUTE_LENGTH"]}-L{self.tool_data["LENGTH"]}{t_suffix}"
+        t_name = (f""
+                  f"{t_prefix}"
+                  f"D{self.tool_data["CUTTER_DIAM"].replace(".", "-")}"
+                  f"_L{self.tool_data["FLUTE_LENGTH"]}"
+                  f"-L{self.tool_data["LENGTH"]}"
+                  # f"{t_suffix}"
+                  )
         return t_name
 
     def create_file_name(self):
-        t_name = f"D{self.tool_data["tool_diam_float"]}_L{self.tool_data["FLUTE_LENGTH"]}-L{self.tool_data["LENGTH"]}"
+        t_prefix = self.tool_data["file_name_prefix"]
+        t_suffix = self.tool_data["file_name_suffix"]
+
+        t_name = (
+            f"{t_prefix}"
+            f"D{self.tool_data["tool_diam_float"]}"
+            f"_L{self.tool_data["FLUTE_LENGTH"]}"
+            f"-L{self.tool_data["LENGTH"]}"
+            f"{t_suffix}"
+        )
         return t_name
-
-
-
 
     def calc_feed_rate(self, key_iso_material, RPM, fin_or_rough) -> float:
         try:

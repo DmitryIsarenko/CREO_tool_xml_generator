@@ -2,6 +2,7 @@ from src.tool_updater import config
 import logging
 
 from src.tool_updater.classes.tool_classes.base_tool import BaseTool
+from tool_updater.classes.tool_renamer import suffix
 
 logger = logging.getLogger(__name__)
 
@@ -77,11 +78,31 @@ class CounterSink(BaseTool):
         l2 = self.clear_str_from_trailing_zeros(str(self.tool_data["LENGTH"]), sep=".")
 
         t_name = (
+            f"{self.file_name_prefix}"
             f"D{d}"
             f"_L{real_fl_len}"
             f"_L{l2}"
+            f"{self.file_name_suffix}"
         )
         return t_name
+
+    def create_tool_name_for_xml(self):
+        real_fl_len = (float(self.tool_data["CUTTER_DIAM"]) - self.get_tool_point_diameter()) / 2
+        real_fl_len = self.clear_str_from_trailing_zeros(str(real_fl_len), sep=".")
+        d = self.clear_str_from_trailing_zeros(str(self.tool_data["CUTTER_DIAM"]), sep=".")
+
+        # l1 = self.clear_str_from_trailing_zeros(str(self.tool_data["FLUTE_LENGTH"]), sep=".")
+        l2 = self.clear_str_from_trailing_zeros(str(self.tool_data["LENGTH"]), sep=".")
+
+        t_name = (
+            f"{self.file_name_prefix.upper()}"
+            f"D{d}"
+            f"_L{real_fl_len}"
+            f"_L{l2}"
+            # f"{self.file_name_suffix.upper()}"
+        )
+        return t_name
+
 
     @staticmethod
     def get_tool_point_angle() -> int:

@@ -1,6 +1,6 @@
 {
   "15.70 W1.50 R0.10 C0 CDX2.80 Type K": {
-    "order_no": "MM GRIT16K150-010-3T6",
+    "order_no": "Iscar MM GRIT16K150-010-3T6",
     "flute_diam": 15.70,
     "cutter_width": 1.50,
     "max_cut_depth": 2.80,
@@ -10,7 +10,7 @@
     "holder_name": "T06"
   },
   "15.70 W1.50 R0.10 C0 CDX2.80 Type P": {
-    "order_no": "MM GRIT16P150-010-3T6",
+    "order_no": "Iscar MM GRIT16P150-010-3T6",
     "flute_diam": 15.70,
     "cutter_width": 1.50,
     "max_cut_depth": 2.80,
@@ -20,7 +20,7 @@
     "holder_name": "T06"
   },
   "15.70 W1.57 R0.20 C0 CDX2.80 Type K": {
-    "order_no": "MM GRIT16K157-020-3T6",
+    "order_no": "Iscar MM GRIT16K157-020-3T6",
     "flute_diam": 15.70,
     "cutter_width": 1.57,
     "max_cut_depth": 2.80,
@@ -30,7 +30,7 @@
     "holder_name": "T06"
   },
   "15.70 W2.00 R0.20 C0 CDX2.80 Type K": {
-    "order_no": "MM GRIT16K200-020-3T6",
+    "order_no": "Iscar MM GRIT16K200-020-3T6",
     "flute_diam": 15.70,
     "cutter_width": 2.00,
     "max_cut_depth": 2.80,
@@ -40,7 +40,7 @@
     "holder_name": "T06"
   },
   "15.70 W2.20 R1.10 C0 CDX2.80 Type P": {
-    "order_no": "MM GRIT16P220-110-3T6",
+    "order_no": "Iscar MM GRIT16P220-110-3T6",
     "flute_diam": 15.70,
     "cutter_width": 2.20,
     "max_cut_depth": 2.80,
@@ -50,7 +50,7 @@
     "holder_name": "T06"
   },
   "15.70 W2.39 R0.20 C0 CDX2.80 Type K": {
-    "order_no": "MM GRIT16K239-020-3T6",
+    "order_no": "Iscar MM GRIT16K239-020-3T6",
     "flute_diam": 15.70,
     "cutter_width": 2.39,
     "max_cut_depth": 2.80,
@@ -60,7 +60,7 @@
     "holder_name": "T06"
   },
   "15.70 W2.50 R0.20 C0 CDX2.80 Type K": {
-    "order_no": "MM GRIT16K250-020-3T6",
+    "order_no": "Iscar MM GRIT16K250-020-3T6",
     "flute_diam": 15.70,
     "cutter_width": 2.50,
     "max_cut_depth": 2.80,
@@ -70,7 +70,7 @@
     "holder_name": "T06"
   },
   "15.70 W3.00 R0.20 C0 CDX2.80 Type K": {
-    "order_no": "MM GRIT16K300-020-3T6",
+    "order_no": "Iscar MM GRIT16K300-020-3T6",
     "flute_diam": 15.70,
     "cutter_width": 3.00,
     "max_cut_depth": 2.80,
@@ -80,7 +80,7 @@
     "holder_name": "T06"
   },
   "15.70 W3.00 R0.20 C0 CDX2.80 Type P": {
-    "order_no": "MM GRIT16P300-020-3T6",
+    "order_no": "Iscar MM GRIT16P300-020-3T6",
     "flute_diam": 15.70,
     "cutter_width": 3.00,
     "max_cut_depth": 2.80,
@@ -90,7 +90,7 @@
     "holder_name": "T06"
   },
   "15.70 W3.17 R0.20 C0 CDX2.80 Type K": {
-    "order_no": "MM GRIT16K317-020-3T6",
+    "order_no": "Iscar MM GRIT16K317-020-3T6",
     "flute_diam": 15.70,
     "cutter_width": 3.17,
     "max_cut_depth": 2.80,
@@ -100,7 +100,7 @@
     "holder_name": "T06"
   },
   "17.70 W1.20 R0.05 C0 CDX3.80 Type K": {
-    "order_no": "MM GRIT18K120-005-3T6",
+    "order_no": "Iscar MM GRIT18K120-005-3T6",
     "flute_diam": 17.70,
     "cutter_width": 1.20,
     "max_cut_depth": 3.80,
@@ -110,7 +110,7 @@
     "holder_name": "T06"
   },
   "17.70 W1.20 R0.60 C0 CDX3.80 Type P": {
-    "order_no": "MM GRIT18P120-060-3T6",
+    "order_no": "Iscar MM GRIT18P120-060-3T6",
     "flute_diam": 17.70,
     "cutter_width": 1.20,
     "max_cut_depth": 3.80,
@@ -120,7 +120,7 @@
     "holder_name": "T06"
   },
   "17.70 W1.40 R0.05 C0 CDX3.80 Type K": {
-    "order_no": "MM GRIT18K140-005-3T6",
+    "order_no": "Iscar MM GRIT18K140-005-3T6",
     "flute_diam": 17.70,
     "cutter_width": 1.40,
     "max_cut_depth": 3.80,
@@ -130,7 +130,7 @@
     "holder_name": "T06"
   },
   "17.70 W1.50 R0.10 C0 CDX3.80 Type K": {
-    "order_no": "MM GRIT18K150-010-3T6",
+    "order_no": "Iscar MM GRIT18K150-010-3T6",
     "flute_diam": 17.70,
     "cutter_width": 1.50,
     "max_cut_depth": 3.80,
@@ -140,7 +140,7 @@
     "holder_name": "T06"
   },
   "17.70 W1.57 R0.20 C0 CDX3.80 Type K": {
-    "order_no": "MM GRIT18K157-020-3T6",
+    "order_no": "Iscar MM GRIT18K157-020-3T6",
     "flute_diam": 17.70,
     "cutter_width": 1.57,
     "max_cut_depth": 3.80,
@@ -150,7 +150,7 @@
     "holder_name": "T06"
   },
   "17.70 W1.70 R0.05 C0 CDX3.80 Type K": {
-    "order_no": "MM GRIT18K170-005-3T6",
+    "order_no": "Iscar MM GRIT18K170-005-3T6",
     "flute_diam": 17.70,
     "cutter_width": 1.70,
     "max_cut_depth": 3.80,
@@ -160,7 +160,7 @@
     "holder_name": "T06"
   },
   "17.70 W2.00 R0.20 C0 CDX3.80 Type K": {
-    "order_no": "MM GRIT18K200-020-3T6",
+    "order_no": "Iscar MM GRIT18K200-020-3T6",
     "flute_diam": 17.70,
     "cutter_width": 2.00,
     "max_cut_depth": 3.80,
@@ -170,7 +170,7 @@
     "holder_name": "T06"
   },
   "17.70 W2.00 R1.00 C0 CDX3.80 Type P": {
-    "order_no": "MM GRIT18P200-100-3T6",
+    "order_no": "Iscar MM GRIT18P200-100-3T6",
     "flute_diam": 17.70,
     "cutter_width": 2.00,
     "max_cut_depth": 3.80,
@@ -180,7 +180,7 @@
     "holder_name": "T06"
   },
   "17.70 W2.20 R1.10 C0 CDX3.80 Type P": {
-    "order_no": "MM GRIT18P220-110-3T6",
+    "order_no": "Iscar MM GRIT18P220-110-3T6",
     "flute_diam": 17.70,
     "cutter_width": 2.20,
     "max_cut_depth": 3.80,
@@ -190,7 +190,7 @@
     "holder_name": "T06"
   },
   "17.70 W2.39 R0.20 C0 CDX3.80 Type K": {
-    "order_no": "MM GRIT18K239-020-3T6",
+    "order_no": "Iscar MM GRIT18K239-020-3T6",
     "flute_diam": 17.70,
     "cutter_width": 2.39,
     "max_cut_depth": 3.80,
@@ -200,7 +200,7 @@
     "holder_name": "T06"
   },
   "17.70 W2.50 R0.20 C0 CDX3.80 Type K": {
-    "order_no": "MM GRIT18K250-020-3T6",
+    "order_no": "Iscar MM GRIT18K250-020-3T6",
     "flute_diam": 17.70,
     "cutter_width": 2.50,
     "max_cut_depth": 3.80,
@@ -210,7 +210,7 @@
     "holder_name": "T06"
   },
   "17.70 W3.00 R0.20 C0 CDX3.80 Type K": {
-    "order_no": "MM GRIT18K300-020-3T6",
+    "order_no": "Iscar MM GRIT18K300-020-3T6",
     "flute_diam": 17.70,
     "cutter_width": 3.00,
     "max_cut_depth": 3.80,
@@ -220,7 +220,7 @@
     "holder_name": "T06"
   },
   "17.70 W3.00 R1.50 C0 CDX3.80 Type P": {
-    "order_no": "MM GRIT18P300-150-3T6",
+    "order_no": "Iscar MM GRIT18P300-150-3T6",
     "flute_diam": 17.70,
     "cutter_width": 3.00,
     "max_cut_depth": 3.80,
@@ -230,7 +230,7 @@
     "holder_name": "T06"
   },
   "17.70 W3.17 R0.20 C0 CDX3.80 Type K": {
-    "order_no": "MM GRIT18K317-020-3T6",
+    "order_no": "Iscar MM GRIT18K317-020-3T6",
     "flute_diam": 17.70,
     "cutter_width": 3.17,
     "max_cut_depth": 3.80,
@@ -240,7 +240,7 @@
     "holder_name": "T06"
   },
   "21.70 W0.76 R0.00 C0 CDX1.50 Type K": {
-    "order_no": "MM GRIT22K076-000-4T8",
+    "order_no": "Iscar MM GRIT22K076-000-4T8",
     "flute_diam": 21.70,
     "cutter_width": 0.76,
     "max_cut_depth": 1.50,
@@ -250,7 +250,7 @@
     "holder_name": "T08"
   },
   "21.70 W0.86 R0.00 C0 CDX1.70 Type K": {
-    "order_no": "MM GRIT22K086-000-4T8",
+    "order_no": "Iscar MM GRIT22K086-000-4T8",
     "flute_diam": 21.70,
     "cutter_width": 0.86,
     "max_cut_depth": 1.70,
@@ -260,7 +260,7 @@
     "holder_name": "T08"
   },
   "21.70 W0.96 R0.00 C0 CDX1.90 Type K": {
-    "order_no": "MM GRIT22K096-000-4T8",
+    "order_no": "Iscar MM GRIT22K096-000-4T8",
     "flute_diam": 21.70,
     "cutter_width": 0.96,
     "max_cut_depth": 1.90,
@@ -270,7 +270,7 @@
     "holder_name": "T08"
   },
   "21.70 W1.00 R0.05 C0 CDX2.00 Type K": {
-    "order_no": "MM GRIT22K100-005-4T8",
+    "order_no": "Iscar MM GRIT22K100-005-4T8",
     "flute_diam": 21.70,
     "cutter_width": 1.00,
     "max_cut_depth": 2.00,
@@ -280,7 +280,7 @@
     "holder_name": "T08"
   },
   "21.70 W1.00 R0.05 C0 CDX2.00 Type P": {
-    "order_no": "MM GRIT22P100-005-4T8",
+    "order_no": "Iscar MM GRIT22P100-005-4T8",
     "flute_diam": 21.70,
     "cutter_width": 1.00,
     "max_cut_depth": 2.00,
@@ -290,7 +290,7 @@
     "holder_name": "T08"
   },
   "21.70 W1.20 R0.05 C0 CDX4.50 Type K": {
-    "order_no": "MM GRIT22K120-005-4T8",
+    "order_no": "Iscar MM GRIT22K120-005-4T8",
     "flute_diam": 21.70,
     "cutter_width": 1.20,
     "max_cut_depth": 4.50,
@@ -300,7 +300,7 @@
     "holder_name": "T08"
   },
   "21.70 W1.40 R0.05 C0 CDX4.50 Type K": {
-    "order_no": "MM GRIT22K140-005-4T8",
+    "order_no": "Iscar MM GRIT22K140-005-4T8",
     "flute_diam": 21.70,
     "cutter_width": 1.40,
     "max_cut_depth": 4.50,
@@ -310,7 +310,7 @@
     "holder_name": "T08"
   },
   "21.70 W1.57 R0.00 C0 CDX4.50 Type K": {
-    "order_no": "MM GRIT22K157-000-4T8",
+    "order_no": "Iscar MM GRIT22K157-000-4T8",
     "flute_diam": 21.70,
     "cutter_width": 1.57,
     "max_cut_depth": 4.50,
@@ -320,7 +320,7 @@
     "holder_name": "T08"
   },
   "21.70 W1.70 R0.10 C0 CDX4.50 Type K": {
-    "order_no": "MM GRIT22K170-010-4T8",
+    "order_no": "Iscar MM GRIT22K170-010-4T8",
     "flute_diam": 21.70,
     "cutter_width": 1.70,
     "max_cut_depth": 4.50,
@@ -330,7 +330,7 @@
     "holder_name": "T08"
   },
   "21.70 W1.70 R0.10 C0 CDX4.50 Type P": {
-    "order_no": "MM GRIT22P170-010-4T8",
+    "order_no": "Iscar MM GRIT22P170-010-4T8",
     "flute_diam": 21.70,
     "cutter_width": 1.70,
     "max_cut_depth": 4.50,
@@ -340,7 +340,7 @@
     "holder_name": "T08"
   },
   "21.70 W1.95 R0.20 C0 CDX4.50 Type K": {
-    "order_no": "MM GRIT22K195-020-4T8",
+    "order_no": "Iscar MM GRIT22K195-020-4T8",
     "flute_diam": 21.70,
     "cutter_width": 1.95,
     "max_cut_depth": 4.50,
@@ -350,7 +350,7 @@
     "holder_name": "T08"
   },
   "21.70 W2.00 R0.20 C0 CDX4.50 Type K": {
-    "order_no": "MM GRIT22K200-020-4T8",
+    "order_no": "Iscar MM GRIT22K200-020-4T8",
     "flute_diam": 21.70,
     "cutter_width": 2.00,
     "max_cut_depth": 4.50,
@@ -360,7 +360,7 @@
     "holder_name": "T08"
   },
   "21.70 W2.00 R0.20 C0 CDX4.50 Type P": {
-    "order_no": "MM GRIT22P200-020-4T8",
+    "order_no": "Iscar MM GRIT22P200-020-4T8",
     "flute_diam": 21.70,
     "cutter_width": 2.00,
     "max_cut_depth": 4.50,
@@ -370,7 +370,7 @@
     "holder_name": "T08"
   },
   "21.70 W2.25 R0.20 C0 CDX4.50 Type K": {
-    "order_no": "MM GRIT22K225-020-4T8",
+    "order_no": "Iscar MM GRIT22K225-020-4T8",
     "flute_diam": 21.70,
     "cutter_width": 2.25,
     "max_cut_depth": 4.50,
@@ -380,7 +380,7 @@
     "holder_name": "T08"
   },
   "21.70 W2.39 R0.20 C0 CDX4.50 Type K": {
-    "order_no": "MM GRIT22K239-020-4T8",
+    "order_no": "Iscar MM GRIT22K239-020-4T8",
     "flute_diam": 21.70,
     "cutter_width": 2.39,
     "max_cut_depth": 4.50,
@@ -390,7 +390,7 @@
     "holder_name": "T08"
   },
   "21.70 W2.50 R0.20 C0 CDX4.50 Type K": {
-    "order_no": "MM GRIT22K250-020-4T8",
+    "order_no": "Iscar MM GRIT22K250-020-4T8",
     "flute_diam": 21.70,
     "cutter_width": 2.50,
     "max_cut_depth": 4.50,
@@ -400,7 +400,7 @@
     "holder_name": "T08"
   },
   "21.70 W2.50 R0.20 C0 CDX4.50 Type P": {
-    "order_no": "MM GRIT22P250-020-4T8",
+    "order_no": "Iscar MM GRIT22P250-020-4T8",
     "flute_diam": 21.70,
     "cutter_width": 2.50,
     "max_cut_depth": 4.50,
@@ -410,7 +410,7 @@
     "holder_name": "T08"
   },
   "21.70 W2.75 R0.20 C0 CDX4.50 Type K": {
-    "order_no": "MM GRIT22K275-020-4T8",
+    "order_no": "Iscar MM GRIT22K275-020-4T8",
     "flute_diam": 21.70,
     "cutter_width": 2.75,
     "max_cut_depth": 4.50,
@@ -420,7 +420,7 @@
     "holder_name": "T08"
   },
   "21.70 W3.00 R0.20 C0 CDX4.50 Type K": {
-    "order_no": "MM GRIT22K300-020-4T8",
+    "order_no": "Iscar MM GRIT22K300-020-4T8",
     "flute_diam": 21.70,
     "cutter_width": 3.00,
     "max_cut_depth": 4.50,
@@ -430,7 +430,7 @@
     "holder_name": "T08"
   },
   "21.70 W3.00 R0.20 C0 CDX4.50 Type P": {
-    "order_no": "MM GRIT22P300-020-4T8",
+    "order_no": "Iscar MM GRIT22P300-020-4T8",
     "flute_diam": 21.70,
     "cutter_width": 3.00,
     "max_cut_depth": 4.50,
@@ -440,7 +440,7 @@
     "holder_name": "T08"
   },
   "21.70 W3.17 R0.20 C0 CDX4.50 Type K": {
-    "order_no": "MM GRIT22K317-020-4T8",
+    "order_no": "Iscar MM GRIT22K317-020-4T8",
     "flute_diam": 21.70,
     "cutter_width": 3.17,
     "max_cut_depth": 4.50,
@@ -450,7 +450,7 @@
     "holder_name": "T08"
   },
   "21.70 W3.25 R0.20 C0 CDX4.50 Type K": {
-    "order_no": "MM GRIT22K325-020-4T8",
+    "order_no": "Iscar MM GRIT22K325-020-4T8",
     "flute_diam": 21.70,
     "cutter_width": 3.25,
     "max_cut_depth": 4.50,
@@ -460,7 +460,7 @@
     "holder_name": "T08"
   },
   "21.70 W3.81 R0.20 C0 CDX4.50 Type P": {
-    "order_no": "MM GRIT22P381-020-4T8",
+    "order_no": "Iscar MM GRIT22P381-020-4T8",
     "flute_diam": 21.70,
     "cutter_width": 3.81,
     "max_cut_depth": 4.50,
@@ -470,7 +470,7 @@
     "holder_name": "T08"
   },
   "21.70 W4.00 R0.20 C0 CDX4.50 Type K": {
-    "order_no": "MM GRIT22K400-020-4T8",
+    "order_no": "Iscar MM GRIT22K400-020-4T8",
     "flute_diam": 21.70,
     "cutter_width": 4.00,
     "max_cut_depth": 4.50,
@@ -480,7 +480,7 @@
     "holder_name": "T08"
   },
   "21.70 W4.00 R0.20 C0 CDX4.50 Type P": {
-    "order_no": "MM GRIT22P400-020-4T8",
+    "order_no": "Iscar MM GRIT22P400-020-4T8",
     "flute_diam": 21.70,
     "cutter_width": 4.00,
     "max_cut_depth": 4.50,
@@ -490,7 +490,7 @@
     "holder_name": "T08"
   },
   "21.70 W4.00 R2.00 C0 CDX4.50 Type P": {
-    "order_no": "MM GRIT22P400-200-4T8",
+    "order_no": "Iscar MM GRIT22P400-200-4T8",
     "flute_diam": 21.70,
     "cutter_width": 4.00,
     "max_cut_depth": 4.50,
@@ -500,7 +500,7 @@
     "holder_name": "T08"
   },
   "21.70 W4.25 R0.20 C0 CDX4.50 Type K": {
-    "order_no": "MM GRIT22K425-020-4T8",
+    "order_no": "Iscar MM GRIT22K425-020-4T8",
     "flute_diam": 21.70,
     "cutter_width": 4.25,
     "max_cut_depth": 4.50,
@@ -510,7 +510,7 @@
     "holder_name": "T08"
   },
   "21.70 W4.25 R1.20 C0 CDX4.50 Type K": {
-    "order_no": "MM GRIT22K425-120-4T8",
+    "order_no": "Iscar MM GRIT22K425-120-4T8",
     "flute_diam": 21.70,
     "cutter_width": 4.25,
     "max_cut_depth": 4.50,
@@ -520,7 +520,7 @@
     "holder_name": "T08"
   },
   "21.70 W4.75 R0.20 C0 CDX4.50 Type K": {
-    "order_no": "MM GRIT22K475-020-4T8",
+    "order_no": "Iscar MM GRIT22K475-020-4T8",
     "flute_diam": 21.70,
     "cutter_width": 4.75,
     "max_cut_depth": 4.50,
@@ -530,7 +530,7 @@
     "holder_name": "T08"
   },
   "21.70 W5.25 R0.20 C0 CDX4.50 Type K": {
-    "order_no": "MM GRIT22K525-020-4T8",
+    "order_no": "Iscar MM GRIT22K525-020-4T8",
     "flute_diam": 21.70,
     "cutter_width": 5.25,
     "max_cut_depth": 4.50,
@@ -540,7 +540,7 @@
     "holder_name": "T08"
   },
   "21.70 W6.00 R3.00 C0 CDX4.50 Type K": {
-    "order_no": "MM GRIT22K600-300-4T8",
+    "order_no": "Iscar MM GRIT22K600-300-4T8",
     "flute_diam": 21.70,
     "cutter_width": 6.00,
     "max_cut_depth": 4.50,
@@ -550,7 +550,7 @@
     "holder_name": "T08"
   },
   "27.70 W2.50 R0.20 C0 CDX6.00 Type K": {
-    "order_no": "MM GRIT28K250-020-6T10",
+    "order_no": "Iscar MM GRIT28K250-020-6T10",
     "flute_diam": 27.70,
     "cutter_width": 2.50,
     "max_cut_depth": 6.00,
@@ -560,7 +560,7 @@
     "holder_name": "T10"
   },
   "27.70 W5.25 R0.20 C0 CDX6.00 Type K": {
-    "order_no": "MM GRIT28K525-020-6T10",
+    "order_no": "Iscar MM GRIT28K525-020-6T10",
     "flute_diam": 27.70,
     "cutter_width": 5.25,
     "max_cut_depth": 6.00,
@@ -570,7 +570,7 @@
     "holder_name": "T10"
   },
   "27.70 W7.00 R0.20 C0 CDX6.00 Type P": {
-    "order_no": "MM GRIT28P700-350-6T10",
+    "order_no": "Iscar MM GRIT28P700-350-6T10",
     "flute_diam": 27.70,
     "cutter_width": 7.00,
     "max_cut_depth": 6.00,
@@ -580,7 +580,7 @@
     "holder_name": "T10"
   },
   "27.70 W10.00 R0.20 C0 CDX6.00 Type K": {
-    "order_no": "MM GRIT28K1000-020-6T10",
+    "order_no": "Iscar MM GRIT28K1000-020-6T10",
     "flute_diam": 27.70,
     "cutter_width": 10.00,
     "max_cut_depth": 6.00,
@@ -590,7 +590,7 @@
     "holder_name": "T10"
   },
   "27.70 W11.00 R0.20 C0 CDX6.00 Type K": {
-    "order_no": "MM GRIT28K1100-020-6T10",
+    "order_no": "Iscar MM GRIT28K1100-020-6T10",
     "flute_diam": 27.70,
     "cutter_width": 11.00,
     "max_cut_depth": 6.00,
@@ -600,7 +600,7 @@
     "holder_name": "T10"
   },
   "27.70 W12.00 R0.20 C0 CDX6.00 Type K": {
-    "order_no": "MM GRIT28K1200-020-6T10",
+    "order_no": "Iscar MM GRIT28K1200-020-6T10",
     "flute_diam": 27.70,
     "cutter_width": 12.00,
     "max_cut_depth": 6.00,
@@ -610,7 +610,7 @@
     "holder_name": "T10"
   },
   "27.70 W13.00 R0.20 C0 CDX6.00 Type K": {
-    "order_no": "MM GRIT28K1300-020-6T10",
+    "order_no": "Iscar MM GRIT28K1300-020-6T10",
     "flute_diam": 27.70,
     "cutter_width": 13.00,
     "max_cut_depth": 6.00,

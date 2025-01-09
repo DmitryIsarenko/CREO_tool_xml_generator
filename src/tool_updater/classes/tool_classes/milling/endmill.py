@@ -7,7 +7,6 @@ logger = logging.getLogger(__name__)
 
 
 class EndMill(BaseTool):
-
     # MANUAL TOOL DATA
     tool_material_manual = "VHM"
     tool_type = "END MILL"
@@ -22,7 +21,6 @@ class EndMill(BaseTool):
             "feed_rate_multiplier": 0.4,
         },
     }
-
 
     axial_depth_modifiyers = {
         "iso_P": 1.5,
@@ -40,7 +38,6 @@ class EndMill(BaseTool):
         "iso_S": 0.1,
         "iso_H": 0.025,
     }
-
 
     def __init__(self,
                  tool_size_from_geom_catalogue: str,
@@ -80,15 +77,27 @@ class EndMill(BaseTool):
     def create_tool_name_for_xml(self):
         t_prefix = self.tool_data["file_name_prefix"].upper()
         t_suffix = self.tool_data["file_name_suffix"].upper()
-        t_name = f"{t_prefix}D{self.tool_data["CUTTER_DIAM"].replace(".", "-")}_L{self.tool_data["FLUTE_LENGTH"]}-L{self.tool_data["LENGTH"]}{t_suffix}"
+        t_name = (f""
+                  f"{t_prefix}"
+                  f"D{self.tool_data["CUTTER_DIAM"].replace(".", "-")}"
+                  f"_L{self.tool_data["FLUTE_LENGTH"]}"
+                  f"-L{self.tool_data["LENGTH"]}"
+                  # f"{t_suffix}"
+                  )
         return t_name
 
     def create_file_name(self):
-        t_name = f"D{self.tool_data["tool_diam_float"]}_L{self.tool_data["FLUTE_LENGTH"]}-L{self.tool_data["LENGTH"]}"
+        t_prefix = self.tool_data["file_name_prefix"]
+        t_suffix = self.tool_data["file_name_suffix"]
+
+        t_name = (
+            f"{t_prefix}"
+            f"D{self.tool_data["tool_diam_float"]}"
+            f"_L{self.tool_data["FLUTE_LENGTH"]}"
+            f"-L{self.tool_data["LENGTH"]}"
+            f"{t_suffix}"
+        )
         return t_name
-
-
-
 
     def calc_feed_rate(self, key_iso_material, RPM, fin_or_rough) -> float:
         try:
@@ -99,7 +108,6 @@ class EndMill(BaseTool):
         except:
             # logger.critical(f"{self.tool_data["tool_name_str"]} - feed per min not calculated")
             return 0
-
 
     def set_xml_body_tool_params(self) -> str:
         xml_part_str = f"""\
@@ -128,7 +136,6 @@ class EndMill(BaseTool):
     """
         logger.debug(f"{self.tool_size_from_geom_catalogue} - xml_tool_params generated...")
         return xml_part_str
-
 
     def set_xml_body_tool_cut_data(self):
         total_string = ""
@@ -169,4 +176,3 @@ class EndMill(BaseTool):
 
         logger.debug(f"{self.tool_size_from_geom_catalogue} - xml_tool_cut_data generated...")
         return total_string
-

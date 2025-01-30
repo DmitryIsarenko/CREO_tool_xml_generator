@@ -1,0 +1,82 @@
+{
+  "6.00": {
+    "holder_name": "SW 25-23",
+    "shank_diam": 25.00,
+    "holder_diam": 23.00,
+    "DBC": 13.60,
+    "DCONWS": 6.00,
+    "holder_min_len": 25.00,
+    "holder_len": 110.00,
+    "mass": 0.00
+  },
+  "8.00": {
+    "holder_name": "SW 25-28",
+    "shank_diam": 25.00,
+    "holder_diam": 28.00,
+    "DBC": 18.00,
+    "DCONWS": 8.00,
+    "holder_min_len": 25.00,
+    "holder_len": 110.00,
+    "mass": 0.43
+  },
+  "10.00": {
+    "holder_name": "SW 25-32",
+    "shank_diam": 25.00,
+    "holder_diam": 32.00,
+    "DBC": 22.00,
+    "DCONWS": 10.00,
+    "holder_min_len": 25.00,
+    "holder_len": 110.00,
+    "mass": 0.51
+  },
+  "22.00": {
+    "holder_name": "SW 32-40",
+    "shank_diam": 32.00,
+    "holder_diam": 40.00,
+    "DBC": 32.00,
+    "DCONWS": 22.00,
+    "holder_min_len": 30.00,
+    "holder_len": 120.00,
+    "mass": 0.60
+  },
+  "32.00": {
+    "holder_name": "S 32-55",
+    "shank_diam": 32.00,
+    "holder_diam": 55.00,
+    "DBC": 45.00,
+    "DCONWS": 32.00,
+    "holder_min_len": 60.00,
+    "holder_len": 60.00,
+    "mass": 0.84
+  },
+  "40.00": {
+    "holder_name": "S 40-80",
+    "shank_diam": 40.00,
+    "holder_diam": 80.00,
+    "DBC": 63.00,
+    "DCONWS": 40.00,
+    "holder_min_len": 60.00,
+    "holder_len": 60.00,
+    "mass": 1.78
+  },
+  "50.00": {
+    "holder_name": "R 50-110",
+    "shank_diam": 110.00,
+    "holder_diam": 110.00,
+    "DBC": 80.00,
+    "DCONWS": 50.00,
+    "holder_min_len": 60.00,
+    "holder_len": 60.00,
+    "mass": 1.78
+  },
+  "27.00": {
+    "holder_name": "R 50-110",
+    "shank_diam": 50.00,
+    "holder_diam": 50.00,
+    "DBC": 0.00,
+    "DCONWS": 27.00,
+    "holder_min_len": 60.00,
+    "holder_len": 60.00,
+    "mass": 1.78
+  }
+}

@@ -1,31 +1,516 @@
-2025-01-09 09:31:36 INFO     --- Logger <<src>> started. --- src:25
-2025-01-09 09:31:36 DEBUG    --- G1-16x28 - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
-2025-01-09 09:31:36 DEBUG    --- G1-16x28 - xml_tool_params generated... --- src.tool_updater.classes.tool_classes.milling.threadmill:227
-2025-01-09 09:31:36 DEBUG    --- xml_tool_cut_data generated... --- src.tool_updater.classes.tool_classes.milling.threadmill:268
-2025-01-09 09:31:36 DEBUG    --- G1-16x28 - xml_BOM_components generated... --- src.tool_updater.classes.tool_classes.base_tool:639
-2025-01-09 09:31:36 DEBUG    --- G1-16x28 - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
-2025-01-09 09:31:36 DEBUG    --- G1-8x28 - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
-2025-01-09 09:31:36 DEBUG    --- G1-8x28 - xml_tool_params generated... --- src.tool_updater.classes.tool_classes.milling.threadmill:227
-2025-01-09 09:31:36 DEBUG    --- xml_tool_cut_data generated... --- src.tool_updater.classes.tool_classes.milling.threadmill:268
-2025-01-09 09:31:36 DEBUG    --- G1-8x28 - xml_BOM_components generated... --- src.tool_updater.classes.tool_classes.base_tool:639
-2025-01-09 09:31:36 DEBUG    --- G1-8x28 - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
-2025-01-09 09:31:36 DEBUG    --- G1-4x19 - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
-2025-01-09 09:31:36 DEBUG    --- G1-4x19 - xml_tool_params generated... --- src.tool_updater.classes.tool_classes.milling.threadmill:227
-2025-01-09 09:31:36 DEBUG    --- xml_tool_cut_data generated... --- src.tool_updater.classes.tool_classes.milling.threadmill:268
-2025-01-09 09:31:36 DEBUG    --- G1-4x19 - xml_BOM_components generated... --- src.tool_updater.classes.tool_classes.base_tool:639
-2025-01-09 09:31:36 DEBUG    --- G1-4x19 - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
-2025-01-09 09:31:36 DEBUG    --- G3-8x19 - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
-2025-01-09 09:31:36 DEBUG    --- G3-8x19 - xml_tool_params generated... --- src.tool_updater.classes.tool_classes.milling.threadmill:227
-2025-01-09 09:31:36 DEBUG    --- xml_tool_cut_data generated... --- src.tool_updater.classes.tool_classes.milling.threadmill:268
-2025-01-09 09:31:36 DEBUG    --- G3-8x19 - xml_BOM_components generated... --- src.tool_updater.classes.tool_classes.base_tool:639
-2025-01-09 09:31:36 DEBUG    --- G3-8x19 - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
-2025-01-09 09:31:36 DEBUG    --- G1-2x14 - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
-2025-01-09 09:31:36 DEBUG    --- G1-2x14 - xml_tool_params generated... --- src.tool_updater.classes.tool_classes.milling.threadmill:227
-2025-01-09 09:31:36 DEBUG    --- xml_tool_cut_data generated... --- src.tool_updater.classes.tool_classes.milling.threadmill:268
-2025-01-09 09:31:36 DEBUG    --- G1-2x14 - xml_BOM_components generated... --- src.tool_updater.classes.tool_classes.base_tool:639
-2025-01-09 09:31:36 DEBUG    --- G1-2x14 - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
-2025-01-09 09:31:36 DEBUG    --- G1x11 - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
-2025-01-09 09:31:36 DEBUG    --- G1x11 - xml_tool_params generated... --- src.tool_updater.classes.tool_classes.milling.threadmill:227
-2025-01-09 09:31:36 DEBUG    --- xml_tool_cut_data generated... --- src.tool_updater.classes.tool_classes.milling.threadmill:268
-2025-01-09 09:31:36 DEBUG    --- G1x11 - xml_BOM_components generated... --- src.tool_updater.classes.tool_classes.base_tool:639
-2025-01-09 09:31:36 DEBUG    --- G1x11 - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 INFO     --- Logger <<src>> started. --- src:25
+2025-01-30 15:37:11 DEBUG    --- 50.00 W1.6 R0.0 C0 A0 8KR - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 50.00 W1.6 R0.0 C0 A0 8KR - xml_tool_params generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:334
+2025-01-30 15:37:11 DEBUG    --- 50.00 W1.6 R0.0 C0 A0 8KR - xml_tool_cut_data generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:374
+2025-01-30 15:37:11 DEBUG    --- 50.00 W1.6 R0.0 C0 A0 8KR - xml_BOM_components generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:389
+2025-01-30 15:37:11 DEBUG    --- 50.00 W1.6 R0.0 C0 A0 8KR - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 63.00 W1.6 R0.0 C0 A0 10KR - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 63.00 W1.6 R0.0 C0 A0 10KR - xml_tool_params generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:334
+2025-01-30 15:37:11 DEBUG    --- 63.00 W1.6 R0.0 C0 A0 10KR - xml_tool_cut_data generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:374
+2025-01-30 15:37:11 DEBUG    --- 63.00 W1.6 R0.0 C0 A0 10KR - xml_BOM_components generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:389
+2025-01-30 15:37:11 DEBUG    --- 63.00 W1.6 R0.0 C0 A0 10KR - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 76.00 W1.6 R0.0 C0 A0 22A - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 76.00 W1.6 R0.0 C0 A0 22A - xml_tool_params generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:334
+2025-01-30 15:37:11 DEBUG    --- 76.00 W1.6 R0.0 C0 A0 22A - xml_tool_cut_data generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:374
+2025-01-30 15:37:11 DEBUG    --- 76.00 W1.6 R0.0 C0 A0 22A - xml_BOM_components generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:389
+2025-01-30 15:37:11 DEBUG    --- 76.00 W1.6 R0.0 C0 A0 22A - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 100.00 W1.6 R0.0 C0 A0 22A - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 100.00 W1.6 R0.0 C0 A0 22A - xml_tool_params generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:334
+2025-01-30 15:37:11 DEBUG    --- 100.00 W1.6 R0.0 C0 A0 22A - xml_tool_cut_data generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:374
+2025-01-30 15:37:11 DEBUG    --- 100.00 W1.6 R0.0 C0 A0 22A - xml_BOM_components generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:389
+2025-01-30 15:37:11 DEBUG    --- 100.00 W1.6 R0.0 C0 A0 22A - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 125.00 W1.6 R0.0 C0 A0 27A - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 125.00 W1.6 R0.0 C0 A0 27A - xml_tool_params generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:334
+2025-01-30 15:37:11 DEBUG    --- 125.00 W1.6 R0.0 C0 A0 27A - xml_tool_cut_data generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:374
+2025-01-30 15:37:11 DEBUG    --- 125.00 W1.6 R0.0 C0 A0 27A - xml_BOM_components generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:389
+2025-01-30 15:37:11 DEBUG    --- 125.00 W1.6 R0.0 C0 A0 27A - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 80.00 W2.4 R0.0 C0 A0 22A - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 80.00 W2.4 R0.0 C0 A0 22A - xml_tool_params generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:334
+2025-01-30 15:37:11 DEBUG    --- 80.00 W2.4 R0.0 C0 A0 22A - xml_tool_cut_data generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:374
+2025-01-30 15:37:11 DEBUG    --- 80.00 W2.4 R0.0 C0 A0 22A - xml_BOM_components generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:389
+2025-01-30 15:37:11 DEBUG    --- 80.00 W2.4 R0.0 C0 A0 22A - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 100.00 W2.4 R0.0 C0 A0 22K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 100.00 W2.4 R0.0 C0 A0 22K - xml_tool_params generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:334
+2025-01-30 15:37:11 DEBUG    --- 100.00 W2.4 R0.0 C0 A0 22K - xml_tool_cut_data generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:374
+2025-01-30 15:37:11 DEBUG    --- 100.00 W2.4 R0.0 C0 A0 22K - xml_BOM_components generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:389
+2025-01-30 15:37:11 DEBUG    --- 100.00 W2.4 R0.0 C0 A0 22K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 125.00 W2.4 R0.0 C0 A0 32K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 125.00 W2.4 R0.0 C0 A0 32K - xml_tool_params generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:334
+2025-01-30 15:37:11 DEBUG    --- 125.00 W2.4 R0.0 C0 A0 32K - xml_tool_cut_data generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:374
+2025-01-30 15:37:11 DEBUG    --- 125.00 W2.4 R0.0 C0 A0 32K - xml_BOM_components generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:389
+2025-01-30 15:37:11 DEBUG    --- 125.00 W2.4 R0.0 C0 A0 32K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 160.00 W2.4 R0.0 C0 A0 32K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 160.00 W2.4 R0.0 C0 A0 32K - xml_tool_params generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:334
+2025-01-30 15:37:11 DEBUG    --- 160.00 W2.4 R0.0 C0 A0 32K - xml_tool_cut_data generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:374
+2025-01-30 15:37:11 DEBUG    --- 160.00 W2.4 R0.0 C0 A0 32K - xml_BOM_components generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:389
+2025-01-30 15:37:11 DEBUG    --- 160.00 W2.4 R0.0 C0 A0 32K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 350.00 W4.0 R0.0 C0 A0 50K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 350.00 W4.0 R0.0 C0 A0 50K - xml_tool_params generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:334
+2025-01-30 15:37:11 DEBUG    --- 350.00 W4.0 R0.0 C0 A0 50K - xml_tool_cut_data generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:374
+2025-01-30 15:37:11 DEBUG    --- 350.00 W4.0 R0.0 C0 A0 50K - xml_BOM_components generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:389
+2025-01-30 15:37:11 DEBUG    --- 350.00 W4.0 R0.0 C0 A0 50K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 425.00 W4.0 R0.0 C0 A0 50K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 425.00 W4.0 R0.0 C0 A0 50K - xml_tool_params generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:334
+2025-01-30 15:37:11 DEBUG    --- 425.00 W4.0 R0.0 C0 A0 50K - xml_tool_cut_data generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:374
+2025-01-30 15:37:11 DEBUG    --- 425.00 W4.0 R0.0 C0 A0 50K - xml_BOM_components generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:389
+2025-01-30 15:37:11 DEBUG    --- 425.00 W4.0 R0.0 C0 A0 50K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 50.00 W2.0 R0.0 C0 A0 8KR - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 50.00 W2.0 R0.0 C0 A0 8KR - xml_tool_params generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:334
+2025-01-30 15:37:11 DEBUG    --- 50.00 W2.0 R0.0 C0 A0 8KR - xml_tool_cut_data generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:374
+2025-01-30 15:37:11 DEBUG    --- 50.00 W2.0 R0.0 C0 A0 8KR - xml_BOM_components generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:389
+2025-01-30 15:37:11 DEBUG    --- 50.00 W2.0 R0.0 C0 A0 8KR - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 63.00 W2.0 R0.0 C0 A0 10KR - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 63.00 W2.0 R0.0 C0 A0 10KR - xml_tool_params generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:334
+2025-01-30 15:37:11 DEBUG    --- 63.00 W2.0 R0.0 C0 A0 10KR - xml_tool_cut_data generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:374
+2025-01-30 15:37:11 DEBUG    --- 63.00 W2.0 R0.0 C0 A0 10KR - xml_BOM_components generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:389
+2025-01-30 15:37:11 DEBUG    --- 63.00 W2.0 R0.0 C0 A0 10KR - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 76.00 W2.0 R0.0 C0 A0 22A - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 76.00 W2.0 R0.0 C0 A0 22A - xml_tool_params generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:334
+2025-01-30 15:37:11 DEBUG    --- 76.00 W2.0 R0.0 C0 A0 22A - xml_tool_cut_data generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:374
+2025-01-30 15:37:11 DEBUG    --- 76.00 W2.0 R0.0 C0 A0 22A - xml_BOM_components generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:389
+2025-01-30 15:37:11 DEBUG    --- 76.00 W2.0 R0.0 C0 A0 22A - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 80.00 W2.0 R0.0 C0 A0 22KR - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 80.00 W2.0 R0.0 C0 A0 22KR - xml_tool_params generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:334
+2025-01-30 15:37:11 DEBUG    --- 80.00 W2.0 R0.0 C0 A0 22KR - xml_tool_cut_data generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:374
+2025-01-30 15:37:11 DEBUG    --- 80.00 W2.0 R0.0 C0 A0 22KR - xml_BOM_components generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:389
+2025-01-30 15:37:11 DEBUG    --- 80.00 W2.0 R0.0 C0 A0 22KR - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 100.00 W2.0 R0.0 C0 A0 22A - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 100.00 W2.0 R0.0 C0 A0 22A - xml_tool_params generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:334
+2025-01-30 15:37:11 DEBUG    --- 100.00 W2.0 R0.0 C0 A0 22A - xml_tool_cut_data generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:374
+2025-01-30 15:37:11 DEBUG    --- 100.00 W2.0 R0.0 C0 A0 22A - xml_BOM_components generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:389
+2025-01-30 15:37:11 DEBUG    --- 100.00 W2.0 R0.0 C0 A0 22A - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 100.00 W2.0 R0.0 C0 A0 22KR - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 100.00 W2.0 R0.0 C0 A0 22KR - xml_tool_params generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:334
+2025-01-30 15:37:11 DEBUG    --- 100.00 W2.0 R0.0 C0 A0 22KR - xml_tool_cut_data generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:374
+2025-01-30 15:37:11 DEBUG    --- 100.00 W2.0 R0.0 C0 A0 22KR - xml_BOM_components generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:389
+2025-01-30 15:37:11 DEBUG    --- 100.00 W2.0 R0.0 C0 A0 22KR - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 125.00 W2.0 R0.0 C0 A0 27A - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 125.00 W2.0 R0.0 C0 A0 27A - xml_tool_params generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:334
+2025-01-30 15:37:11 DEBUG    --- 125.00 W2.0 R0.0 C0 A0 27A - xml_tool_cut_data generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:374
+2025-01-30 15:37:11 DEBUG    --- 125.00 W2.0 R0.0 C0 A0 27A - xml_BOM_components generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:389
+2025-01-30 15:37:11 DEBUG    --- 125.00 W2.0 R0.0 C0 A0 27A - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 125.00 W2.0 R0.0 C0 A0 32KR - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 125.00 W2.0 R0.0 C0 A0 32KR - xml_tool_params generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:334
+2025-01-30 15:37:11 DEBUG    --- 125.00 W2.0 R0.0 C0 A0 32KR - xml_tool_cut_data generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:374
+2025-01-30 15:37:11 DEBUG    --- 125.00 W2.0 R0.0 C0 A0 32KR - xml_BOM_components generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:389
+2025-01-30 15:37:11 DEBUG    --- 125.00 W2.0 R0.0 C0 A0 32KR - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 50.00 W3.0 R0.0 C0 A0 8K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 50.00 W3.0 R0.0 C0 A0 8K - xml_tool_params generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:334
+2025-01-30 15:37:11 DEBUG    --- 50.00 W3.0 R0.0 C0 A0 8K - xml_tool_cut_data generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:374
+2025-01-30 15:37:11 DEBUG    --- 50.00 W3.0 R0.0 C0 A0 8K - xml_BOM_components generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:389
+2025-01-30 15:37:11 DEBUG    --- 50.00 W3.0 R0.0 C0 A0 8K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 63.00 W3.0 R0.0 C0 A0 10K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 63.00 W3.0 R0.0 C0 A0 10K - xml_tool_params generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:334
+2025-01-30 15:37:11 DEBUG    --- 63.00 W3.0 R0.0 C0 A0 10K - xml_tool_cut_data generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:374
+2025-01-30 15:37:11 DEBUG    --- 63.00 W3.0 R0.0 C0 A0 10K - xml_BOM_components generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:389
+2025-01-30 15:37:11 DEBUG    --- 63.00 W3.0 R0.0 C0 A0 10K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 80.00 W3.0 R0.0 C0 A0 22K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 80.00 W3.0 R0.0 C0 A0 22K - xml_tool_params generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:334
+2025-01-30 15:37:11 DEBUG    --- 80.00 W3.0 R0.0 C0 A0 22K - xml_tool_cut_data generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:374
+2025-01-30 15:37:11 DEBUG    --- 80.00 W3.0 R0.0 C0 A0 22K - xml_BOM_components generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:389
+2025-01-30 15:37:11 DEBUG    --- 80.00 W3.0 R0.0 C0 A0 22K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 100.00 W3.0 R0.0 C0 A0 22K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 100.00 W3.0 R0.0 C0 A0 22K - xml_tool_params generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:334
+2025-01-30 15:37:11 DEBUG    --- 100.00 W3.0 R0.0 C0 A0 22K - xml_tool_cut_data generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:374
+2025-01-30 15:37:11 DEBUG    --- 100.00 W3.0 R0.0 C0 A0 22K - xml_BOM_components generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:389
+2025-01-30 15:37:11 DEBUG    --- 100.00 W3.0 R0.0 C0 A0 22K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 125.00 W3.0 R0.0 C0 A0 27K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 125.00 W3.0 R0.0 C0 A0 27K - xml_tool_params generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:334
+2025-01-30 15:37:11 DEBUG    --- 125.00 W3.0 R0.0 C0 A0 27K - xml_tool_cut_data generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:374
+2025-01-30 15:37:11 DEBUG    --- 125.00 W3.0 R0.0 C0 A0 27K - xml_BOM_components generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:389
+2025-01-30 15:37:11 DEBUG    --- 125.00 W3.0 R0.0 C0 A0 27K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 125.00 W3.0 R0.0 C0 A0 32K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 125.00 W3.0 R0.0 C0 A0 32K - xml_tool_params generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:334
+2025-01-30 15:37:11 DEBUG    --- 125.00 W3.0 R0.0 C0 A0 32K - xml_tool_cut_data generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:374
+2025-01-30 15:37:11 DEBUG    --- 125.00 W3.0 R0.0 C0 A0 32K - xml_BOM_components generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:389
+2025-01-30 15:37:11 DEBUG    --- 125.00 W3.0 R0.0 C0 A0 32K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 160.00 W3.0 R0.0 C0 A0 32K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 160.00 W3.0 R0.0 C0 A0 32K - xml_tool_params generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:334
+2025-01-30 15:37:11 DEBUG    --- 160.00 W3.0 R0.0 C0 A0 32K - xml_tool_cut_data generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:374
+2025-01-30 15:37:11 DEBUG    --- 160.00 W3.0 R0.0 C0 A0 32K - xml_BOM_components generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:389
+2025-01-30 15:37:11 DEBUG    --- 160.00 W3.0 R0.0 C0 A0 32K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 160.00 W3.0 R0.0 C0 A0 40K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 160.00 W3.0 R0.0 C0 A0 40K - xml_tool_params generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:334
+2025-01-30 15:37:11 DEBUG    --- 160.00 W3.0 R0.0 C0 A0 40K - xml_tool_cut_data generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:374
+2025-01-30 15:37:11 DEBUG    --- 160.00 W3.0 R0.0 C0 A0 40K - xml_BOM_components generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:389
+2025-01-30 15:37:11 DEBUG    --- 160.00 W3.0 R0.0 C0 A0 40K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 200.00 W3.0 R0.0 C0 A0 40K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 200.00 W3.0 R0.0 C0 A0 40K - xml_tool_params generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:334
+2025-01-30 15:37:11 DEBUG    --- 200.00 W3.0 R0.0 C0 A0 40K - xml_tool_cut_data generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:374
+2025-01-30 15:37:11 DEBUG    --- 200.00 W3.0 R0.0 C0 A0 40K - xml_BOM_components generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:389
+2025-01-30 15:37:11 DEBUG    --- 200.00 W3.0 R0.0 C0 A0 40K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 250.00 W3.0 R0.0 C0 A0 40K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 250.00 W3.0 R0.0 C0 A0 40K - xml_tool_params generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:334
+2025-01-30 15:37:11 DEBUG    --- 250.00 W3.0 R0.0 C0 A0 40K - xml_tool_cut_data generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:374
+2025-01-30 15:37:11 DEBUG    --- 250.00 W3.0 R0.0 C0 A0 40K - xml_BOM_components generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:389
+2025-01-30 15:37:11 DEBUG    --- 250.00 W3.0 R0.0 C0 A0 40K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 50.00 W4.0 R0.0 C0 A0 8K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 50.00 W4.0 R0.0 C0 A0 8K - xml_tool_params generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:334
+2025-01-30 15:37:11 DEBUG    --- 50.00 W4.0 R0.0 C0 A0 8K - xml_tool_cut_data generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:374
+2025-01-30 15:37:11 DEBUG    --- 50.00 W4.0 R0.0 C0 A0 8K - xml_BOM_components generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:389
+2025-01-30 15:37:11 DEBUG    --- 50.00 W4.0 R0.0 C0 A0 8K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 63.00 W4.0 R0.0 C0 A0 10K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 63.00 W4.0 R0.0 C0 A0 10K - xml_tool_params generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:334
+2025-01-30 15:37:11 DEBUG    --- 63.00 W4.0 R0.0 C0 A0 10K - xml_tool_cut_data generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:374
+2025-01-30 15:37:11 DEBUG    --- 63.00 W4.0 R0.0 C0 A0 10K - xml_BOM_components generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:389
+2025-01-30 15:37:11 DEBUG    --- 63.00 W4.0 R0.0 C0 A0 10K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 80.00 W4.0 R0.0 C0 A0 22K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 80.00 W4.0 R0.0 C0 A0 22K - xml_tool_params generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:334
+2025-01-30 15:37:11 DEBUG    --- 80.00 W4.0 R0.0 C0 A0 22K - xml_tool_cut_data generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:374
+2025-01-30 15:37:11 DEBUG    --- 80.00 W4.0 R0.0 C0 A0 22K - xml_BOM_components generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:389
+2025-01-30 15:37:11 DEBUG    --- 80.00 W4.0 R0.0 C0 A0 22K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 100.00 W4.0 R0.0 C0 A0 22K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 100.00 W4.0 R0.0 C0 A0 22K - xml_tool_params generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:334
+2025-01-30 15:37:11 DEBUG    --- 100.00 W4.0 R0.0 C0 A0 22K - xml_tool_cut_data generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:374
+2025-01-30 15:37:11 DEBUG    --- 100.00 W4.0 R0.0 C0 A0 22K - xml_BOM_components generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:389
+2025-01-30 15:37:11 DEBUG    --- 100.00 W4.0 R0.0 C0 A0 22K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 125.00 W4.0 R0.0 C0 A0 32K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 125.00 W4.0 R0.0 C0 A0 32K - xml_tool_params generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:334
+2025-01-30 15:37:11 DEBUG    --- 125.00 W4.0 R0.0 C0 A0 32K - xml_tool_cut_data generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:374
+2025-01-30 15:37:11 DEBUG    --- 125.00 W4.0 R0.0 C0 A0 32K - xml_BOM_components generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:389
+2025-01-30 15:37:11 DEBUG    --- 125.00 W4.0 R0.0 C0 A0 32K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 160.00 W4.0 R0.0 C0 A0 40K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 160.00 W4.0 R0.0 C0 A0 40K - xml_tool_params generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:334
+2025-01-30 15:37:11 DEBUG    --- 160.00 W4.0 R0.0 C0 A0 40K - xml_tool_cut_data generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:374
+2025-01-30 15:37:11 DEBUG    --- 160.00 W4.0 R0.0 C0 A0 40K - xml_BOM_components generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:389
+2025-01-30 15:37:11 DEBUG    --- 160.00 W4.0 R0.0 C0 A0 40K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 200.00 W4.0 R0.0 C0 A0 40K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 200.00 W4.0 R0.0 C0 A0 40K - xml_tool_params generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:334
+2025-01-30 15:37:11 DEBUG    --- 200.00 W4.0 R0.0 C0 A0 40K - xml_tool_cut_data generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:374
+2025-01-30 15:37:11 DEBUG    --- 200.00 W4.0 R0.0 C0 A0 40K - xml_BOM_components generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:389
+2025-01-30 15:37:11 DEBUG    --- 200.00 W4.0 R0.0 C0 A0 40K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 250.00 W4.0 R0.0 C0 A0 40K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 250.00 W4.0 R0.0 C0 A0 40K - xml_tool_params generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:334
+2025-01-30 15:37:11 DEBUG    --- 250.00 W4.0 R0.0 C0 A0 40K - xml_tool_cut_data generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:374
+2025-01-30 15:37:11 DEBUG    --- 250.00 W4.0 R0.0 C0 A0 40K - xml_BOM_components generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:389
+2025-01-30 15:37:11 DEBUG    --- 250.00 W4.0 R0.0 C0 A0 40K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 80.00 W5.0 R0.0 C0 A0 22K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 80.00 W5.0 R0.0 C0 A0 22K - xml_tool_params generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:334
+2025-01-30 15:37:11 DEBUG    --- 80.00 W5.0 R0.0 C0 A0 22K - xml_tool_cut_data generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:374
+2025-01-30 15:37:11 DEBUG    --- 80.00 W5.0 R0.0 C0 A0 22K - xml_BOM_components generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:389
+2025-01-30 15:37:11 DEBUG    --- 80.00 W5.0 R0.0 C0 A0 22K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 100.00 W5.0 R0.0 C0 A0 22K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 100.00 W5.0 R0.0 C0 A0 22K - xml_tool_params generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:334
+2025-01-30 15:37:11 DEBUG    --- 100.00 W5.0 R0.0 C0 A0 22K - xml_tool_cut_data generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:374
+2025-01-30 15:37:11 DEBUG    --- 100.00 W5.0 R0.0 C0 A0 22K - xml_BOM_components generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:389
+2025-01-30 15:37:11 DEBUG    --- 100.00 W5.0 R0.0 C0 A0 22K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 125.00 W5.0 R0.0 C0 A0 32K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 125.00 W5.0 R0.0 C0 A0 32K - xml_tool_params generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:334
+2025-01-30 15:37:11 DEBUG    --- 125.00 W5.0 R0.0 C0 A0 32K - xml_tool_cut_data generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:374
+2025-01-30 15:37:11 DEBUG    --- 125.00 W5.0 R0.0 C0 A0 32K - xml_BOM_components generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:389
+2025-01-30 15:37:11 DEBUG    --- 125.00 W5.0 R0.0 C0 A0 32K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 160.00 W5.0 R0.0 C0 A0 40K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 160.00 W5.0 R0.0 C0 A0 40K - xml_tool_params generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:334
+2025-01-30 15:37:11 DEBUG    --- 160.00 W5.0 R0.0 C0 A0 40K - xml_tool_cut_data generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:374
+2025-01-30 15:37:11 DEBUG    --- 160.00 W5.0 R0.0 C0 A0 40K - xml_BOM_components generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:389
+2025-01-30 15:37:11 DEBUG    --- 160.00 W5.0 R0.0 C0 A0 40K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 200.00 W5.0 R0.0 C0 A0 40K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 200.00 W5.0 R0.0 C0 A0 40K - xml_tool_params generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:334
+2025-01-30 15:37:11 DEBUG    --- 200.00 W5.0 R0.0 C0 A0 40K - xml_tool_cut_data generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:374
+2025-01-30 15:37:11 DEBUG    --- 200.00 W5.0 R0.0 C0 A0 40K - xml_BOM_components generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:389
+2025-01-30 15:37:11 DEBUG    --- 200.00 W5.0 R0.0 C0 A0 40K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 250.00 W5.0 R0.0 C0 A0 40K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 250.00 W5.0 R0.0 C0 A0 40K - xml_tool_params generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:334
+2025-01-30 15:37:11 DEBUG    --- 250.00 W5.0 R0.0 C0 A0 40K - xml_tool_cut_data generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:374
+2025-01-30 15:37:11 DEBUG    --- 250.00 W5.0 R0.0 C0 A0 40K - xml_BOM_components generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:389
+2025-01-30 15:37:11 DEBUG    --- 250.00 W5.0 R0.0 C0 A0 40K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 125.00 W6.0 R0.0 C0 A0 32KC - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 125.00 W6.0 R0.0 C0 A0 32KC - xml_tool_params generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:334
+2025-01-30 15:37:11 DEBUG    --- 125.00 W6.0 R0.0 C0 A0 32KC - xml_tool_cut_data generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:374
+2025-01-30 15:37:11 DEBUG    --- 125.00 W6.0 R0.0 C0 A0 32KC - xml_BOM_components generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:389
+2025-01-30 15:37:11 DEBUG    --- 125.00 W6.0 R0.0 C0 A0 32KC - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 160.00 W6.0 R0.0 C0 A0 40KC - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 160.00 W6.0 R0.0 C0 A0 40KC - xml_tool_params generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:334
+2025-01-30 15:37:11 DEBUG    --- 160.00 W6.0 R0.0 C0 A0 40KC - xml_tool_cut_data generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:374
+2025-01-30 15:37:11 DEBUG    --- 160.00 W6.0 R0.0 C0 A0 40KC - xml_BOM_components generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:389
+2025-01-30 15:37:11 DEBUG    --- 160.00 W6.0 R0.0 C0 A0 40KC - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 200.00 W6.0 R0.0 C0 A0 40KC - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 200.00 W6.0 R0.0 C0 A0 40KC - xml_tool_params generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:334
+2025-01-30 15:37:11 DEBUG    --- 200.00 W6.0 R0.0 C0 A0 40KC - xml_tool_cut_data generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:374
+2025-01-30 15:37:11 DEBUG    --- 200.00 W6.0 R0.0 C0 A0 40KC - xml_BOM_components generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:389
+2025-01-30 15:37:11 DEBUG    --- 200.00 W6.0 R0.0 C0 A0 40KC - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 250.00 W6.0 R0.0 C0 A0 40KC - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 250.00 W6.0 R0.0 C0 A0 40KC - xml_tool_params generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:334
+2025-01-30 15:37:11 DEBUG    --- 250.00 W6.0 R0.0 C0 A0 40KC - xml_tool_cut_data generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:374
+2025-01-30 15:37:11 DEBUG    --- 250.00 W6.0 R0.0 C0 A0 40KC - xml_BOM_components generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:389
+2025-01-30 15:37:11 DEBUG    --- 250.00 W6.0 R0.0 C0 A0 40KC - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 315.00 W6.0 R0.0 C0 A0 40KC - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 315.00 W6.0 R0.0 C0 A0 40KC - xml_tool_params generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:334
+2025-01-30 15:37:11 DEBUG    --- 315.00 W6.0 R0.0 C0 A0 40KC - xml_tool_cut_data generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:374
+2025-01-30 15:37:11 DEBUG    --- 315.00 W6.0 R0.0 C0 A0 40KC - xml_BOM_components generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:389
+2025-01-30 15:37:11 DEBUG    --- 315.00 W6.0 R0.0 C0 A0 40KC - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 350.00 W6.0 R0.0 C0 A0 50K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 350.00 W6.0 R0.0 C0 A0 50K - xml_tool_params generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:334
+2025-01-30 15:37:11 DEBUG    --- 350.00 W6.0 R0.0 C0 A0 50K - xml_tool_cut_data generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:374
+2025-01-30 15:37:11 DEBUG    --- 350.00 W6.0 R0.0 C0 A0 50K - xml_BOM_components generated... --- src.tool_updater.classes.tool_classes.milling.disk_mill:389
+2025-01-30 15:37:11 DEBUG    --- 350.00 W6.0 R0.0 C0 A0 50K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 100.00 W5.4 R0.0 C2.7 A45 22K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 100.00 W5.4 R0.0 C2.7 A45 22K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 125.00 W5.4 R0.0 C2.7 A45 32K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 125.00 W5.4 R0.0 C2.7 A45 32K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 160.00 W5.4 R0.0 C2.7 A45 40K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 160.00 W5.4 R0.0 C2.7 A45 40K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 200.00 W5.4 R0.0 C2.7 A45 40K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 200.00 W5.4 R0.0 C2.7 A45 40K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 250.00 W5.4 R0.0 C2.7 A45 40K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 250.00 W5.4 R0.0 C2.7 A45 40K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 76.00 W1.4 R0.7 C0 A0 22A - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 76.00 W1.4 R0.7 C0 A0 22A - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 100.00 W1.4 R0.7 C0 A0 22A - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 100.00 W1.4 R0.7 C0 A0 22A - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 125.00 W1.4 R0.7 C0 A0 27A - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 125.00 W1.4 R0.7 C0 A0 27A - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 50.00 W1.6 R0.8 C0 A0 8KR - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 50.00 W1.6 R0.8 C0 A0 8KR - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 63.00 W1.6 R0.8 C0 A0 10KR - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 63.00 W1.6 R0.8 C0 A0 10KR - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 76.00 W1.6 R0.8 C0 A0 22A - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 76.00 W1.6 R0.8 C0 A0 22A - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 100.00 W1.6 R0.8 C0 A0 22A - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 100.00 W1.6 R0.8 C0 A0 22A - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 125.00 W1.6 R0.8 C0 A0 27A - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 125.00 W1.6 R0.8 C0 A0 27A - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 50.00 W1.7 R0.85 C0 A0 8KR - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 50.00 W1.7 R0.85 C0 A0 8KR - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 63.00 W1.7 R0.85 C0 A0 10KR - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 63.00 W1.7 R0.85 C0 A0 10KR - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 76.00 W1.7 R0.85 C0 A0 22A - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 76.00 W1.7 R0.85 C0 A0 22A - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 100.00 W1.7 R0.85 C0 A0 22A - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 100.00 W1.7 R0.85 C0 A0 22A - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 125.00 W1.7 R0.85 C0 A0 27A - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 125.00 W1.7 R0.85 C0 A0 27A - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 50.00 W2.2 R1.1 C0 A0 8KR - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 50.00 W2.2 R1.1 C0 A0 8KR - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 63.00 W2.2 R1.1 C0 A0 10KR - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 63.00 W2.2 R1.1 C0 A0 10KR - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 76.00 W2.2 R1.1 C0 A0 22A - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 76.00 W2.2 R1.1 C0 A0 22A - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 80.00 W2.2 R1.1 C0 A0 22KR - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 80.00 W2.2 R1.1 C0 A0 22KR - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 100.00 W2.2 R1.1 C0 A0 22A - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 100.00 W2.2 R1.1 C0 A0 22A - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 100.00 W2.2 R1.1 C0 A0 22KR - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 100.00 W2.2 R1.1 C0 A0 22KR - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 125.00 W2.2 R1.1 C0 A0 27A - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 125.00 W2.2 R1.1 C0 A0 27A - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 125.00 W2.2 R1.1 C0 A0 32KR - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 125.00 W2.2 R1.1 C0 A0 32KR - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 50.00 W3.0 R1.5 C0 A0 8K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 50.00 W3.0 R1.5 C0 A0 8K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 63.00 W3.0 R1.5 C0 A0 10K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 63.00 W3.0 R1.5 C0 A0 10K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 80.00 W3.0 R1.5 C0 A0 22K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 80.00 W3.0 R1.5 C0 A0 22K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 100.00 W3.0 R1.5 C0 A0 22K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 100.00 W3.0 R1.5 C0 A0 22K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 125.00 W3.0 R1.5 C0 A0 27K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 125.00 W3.0 R1.5 C0 A0 27K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 125.00 W3.0 R1.5 C0 A0 32K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 125.00 W3.0 R1.5 C0 A0 32K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 160.00 W3.0 R1.5 C0 A0 32K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 160.00 W3.0 R1.5 C0 A0 32K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 160.00 W3.0 R1.5 C0 A0 40K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 160.00 W3.0 R1.5 C0 A0 40K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 200.00 W3.0 R1.5 C0 A0 40K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 200.00 W3.0 R1.5 C0 A0 40K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 250.00 W3.0 R1.5 C0 A0 40K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 250.00 W3.0 R1.5 C0 A0 40K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 15.70 W1.50 R0.10 C0 A0 CDX2.80 Type K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 15.70 W1.50 R0.10 C0 A0 CDX2.80 Type K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 15.70 W1.50 R0.10 C0 A0 CDX2.80 Type P - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 15.70 W1.50 R0.10 C0 A0 CDX2.80 Type P - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 15.70 W1.57 R0.20 C0 A0 CDX2.80 Type K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 15.70 W1.57 R0.20 C0 A0 CDX2.80 Type K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 15.70 W2.00 R0.20 C0 A0 CDX2.80 Type K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 15.70 W2.00 R0.20 C0 A0 CDX2.80 Type K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 15.70 W2.20 R1.10 C0 A0 CDX2.80 Type P - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 15.70 W2.20 R1.10 C0 A0 CDX2.80 Type P - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 15.70 W2.39 R0.20 C0 A0 CDX2.80 Type K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 15.70 W2.39 R0.20 C0 A0 CDX2.80 Type K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 15.70 W2.50 R0.20 C0 A0 CDX2.80 Type K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 15.70 W2.50 R0.20 C0 A0 CDX2.80 Type K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 15.70 W3.00 R0.20 C0 A0 CDX2.80 Type K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 15.70 W3.00 R0.20 C0 A0 CDX2.80 Type K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 15.70 W3.00 R0.20 C0 A0 CDX2.80 Type P - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 15.70 W3.00 R0.20 C0 A0 CDX2.80 Type P - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 15.70 W3.17 R0.20 C0 A0 CDX2.80 Type K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 15.70 W3.17 R0.20 C0 A0 CDX2.80 Type K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 17.70 W1.20 R0.05 C0 A0 CDX3.80 Type K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 17.70 W1.20 R0.05 C0 A0 CDX3.80 Type K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 17.70 W1.20 R0.60 C0 A0 CDX3.80 Type P - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 17.70 W1.20 R0.60 C0 A0 CDX3.80 Type P - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 17.70 W1.40 R0.05 C0 A0 CDX3.80 Type K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 17.70 W1.40 R0.05 C0 A0 CDX3.80 Type K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 17.70 W1.50 R0.10 C0 A0 CDX3.80 Type K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 17.70 W1.50 R0.10 C0 A0 CDX3.80 Type K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 17.70 W1.57 R0.20 C0 A0 CDX3.80 Type K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 17.70 W1.57 R0.20 C0 A0 CDX3.80 Type K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 17.70 W1.70 R0.05 C0 A0 CDX3.80 Type K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 17.70 W1.70 R0.05 C0 A0 CDX3.80 Type K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 17.70 W2.00 R0.20 C0 A0 CDX3.80 Type K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 17.70 W2.00 R0.20 C0 A0 CDX3.80 Type K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 17.70 W2.00 R1.00 C0 A0 CDX3.80 Type P - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 17.70 W2.00 R1.00 C0 A0 CDX3.80 Type P - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 17.70 W2.20 R1.10 C0 A0 CDX3.80 Type P - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 17.70 W2.20 R1.10 C0 A0 CDX3.80 Type P - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 17.70 W2.39 R0.20 C0 A0 CDX3.80 Type K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 17.70 W2.39 R0.20 C0 A0 CDX3.80 Type K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 17.70 W2.50 R0.20 C0 A0 CDX3.80 Type K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 17.70 W2.50 R0.20 C0 A0 CDX3.80 Type K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 17.70 W3.00 R0.20 C0 A0 CDX3.80 Type K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 17.70 W3.00 R0.20 C0 A0 CDX3.80 Type K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 17.70 W3.00 R1.50 C0 A0 CDX3.80 Type P - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 17.70 W3.00 R1.50 C0 A0 CDX3.80 Type P - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 17.70 W3.17 R0.20 C0 A0 CDX3.80 Type K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 17.70 W3.17 R0.20 C0 A0 CDX3.80 Type K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 21.70 W0.76 R0.00 C0 A0 CDX1.50 Type K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 21.70 W0.76 R0.00 C0 A0 CDX1.50 Type K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 21.70 W0.86 R0.00 C0 A0 CDX1.70 Type K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 21.70 W0.86 R0.00 C0 A0 CDX1.70 Type K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 21.70 W0.96 R0.00 C0 A0 CDX1.90 Type K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 21.70 W0.96 R0.00 C0 A0 CDX1.90 Type K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 21.70 W1.00 R0.05 C0 A0 CDX2.00 Type K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 21.70 W1.00 R0.05 C0 A0 CDX2.00 Type K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 21.70 W1.00 R0.05 C0 A0 CDX2.00 Type P - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 21.70 W1.00 R0.05 C0 A0 CDX2.00 Type P - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 21.70 W1.20 R0.05 C0 A0 CDX4.50 Type K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 21.70 W1.20 R0.05 C0 A0 CDX4.50 Type K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 21.70 W1.40 R0.05 C0 A0 CDX4.50 Type K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 21.70 W1.40 R0.05 C0 A0 CDX4.50 Type K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 21.70 W1.57 R0.00 C0 A0 CDX4.50 Type K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 21.70 W1.57 R0.00 C0 A0 CDX4.50 Type K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 21.70 W1.70 R0.10 C0 A0 CDX4.50 Type K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 21.70 W1.70 R0.10 C0 A0 CDX4.50 Type K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 21.70 W1.70 R0.10 C0 A0 CDX4.50 Type P - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 21.70 W1.70 R0.10 C0 A0 CDX4.50 Type P - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 21.70 W1.95 R0.20 C0 A0 CDX4.50 Type K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 21.70 W1.95 R0.20 C0 A0 CDX4.50 Type K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 21.70 W2.00 R0.20 C0 A0 CDX4.50 Type K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 21.70 W2.00 R0.20 C0 A0 CDX4.50 Type K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 21.70 W2.00 R0.20 C0 A0 CDX4.50 Type P - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 21.70 W2.00 R0.20 C0 A0 CDX4.50 Type P - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 21.70 W2.25 R0.20 C0 A0 CDX4.50 Type K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 21.70 W2.25 R0.20 C0 A0 CDX4.50 Type K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 21.70 W2.39 R0.20 C0 A0 CDX4.50 Type K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 21.70 W2.39 R0.20 C0 A0 CDX4.50 Type K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 21.70 W2.50 R0.20 C0 A0 CDX4.50 Type K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 21.70 W2.50 R0.20 C0 A0 CDX4.50 Type K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 21.70 W2.50 R0.20 C0 A0 CDX4.50 Type P - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 21.70 W2.50 R0.20 C0 A0 CDX4.50 Type P - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 21.70 W2.75 R0.20 C0 A0 CDX4.50 Type K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 21.70 W2.75 R0.20 C0 A0 CDX4.50 Type K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 21.70 W3.00 R0.20 C0 A0 CDX4.50 Type K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 21.70 W3.00 R0.20 C0 A0 CDX4.50 Type K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 21.70 W3.00 R0.20 C0 A0 CDX4.50 Type P - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 21.70 W3.00 R0.20 C0 A0 CDX4.50 Type P - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 21.70 W3.17 R0.20 C0 A0 CDX4.50 Type K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 21.70 W3.17 R0.20 C0 A0 CDX4.50 Type K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 21.70 W3.25 R0.20 C0 A0 CDX4.50 Type K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 21.70 W3.25 R0.20 C0 A0 CDX4.50 Type K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 21.70 W3.81 R0.20 C0 A0 CDX4.50 Type P - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 21.70 W3.81 R0.20 C0 A0 CDX4.50 Type P - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 21.70 W4.00 R0.20 C0 A0 CDX4.50 Type K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 21.70 W4.00 R0.20 C0 A0 CDX4.50 Type K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 21.70 W4.00 R0.20 C0 A0 CDX4.50 Type P - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 21.70 W4.00 R0.20 C0 A0 CDX4.50 Type P - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 21.70 W4.00 R2.00 C0 A0 CDX4.50 Type P - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 21.70 W4.00 R2.00 C0 A0 CDX4.50 Type P - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 21.70 W4.25 R0.20 C0 A0 CDX4.50 Type K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 21.70 W4.25 R0.20 C0 A0 CDX4.50 Type K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 21.70 W4.25 R1.20 C0 A0 CDX4.50 Type K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 21.70 W4.25 R1.20 C0 A0 CDX4.50 Type K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 21.70 W4.75 R0.20 C0 A0 CDX4.50 Type K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 21.70 W4.75 R0.20 C0 A0 CDX4.50 Type K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 21.70 W5.25 R0.20 C0 A0 CDX4.50 Type K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 21.70 W5.25 R0.20 C0 A0 CDX4.50 Type K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 21.70 W6.00 R3.00 C0 A0 CDX4.50 Type K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 21.70 W6.00 R3.00 C0 A0 CDX4.50 Type K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 27.70 W2.50 R0.20 C0 A0 CDX6.00 Type K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 27.70 W2.50 R0.20 C0 A0 CDX6.00 Type K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 27.70 W5.25 R0.20 C0 A0 CDX6.00 Type K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 27.70 W5.25 R0.20 C0 A0 CDX6.00 Type K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 27.70 W7.00 R0.20 C0 A0 CDX6.00 Type P - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 27.70 W7.00 R0.20 C0 A0 CDX6.00 Type P - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 27.70 W10.00 R0.20 C0 A0 CDX6.00 Type K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 27.70 W10.00 R0.20 C0 A0 CDX6.00 Type K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 27.70 W11.00 R0.20 C0 A0 CDX6.00 Type K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 27.70 W11.00 R0.20 C0 A0 CDX6.00 Type K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 27.70 W12.00 R0.20 C0 A0 CDX6.00 Type K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 27.70 W12.00 R0.20 C0 A0 CDX6.00 Type K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 27.70 W13.00 R0.20 C0 A0 CDX6.00 Type K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 27.70 W13.00 R0.20 C0 A0 CDX6.00 Type K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 17.70 W3.4 R0 C1.7 A45 CDX1.4 Type K - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 17.70 W3.4 R0 C1.7 A45 CDX1.4 Type K - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 17.70 W3.47 R0 C1.735 A45 CDX1.4 Type P - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 17.70 W3.47 R0 C1.735 A45 CDX1.4 Type P - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 13.50 W3.00 R0.40 C0 CDX2.65 - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 13.50 W3.00 R0.40 C0 CDX2.65 - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 13.50 W4.00 R0.40 C0 CDX2.65 - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 13.50 W4.00 R0.40 C0 CDX2.65 - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 16.50 W4.00 R0.20 C0 CDX4.25 - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 16.50 W4.00 R0.20 C0 CDX4.25 - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 16.00 W2.00 R0.40 C0 CDX3.00 - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 16.00 W2.00 R0.40 C0 CDX3.00 - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 16.00 W3.00 R0.40 C0 CDX3.00 - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 16.00 W3.00 R0.40 C0 CDX3.00 - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 16.00 W4.00 R0.40 C0 CDX3.00 - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 16.00 W4.00 R0.40 C0 CDX3.00 - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 16.50 W2.00 R0.40 C0 CDX3.25 - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 16.50 W2.00 R0.40 C0 CDX3.25 - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 16.50 W3.00 R0.40 C0 CDX3.25 - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 16.50 W3.00 R0.40 C0 CDX3.25 - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 16.50 W4.00 R0.40 C0 CDX3.25 - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 16.50 W4.00 R0.40 C0 CDX3.25 - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 19.50 W6.00 R0.20 C0 CDX4.45 - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 19.50 W6.00 R0.20 C0 CDX4.45 - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 22.50 W6.00 R0.20 C0 CDX5.95 - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 22.50 W6.00 R0.20 C0 CDX5.95 - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 19.50 W4.00 R0.40 C0 CDX3.45 - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 19.50 W4.00 R0.40 C0 CDX3.45 - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 19.50 W5.00 R0.40 C0 CDX3.45 - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 19.50 W5.00 R0.40 C0 CDX3.45 - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 19.50 W6.00 R0.40 C0 CDX3.45 - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 19.50 W6.00 R0.40 C0 CDX3.45 - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 22.50 W4.00 R0.40 C0 CDX4.90 - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 22.50 W4.00 R0.40 C0 CDX4.90 - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 22.50 W5.00 R0.40 C0 CDX4.95 - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 22.50 W5.00 R0.40 C0 CDX4.95 - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 22.50 W6.00 R0.40 C0 CDX4.95 - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 22.50 W6.00 R0.40 C0 CDX4.95 - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 22.50 W8.00 R0.40 C0 CDX4.95 - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 22.50 W8.00 R0.40 C0 CDX4.95 - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 25.00 W5.00 R0.40 C0 CDX5.90 - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 25.00 W5.00 R0.40 C0 CDX5.90 - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 25.00 W6.00 R0.40 C0 CDX5.90 - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 25.00 W6.00 R0.40 C0 CDX5.90 - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 25.00 W8.00 R0.40 C0 CDX5.90 - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 25.00 W8.00 R0.40 C0 CDX5.90 - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 25.00 W5.00 R0.40 C0 CDX4.30 - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 25.00 W5.00 R0.40 C0 CDX4.30 - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 25.00 W6.00 R0.40 C0 CDX4.30 - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 25.00 W6.00 R0.40 C0 CDX4.30 - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 25.00 W8.00 R0.40 C0 CDX4.30 - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 25.00 W8.00 R0.40 C0 CDX4.30 - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 7.70 W0.70 R0.20 C0 A0 CDX1.20 - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 7.70 W0.70 R0.20 C0 A0 CDX1.20 - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 7.70 W0.80 R0.20 C0 A0 CDX1.20 - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 7.70 W0.80 R0.20 C0 A0 CDX1.20 - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 7.70 W0.90 R0.20 C0 A0 CDX1.20 - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 7.70 W0.90 R0.20 C0 A0 CDX1.20 - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 7.70 W1.00 R0.20 C0 A0 CDX1.20 - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 7.70 W1.00 R0.20 C0 A0 CDX1.20 - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 7.70 W1.50 R0.20 C0 A0 CDX1.20 - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 7.70 W1.50 R0.20 C0 A0 CDX1.20 - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 7.70 W2.00 R0.20 C0 A0 CDX1.20 - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 7.70 W2.00 R0.20 C0 A0 CDX1.20 - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 10.50 W2.00 R0.40 C0 A0 CDX2.00 - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 10.50 W2.00 R0.40 C0 A0 CDX2.00 - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 12.70 W1.58 R0 C0.15 A45 CDX2.25 - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 12.70 W1.58 R0 C0.15 A45 CDX2.25 - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 12.70 W1.98 R0 C0.15 A45 CDX2.25 - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 12.70 W1.98 R0 C0.15 A45 CDX2.25 - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 13.50 W2.00 R0 C0.20 A45 CDX2.65 - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 13.50 W2.00 R0 C0.20 A45 CDX2.65 - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653
+2025-01-30 15:37:11 DEBUG    --- 13.50 W2.50 R0 C0.20 A45 CDX2.65 - xml_head generated... --- src.tool_updater.classes.tool_classes.base_tool:559
+2025-01-30 15:37:11 DEBUG    --- 13.50 W2.50 R0 C0.20 A45 CDX2.65 - xml_tail generated... --- src.tool_updater.classes.tool_classes.base_tool:653

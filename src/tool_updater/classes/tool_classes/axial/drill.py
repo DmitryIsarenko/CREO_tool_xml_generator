@@ -22,12 +22,12 @@ class Drill(BaseTool):
     }
 
     axial_depth_modifiyers = {
-        "iso_P": 1.5,
-        "iso_M": 1.5,
-        "iso_K": 1.5,
-        "iso_N": 1.5,
-        "iso_S": 1.5,
-        "iso_H": 1.5,
+        "iso_P": 0.25,
+        "iso_M": 0.25,
+        "iso_K": 0.25,
+        "iso_N": 0.25,
+        "iso_S": 0.25,
+        "iso_H": 0.25,
     }
 
     def __init__(self,

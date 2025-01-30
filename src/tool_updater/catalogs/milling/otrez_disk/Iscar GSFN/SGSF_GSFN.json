@@ -1,470 +1,5 @@
 {
-  "76.00 W1.4 R0.7 22A": {
-    "flute_diam": 76.00,
-    "cutter_width": 1.4,
-    "CWN": 1.34,
-    "CWX": 1.34,
-    "max_cut_depth": 18.00,
-    "num_of_teeth": 8,
-    "WB": 1.10,
-    "THUB": 2.4,
-    "DHUB": 39.00,
-    "DCONMS": 22.00,
-    "max_rpm": 1050,
-    "corner_radius": 0.7,
-    "order_no": "Iscar SGSF 76-1.4-22A, GSFU 1.4"
-  },
-  "100.00 W1.4 R0.7 22A": {
-    "flute_diam": 100.00,
-    "cutter_width": 1.4,
-    "CWN": 1.34,
-    "CWX": 1.34,
-    "max_cut_depth": 25.00,
-    "num_of_teeth": 10,
-    "WB": 1.10,
-    "THUB": 2.4,
-    "DHUB": 49.00,
-    "DCONMS": 22.00,
-    "max_rpm": 800,
-    "corner_radius": 0.7,
-    "order_no": "Iscar SGSF 100-1.4-22A, GSFU 1.4"
-  },
-  "125.00 W1.4 R0.7 27A": {
-    "flute_diam": 125.00,
-    "cutter_width": 1.4,
-    "CWN": 1.34,
-    "CWX": 1.34,
-    "max_cut_depth": 25.00,
-    "num_of_teeth": 12,
-    "WB": 1.10,
-    "THUB": 2.4,
-    "DHUB": 74.00,
-    "DCONMS": 27.00,
-    "max_rpm": 640,
-    "corner_radius": 0.7,
-    "order_no": "Iscar SGSF 125-1.4-27A, GSFU 1.4"
-  },
-  "50.00 W1.6 R0.8 8KR": {
-    "flute_diam": 50.00,
-    "cutter_width": 1.6,
-    "CWN": 1.50,
-    "CWX": 1.79,
-    "max_cut_depth": 10.00,
-    "num_of_teeth": 5,
-    "WB": 1.24,
-    "THUB": 2.4,
-    "DHUB": 28.00,
-    "DCONMS": 8.00,
-    "max_rpm": 1600,
-    "corner_radius": 0.8,
-    "order_no": "Iscar SGSF 50-1.6-8KR, GSFU 1.6"
-  },
-  "63.00 W1.6 R0.8 10KR": {
-    "flute_diam": 63.00,
-    "cutter_width": 1.6,
-    "CWN": 1.50,
-    "CWX": 1.79,
-    "max_cut_depth": 14.00,
-    "num_of_teeth": 6,
-    "WB": 1.24,
-    "THUB": 2.4,
-    "DHUB": 32.00,
-    "DCONMS": 10.00,
-    "max_rpm": 1260,
-    "corner_radius": 0.8,
-    "order_no": "Iscar SGSF 63-1.6-10KR, GSFU 1.6"
-  },
-  "76.00 W1.6 R0.8 22A": {
-    "flute_diam": 76.00,
-    "cutter_width": 1.6,
-    "CWN": 1.50,
-    "CWX": 1.79,
-    "max_cut_depth": 18.00,
-    "num_of_teeth": 8,
-    "WB": 1.24,
-    "THUB": 2.4,
-    "DHUB": 39.00,
-    "DCONMS": 22.00,
-    "max_rpm": 1050,
-    "corner_radius": 0.8,
-    "order_no": "Iscar SGSF 76-1.6-22A, GSFU 1.6"
-  },
-  "100.00 W1.6 R0.8 22A": {
-    "flute_diam": 100.00,
-    "cutter_width": 1.6,
-    "CWN": 1.50,
-    "CWX": 1.79,
-    "max_cut_depth": 30.00,
-    "num_of_teeth": 10,
-    "WB": 1.24,
-    "THUB": 2.4,
-    "DHUB": 39.00,
-    "DCONMS": 22.00,
-    "max_rpm": 800,
-    "corner_radius": 0.8,
-    "order_no": "Iscar SGSF 100-1.6-22A, GSFU 1.6"
-  },
-  "125.00 W1.6 R0.8 27A": {
-    "flute_diam": 125.00,
-    "cutter_width": 1.6,
-    "CWN": 1.50,
-    "CWX": 1.79,
-    "max_cut_depth": 29.00,
-    "num_of_teeth": 12,
-    "WB": 1.24,
-    "THUB": 2.4,
-    "DHUB": 60.00,
-    "DCONMS": 27.00,
-    "max_rpm": 640,
-    "corner_radius": 0.8,
-    "order_no": "Iscar SGSF 125-1.6-27A, GSFU 1.6"
-  },
-  "50.00 W1.7 R0.85 8KR": {
-    "flute_diam": 50.00,
-    "cutter_width": 1.7,
-    "CWN": 1.50,
-    "CWX": 1.79,
-    "max_cut_depth": 10.00,
-    "num_of_teeth": 5,
-    "WB": 1.24,
-    "THUB": 2.4,
-    "DHUB": 28.00,
-    "DCONMS": 8.00,
-    "max_rpm": 1600,
-    "corner_radius": 0.85,
-    "order_no": "Iscar SGSF 50-1.6-8KR, GSFU 1.7"
-  },
-  "63.00 W1.7 R0.85 10KR": {
-    "flute_diam": 63.00,
-    "cutter_width": 1.7,
-    "CWN": 1.50,
-    "CWX": 1.79,
-    "max_cut_depth": 14.00,
-    "num_of_teeth": 6,
-    "WB": 1.24,
-    "THUB": 2.4,
-    "DHUB": 32.00,
-    "DCONMS": 10.00,
-    "max_rpm": 1260,
-    "corner_radius": 0.85,
-    "order_no": "Iscar SGSF 63-1.6-10KR, GSFU 1.7"
-  },
-  "76.00 W1.7 R0.85 22A": {
-    "flute_diam": 76.00,
-    "cutter_width": 1.7,
-    "CWN": 1.50,
-    "CWX": 1.79,
-    "max_cut_depth": 18.00,
-    "num_of_teeth": 8,
-    "WB": 1.24,
-    "THUB": 2.4,
-    "DHUB": 39.00,
-    "DCONMS": 22.00,
-    "max_rpm": 1050,
-    "corner_radius": 0.85,
-    "order_no": "Iscar SGSF 76-1.6-22A, GSFU 1.7"
-  },
-  "100.00 W1.7 R0.85 22A": {
-    "flute_diam": 100.00,
-    "cutter_width": 1.7,
-    "CWN": 1.50,
-    "CWX": 1.79,
-    "max_cut_depth": 30.00,
-    "num_of_teeth": 10,
-    "WB": 1.24,
-    "THUB": 2.4,
-    "DHUB": 39.00,
-    "DCONMS": 22.00,
-    "max_rpm": 800,
-    "corner_radius": 0.85,
-    "order_no": "Iscar SGSF 100-1.6-22A, GSFU 1.7"
-  },
-  "125.00 W1.7 R0.85 27A": {
-    "flute_diam": 125.00,
-    "cutter_width": 1.7,
-    "CWN": 1.50,
-    "CWX": 1.79,
-    "max_cut_depth": 29.00,
-    "num_of_teeth": 12,
-    "WB": 1.24,
-    "THUB": 2.4,
-    "DHUB": 60.00,
-    "DCONMS": 27.00,
-    "max_rpm": 640,
-    "corner_radius": 0.85,
-    "order_no": "Iscar SGSF 125-1.6-27A, GSFU 1.7"
-  },
-  "50.00 W2.2 R1.1 8KR": {
-    "flute_diam": 50.00,
-    "cutter_width": 2.2,
-    "CWN": 1.80,
-    "CWX": 2.69,
-    "max_cut_depth": 10.00,
-    "num_of_teeth": 5,
-    "WB": 1.60,
-    "THUB": 2.4,
-    "DHUB": 28.00,
-    "DCONMS": 8.00,
-    "max_rpm": 1600,
-    "corner_radius": 1.1,
-    "order_no": "Iscar SGSF 50-2-8KR, GSFU 2.2"
-  },
-  "63.00 W2.2 R1.1 10KR": {
-    "flute_diam": 63.00,
-    "cutter_width": 2.2,
-    "CWN": 1.80,
-    "CWX": 2.69,
-    "max_cut_depth": 15.00,
-    "num_of_teeth": 6,
-    "WB": 1.60,
-    "THUB": 2.4,
-    "DHUB": 32.00,
-    "DCONMS": 10.00,
-    "max_rpm": 1260,
-    "corner_radius": 1.1,
-    "order_no": "Iscar SGSF 63-2-10KR, GSFU 2.2"
-  },
-  "76.00 W2.2 R1.1 22A": {
-    "flute_diam": 76.00,
-    "cutter_width": 2.2,
-    "CWN": 1.80,
-    "CWX": 2.69,
-    "max_cut_depth": 18.00,
-    "num_of_teeth": 8,
-    "WB": 1.60,
-    "THUB": 2.4,
-    "DHUB": 39.00,
-    "DCONMS": 22.00,
-    "max_rpm": 1050,
-    "corner_radius": 1.1,
-    "order_no": "Iscar SGSF 76-2-22A, GSFU 2.2"
-  },
-  "80.00 W2.2 R1.1 22KR": {
-    "flute_diam": 80.00,
-    "cutter_width": 2.2,
-    "CWN": 1.80,
-    "CWX": 2.69,
-    "max_cut_depth": 20.00,
-    "num_of_teeth": 8,
-    "WB": 1.60,
-    "THUB": 2.4,
-    "DHUB": 40.00,
-    "DCONMS": 22.00,
-    "max_rpm": 1000,
-    "corner_radius": 1.1,
-    "order_no": "Iscar SGSF 80-2-22KR, GSFU 2.2"
-  },
-  "100.00 W2.2 R1.1 22A": {
-    "flute_diam": 100.00,
-    "cutter_width": 2.2,
-    "CWN": 1.80,
-    "CWX": 2.69,
-    "max_cut_depth": 30.00,
-    "num_of_teeth": 10,
-    "WB": 1.60,
-    "THUB": 2.4,
-    "DHUB": 39.00,
-    "DCONMS": 22.00,
-    "max_rpm": 800,
-    "corner_radius": 1.1,
-    "order_no": "Iscar SGSF 100-2-22A, GSFU 2.2"
-  },
-  "100.00 W2.2 R1.1 22KR": {
-    "flute_diam": 100.00,
-    "cutter_width": 2.2,
-    "CWN": 1.80,
-    "CWX": 2.69,
-    "max_cut_depth": 29.00,
-    "num_of_teeth": 10,
-    "WB": 1.60,
-    "THUB": 2.4,
-    "DHUB": 40.00,
-    "DCONMS": 22.00,
-    "max_rpm": 800,
-    "corner_radius": 1.1,
-    "order_no": "Iscar SGSF 100-2-22KR, GSFU 2.2"
-  },
-  "125.00 W2.2 R1.1 27A": {
-    "flute_diam": 125.00,
-    "cutter_width": 2.2,
-    "CWN": 1.80,
-    "CWX": 2.69,
-    "max_cut_depth": 32.00,
-    "num_of_teeth": 12,
-    "WB": 1.60,
-    "THUB": 2.4,
-    "DHUB": 60.00,
-    "DCONMS": 27.00,
-    "max_rpm": 640,
-    "corner_radius": 1.1,
-    "order_no": "Iscar SGSF 125-2-27A, GSFU 2.2"
-  },
-  "125.00 W2.2 R1.1 32KR": {
-    "flute_diam": 125.00,
-    "cutter_width": 2.2,
-    "CWN": 1.80,
-    "CWX": 2.69,
-    "max_cut_depth": 34.00,
-    "num_of_teeth": 12,
-    "WB": 1.60,
-    "THUB": 2.4,
-    "DHUB": 55.00,
-    "DCONMS": 32.00,
-    "max_rpm": 640,
-    "corner_radius": 1.1,
-    "order_no": "Iscar SGSF 125-2-32KR, GSFU 2.2"
-  },
-  "50.00 W3.0 R1.5 8K": {
-    "flute_diam": 50.00,
-    "cutter_width": 3.0,
-    "CWN": 2.70,
-    "CWX": 3.53,
-    "max_cut_depth": 10.00,
-    "num_of_teeth": 4,
-    "WB": 2.40,
-    "THUB": 2.4,
-    "DHUB": 28.00,
-    "DCONMS": 8.00,
-    "max_rpm": 1600,
-    "corner_radius": 1.5,
-    "order_no": "Iscar SGSF 50-3-8K, GSFU 3.0"
-  },
-  "63.00 W3.0 R1.5 10K": {
-    "flute_diam": 63.00,
-    "cutter_width": 3.0,
-    "CWN": 2.70,
-    "CWX": 3.53,
-    "max_cut_depth": 15.00,
-    "num_of_teeth": 5,
-    "WB": 2.40,
-    "THUB": 2.4,
-    "DHUB": 32.00,
-    "DCONMS": 10.00,
-    "max_rpm": 1260,
-    "corner_radius": 1.5,
-    "order_no": "Iscar SGSF 63-3-10K, GSFU 3.0"
-  },
-  "80.00 W3.0 R1.5 22K": {
-    "flute_diam": 80.00,
-    "cutter_width": 3.0,
-    "CWN": 2.70,
-    "CWX": 3.53,
-    "max_cut_depth": 19.00,
-    "num_of_teeth": 6,
-    "WB": 2.40,
-    "THUB": 2.4,
-    "DHUB": 40.00,
-    "DCONMS": 22.00,
-    "max_rpm": 1000,
-    "corner_radius": 1.5,
-    "order_no": "Iscar SGSF 80-3-22K, GSFU 3.0"
-  },
-  "100.00 W3.0 R1.5 22K": {
-    "flute_diam": 100.00,
-    "cutter_width": 3.0,
-    "CWN": 2.70,
-    "CWX": 3.53,
-    "max_cut_depth": 29.00,
-    "num_of_teeth": 6,
-    "WB": 2.40,
-    "THUB": 2.4,
-    "DHUB": 40.00,
-    "DCONMS": 22.00,
-    "max_rpm": 800,
-    "corner_radius": 1.5,
-    "order_no": "Iscar SGSF 100-3-22K, GSFU 3.0"
-  },
-  "125.00 W3.0 R1.5 27K": {
-    "flute_diam": 125.00,
-    "cutter_width": 3.0,
-    "CWN": 2.70,
-    "CWX": 3.53,
-    "max_cut_depth": 34.00,
-    "num_of_teeth": 8,
-    "WB": 2.40,
-    "THUB": 2.4,
-    "DHUB": 55.00,
-    "DCONMS": 27.00,
-    "max_rpm": 640,
-    "corner_radius": 1.5,
-    "order_no": "Iscar SGSF 125-3-27K, GSFU 3.0"
-  },
-  "125.00 W3.0 R1.5 32K": {
-    "flute_diam": 125.00,
-    "cutter_width": 3.0,
-    "CWN": 2.70,
-    "CWX": 3.53,
-    "max_cut_depth": 34.00,
-    "num_of_teeth": 8,
-    "WB": 2.40,
-    "THUB": 2.4,
-    "DHUB": 55.00,
-    "DCONMS": 32.00,
-    "max_rpm": 640,
-    "corner_radius": 1.5,
-    "order_no": "Iscar SGSF 125-3-32K, GSFU 3.0"
-  },
-  "160.00 W3.0 R1.5 32K": {
-    "flute_diam": 160.00,
-    "cutter_width": 3.0,
-    "CWN": 2.70,
-    "CWX": 3.53,
-    "max_cut_depth": 52.00,
-    "num_of_teeth": 10,
-    "WB": 2.40,
-    "THUB": 2.4,
-    "DHUB": 55.00,
-    "DCONMS": 32.00,
-    "max_rpm": 500,
-    "corner_radius": 1.5,
-    "order_no": "Iscar SGSF 160-3-32K, GSFU 3.0"
-  },
-  "160.00 W3.0 R1.5 40K": {
-    "flute_diam": 160.00,
-    "cutter_width": 3.0,
-    "CWN": 2.70,
-    "CWX": 3.53,
-    "max_cut_depth": 39.00,
-    "num_of_teeth": 10,
-    "WB": 2.40,
-    "THUB": 2.4,
-    "DHUB": 80.00,
-    "DCONMS": 40.00,
-    "max_rpm": 500,
-    "corner_radius": 1.5,
-    "order_no": "Iscar SGSF 160-3-40K, GSFU 3.0"
-  },
-  "200.00 W3.0 R1.5 40K": {
-    "flute_diam": 200.00,
-    "cutter_width": 3.0,
-    "CWN": 2.70,
-    "CWX": 3.54,
-    "max_cut_depth": 59.00,
-    "num_of_teeth": 14,
-    "WB": 2.40,
-    "THUB": 2.4,
-    "DHUB": 80.00,
-    "DCONMS": 40.00,
-    "max_rpm": 400,
-    "corner_radius": 1.5,
-    "order_no": "Iscar SGSF 200-3-40K, GSFU 3.0"
-  },
-  "250.00 W3.0 R1.5 40K": {
-    "flute_diam": 250.00,
-    "cutter_width": 3.0,
-    "CWN": 2.70,
-    "CWX": 3.53,
-    "max_cut_depth": 84.00,
-    "num_of_teeth": 18,
-    "WB": 2.40,
-    "THUB": 2.4,
-    "DHUB": 80.00,
-    "DCONMS": 40.00,
-    "max_rpm": 320,
-    "corner_radius": 1.5,
-    "order_no": "Iscar SGSF 250-3-40K, GSFU 3.0"
-  },
-  "50.00 W1.6 R0.0 8KR": {
+  "50.00 W1.6 R0.0 C0 A0 8KR": {
     "flute_diam": 50.00,
     "cutter_width": 1.6,
     "CWN": 1.50,
@@ -479,7 +14,7 @@
     "corner_radius": 0.0,
     "order_no": "Iscar SGSF 50-1.6-8KR, GSFN 1.6"
   },
-  "63.00 W1.6 R0.0 10KR": {
+  "63.00 W1.6 R0.0 C0 A0 10KR": {
     "flute_diam": 63.00,
     "cutter_width": 1.6,
     "CWN": 1.50,
@@ -494,7 +29,7 @@
     "corner_radius": 0.0,
     "order_no": "Iscar SGSF 63-1.6-10KR, GSFN 1.6"
   },
-  "76.00 W1.6 R0.0 22A": {
+  "76.00 W1.6 R0.0 C0 A0 22A": {
     "flute_diam": 76.00,
     "cutter_width": 1.6,
     "CWN": 1.50,
@@ -509,7 +44,7 @@
     "corner_radius": 0.0,
     "order_no": "Iscar SGSF 76-1.6-22A, GSFN 1.6"
   },
-  "100.00 W1.6 R0.0 22A": {
+  "100.00 W1.6 R0.0 C0 A0 22A": {
     "flute_diam": 100.00,
     "cutter_width": 1.6,
     "CWN": 1.50,
@@ -524,7 +59,7 @@
     "corner_radius": 0.0,
     "order_no": "Iscar SGSF 100-1.6-22A, GSFN 1.6"
   },
-  "125.00 W1.6 R0.0 27A": {
+  "125.00 W1.6 R0.0 C0 A0 27A": {
     "flute_diam": 125.00,
     "cutter_width": 1.6,
     "CWN": 1.50,
@@ -539,7 +74,7 @@
     "corner_radius": 0.0,
     "order_no": "Iscar SGSF 125-1.6-27A, GSFN 1.6"
   },
-  "80.00 W2.4 R0.0 22A": {
+  "80.00 W2.4 R0.0 C0 A0 22A": {
     "flute_diam": 80.00,
     "cutter_width": 2.4,
     "CWN": 2.38,
@@ -554,7 +89,7 @@
     "corner_radius": 0.0,
     "order_no": "Iscar SGSF 80-2.4-22A, GSFN 2.4"
   },
-  "100.00 W2.4 R0.0 22K": {
+  "100.00 W2.4 R0.0 C0 A0 22K": {
     "flute_diam": 100.00,
     "cutter_width": 2.4,
     "CWN": 2.38,
@@ -569,7 +104,7 @@
     "corner_radius": 0.0,
     "order_no": "Iscar SGSF 100-2.4-22K, GSFN 2.4"
   },
-  "125.00 W2.4 R0.0 32K": {
+  "125.00 W2.4 R0.0 C0 A0 32K": {
     "flute_diam": 125.00,
     "cutter_width": 2.4,
     "CWN": 2.38,
@@ -584,7 +119,7 @@
     "corner_radius": 0.0,
     "order_no": "Iscar SGSF 125-2.4-32K, GSFN 2.4"
   },
-  "160.00 W2.4 R0.0 32K": {
+  "160.00 W2.4 R0.0 C0 A0 32K": {
     "flute_diam": 160.00,
     "cutter_width": 2.4,
     "CWN": 2.38,
@@ -599,7 +134,7 @@
     "corner_radius": 0.0,
     "order_no": "Iscar SGSF 160-2.4-32K, GSFN 2.4"
   },
-  "350.00 W4.0 R0.0 50K": {
+  "350.00 W4.0 R0.0 C0 A0 50K": {
     "flute_diam": 350.00,
     "cutter_width": 4.0,
     "CWN": 3.54,
@@ -614,7 +149,7 @@
     "corner_radius": 0.0,
     "order_no": "Iscar SGSF 350-4.0M-50K-38Z, GSFN 4.0"
   },
-  "425.00 W4.0 R0.0 50K": {
+  "425.00 W4.0 R0.0 C0 A0 50K": {
     "flute_diam": 425.00,
     "cutter_width": 4.0,
     "CWN": 3.54,
@@ -629,7 +164,7 @@
     "corner_radius": 0.0,
     "order_no": "Iscar SGSF 425-4.0M-50K-38Z, GSFN 4.0"
   },
-  "50.00 W2.0 R0.0 8KR": {
+  "50.00 W2.0 R0.0 C0 A0 8KR": {
     "flute_diam": 50.00,
     "cutter_width": 2.0,
     "CWN": 1.80,
@@ -644,7 +179,7 @@
     "corner_radius": 0.0,
     "order_no": "Iscar SGSF 50-2-8KR, GSFN 2.0"
   },
-  "63.00 W2.0 R0.0 10KR": {
+  "63.00 W2.0 R0.0 C0 A0 10KR": {
     "flute_diam": 63.00,
     "cutter_width": 2.0,
     "CWN": 1.80,
@@ -659,7 +194,7 @@
     "corner_radius": 0.0,
     "order_no": "Iscar SGSF 63-2-10KR, GSFN 2.0"
   },
-  "76.00 W2.0 R0.0 22A": {
+  "76.00 W2.0 R0.0 C0 A0 22A": {
     "flute_diam": 76.00,
     "cutter_width": 2.0,
     "CWN": 1.80,
@@ -674,7 +209,7 @@
     "corner_radius": 0.0,
     "order_no": "Iscar SGSF 76-2-22A, GSFN 2.0"
   },
-  "80.00 W2.0 R0.0 22KR": {
+  "80.00 W2.0 R0.0 C0 A0 22KR": {
     "flute_diam": 80.00,
     "cutter_width": 2.0,
     "CWN": 1.80,
@@ -689,7 +224,7 @@
     "corner_radius": 0.0,
     "order_no": "Iscar SGSF 80-2-22KR, GSFN 2.0"
   },
-  "100.00 W2.0 R0.0 22A": {
+  "100.00 W2.0 R0.0 C0 A0 22A": {
     "flute_diam": 100.00,
     "cutter_width": 2.0,
     "CWN": 1.80,
@@ -704,7 +239,7 @@
     "corner_radius": 0.0,
     "order_no": "Iscar SGSF 100-2-22A, GSFN 2.0"
   },
-  "100.00 W2.0 R0.0 22KR": {
+  "100.00 W2.0 R0.0 C0 A0 22KR": {
     "flute_diam": 100.00,
     "cutter_width": 2.0,
     "CWN": 1.80,
@@ -719,7 +254,7 @@
     "corner_radius": 0.0,
     "order_no": "Iscar SGSF 100-2-22KR, GSFN 2.0"
   },
-  "125.00 W2.0 R0.0 27A": {
+  "125.00 W2.0 R0.0 C0 A0 27A": {
     "flute_diam": 125.00,
     "cutter_width": 2.0,
     "CWN": 1.80,
@@ -734,7 +269,7 @@
     "corner_radius": 0.0,
     "order_no": "Iscar SGSF 125-2-27A, GSFN 2.0"
   },
-  "125.00 W2.0 R0.0 32KR": {
+  "125.00 W2.0 R0.0 C0 A0 32KR": {
     "flute_diam": 125.00,
     "cutter_width": 2.0,
     "CWN": 1.80,
@@ -749,7 +284,7 @@
     "corner_radius": 0.0,
     "order_no": "Iscar SGSF 125-2-32KR, GSFN 2.0"
   },
-  "50.00 W3.0 R0.0 8K": {
+  "50.00 W3.0 R0.0 C0 A0 8K": {
     "flute_diam": 50.00,
     "cutter_width": 3.0,
     "CWN": 2.70,
@@ -764,7 +299,7 @@
     "corner_radius": 0.0,
     "order_no": "Iscar SGSF 50-3-8K, GSFN 3.0"
   },
-  "63.00 W3.0 R0.0 10K": {
+  "63.00 W3.0 R0.0 C0 A0 10K": {
     "flute_diam": 63.00,
     "cutter_width": 3.0,
     "CWN": 2.70,
@@ -779,7 +314,7 @@
     "corner_radius": 0.0,
     "order_no": "Iscar SGSF 63-3-10K, GSFN 3.0"
   },
-  "80.00 W3.0 R0.0 22K": {
+  "80.00 W3.0 R0.0 C0 A0 22K": {
     "flute_diam": 80.00,
     "cutter_width": 3.0,
     "CWN": 2.70,
@@ -794,7 +329,7 @@
     "corner_radius": 0.0,
     "order_no": "Iscar SGSF 80-3-22K, GSFN 3.0"
   },
-  "100.00 W3.0 R0.0 22K": {
+  "100.00 W3.0 R0.0 C0 A0 22K": {
     "flute_diam": 100.00,
     "cutter_width": 3.0,
     "CWN": 2.70,
@@ -809,7 +344,7 @@
     "corner_radius": 0.0,
     "order_no": "Iscar SGSF 100-3-22K, GSFN 3.0"
   },
-  "125.00 W3.0 R0.0 27K": {
+  "125.00 W3.0 R0.0 C0 A0 27K": {
     "flute_diam": 125.00,
     "cutter_width": 3.0,
     "CWN": 2.70,
@@ -824,7 +359,7 @@
     "corner_radius": 0.0,
     "order_no": "Iscar SGSF 125-3-27K, GSFN 3.0"
   },
-  "125.00 W3.0 R0.0 32K": {
+  "125.00 W3.0 R0.0 C0 A0 32K": {
     "flute_diam": 125.00,
     "cutter_width": 3.0,
     "CWN": 2.70,
@@ -839,7 +374,7 @@
     "corner_radius": 0.0,
     "order_no": "Iscar SGSF 125-3-32K, GSFN 3.0"
   },
-  "160.00 W3.0 R0.0 32K": {
+  "160.00 W3.0 R0.0 C0 A0 32K": {
     "flute_diam": 160.00,
     "cutter_width": 3.0,
     "CWN": 2.70,
@@ -854,7 +389,7 @@
     "corner_radius": 0.0,
     "order_no": "Iscar SGSF 160-3-32K, GSFN 3.0"
   },
-  "160.00 W3.0 R0.0 40K": {
+  "160.00 W3.0 R0.0 C0 A0 40K": {
     "flute_diam": 160.00,
     "cutter_width": 3.0,
     "CWN": 2.70,
@@ -869,7 +404,7 @@
     "corner_radius": 0.0,
     "order_no": "Iscar SGSF 160-3-40K, GSFN 3.0"
   },
-  "200.00 W3.0 R0.0 40K": {
+  "200.00 W3.0 R0.0 C0 A0 40K": {
     "flute_diam": 200.00,
     "cutter_width": 3.0,
     "CWN": 2.70,
@@ -884,7 +419,7 @@
     "corner_radius": 0.0,
     "order_no": "Iscar SGSF 200-3-40K, GSFN 3.0"
   },
-  "250.00 W3.0 R0.0 40K": {
+  "250.00 W3.0 R0.0 C0 A0 40K": {
     "flute_diam": 250.00,
     "cutter_width": 3.0,
     "CWN": 2.70,
@@ -899,7 +434,7 @@
     "corner_radius": 0.0,
     "order_no": "Iscar SGSF 250-3-40K, GSFN 3.0"
   },
-  "50.00 W4.0 R0.0 8K": {
+  "50.00 W4.0 R0.0 C0 A0 8K": {
     "flute_diam": 50.00,
     "cutter_width": 4.0,
     "CWN": 3.54,
@@ -914,7 +449,7 @@
     "corner_radius": 0.0,
     "order_no": "Iscar SGSF 50-4-8K, GSFN 4.0"
   },
-  "63.00 W4.0 R0.0 10K": {
+  "63.00 W4.0 R0.0 C0 A0 10K": {
     "flute_diam": 63.00,
     "cutter_width": 4.0,
     "CWN": 3.54,
@@ -929,7 +464,7 @@
     "corner_radius": 0.0,
     "order_no": "Iscar SGSF 63-4-10K, GSFN 4.0"
   },
-  "80.00 W4.0 R0.0 22K": {
+  "80.00 W4.0 R0.0 C0 A0 22K": {
     "flute_diam": 80.00,
     "cutter_width": 4.0,
     "CWN": 3.54,
@@ -944,7 +479,7 @@
     "corner_radius": 0.0,
     "order_no": "Iscar SGSF 80-4-22K, GSFN 4.0"
   },
-  "100.00 W4.0 R0.0 22K": {
+  "100.00 W4.0 R0.0 C0 A0 22K": {
     "flute_diam": 100.00,
     "cutter_width": 4.0,
     "CWN": 3.54,
@@ -959,7 +494,7 @@
     "corner_radius": 0.0,
     "order_no": "Iscar SGSF 100-4-22K, GSFN 4.0"
   },
-  "125.00 W4.0 R0.0 32K": {
+  "125.00 W4.0 R0.0 C0 A0 32K": {
     "flute_diam": 125.00,
     "cutter_width": 4.0,
     "CWN": 3.54,
@@ -974,7 +509,7 @@
     "corner_radius": 0.0,
     "order_no": "Iscar SGSF 125-4-32K, GSFN 4.0"
   },
-  "160.00 W4.0 R0.0 40K": {
+  "160.00 W4.0 R0.0 C0 A0 40K": {
     "flute_diam": 160.00,
     "cutter_width": 4.0,
     "CWN": 3.54,
@@ -989,7 +524,7 @@
     "corner_radius": 0.0,
     "order_no": "Iscar SGSF 160-4-40K, GSFN 4.0"
   },
-  "200.00 W4.0 R0.0 40K": {
+  "200.00 W4.0 R0.0 C0 A0 40K": {
     "flute_diam": 200.00,
     "cutter_width": 4.0,
     "CWN": 3.54,
@@ -1004,7 +539,7 @@
     "corner_radius": 0.0,
     "order_no": "Iscar SGSF 200-4-40K, GSFN 4.0"
   },
-  "250.00 W4.0 R0.0 40K": {
+  "250.00 W4.0 R0.0 C0 A0 40K": {
     "flute_diam": 250.00,
     "cutter_width": 4.0,
     "CWN": 3.54,
@@ -1019,7 +554,7 @@
     "corner_radius": 0.0,
     "order_no": "Iscar SGSF 250-4-40K, GSFN 4.0"
   },
-  "80.00 W5.0 R0.0 22K": {
+  "80.00 W5.0 R0.0 C0 A0 22K": {
     "flute_diam": 80.00,
     "cutter_width": 5.0,
     "CWN": 4.53,
@@ -1034,7 +569,7 @@
     "corner_radius": 0.0,
     "order_no": "Iscar SGSF 80-5-22K, GSFN 5.0"
   },
-  "100.00 W5.0 R0.0 22K": {
+  "100.00 W5.0 R0.0 C0 A0 22K": {
     "flute_diam": 100.00,
     "cutter_width": 5.0,
     "CWN": 4.53,
@@ -1049,7 +584,7 @@
     "corner_radius": 0.0,
     "order_no": "Iscar SGSF 100-5-22K, GSFN 5.0"
   },
-  "125.00 W5.0 R0.0 32K": {
+  "125.00 W5.0 R0.0 C0 A0 32K": {
     "flute_diam": 125.00,
     "cutter_width": 5.0,
     "CWN": 4.53,
@@ -1064,7 +599,7 @@
     "corner_radius": 0.0,
     "order_no": "Iscar SGSF 125-5-32K, GSFN 5.0"
   },
-  "160.00 W5.0 R0.0 40K": {
+  "160.00 W5.0 R0.0 C0 A0 40K": {
     "flute_diam": 160.00,
     "cutter_width": 5.0,
     "CWN": 4.53,
@@ -1079,7 +614,7 @@
     "corner_radius": 0.0,
     "order_no": "Iscar SGSF 160-5-40K, GSFN 5.0"
   },
-  "200.00 W5.0 R0.0 40K": {
+  "200.00 W5.0 R0.0 C0 A0 40K": {
     "flute_diam": 200.00,
     "cutter_width": 5.0,
     "CWN": 4.53,
@@ -1094,7 +629,7 @@
     "corner_radius": 0.0,
     "order_no": "Iscar SGSF 200-5-40K, GSFN 5.0"
   },
-  "250.00 W5.0 R0.0 40K": {
+  "250.00 W5.0 R0.0 C0 A0 40K": {
     "flute_diam": 250.00,
     "cutter_width": 5.0,
     "CWN": 4.53,
@@ -1109,7 +644,7 @@
     "corner_radius": 0.0,
     "order_no": "Iscar SGSF 250-5-40K, GSFN 5.0"
   },
-  "125.00 W6.0 R0.0 32KC": {
+  "125.00 W6.0 R0.0 C0 A0 32KC": {
     "flute_diam": 125.00,
     "cutter_width": 6.0,
     "CWN": 5.51,
@@ -1124,7 +659,7 @@
     "corner_radius": 0.0,
     "order_no": "Iscar SGSF 125-6-32K, GSFN 6.0C"
   },
-  "160.00 W6.0 R0.0 40KC": {
+  "160.00 W6.0 R0.0 C0 A0 40KC": {
     "flute_diam": 160.00,
     "cutter_width": 6.0,
     "CWN": 5.51,
@@ -1139,7 +674,7 @@
     "corner_radius": 0.0,
     "order_no": "Iscar SGSF 160-6-40K, GSFN 6.0C"
   },
-  "200.00 W6.0 R0.0 40KC": {
+  "200.00 W6.0 R0.0 C0 A0 40KC": {
     "flute_diam": 200.00,
     "cutter_width": 6.0,
     "CWN": 5.51,
@@ -1154,7 +689,7 @@
     "corner_radius": 0.0,
     "order_no": "Iscar SGSF 200-6-40K, GSFN 6.0C"
   },
-  "250.00 W6.0 R0.0 40KC": {
+  "250.00 W6.0 R0.0 C0 A0 40KC": {
     "flute_diam": 250.00,
     "cutter_width": 6.0,
     "CWN": 5.51,
@@ -1169,7 +704,7 @@
     "corner_radius": 0.0,
     "order_no": "Iscar SGSF 250-6-40K, GSFN 6.0C"
   },
-  "315.00 W6.0 R0.0 40KC": {
+  "315.00 W6.0 R0.0 C0 A0 40KC": {
     "flute_diam": 315.00,
     "cutter_width": 6.0,
     "CWN": 5.51,
@@ -1184,7 +719,7 @@
     "corner_radius": 0.0,
     "order_no": "Iscar SGSF 315-6-40K, GSFN 6.0C"
   },
-  "350.00 W6.0 R0.0 50K": {
+  "350.00 W6.0 R0.0 C0 A0 50K": {
     "flute_diam": 350.00,
     "cutter_width": 6.0,
     "CWN": 5.51,

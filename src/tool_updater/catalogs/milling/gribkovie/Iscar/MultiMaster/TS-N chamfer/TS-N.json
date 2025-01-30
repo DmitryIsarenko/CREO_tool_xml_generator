@@ -1,0 +1,46 @@
+{
+  "12.70 W1.58 R0 C0.15 A45 CDX2.25": {
+    "order_no": "Iscar MM TS.500-N062P-06T05",
+    "flute_diam": 12.70,
+    "tolerance": -0.0500,
+    "cutter_width": 1.58,
+    "num_of_teeth": 6,
+    "holder_name": "T05",
+    "max_cut_depth": 2.25,
+    "corner_rad": "-",
+    "corner_chamfer": 0.15
+  },
+  "12.70 W1.98 R0 C0.15 A45 CDX2.25": {
+    "order_no": "Iscar MM TS.500-N078P-06T05",
+    "flute_diam": 12.70,
+    "tolerance": -0.0500,
+    "cutter_width": 1.98,
+    "num_of_teeth": 6,
+    "holder_name": "T05",
+    "max_cut_depth": 2.25,
+    "corner_rad": "-",
+    "corner_chamfer": 0.15
+  },
+  "13.50 W2.00 R0 C0.20 A45 CDX2.65": {
+    "order_no": "Iscar MM TS135-N20P-06T05",
+    "flute_diam": 13.50,
+    "tolerance": -0.0500,
+    "cutter_width": 2.00,
+    "num_of_teeth": 6,
+    "holder_name": "T05",
+    "max_cut_depth": 2.65,
+    "corner_rad": "-",
+    "corner_chamfer": 0.20
+  },
+  "13.50 W2.50 R0 C0.20 A45 CDX2.65": {
+    "order_no": "Iscar MM TS135-N25P-06T05",
+    "flute_diam": 13.50,
+    "tolerance": -0.0500,
+    "cutter_width": 2.50,
+    "num_of_teeth": 6,
+    "holder_name": "T05",
+    "max_cut_depth": 2.65,
+    "corner_rad": "-",
+    "corner_chamfer": 0.20
+  }
+}

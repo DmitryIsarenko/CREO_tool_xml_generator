@@ -1,0 +1,12 @@
+{
+  "17.70 W3.47 R0 C1.735 A45 CDX1.4 Type P": {
+    "order_no": "Iscar MM GRIT18P-45A-3T6",
+    "flute_diam": 17.70,
+    "cutter_width": 3.47,
+    "max_cut_depth": 1.4,
+    "num_of_teeth": 3,
+    "corner_rad": 0,
+    "hole_diam": 18.00,
+    "holder_name": "T06"
+  }
+}

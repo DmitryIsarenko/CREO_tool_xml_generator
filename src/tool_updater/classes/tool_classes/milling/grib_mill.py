@@ -7,7 +7,7 @@ from src.tool_updater.classes.tool_classes.base_tool import BaseTool
 logger = logging.getLogger(__name__)
 
 
-class GribMill(BaseTool):
+class GribMillFlat(BaseTool):
     # MANUAL TOOL DATA
     tool_material_manual = "Carbide inserts"
     tool_type = "SIDE_MILLING"
@@ -77,6 +77,8 @@ class GribMill(BaseTool):
             debug_mode=self.debug_mode,
         )
         self.tool_data["CORNER_RADIUS"] = self.get_tool_corner_radius_from_complex_size()
+        self.tool_data["CORNER_CHAMFER"] = self.get_tool_corner_chamfer_from_complex_size()
+        self.tool_data["CORNER_CHAMFER_ANGLE"] = self.get_tool_corner_chamfer_angle_from_complex_size()
         self.tool_data["CUTTER_WIDTH"] = self.get_tool_cutter_width_from_complex_size()
         self.tool_data["SHANK_DIAM"] = self.get_tool_shank_diam()
 
@@ -94,6 +96,9 @@ class GribMill(BaseTool):
 
     def get_tool_corner_chamfer_from_complex_size(self):
         return self.complex_size_name.split(sep=" ")[3].replace("C", "")
+
+    def get_tool_corner_chamfer_angle_from_complex_size(self):
+        return self.complex_size_name.split(sep=" ")[4].replace("A", "")
 
     def get_tool_shank_diam(self):
         hol_size = self.get_tool_holder_size()
@@ -157,13 +162,15 @@ class GribMill(BaseTool):
         t_prefix = self.tool_data["file_name_prefix"].upper()
         t_suffix = self.tool_data["file_name_suffix"].upper()
         d = self.clear_str_from_trailing_zeros(self.tool_data["CUTTER_DIAM"], sep=".").replace(".", "-")
-        w = self.clear_str_from_trailing_zeros(self.get_tool_cutter_width_from_complex_size(), sep=".").replace(".",
-                                                                                                                "-")
-        # r = self.clear_str_from_trailing_zeros(self.get_tool_corner_radius_from_complex_size(), sep=".").replace(".",
-        #                                                                                                          "-")
-        r = self.get_tool_corner_radius_from_complex_size().replace(".", "-")
-        c = self.clear_str_from_trailing_zeros(self.get_tool_corner_chamfer_from_complex_size(), sep=".").replace(".",
-                                                                                                                 "-")
+        w = self.clear_str_from_trailing_zeros(self.get_tool_cutter_width_from_complex_size(), sep=".").replace(
+            ".", "-")
+        r = self.clear_str_from_trailing_zeros(self.get_tool_corner_radius_from_complex_size(), sep=".").replace(
+            ".", "-")
+        # r = self.get_tool_corner_radius_from_complex_size().replace(".", "-")
+        c = self.clear_str_from_trailing_zeros(self.get_tool_corner_chamfer_from_complex_size(), sep=".").replace(
+            ".", "-")
+        a = self.clear_str_from_trailing_zeros(self.get_tool_corner_chamfer_angle_from_complex_size(), sep=".").replace(
+            ".", "-")
         l1 = self.clear_str_from_trailing_zeros(str(self.calc_len_out_of_holder()), sep=".").replace(".", "-")
         l2 = self.clear_str_from_trailing_zeros(str(self.get_full_tool_length()), sep=".").replace(".", "-")
         if r == "0" and c =="0":
@@ -175,12 +182,13 @@ class GribMill(BaseTool):
                 f"_L{l2}"
                 # f"{t_suffix}"
             )
-        elif r == "0" and c != "0":
+        elif r == "0" and c != "0" and a != "0":
             t_name = (
                 f"{t_prefix}"
                 f"D{d}"
                 f"_W{w}"
                 f"_C{c}"
+                f"_A{a}"
                 f"_L{l1}"
                 f"_L{l2}"
                 # f"{t_suffix}"
@@ -202,6 +210,7 @@ class GribMill(BaseTool):
                 f"_W{w}"
                 f"_R{r}"
                 f"_C{c}"
+                f"_A{a}"
                 f"_L{l1}"
                 f"_L{l2}"
                 # f"{t_suffix}"
@@ -218,6 +227,7 @@ class GribMill(BaseTool):
         # r = self.clear_str_from_trailing_zeros(self.get_tool_corner_radius_from_complex_size(), sep=".")
         r = self.get_tool_corner_radius_from_complex_size()
         c = self.clear_str_from_trailing_zeros(self.get_tool_corner_chamfer_from_complex_size(), sep=".")
+        a = self.clear_str_from_trailing_zeros(self.get_tool_corner_chamfer_angle_from_complex_size(), sep=".")
         l1 = self.clear_str_from_trailing_zeros(str(self.calc_len_out_of_holder()), sep=".")
         l2 = self.clear_str_from_trailing_zeros(str(self.get_full_tool_length()), sep=".")
 
@@ -230,12 +240,13 @@ class GribMill(BaseTool):
                 f"_L{l2}"
                 f"{t_suffix}"
             )
-        elif r == "0" and c != "0":
+        elif r == "0" and c != "0" and a != "0":
             t_name = (
                 f"{t_prefix}"
                 f"D{d}"
                 f"_W{w}"
                 f"_C{c}"
+                f"_A{a}"
                 f"_L{l1}"
                 f"_L{l2}"
                 f"{t_suffix}"
@@ -257,6 +268,7 @@ class GribMill(BaseTool):
                 f"_W{w}"
                 f"_R{r}"
                 f"_C{c}"
+                f"_A{a}"
                 f"_L{l1}"
                 f"_L{l2}"
                 f"{t_suffix}"
@@ -291,6 +303,7 @@ class GribMill(BaseTool):
             <Attr DataType="boolean" Name="ProLibraryTool" Value="false"/>
             <Attr DataType="boolean" Name="SketchTool" Value="false"/>
             <Attr DataType="boolean" Name="ToolByRef" Value="false"/>
+            <ModelInfo InstanceName="SIDE_MILL_FLAT_ASM" Type="Assembly"/>
             <MfgParam Name="LENGTH_UNITS" Value="{self.tool_data["LENGTH_UNITS"]}"/>
 
             <MfgParam Name="CUTTER_DIAM" Value="{self.tool_data["CUTTER_DIAM"]}"/>
@@ -357,3 +370,115 @@ class GribMill(BaseTool):
 
         logger.debug(f"{self.complex_size_name} - xml_tool_cut_data generated...")
         return total_string
+
+    def set_xml_bom_components(self) -> str:
+        xml_part_str = f"""\
+            <BOM>
+                <BOMComponent Comments=" " Name="BT40_COLLET_CHUCK" Quantity="1" Type="HOLDER"/>
+                <BOMComponent Comments=" " Name="BT40-45_PULL_STUD" Quantity="1" Type="HOLDER"/>
+                <BOMComponent Comments=" " Name="BT40_HOLDER" Quantity="1" Type="HOLDER"/>
+                <BOMComponent Comments=" " Name="SIDE_MILL_FLAT_TAIL" Quantity="1" Type="HOLDER"/>
+                <BOMComponent Comments=" " Name="SIDE_MILL_FLAT_CUTTER" Quantity="1" Type="GENERAL"/>
+            </BOM>
+"""
+        logger.debug(f"{self.tool_data["tool_name_str"]} - xml_BOM_components generated...")
+        return xml_part_str
+
+
+
+class GribMillChamfer(GribMillFlat):
+
+    def set_xml_body_tool_params(self) -> str:
+        xml_part_str = f"""\
+    <ToolingSetup>
+        <Tool Id="{self.tool_data["tool_name_for_xml"]}" RefXmlId="encref_1" Type="{self.tool_data["tool_type"]}">
+            <Attr DataType="boolean" Name="UseOutline" Value="false"/>
+            <Attr DataType="boolean" Name="ProLibraryTool" Value="false"/>
+            <Attr DataType="boolean" Name="SketchTool" Value="false"/>
+            <Attr DataType="boolean" Name="ToolByRef" Value="false"/>
+            <ModelInfo InstanceName="SIDE_MILL_CHAMFER_ASM" Type="Assembly"/>
+            <MfgParam Name="LENGTH_UNITS" Value="{self.tool_data["LENGTH_UNITS"]}"/>
+            <MfgParam Name="CUTTER_DIAM" Value="{self.tool_data["CUTTER_DIAM"]}"/>
+            <MfgParam Name="CORNER_CHAMFER" Value="{self.tool_data["CORNER_CHAMFER"]}"/>
+            <MfgParam Name="CORNER_CHAMFER_ANGLE" Value="{self.tool_data["CORNER_CHAMFER_ANGLE"]}"/>
+            <MfgParam Name="CORNER_RADIUS" Value="{self.tool_data["CORNER_CHAMFER"]}"/>
+            <MfgParam Name="CUTTER_WIDTH" Value="{self.tool_data["CUTTER_WIDTH"]}"/>
+            <MfgParam Name="SHANK_DIAM" Value="{self.tool_data["SHANK_DIAM"]}"/>
+            <MfgParam Name="LENGTH" Value="{self.tool_data["len_out_of_holder"]}"/>
+            <MfgParam Name="NUM_OF_TEETH" Value="{self.tool_data["NUM_OF_TEETH"]}"/>
+            <MfgParam Name="TOOL_MATERIAL" Value="{self.tool_data["TOOL_MATERIAL"]}"/>
+            <MfgParam Name="GAUGE_X_LENGTH" Value="{self.tool_data["GAUGE_X_LENGTH"]}"/>
+            <MfgParam Name="GAUGE_Z_LENGTH" Value="{self.tool_data["GAUGE_Z_LENGTH"]}"/>
+            <MfgParam Name="COMP_OVERSIZE" Value="{self.tool_data["COMP_OVERSIZE"]}"/>
+            <MfgParam Name="TOOL_LONG_FLAG" Value="{self.tool_data["TOOL_LONG_FLAG"]}"/>
+            <MfgParam Name="HOLDER_DIA" Value="{self.tool_data["HOLDER_DIA"]}"/>
+            <MfgParam Name="HOLDER_LEN" Value="{self.tool_data["HOLDER_LEN"]}"/>
+            <MfgParam Name="COOLANT_OPTION" Value="{self.tool_data["COOLANT_OPTION"]}"/>
+            <MfgParam Name="COOLANT_PRESSURE" Value="{self.tool_data["COOLANT_PRESSURE"]}"/>
+            <MfgParam Name="SPINDLE_SENSE" Value="{self.tool_data["SPINDLE_SENSE"]}"/>
+            <MfgParam Name="TOOL_COMMENT" Value="{self.tool_data["TOOL_COMMENT"]}"/>
+    """
+        logger.debug(f"{self.complex_size_name} - xml_tool_params generated...")
+        return xml_part_str
+
+    def set_xml_bom_components(self) -> str:
+        xml_part_str = f"""\
+            <BOM>
+                <BOMComponent Comments=" " Name="BT40_COLLET_CHUCK" Quantity="1" Type="HOLDER"/>
+                <BOMComponent Comments=" " Name="BT40-45_PULL_STUD" Quantity="1" Type="HOLDER"/>
+                <BOMComponent Comments=" " Name="BT40_HOLDER" Quantity="1" Type="HOLDER"/>
+                <BOMComponent Comments=" " Name="SIDE_MILL_CHAMFER_TAIL" Quantity="1" Type="HOLDER"/>
+                <BOMComponent Comments=" " Name="SIDE_MILL_CHAMFER_CUTTER" Quantity="1" Type="GENERAL"/>
+            </BOM>
+"""
+        logger.debug(f"{self.tool_data["tool_name_str"]} - xml_BOM_components generated...")
+        return xml_part_str
+
+
+class GribMillRounding(GribMillFlat):
+
+    def set_xml_body_tool_params(self) -> str:
+        xml_part_str = f"""\
+    <ToolingSetup>
+        <Tool Id="{self.tool_data["tool_name_for_xml"]}" RefXmlId="encref_1" Type="{self.tool_data["tool_type"]}">
+            <Attr DataType="boolean" Name="UseOutline" Value="false"/>
+            <Attr DataType="boolean" Name="ProLibraryTool" Value="false"/>
+            <Attr DataType="boolean" Name="SketchTool" Value="false"/>
+            <Attr DataType="boolean" Name="ToolByRef" Value="false"/>
+            <ModelInfo InstanceName="SIDE_MILL_ROUNDING_ASM" Type="Assembly"/>
+            <MfgParam Name="LENGTH_UNITS" Value="{self.tool_data["LENGTH_UNITS"]}"/>
+            <MfgParam Name="CUTTER_DIAM" Value="{self.tool_data["CUTTER_DIAM"]}"/>
+            <MfgParam Name="CORNER_RADIUS" Value="{self.tool_data["CORNER_RADIUS"]}"/>
+            <MfgParam Name="CORNER_CHAMFER" Value="{self.tool_data["CORNER_CHAMFER"]}"/>
+            <MfgParam Name="CORNER_CHAMFER_ANGLE" Value="{self.tool_data["CORNER_CHAMFER_ANGLE"]}"/>
+            <MfgParam Name="CUTTER_WIDTH" Value="{self.tool_data["CUTTER_WIDTH"]}"/>
+            <MfgParam Name="SHANK_DIAM" Value="{self.tool_data["SHANK_DIAM"]}"/>
+            <MfgParam Name="LENGTH" Value="{self.tool_data["len_out_of_holder"]}"/>
+            <MfgParam Name="NUM_OF_TEETH" Value="{self.tool_data["NUM_OF_TEETH"]}"/>
+            <MfgParam Name="TOOL_MATERIAL" Value="{self.tool_data["TOOL_MATERIAL"]}"/>
+            <MfgParam Name="GAUGE_X_LENGTH" Value="{self.tool_data["GAUGE_X_LENGTH"]}"/>
+            <MfgParam Name="GAUGE_Z_LENGTH" Value="{self.tool_data["GAUGE_Z_LENGTH"]}"/>
+            <MfgParam Name="COMP_OVERSIZE" Value="{self.tool_data["COMP_OVERSIZE"]}"/>
+            <MfgParam Name="TOOL_LONG_FLAG" Value="{self.tool_data["TOOL_LONG_FLAG"]}"/>
+            <MfgParam Name="HOLDER_DIA" Value="{self.tool_data["HOLDER_DIA"]}"/>
+            <MfgParam Name="HOLDER_LEN" Value="{self.tool_data["HOLDER_LEN"]}"/>
+            <MfgParam Name="COOLANT_OPTION" Value="{self.tool_data["COOLANT_OPTION"]}"/>
+            <MfgParam Name="COOLANT_PRESSURE" Value="{self.tool_data["COOLANT_PRESSURE"]}"/>
+            <MfgParam Name="SPINDLE_SENSE" Value="{self.tool_data["SPINDLE_SENSE"]}"/>
+            <MfgParam Name="TOOL_COMMENT" Value="{self.tool_data["TOOL_COMMENT"]}"/>
+    """
+        logger.debug(f"{self.complex_size_name} - xml_tool_params generated...")
+        return xml_part_str
+
+    def set_xml_bom_components(self) -> str:
+        xml_part_str = f"""\
+            <BOM>
+                <BOMComponent Comments=" " Name="BT40_COLLET_CHUCK" Quantity="1" Type="HOLDER"/>
+                <BOMComponent Comments=" " Name="BT40-45_PULL_STUD" Quantity="1" Type="HOLDER"/>
+                <BOMComponent Comments=" " Name="BT40_HOLDER" Quantity="1" Type="HOLDER"/>
+                <BOMComponent Comments=" " Name="SIDE_MILL_ROUNDING_TAIL" Quantity="1" Type="HOLDER"/>
+                <BOMComponent Comments=" " Name="SIDE_MILL_ROUNDING_CUTTER" Quantity="1" Type="GENERAL"/>
+            </BOM>
+"""
+        logger.debug(f"{self.tool_data["tool_name_str"]} - xml_BOM_components generated...")
+        return xml_part_str

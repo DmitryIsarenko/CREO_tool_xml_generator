@@ -1,58 +1,10 @@
 {
-  "4.00": {
-    "flute_diam": 4,
-    "flute_len": 3.5,
-    "full_body_len": 50,
-    "full_body_diam": 4,
-    "order_no": "Gesac UP210-L60-04060",
-    "side_angle": 30
-  },
   "6.00": {
     "flute_diam": 6,
-    "flute_len": 5.2,
+    "flute_len": 7.25,
     "full_body_len": 50,
     "full_body_diam": 6,
-    "order_no": "Gesac UP210-L60-06060",
-    "side_angle": 30
-  },
-  "8.00": {
-    "flute_diam": 8,
-    "flute_len": 7,
-    "full_body_len": 60,
-    "full_body_diam": 8,
-    "order_no": "Gesac UP210-L60-08060",
-    "side_angle": 30
-  },
-  "10.00": {
-    "flute_diam": 10,
-    "flute_len": 8.7,
-    "full_body_len": 75,
-    "full_body_diam": 10,
-    "order_no": "Gesac UP210-L60-10060",
-    "side_angle": 30
-  },
-  "12.00": {
-    "flute_diam": 12,
-    "flute_len": 10.4,
-    "full_body_len": 75,
-    "full_body_diam": 12,
-    "order_no": "Gesac UP210-L60-12060",
-    "side_angle": 30
-  },
-  "16.00": {
-    "flute_diam": 16,
-    "flute_len": 13.9,
-    "full_body_len": 100,
-    "full_body_diam": 16,
-    "order_no": "Gesac UP210-L60-16060",
-    "side_angle": 30
-  },
-  "20.00": {
-    "flute_diam": 20,
-    "flute_len": 17.4,
-    "full_body_len": 100,
-    "full_body_diam": 20,
-    "order_no": "Gesac UP210-L60-20060",
-    "side_angle": 30
+    "order_no": "Special A45",
+    "side_angle": 22.5
   }
 }

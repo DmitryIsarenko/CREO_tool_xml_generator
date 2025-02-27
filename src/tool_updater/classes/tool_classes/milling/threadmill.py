@@ -96,7 +96,7 @@ class ThreadMill(BaseTool):
         try:
             return self.catalog_tool_geometry[self.tool_size_from_geom_catalogue]["thread_pitch"]
         except KeyError:
-            return self.catalog_tool_geometry[self.tool_size_from_geom_catalogue]["threads_per_inch"]
+            return round(25.4 / self.catalog_tool_geometry[self.tool_size_from_geom_catalogue]["threads_per_inch"], ndigits=3)
 
     def get_full_tool_length(self) -> float:
         return self.catalog_tool_geometry[self.tool_size_from_geom_catalogue]["full_body_len"]
@@ -199,6 +199,7 @@ class ThreadMill(BaseTool):
 
 
     def set_xml_body_tool_params(self) -> str:
+            # <MfgParam Name="END_OFFSET" Value="{self.end_offset}"/>
         xml_part_str = f"""\
     <ToolingSetup>
         <Tool Id="{self.tool_data["tool_name_for_xml"]}" RefXmlId="encref_1" Type="{self.tool_data["tool_type"]}">
@@ -206,11 +207,12 @@ class ThreadMill(BaseTool):
             <Attr DataType="boolean" Name="ProLibraryTool" Value="false"/>
             <Attr DataType="boolean" Name="SketchTool" Value="false"/>
             <Attr DataType="boolean" Name="ToolByRef" Value="false"/>
+            <ModelInfo InstanceName="THREAD_MILL_ASM" Type="Assembly"/>
             <MfgParam Name="LENGTH_UNITS" Value="{self.tool_data["LENGTH_UNITS"]}"/>
             <MfgParam Name="TOOL_MATERIAL" Value="{self.tool_data["TOOL_MATERIAL"]}"/>
             <MfgParam Name="NUM_OF_TEETH" Value="{self.tool_data["NUM_OF_TEETH"]}"/>
             <MfgParam Name="INSERT_LENGTH" Value="{self.insert_length}"/>
-            <MfgParam Name="END_OFFSET" Value="{self.end_offset}"/>
+            <MfgParam Name="END_OFFSET" Value="{self.get_thread_step() / 1000}"/>
             <MfgParam Name="CUTTER_DIAM" Value="{self.tool_data["CUTTER_DIAM"]}"/>
             <MfgParam Name="LENGTH" Value="{self.tool_data["len_out_of_holder"]}"/>
             <MfgParam Name="HOLDER_DIA" Value="{self.tool_data["HOLDER_DIA"]}"/>
@@ -268,3 +270,17 @@ class ThreadMill(BaseTool):
         logger.debug(f"xml_tool_cut_data generated...")
         return total_string
 
+
+
+    def set_xml_bom_components(self) -> str:
+        xml_part_str = f"""\
+            <BOM>
+                <BOMComponent Comments=" " Name="BT40_COLLET_CHUCK" Quantity="1" Type="HOLDER"/>
+                <BOMComponent Comments=" " Name="BT40-45_PULL_STUD" Quantity="1" Type="HOLDER"/>
+                <BOMComponent Comments=" " Name="BT40_HOLDER" Quantity="1" Type="HOLDER"/>
+                <BOMComponent Comments=" " Name="THREAD_MILL_TAIL" Quantity="1" Type="HOLDER"/>
+                <BOMComponent Comments=" " Name="THREAD_MILL_CUTTER" Quantity="1" Type="GENERAL"/>
+            </BOM>
+"""
+        logger.debug(f"{self.tool_data["tool_name_str"]} - xml_BOM_components generated...")
+        return xml_part_str

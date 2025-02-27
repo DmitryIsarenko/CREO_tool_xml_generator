@@ -7,3 +7,15 @@
 "G5/8":  {"flute_len": 25,"threads_per_inch": 14, "flute_diam": 22.91, "full_body_len": 125, "full_body_diam": 18, "lead_chamfer_turns": 4, "square_size": 14.5, "tapping_hole_diam": 21, "order_no": "garant 133330 G5/8",},
 "G3/4":  {"flute_len": 28,"threads_per_inch": 14, "flute_diam": 26.44, "full_body_len": 140, "full_body_diam": 20, "lead_chamfer_turns": 4, "square_size": 16.0, "tapping_hole_diam": 24.5, "order_no": "garant 133330 G3/4",},
 "G1":    {"flute_len": 30,"threads_per_inch": 11, "flute_diam": 33.25, "full_body_len": 160, "full_body_diam": 25, "lead_chamfer_turns": 4, "square_size": 20.0, "tapping_hole_diam": 30.75, "order_no": "garant 133330 G1",},
+
+
+
+
+"G1/16": {"flute_len": 16,"threads_per_inch": 28, "flute_diam": 7.72,  "full_body_len": 90,  "full_body_diam": 6,  "lead_chamfer_turns": 0.001, "square_size": 4.90, "tapping_hole_diam": 6.8, "order_no": "garant 133330 G1/16",},
+"G1/8":  {"flute_len": 20,"threads_per_inch": 28, "flute_diam": 9.73,  "full_body_len": 90,  "full_body_diam": 7,  "lead_chamfer_turns": 0.001, "square_size": 5.50, "tapping_hole_diam": 8.8, "order_no": "garant 133330 G1/8",},
+"G1/4":  {"flute_len": 22,"threads_per_inch": 19, "flute_diam": 13.16, "full_body_len": 100, "full_body_diam": 11, "lead_chamfer_turns": 0.001, "square_size": 9.00, "tapping_hole_diam": 11.8, "order_no": "garant 133330 G1/4",},
+"G3/8":  {"flute_len": 22,"threads_per_inch": 19, "flute_diam": 16.66, "full_body_len": 100, "full_body_diam": 12, "lead_chamfer_turns": 0.001, "square_size": 9.00, "tapping_hole_diam": 15.25, "order_no": "garant 133330 G3/8",},
+"G1/2":  {"flute_len": 25,"threads_per_inch": 14, "flute_diam": 20.96, "full_body_len": 125, "full_body_diam": 16, "lead_chamfer_turns": 0.001, "square_size": 12.0, "tapping_hole_diam": 19, "order_no": "garant 133330 G1/2",},
+"G5/8":  {"flute_len": 25,"threads_per_inch": 14, "flute_diam": 22.91, "full_body_len": 125, "full_body_diam": 18, "lead_chamfer_turns": 0.001, "square_size": 14.5, "tapping_hole_diam": 21, "order_no": "garant 133330 G5/8",},
+"G3/4":  {"flute_len": 28,"threads_per_inch": 14, "flute_diam": 26.44, "full_body_len": 140, "full_body_diam": 20, "lead_chamfer_turns": 0.001, "square_size": 16.0, "tapping_hole_diam": 24.5, "order_no": "garant 133330 G3/4",},
+"G1":    {"flute_len": 30,"threads_per_inch": 11, "flute_diam": 33.25, "full_body_len": 160, "full_body_diam": 25, "lead_chamfer_turns": 0.001, "square_size": 20.0, "tapping_hole_diam": 30.75, "order_no": "garant 133330 G1",},

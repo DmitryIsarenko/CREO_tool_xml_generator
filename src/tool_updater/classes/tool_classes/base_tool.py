@@ -652,3 +652,18 @@ class BaseTool:
 """
         logger.debug(f"{self.tool_data["tool_name_str"]} - xml_tail generated...")
         return xml_part_str
+
+
+    def d_for_bom(self) -> str:
+        diam_formatted = (str(self.tool_data["CUTTER_DIAM"]))
+        if "." in diam_formatted:
+            diam_formatted = diam_formatted.replace(".", "-")
+        else:
+            diam_formatted = diam_formatted + "-00"
+
+        if len(diam_formatted.split("-")[1]) == 1:
+            diam_formatted += "0"
+        elif len(diam_formatted.split("-")[1]) > 2:
+            diam_formatted = diam_formatted[0:6:1]
+
+        return "_D" + diam_formatted

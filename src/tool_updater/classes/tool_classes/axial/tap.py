@@ -152,12 +152,13 @@ class Tap(BaseTool):
         d = self.clear_str_from_trailing_zeros(str(self.tool_size_from_geom_catalogue), sep=".").replace(".", "-").replace("/", "-")
         l1 = self.clear_str_from_trailing_zeros(str(self.tool_data["FLUTE_LENGTH"]), sep=".").replace(".", "-")
         l2 = self.clear_str_from_trailing_zeros(str(self.calc_len_out_of_holder()), sep=".").replace(".", "-")
+        l3 = self.clear_str_from_trailing_zeros(str(self.catalog_tool_geometry[self.tool_size_from_geom_catalogue]["full_body_len"]), sep=".").replace(".", "-")
 
         t_name = (
             f"{t_prefix}"
             f"{d}"
             f"_L{l1}"
-            f"_L{l2}"
+            f"_L{l3}"
             # f"{t_suffix}"
         )
         return t_name
@@ -170,12 +171,14 @@ class Tap(BaseTool):
         # d = self.clear_str_from_trailing_zeros(str(self.tool_data["CUTTER_DIAM"]), sep=".")
         l1 = self.clear_str_from_trailing_zeros(str(self.tool_data["FLUTE_LENGTH"]), sep=".")
         l2 = self.clear_str_from_trailing_zeros(str(self.calc_len_out_of_holder()), sep=".")
+        l3 = self.clear_str_from_trailing_zeros(str(self.catalog_tool_geometry[self.tool_size_from_geom_catalogue]["full_body_len"]), sep=".")
+
 
         t_name = (
             f"{t_prefix}"
             f"{d}"
             f"_L{l1}"
-            f"_L{l2}"
+            f"_L{l3}"
             f"{t_suffix}"
         )
         return t_name
@@ -244,3 +247,95 @@ class Tap(BaseTool):
 
         logger.debug(f"{self.tool_size_from_geom_catalogue} - xml_tool_cut_data generated...")
         return total_string
+
+
+
+class TapBlind(Tap):
+    def set_xml_body_tool_params(self) -> str:
+        xml_part_str = f"""\
+    <ToolingSetup>
+        <Tool Id="{self.tool_data["tool_name_for_xml"]}" RefXmlId="encref_1" Type="{self.tool_data["tool_type"]}">
+            <Attr DataType="boolean" Name="UseOutline" Value="false"/>
+            <Attr DataType="boolean" Name="ProLibraryTool" Value="false"/>
+            <Attr DataType="boolean" Name="SketchTool" Value="false"/>
+            <Attr DataType="boolean" Name="ToolByRef" Value="false"/>
+            <ModelInfo InstanceName="TAP_BLIND_ASM" Type="Assembly"/>
+            <MfgParam Name="TOOL_MATERIAL" Value="{self.tool_data["TOOL_MATERIAL"]}"/>
+            <MfgParam Name="LENGTH_UNITS" Value="{self.tool_data["LENGTH_UNITS"]}"/>
+            <MfgParam Name="CUTTER_DIAM" Value="{self.tool_data["CUTTER_DIAM"]}"/>
+            <MfgParam Name="POINT_DIAMETER" Value="{self.point_diameter}"/>            
+            <MfgParam Name="CHAMFER_LENGTH" Value="{self.chamfer_length}"/>
+            <MfgParam Name="FLUTE_LENGTH" Value="{self.tool_data["FLUTE_LENGTH"]}"/>
+            <MfgParam Name="LENGTH" Value="{self.tool_data["len_out_of_holder"]}"/>
+            <MfgParam Name="HOLDER_DIA" Value="{self.tool_data["HOLDER_DIA"]}"/>
+            <MfgParam Name="HOLDER_LEN" Value="{self.tool_data["HOLDER_LEN"]}"/>
+            <MfgParam Name="GAUGE_X_LENGTH" Value="{self.tool_data["GAUGE_X_LENGTH"]}"/>
+            <MfgParam Name="GAUGE_Z_LENGTH" Value="{self.tool_data["GAUGE_Z_LENGTH"]}"/>
+            <MfgParam Name="COMP_OVERSIZE" Value="{self.tool_data["COMP_OVERSIZE"]}"/>
+            <MfgParam Name="TOOL_LONG_FLAG" Value="{self.tool_data["TOOL_LONG_FLAG"]}"/>
+            <MfgParam Name="COOLANT_OPTION" Value="{self.tool_data["COOLANT_OPTION"]}"/>
+            <MfgParam Name="COOLANT_PRESSURE" Value="{self.tool_data["COOLANT_PRESSURE"]}"/>
+            <MfgParam Name="SPINDLE_SENSE" Value="{self.tool_data["SPINDLE_SENSE"]}"/>
+            <MfgParam Name="TOOL_COMMENT" Value="{self.tool_data["TOOL_COMMENT"]}"/>
+    """
+        logger.debug(f"{self.tool_size_from_geom_catalogue} - xml_tool_params generated...")
+        return xml_part_str
+
+
+    def set_xml_bom_components(self) -> str:
+        xml_part_str = f"""\
+            <BOM>
+                <BOMComponent Comments=" " Name="BT40_COLLET_CHUCK" Quantity="1" Type="HOLDER"/>
+                <BOMComponent Comments=" " Name="BT40-45_PULL_STUD" Quantity="1" Type="HOLDER"/>
+                <BOMComponent Comments=" " Name="BT40_HOLDER" Quantity="1" Type="HOLDER"/>
+                <BOMComponent Comments=" " Name="TAP_TAIL" Quantity="1" Type="HOLDER"/>
+                <BOMComponent Comments=" " Name="TAP_BLIND_CUTTER" Quantity="1" Type="GENERAL"/>
+            </BOM>
+"""
+        logger.debug(f"{self.tool_data["tool_name_str"]} - xml_BOM_components generated...")
+        return xml_part_str
+
+class TapThrough(Tap):
+    def set_xml_body_tool_params(self) -> str:
+        xml_part_str = f"""\
+    <ToolingSetup>
+        <Tool Id="{self.tool_data["tool_name_for_xml"]}" RefXmlId="encref_1" Type="{self.tool_data["tool_type"]}">
+            <Attr DataType="boolean" Name="UseOutline" Value="false"/>
+            <Attr DataType="boolean" Name="ProLibraryTool" Value="false"/>
+            <Attr DataType="boolean" Name="SketchTool" Value="false"/>
+            <Attr DataType="boolean" Name="ToolByRef" Value="false"/>
+            <ModelInfo InstanceName="TAP_THROUGH_ASM" Type="Assembly"/>
+            <MfgParam Name="TOOL_MATERIAL" Value="{self.tool_data["TOOL_MATERIAL"]}"/>
+            <MfgParam Name="LENGTH_UNITS" Value="{self.tool_data["LENGTH_UNITS"]}"/>
+            <MfgParam Name="CUTTER_DIAM" Value="{self.tool_data["CUTTER_DIAM"]}"/>
+            <MfgParam Name="POINT_DIAMETER" Value="{self.point_diameter}"/>            
+            <MfgParam Name="CHAMFER_LENGTH" Value="{self.chamfer_length}"/>
+            <MfgParam Name="FLUTE_LENGTH" Value="{self.tool_data["FLUTE_LENGTH"]}"/>
+            <MfgParam Name="LENGTH" Value="{self.tool_data["len_out_of_holder"]}"/>
+            <MfgParam Name="HOLDER_DIA" Value="{self.tool_data["HOLDER_DIA"]}"/>
+            <MfgParam Name="HOLDER_LEN" Value="{self.tool_data["HOLDER_LEN"]}"/>
+            <MfgParam Name="GAUGE_X_LENGTH" Value="{self.tool_data["GAUGE_X_LENGTH"]}"/>
+            <MfgParam Name="GAUGE_Z_LENGTH" Value="{self.tool_data["GAUGE_Z_LENGTH"]}"/>
+            <MfgParam Name="COMP_OVERSIZE" Value="{self.tool_data["COMP_OVERSIZE"]}"/>
+            <MfgParam Name="TOOL_LONG_FLAG" Value="{self.tool_data["TOOL_LONG_FLAG"]}"/>
+            <MfgParam Name="COOLANT_OPTION" Value="{self.tool_data["COOLANT_OPTION"]}"/>
+            <MfgParam Name="COOLANT_PRESSURE" Value="{self.tool_data["COOLANT_PRESSURE"]}"/>
+            <MfgParam Name="SPINDLE_SENSE" Value="{self.tool_data["SPINDLE_SENSE"]}"/>
+            <MfgParam Name="TOOL_COMMENT" Value="{self.tool_data["TOOL_COMMENT"]}"/>
+    """
+        logger.debug(f"{self.tool_size_from_geom_catalogue} - xml_tool_params generated...")
+        return xml_part_str
+
+
+    def set_xml_bom_components(self) -> str:
+        xml_part_str = f"""\
+            <BOM>
+                <BOMComponent Comments=" " Name="BT40_COLLET_CHUCK" Quantity="1" Type="HOLDER"/>
+                <BOMComponent Comments=" " Name="BT40-45_PULL_STUD" Quantity="1" Type="HOLDER"/>
+                <BOMComponent Comments=" " Name="BT40_HOLDER" Quantity="1" Type="HOLDER"/>
+                <BOMComponent Comments=" " Name="TAP_TAIL" Quantity="1" Type="HOLDER"/>
+                <BOMComponent Comments=" " Name="TAP_THROUGH_CUTTER" Quantity="1" Type="GENERAL"/>
+            </BOM>
+"""
+        logger.debug(f"{self.tool_data["tool_name_str"]} - xml_BOM_components generated...")
+        return xml_part_str

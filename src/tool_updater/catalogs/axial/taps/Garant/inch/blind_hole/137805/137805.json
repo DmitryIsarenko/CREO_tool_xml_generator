@@ -6,7 +6,7 @@
     "full_body_len": 90,
     "full_body_diam": 6,
     "square_size": 4.9,
-    "lead_chamfer_turns": 3,
+    "lead_chamfer_turns": 0.001,
     "tapping_hole_diam": 6.8,
     "order_no": "garant 137805 G1/16"
   },
@@ -17,7 +17,7 @@
     "full_body_len": 90,
     "full_body_diam": 7,
     "square_size": 5.5,
-    "lead_chamfer_turns": 3,
+    "lead_chamfer_turns": 0.001,
     "tapping_hole_diam": 8.8,
     "order_no": "garant 137805 G1/8"
   },
@@ -28,7 +28,7 @@
     "full_body_len": 100,
     "full_body_diam": 11,
     "square_size": 9.0,
-    "lead_chamfer_turns": 3,
+    "lead_chamfer_turns": 0.001,
     "tapping_hole_diam": 11.8,
     "order_no": "garant 137805 G1/4"
   },
@@ -39,7 +39,7 @@
     "full_body_len": 100,
     "full_body_diam": 12,
     "square_size": 9.0,
-    "lead_chamfer_turns": 3,
+    "lead_chamfer_turns": 0.001,
     "tapping_hole_diam": 15.25,
     "order_no": "garant 137805 G3/8"
   },
@@ -50,7 +50,7 @@
     "full_body_len": 125,
     "full_body_diam": 16,
     "square_size": 12.0,
-    "lead_chamfer_turns": 3,
+    "lead_chamfer_turns": 0.001,
     "tapping_hole_diam": 19.0,
     "order_no": "garant 137805 G1/2"
   },
@@ -61,7 +61,7 @@
     "full_body_len": 125,
     "full_body_diam": 18,
     "square_size": 14.5,
-    "lead_chamfer_turns": 3,
+    "lead_chamfer_turns": 0.001,
     "tapping_hole_diam": 21.0,
     "order_no": "garant 137805 G5/8"
   },
@@ -72,7 +72,7 @@
     "full_body_len": 140,
     "full_body_diam": 20,
     "square_size": 16.0,
-    "lead_chamfer_turns": 3,
+    "lead_chamfer_turns": 0.001,
     "tapping_hole_diam": 24.5,
     "order_no": "garant 137805 G3/4"
   },
@@ -83,7 +83,7 @@
     "full_body_len": 160,
     "full_body_diam": 25,
     "square_size": 20.0,
-    "lead_chamfer_turns": 3,
+    "lead_chamfer_turns": 0.001,
     "tapping_hole_diam": 30.7,
     "order_no": "garant 137805 G1"
   }

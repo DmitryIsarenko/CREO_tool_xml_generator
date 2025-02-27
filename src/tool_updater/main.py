@@ -16,9 +16,10 @@ from src.tool_updater.classes.tool_classes.milling.threadmill import ThreadMill
 from src.tool_updater.classes.tool_classes.milling.toroid_mill import ToroidMill
 from src.tool_updater.classes.tool_classes.milling.vnutr_rad_mill import VnutrRadMill
 from src.tool_updater.classes.tool_generator import ToolGenerator
+from tool_updater.classes.tool_classes.axial.tap import TapBlind, TapThrough
 from tool_updater.classes.tool_classes.milling.disk_mill import DiskOtreznoiChamfer, DiskOtreznoiRounding
 from tool_updater.classes.tool_classes.milling.grib_mill import GribMillRounding, GribMillChamfer
-from tool_updater.classes.tool_classes.milling.index_mill import IndexMill
+from tool_updater.classes.tool_classes.milling.index_mill import IndexMill, IndexMillSingleASMs
 
 logger = logging.getLogger("src")
 
@@ -47,6 +48,17 @@ def gen_drills():
         file_name_suffix="_1692LS",
         path_to_catalog_geometry=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\axial\drills\Osawa\hss_extended_drills\1692LS.json",
         path_to_catalog_cut_data=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\axial\drills\Osawa\hss_extended_drills\1692LS_cut_data.json",
+    )
+    ToolGenerator.create_tools(
+        tool_class=Drill,
+        target_path=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\база инструмента\target_path\Drill\China Extended",
+        debug_mode=0,
+
+        teeth_num=1,
+        file_name_prefix="sv_udlin_",
+        file_name_suffix="_China",
+        path_to_catalog_geometry=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\axial\drills\China\1 geom.json",
+        path_to_catalog_cut_data=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\axial\drills\China\2 cut_data.json",
     )
 
 
@@ -109,8 +121,8 @@ def gen_endmills():
         # debug_mode=1,
         # debug_mode=2,
 
-        file_name_prefix="fr_univ_",
-        # file_name_prefix="fr_chern_",
+        # file_name_prefix="fr_univ_",
+        file_name_prefix="fr_chern_",
         # file_name_prefix="fr_chist_",
 
         teeth_num=4,
@@ -291,7 +303,7 @@ def gen_centrovki():
 
 def gen_metchiki():
     ToolGenerator.create_tools(
-        tool_class=Tap,
+        tool_class=TapBlind,
         target_path=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\база инструмента\target_path\Tap\Garant Metric Blind 135850",
         teeth_num=1,
         debug_mode=0,
@@ -302,7 +314,7 @@ def gen_metchiki():
         path_to_catalog_cut_data=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\axial\taps\Garant\metric\blind_hole\135850\135850_cut_data.json",
     )
     ToolGenerator.create_tools(
-        tool_class=Tap,
+        tool_class=TapThrough,
         target_path=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\база инструмента\target_path\Tap\Garant Metric through 132640",
         teeth_num=1,
         debug_mode=0,
@@ -313,7 +325,7 @@ def gen_metchiki():
         path_to_catalog_cut_data=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\axial\taps\Garant\metric\through_hole\132640\132640_cut_data.json",
     )
     ToolGenerator.create_tools(
-        tool_class=Tap,
+        tool_class=TapBlind,
         target_path=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\база инструмента\target_path\Tap\Garant Inch blind 137805",
         teeth_num=1,
         debug_mode=0,
@@ -324,7 +336,7 @@ def gen_metchiki():
         path_to_catalog_cut_data=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\axial\taps\Garant\inch\blind_hole\137805\137805_cut_data.json",
     )
     ToolGenerator.create_tools(
-        tool_class=Tap,
+        tool_class=TapThrough,
         target_path=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\база инструмента\target_path\Tap\Garant Inch through 133300",
         teeth_num=1,
         debug_mode=0,
@@ -436,6 +448,32 @@ def gen_ugloviye():
     )
 
 
+    ToolGenerator.create_tools(
+        tool_class=ChamferMill,
+        target_path=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\база инструмента\target_path\ChamferMill\Special A30",
+        teeth_num=4,
+        debug_mode=0,
+
+        file_name_prefix="uglovaya_",
+        file_name_suffix="_A30",
+        path_to_catalog_geometry=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\milling\chamfer_mills\special\L30.json",
+        path_to_catalog_cut_data=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\milling\chamfer_mills\special\L30_cut_data.json",
+    )
+
+
+    ToolGenerator.create_tools(
+        tool_class=ChamferMill,
+        target_path=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\база инструмента\target_path\ChamferMill\Special A45",
+        teeth_num=4,
+        debug_mode=0,
+
+        file_name_prefix="uglovaya_",
+        file_name_suffix="_A45",
+        path_to_catalog_geometry=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\milling\chamfer_mills\special\L45.json",
+        path_to_catalog_cut_data=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\milling\chamfer_mills\special\L45_cut_data.json",
+    )
+
+
 def gen_gribkovie():
     ToolGenerator.create_tools(
         tool_class=GribMillRounding,
@@ -526,15 +564,63 @@ def gen_rezbofrezi():
 
 def gen_index_mills():
     ToolGenerator.create_tools(
-        tool_class=IndexMill,
-        target_path=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\база инструмента\target_path",
+        tool_class=IndexMillSingleASMs,
+        target_path=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\база инструмента\target_path\IndexMill\Taegu Tec\3P TE90-10",
         teeth_num=1,
         debug_mode=0,
 
-        file_name_prefix="korp_fr_",
-        file_name_suffix="_company_name",
-        path_to_catalog_geometry=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\milling\thread_milling\Vardex\Helicool\metric\helicool_m.json",
-        path_to_catalog_cut_data=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\milling\thread_milling\Vardex\Helicool\metric\helicool_m_cut_data.json",
+        file_name_prefix="",
+        file_name_suffix=" Taegu Tec",
+        path_to_catalog_geometry=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\milling\index_mills\Taegu Tec\3P TE90-10\3_geom.json",
+        path_to_catalog_cut_data=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\milling\index_mills\Taegu Tec\3P TE90-10\4_cut_data.json",
+
+    )
+    ToolGenerator.create_tools(
+        tool_class=IndexMillSingleASMs,
+        target_path=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\база инструмента\target_path\IndexMill\Taegu Tec\3P TE90-15",
+        teeth_num=1,
+        debug_mode=0,
+
+        file_name_prefix="",
+        file_name_suffix=" Taegu Tec",
+        path_to_catalog_geometry=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\milling\index_mills\Taegu Tec\3P TE90-15\3_geom.json",
+        path_to_catalog_cut_data=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\milling\index_mills\Taegu Tec\3P TE90-15\4_cut_data.json",
+
+    )
+    ToolGenerator.create_tools(
+        tool_class=IndexMillSingleASMs,
+        target_path=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\база инструмента\target_path\IndexMill\Taegu Tec\3P TF90-15",
+        teeth_num=1,
+        debug_mode=0,
+
+        file_name_prefix="",
+        file_name_suffix=" Taegu Tec",
+        path_to_catalog_geometry=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\milling\index_mills\Taegu Tec\3P TF90-15\3_geom.json",
+        path_to_catalog_cut_data=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\milling\index_mills\Taegu Tec\3P TF90-15\4_cut_data.json",
+
+    )
+    ToolGenerator.create_tools(
+        tool_class=IndexMillSingleASMs,
+        target_path=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\база инструмента\target_path\IndexMill\Mitsubishi\AJX",
+        teeth_num=1,
+        debug_mode=0,
+
+        file_name_prefix="",
+        file_name_suffix=" Mitsubishi",
+        path_to_catalog_geometry=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\milling\index_mills\Mitsubishi\AJX\3_geom.json",
+        path_to_catalog_cut_data=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\milling\index_mills\Mitsubishi\AJX\4_cut_data.json",
+
+    )
+    ToolGenerator.create_tools(
+        tool_class=IndexMillSingleASMs,
+        target_path=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\база инструмента\target_path\IndexMill\Mitsubishi\APX3000",
+        teeth_num=1,
+        debug_mode=0,
+
+        file_name_prefix="",
+        file_name_suffix=" Mitsubishi",
+        path_to_catalog_geometry=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\milling\index_mills\Mitsubishi\APX3000\3_geom.json",
+        path_to_catalog_cut_data=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\milling\index_mills\Mitsubishi\APX3000\4_cut_data.json",
 
     )
 
@@ -543,7 +629,7 @@ def main():
     # VHMs
     # gen_endmills()
     # gen_toroidmills()
-    # gen_ballmills()
+    gen_ballmills()
 
     # chamfers and rad
     # gen_ugloviye()
@@ -554,8 +640,8 @@ def main():
     # gen_metchiki()
 
     # index mills
-    gen_disk_mills()
-    gen_gribkovie()
+    # gen_disk_mills()
+    # gen_gribkovie()
     # gen_index_mills()
 
     # axial

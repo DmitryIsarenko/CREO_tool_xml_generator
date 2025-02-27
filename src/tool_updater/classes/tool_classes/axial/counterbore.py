@@ -202,6 +202,8 @@ class CounterBore(BaseTool):
         return 0
 
     def set_xml_body_tool_params(self) -> str:
+            # <MfgParam Name="POINT_DIAMETER" Value="{self.point_diameter}"/>
+            # <MfgParam Name="TIP_OFFSET" Value="{self.tip_offset}"/>
         xml_part_str = f"""\
     <ToolingSetup>
         <Tool Id="{self.tool_data["tool_name_for_xml"]}" RefXmlId="encref_1" Type="{self.tool_data["tool_type"]}">
@@ -209,14 +211,15 @@ class CounterBore(BaseTool):
             <Attr DataType="boolean" Name="ProLibraryTool" Value="false"/>
             <Attr DataType="boolean" Name="SketchTool" Value="false"/>
             <Attr DataType="boolean" Name="ToolByRef" Value="false"/>
+            <ModelInfo InstanceName="COUNTERBORE_ASM" Type="Assembly"/>
             <MfgParam Name="LENGTH_UNITS" Value="{self.tool_data["LENGTH_UNITS"]}"/>
             <MfgParam Name="TOOL_MATERIAL" Value="{self.tool_data["TOOL_MATERIAL"]}"/>
             <MfgParam Name="CUTTER_DIAM" Value="{self.tool_data["CUTTER_DIAM"]}"/>
             <MfgParam Name="FLUTE_LENGTH" Value="{self.tool_data["FLUTE_LENGTH"]}"/>
             <MfgParam Name="POINT_ANGLE" Value="{self.point_angle}"/>
             <MfgParam Name="LENGTH" Value="{self.tool_data["len_out_of_holder"]}"/>
-            <MfgParam Name="POINT_DIAMETER" Value="{self.point_diameter}"/>
-            <MfgParam Name="TIP_OFFSET" Value="{self.tip_offset}"/>
+            <MfgParam Name="POINT_DIAMETER" Value="0.0"/>
+            <MfgParam Name="TIP_OFFSET" Value="0.0"/>
             <MfgParam Name="HOLDER_DIA" Value="{self.tool_data["HOLDER_DIA"]}"/>
             <MfgParam Name="HOLDER_LEN" Value="{self.tool_data["HOLDER_LEN"]}"/>
             <MfgParam Name="GAUGE_X_LENGTH" Value="{self.tool_data["GAUGE_X_LENGTH"]}"/>
@@ -268,3 +271,17 @@ class CounterBore(BaseTool):
 
         logger.debug(f"{self.tool_size_from_geom_catalogue} - xml_tool_cut_data generated...")
         return total_string
+
+
+    def set_xml_bom_components(self) -> str:
+        xml_part_str = f"""\
+            <BOM>
+                <BOMComponent Comments=" " Name="BT40_COLLET_CHUCK" Quantity="1" Type="HOLDER"/>
+                <BOMComponent Comments=" " Name="BT40-45_PULL_STUD" Quantity="1" Type="HOLDER"/>
+                <BOMComponent Comments=" " Name="BT40_HOLDER" Quantity="1" Type="HOLDER"/>
+                <BOMComponent Comments=" " Name="COUNTERBORE_TAIL" Quantity="1" Type="HOLDER"/>
+                <BOMComponent Comments=" " Name="COUNTERBORE_CUTTER" Quantity="1" Type="GENERAL"/>
+            </BOM>
+"""
+        logger.debug(f"{self.tool_data["tool_name_str"]} - xml_BOM_components generated...")
+        return xml_part_str

@@ -88,11 +88,11 @@ class CounterSink(BaseTool):
 
     def create_tool_name_for_xml(self):
         real_fl_len = (float(self.tool_data["CUTTER_DIAM"]) - self.get_tool_point_diameter()) / 2
-        real_fl_len = self.clear_str_from_trailing_zeros(str(real_fl_len), sep=".")
-        d = self.clear_str_from_trailing_zeros(str(self.tool_data["CUTTER_DIAM"]), sep=".")
+        real_fl_len = self.clear_str_from_trailing_zeros(str(real_fl_len), sep=".").replace(".", "-")
+        d = self.clear_str_from_trailing_zeros(str(self.tool_data["CUTTER_DIAM"]), sep=".").replace(".", "-")
 
-        # l1 = self.clear_str_from_trailing_zeros(str(self.tool_data["FLUTE_LENGTH"]), sep=".")
-        l2 = self.clear_str_from_trailing_zeros(str(self.tool_data["LENGTH"]), sep=".")
+        # l1 = self.clear_str_from_trailing_zeros(str(self.tool_data["FLUTE_LENGTH"]), sep=".").replace(".", "-")
+        l2 = self.clear_str_from_trailing_zeros(str(self.tool_data["LENGTH"]), sep=".").replace(".", "-")
 
         t_name = (
             f"{self.file_name_prefix.upper()}"
@@ -168,6 +168,7 @@ class CounterSink(BaseTool):
             <Attr DataType="boolean" Name="ProLibraryTool" Value="false"/>
             <Attr DataType="boolean" Name="SketchTool" Value="false"/>
             <Attr DataType="boolean" Name="ToolByRef" Value="false"/>
+            <ModelInfo InstanceName="COUNTERSINK_ASM" Type="Assembly"/>
             <MfgParam Name="TOOL_MATERIAL" Value="{self.tool_data["TOOL_MATERIAL"]}"/>
             <MfgParam Name="LENGTH_UNITS" Value="{self.tool_data["LENGTH_UNITS"]}"/>
             <MfgParam Name="CUTTER_DIAM" Value="{self.tool_data["CUTTER_DIAM"]}"/>
@@ -227,3 +228,17 @@ class CounterSink(BaseTool):
 
         logger.debug(f"{self.tool_size_from_geom_catalogue} - xml_tool_cut_data generated...")
         return total_string
+
+
+    def set_xml_bom_components(self) -> str:
+        xml_part_str = f"""\
+            <BOM>
+                <BOMComponent Comments=" " Name="BT40_COLLET_CHUCK" Quantity="1" Type="HOLDER"/>
+                <BOMComponent Comments=" " Name="BT40-45_PULL_STUD" Quantity="1" Type="HOLDER"/>
+                <BOMComponent Comments=" " Name="BT40_HOLDER" Quantity="1" Type="HOLDER"/>
+                <BOMComponent Comments=" " Name="COUNTERSINK_TAIL" Quantity="1" Type="HOLDER"/>
+                <BOMComponent Comments=" " Name="COUNTERSINK_CUTTER" Quantity="1" Type="GENERAL"/>
+            </BOM>
+"""
+        logger.debug(f"{self.tool_data["tool_name_str"]} - xml_BOM_components generated...")
+        return xml_part_str

@@ -1,5 +1,6 @@
 {
   "2.00": {
+    "corner_chamfer": 0.49,
     "side_angle": 0,
     "cutter_diam": 2,
     "flute_len": 11,
@@ -11,6 +12,7 @@
     "order_no": "Garant 162961 D2"
   },
   "3.00": {
+    "corner_chamfer": 0.49,
     "side_angle": 0,
     "cutter_diam": 3,
     "flute_len": 15,
@@ -22,6 +24,7 @@
     "order_no": "Garant 162961 D3"
   },
   "4.00": {
+    "corner_chamfer": 0.49,
     "side_angle": 0,
     "cutter_diam": 4,
     "flute_len": 19,
@@ -33,6 +36,7 @@
     "order_no": "Garant 162961 D4"
   },
   "5.00": {
+    "corner_chamfer": 0.49,
     "side_angle": 0,
     "cutter_diam": 5,
     "flute_len": 23,
@@ -44,6 +48,7 @@
     "order_no": "Garant 162961 D5"
   },
   "6.00": {
+    "corner_chamfer": 0.49,
     "side_angle": 0,
     "cutter_diam": 6,
     "flute_len": 26,
@@ -55,6 +60,7 @@
     "order_no": "Garant 162961 D6"
   },
   "8.00": {
+    "corner_chamfer": 0.71,
     "side_angle": 0,
     "cutter_diam": 8,
     "flute_len": 33,
@@ -66,6 +72,7 @@
     "order_no": "Garant 162961 D8"
   },
   "10.00": {
+    "corner_chamfer": 0.92,
     "side_angle": 0,
     "cutter_diam": 10,
     "flute_len": 38,
@@ -77,6 +84,7 @@
     "order_no": "Garant 162961 D10"
   },
   "12.00": {
+    "corner_chamfer": 0.92,
     "side_angle": 0,
     "cutter_diam": 12,
     "flute_len": 44,

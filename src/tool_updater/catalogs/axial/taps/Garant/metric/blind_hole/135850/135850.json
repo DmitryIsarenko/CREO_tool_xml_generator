@@ -6,7 +6,7 @@
     "full_body_len": 45,
     "shank_diam": 2.80,
     "square_size": 2.10,
-    "lead_chamfer_turns": 3,
+    "lead_chamfer_turns": 0.001,
     "tapping_hole_diam": 1.60,
     "order_no": "garant 135850 M2"
   },
@@ -17,7 +17,7 @@
     "full_body_len": 45,
     "shank_diam": 2.80,
     "square_size": 2.10,
-    "lead_chamfer_turns": 3,
+    "lead_chamfer_turns": 0.001,
     "tapping_hole_diam": 1.90,
     "order_no": "garant 135850 M2.3"
   },
@@ -28,7 +28,7 @@
     "full_body_len": 50,
     "shank_diam": 2.80,
     "square_size": 2.10,
-    "lead_chamfer_turns": 3,
+    "lead_chamfer_turns": 0.001,
     "tapping_hole_diam": 2.05,
     "order_no": "garant 135850 M2.5"
   },
@@ -39,7 +39,7 @@
     "full_body_len": 56,
     "shank_diam": 3.50,
     "square_size": 2.70,
-    "lead_chamfer_turns": 3,
+    "lead_chamfer_turns": 0.001,
     "tapping_hole_diam": 2.50,
     "order_no": "garant 135850 M3"
   },
@@ -50,7 +50,7 @@
     "full_body_len": 56,
     "shank_diam": 4.00,
     "square_size": 3.00,
-    "lead_chamfer_turns": 3,
+    "lead_chamfer_turns": 0.001,
     "tapping_hole_diam": 2.90,
     "order_no": "garant 135850 M3.5"
   },
@@ -61,7 +61,7 @@
     "full_body_len": 63,
     "shank_diam": 4.50,
     "square_size": 3.40,
-    "lead_chamfer_turns": 3,
+    "lead_chamfer_turns": 0.001,
     "tapping_hole_diam": 3.30,
     "order_no": "garant 135850 M4"
   },
@@ -72,7 +72,7 @@
     "full_body_len": 70,
     "shank_diam": 6.00,
     "square_size": 4.90,
-    "lead_chamfer_turns": 3,
+    "lead_chamfer_turns": 0.001,
     "tapping_hole_diam": 4.20,
     "order_no": "garant 135850 M5"
   },
@@ -83,7 +83,7 @@
     "full_body_len": 80,
     "shank_diam": 6.00,
     "square_size": 4.90,
-    "lead_chamfer_turns": 3,
+    "lead_chamfer_turns": 0.001,
     "tapping_hole_diam": 5.00,
     "order_no": "garant 135850 M6"
   },
@@ -94,7 +94,7 @@
     "full_body_len": 90,
     "shank_diam": 8.00,
     "square_size": 6.20,
-    "lead_chamfer_turns": 3,
+    "lead_chamfer_turns": 0.001,
     "tapping_hole_diam": 6.80,
     "order_no": "garant 135850 M8"
   },
@@ -105,7 +105,7 @@
     "full_body_len": 100,
     "shank_diam": 10.0,
     "square_size": 8.00,
-    "lead_chamfer_turns": 3,
+    "lead_chamfer_turns": 0.001,
     "tapping_hole_diam": 8.50,
     "order_no": "garant 135850 M10"
   },
@@ -116,7 +116,7 @@
     "full_body_len": 110,
     "shank_diam": 9.00,
     "square_size": 7.00,
-    "lead_chamfer_turns": 3,
+    "lead_chamfer_turns": 0.001,
     "tapping_hole_diam": 10.2,
     "order_no": "garant 135850 M12"
   },
@@ -127,7 +127,7 @@
     "full_body_len": 110,
     "shank_diam": 11.0,
     "square_size": 9.00,
-    "lead_chamfer_turns": 3,
+    "lead_chamfer_turns": 0.001,
     "tapping_hole_diam": 12.0,
     "order_no": "garant 135850 M14"
   },
@@ -138,7 +138,7 @@
     "full_body_len": 110,
     "shank_diam": 12.0,
     "square_size": 9.00,
-    "lead_chamfer_turns": 3,
+    "lead_chamfer_turns": 0.001,
     "tapping_hole_diam": 14.0,
     "order_no": "garant 135850 M16"
   },
@@ -149,7 +149,7 @@
     "full_body_len": 125,
     "shank_diam": 14.0,
     "square_size": 11.0,
-    "lead_chamfer_turns": 3,
+    "lead_chamfer_turns": 0.001,
     "tapping_hole_diam": 15.5,
     "order_no": "garant 135850 M18"
   },
@@ -160,7 +160,7 @@
     "full_body_len": 140,
     "shank_diam": 16.0,
     "square_size": 12.0,
-    "lead_chamfer_turns": 3,
+    "lead_chamfer_turns": 0.001,
     "tapping_hole_diam": 17.5,
     "order_no": "garant 135850 M20"
   },
@@ -171,7 +171,7 @@
     "full_body_len": 140,
     "shank_diam": 18.0,
     "square_size": 14.5,
-    "lead_chamfer_turns": 3,
+    "lead_chamfer_turns": 0.001,
     "tapping_hole_diam": 19.5,
     "order_no": "garant 135850 M22"
   },
@@ -182,7 +182,7 @@
     "full_body_len": 160,
     "shank_diam": 18.0,
     "square_size": 14.5,
-    "lead_chamfer_turns": 3,
+    "lead_chamfer_turns": 0.001,
     "tapping_hole_diam": 21.0,
     "order_no": "garant 135850 M24"
   },
@@ -193,7 +193,7 @@
     "full_body_len": 160,
     "shank_diam": 20.0,
     "square_size": 16.0,
-    "lead_chamfer_turns": 3,
+    "lead_chamfer_turns": 0.001,
     "tapping_hole_diam": 24.0,
     "order_no": "garant 135850 M27"
   },
@@ -204,7 +204,7 @@
     "full_body_len": 180,
     "shank_diam": 22.0,
     "square_size": 18.0,
-    "lead_chamfer_turns": 3,
+    "lead_chamfer_turns": 0.001,
     "tapping_hole_diam": 26.5,
     "order_no": "garant 135850 M30"
   },
@@ -215,7 +215,7 @@
     "full_body_len": 200,
     "shank_diam": 28.0,
     "square_size": 22.0,
-    "lead_chamfer_turns": 3,
+    "lead_chamfer_turns": 0.001,
     "tapping_hole_diam": 32.0,
     "order_no": "garant 135850 M36"
   }

@@ -57,16 +57,25 @@ class Reamer(BaseTool):
         )
         self.side_angle = self.get_side_angle()
         self.teeth_num = self.get_tool_teeth_num()
+        self.corner_chamfer = self.get_tool_corner_chamfer()
+
 
 
     def get_side_angle(self):
-        return self.catalog_tool_geometry[self.tool_size_from_geom_catalogue]["side_angle"]
+        # return self.catalog_tool_geometry[self.tool_size_from_geom_catalogue]["side_angle"]
+        return self.catalog_tool_geometry[self.tool_size_from_geom_catalogue]["corner_chamfer"] * 0.001
 
     def calc_len_out_of_holder(self):
         return self.catalog_tool_geometry[self.tool_size_from_geom_catalogue]["len_out_of_holder"]
 
     def get_tool_teeth_num(self):
         return self.catalog_tool_geometry[self.tool_size_from_geom_catalogue]["teeth_num"]
+
+    # def get_tool_corner_chamfer(self):
+    #     return self.catalog_tool_geometry[self.tool_size_from_geom_catalogue]["corner_chamfer"]
+    def get_tool_corner_chamfer(self):
+        return self.catalog_tool_geometry[self.create_tool_name_for_geom_catalogue()]["corner_chamfer"]
+
 
     # FORMATTING RECENTLY EXISTING/EXTRACTED DATA
     def create_tool_name_for_geom_catalogue(self):
@@ -131,9 +140,11 @@ class Reamer(BaseTool):
             <Attr DataType="boolean" Name="ProLibraryTool" Value="false"/>
             <Attr DataType="boolean" Name="SketchTool" Value="false"/>
             <Attr DataType="boolean" Name="ToolByRef" Value="false"/>
+            <ModelInfo InstanceName="REAMER_ASM" Type="Assembly"/>
             <MfgParam Name="LENGTH_UNITS" Value="{self.tool_data["LENGTH_UNITS"]}"/>
             <MfgParam Name="TOOL_MATERIAL" Value="{self.tool_data["TOOL_MATERIAL"]}"/>
             <MfgParam Name="CUTTER_DIAM" Value="{self.tool_data["CUTTER_DIAM"]}"/>
+            <MfgParam Name="CORNER_CHAMFER" Value="{self.corner_chamfer}"/>
             <MfgParam Name="SIDE_ANGLE" Value="{self.side_angle}"/>
             <MfgParam Name="FLUTE_LENGTH" Value="{self.tool_data["FLUTE_LENGTH"]}"/>
             <MfgParam Name="LENGTH" Value="{self.tool_data["len_out_of_holder"]}"/>
@@ -188,3 +199,17 @@ class Reamer(BaseTool):
 
         logger.debug(f"{self.tool_size_from_geom_catalogue} - xml_tool_cut_data generated...")
         return total_string
+
+
+    def set_xml_bom_components(self) -> str:
+        xml_part_str = f"""\
+            <BOM>
+                <BOMComponent Comments=" " Name="BT40_COLLET_CHUCK" Quantity="1" Type="HOLDER"/>
+                <BOMComponent Comments=" " Name="BT40-45_PULL_STUD" Quantity="1" Type="HOLDER"/>
+                <BOMComponent Comments=" " Name="BT40_HOLDER" Quantity="1" Type="HOLDER"/>
+                <BOMComponent Comments=" " Name="REAMER_TAIL" Quantity="1" Type="HOLDER"/>
+                <BOMComponent Comments=" " Name="REAMER_CUTTER" Quantity="1" Type="GENERAL"/>
+            </BOM>
+"""
+        logger.debug(f"{self.tool_data["tool_name_str"]} - xml_BOM_components generated...")
+        return xml_part_str

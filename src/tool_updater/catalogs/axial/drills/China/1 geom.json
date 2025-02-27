@@ -1,0 +1,146 @@
+{
+  "3.00": {
+    "point_angle": "130",
+    "tolerance": "0/-0.014",
+    "flute_diam": 3,
+    "flute_len": 130,
+    "full_body_len": 190,
+    "order_no": "Osawa P1692LS0300"
+  },
+  "3.50": {
+    "point_angle": "130",
+    "tolerance": "0/-0.018",
+    "flute_diam": 3.5,
+    "flute_len": 145,
+    "full_body_len": 210,
+    "order_no": "Osawa P1692LS0350"
+  },
+  "4.00": {
+    "point_angle": "130",
+    "tolerance": "0/-0.018",
+    "flute_diam": 4,
+    "flute_len": 150,
+    "full_body_len": 220,
+    "order_no": "Osawa P1692LS0400"
+  },
+  "4.50": {
+    "point_angle": "130",
+    "tolerance": "0/-0.018",
+    "flute_diam": 4.5,
+    "flute_len": 160,
+    "full_body_len": 235,
+    "order_no": "Osawa P1692LS0450"
+  },
+  "5.00": {
+    "point_angle": "130",
+    "tolerance": "0/-0.018",
+    "flute_diam": 5,
+    "flute_len": 170,
+    "full_body_len": 245,
+    "order_no": "Osawa P1692LS0500"
+  },
+  "5.50": {
+    "point_angle": "130",
+    "tolerance": "0/-0.018",
+    "flute_diam": 5.5,
+    "flute_len": 180,
+    "full_body_len": 260,
+    "order_no": "Osawa P1692LS0550"
+  },
+  "6.00": {
+    "point_angle": "130",
+    "tolerance": "0/-0.018",
+    "flute_diam": 6,
+    "flute_len": 180,
+    "full_body_len": 260,
+    "order_no": "Osawa P1692LS0600"
+  },
+  "6.50": {
+    "point_angle": "130",
+    "tolerance": "0/-0.022",
+    "flute_diam": 6.5,
+    "flute_len": 190,
+    "full_body_len": 275,
+    "order_no": "Osawa P1692LS0650"
+  },
+  "7.00": {
+    "point_angle": "130",
+    "tolerance": "0/-0.022",
+    "flute_diam": 7,
+    "flute_len": 200,
+    "full_body_len": 290,
+    "order_no": "Osawa P1692LS0700"
+  },
+  "7.50": {
+    "point_angle": "130",
+    "tolerance": "0/-0.022",
+    "flute_diam": 7.5,
+    "flute_len": 200,
+    "full_body_len": 290,
+    "order_no": "Osawa P1692LS0750"
+  },
+  "8.00": {
+    "point_angle": "130",
+    "tolerance": "0/-0.022",
+    "flute_diam": 8,
+    "flute_len": 210,
+    "full_body_len": 305,
+    "order_no": "Osawa P1692LS0800"
+  },
+  "8.50": {
+    "point_angle": "130",
+    "tolerance": "0/-0.022",
+    "flute_diam": 8.5,
+    "flute_len": 210,
+    "full_body_len": 305,
+    "order_no": "Osawa P1692LS0850"
+  },
+  "9.00": {
+    "point_angle": "130",
+    "tolerance": "0/-0.022",
+    "flute_diam": 9,
+    "flute_len": 220,
+    "full_body_len": 320,
+    "order_no": "Osawa P1692LS0900"
+  },
+  "9.50": {
+    "point_angle": "130",
+    "tolerance": "0/-0.022",
+    "flute_diam": 9.5,
+    "flute_len": 220,
+    "full_body_len": 320,
+    "order_no": "Osawa P1692LS0950"
+  },
+  "10.00": {
+    "point_angle": "130",
+    "tolerance": "0/-0.022",
+    "flute_diam": 10,
+    "flute_len": 235,
+    "full_body_len": 340,
+    "order_no": "Osawa P1692LS1000"
+  },
+  "10.50": {
+    "point_angle": "130",
+    "tolerance": "0/-0.027",
+    "flute_diam": 10.5,
+    "flute_len": 235,
+    "full_body_len": 340,
+    "order_no": "Osawa P1692LS1050"
+  },
+  "11.00": {
+    "point_angle": "130",
+    "tolerance": "0/-0.027",
+    "flute_diam": 11,
+    "flute_len": 250,
+    "full_body_len": 365,
+    "order_no": "Osawa P1692LS1100"
+  },
+  "12.00": {
+    "point_angle": "130",
+    "tolerance": "0/-0.027",
+    "flute_diam": 12,
+    "flute_len": 260,
+    "full_body_len": 375,
+    "order_no": "Osawa P1692LS1200"
+  }
+}

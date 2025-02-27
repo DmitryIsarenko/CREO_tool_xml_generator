@@ -1,0 +1,145 @@
+{
+  "3P TE90-232-W32-15": {
+    "NUM_OF_TEETH": 2,
+    "insert_name": "3PKT 150508R-ML",
+    "CORNER_RADIUS": 0.8,
+    "CUTTER_DIAM": 32,
+    "SHANK_DIAM": 32,
+    "LENGTH": 110,
+    "SHANK_LENGTH": 40,
+    "FLUTE_LENGTH": 11.0,
+    "order_no": "3P TE90-232-W32-15"
+  },
+  "3P TE90-232-32-15-L250": {
+    "NUM_OF_TEETH": 2,
+    "insert_name": "3PKT 150508R-ML",
+    "CORNER_RADIUS": 0.8,
+    "CUTTER_DIAM": 32,
+    "SHANK_DIAM": 32,
+    "LENGTH": 250,
+    "SHANK_LENGTH": 60,
+    "FLUTE_LENGTH": 11.0,
+    "order_no": "3P TE90-232-32-15-L250"
+  },
+  "3P TE90-332-W25-15": {
+    "NUM_OF_TEETH": 3,
+    "insert_name": "3PKT 150508R-ML",
+    "CORNER_RADIUS": 0.8,
+    "CUTTER_DIAM": 32,
+    "SHANK_DIAM": 25,
+    "LENGTH": 100,
+    "SHANK_LENGTH": 40,
+    "FLUTE_LENGTH": 11.0,
+    "order_no": "3P TE90-332-W25-15"
+  },
+  "3P TE90-332-W25-15-L155": {
+    "NUM_OF_TEETH": 3,
+    "insert_name": "3PKT 150508R-ML",
+    "CORNER_RADIUS": 0.8,
+    "CUTTER_DIAM": 32,
+    "SHANK_DIAM": 25,
+    "LENGTH": 155,
+    "SHANK_LENGTH": 35,
+    "FLUTE_LENGTH": 11.0,
+    "order_no": "3P TE90-332-W25-15-L155"
+  },
+  "3P TE90-332-W32-15": {
+    "NUM_OF_TEETH": 3,
+    "insert_name": "3PKT 150508R-ML",
+    "CORNER_RADIUS": 0.8,
+    "CUTTER_DIAM": 32,
+    "SHANK_DIAM": 32,
+    "LENGTH": 110,
+    "SHANK_LENGTH": 40,
+    "FLUTE_LENGTH": 11.0,
+    "order_no": "3P TE90-332-W32-15"
+  },
+  "3P TE90-332-32-15-L150": {
+    "NUM_OF_TEETH": 3,
+    "insert_name": "3PKT 150508R-ML",
+    "CORNER_RADIUS": 0.8,
+    "CUTTER_DIAM": 32,
+    "SHANK_DIAM": 32,
+    "LENGTH": 150,
+    "SHANK_LENGTH": 40,
+    "FLUTE_LENGTH": 11.0,
+    "order_no": "3P TE90-332-32-15-L150"
+  },
+  "3P TE90-332-32-15-L250": {
+    "NUM_OF_TEETH": 3,
+    "insert_name": "3PKT 150508R-ML",
+    "CORNER_RADIUS": 0.8,
+    "CUTTER_DIAM": 32,
+    "SHANK_DIAM": 32,
+    "LENGTH": 250,
+    "SHANK_LENGTH": 60,
+    "FLUTE_LENGTH": 11.0,
+    "order_no": "3P TE90-332-32-15-L250"
+  },
+  "3P TE90-233-32-15-L200": {
+    "NUM_OF_TEETH": 2,
+    "insert_name": "3PKT 150508R-ML",
+    "CORNER_RADIUS": 0.8,
+    "CUTTER_DIAM": 33,
+    "SHANK_DIAM": 32,
+    "LENGTH": 200,
+    "SHANK_LENGTH": 40,
+    "FLUTE_LENGTH": 11.0,
+    "order_no": "3P TE90-233-32-15-L200"
+  },
+  "3P TE90-233-32-15-L250": {
+    "NUM_OF_TEETH": 2,
+    "insert_name": "3PKT 150508R-ML",
+    "CORNER_RADIUS": 0.8,
+    "CUTTER_DIAM": 33,
+    "SHANK_DIAM": 32,
+    "LENGTH": 250,
+    "SHANK_LENGTH": 40,
+    "FLUTE_LENGTH": 11.0,
+    "order_no": "3P TE90-233-32-15-L250"
+  },
+  "3P TE90-335-W32-15": {
+    "NUM_OF_TEETH": 3,
+    "insert_name": "3PKT 150508R-ML",
+    "CORNER_RADIUS": 0.8,
+    "CUTTER_DIAM": 35,
+    "SHANK_DIAM": 32,
+    "LENGTH": 110,
+    "SHANK_LENGTH": 40,
+    "FLUTE_LENGTH": 11.0,
+    "order_no": "3P TE90-335-W32-15"
+  },
+  "3P TE90-340-W32-15": {
+    "NUM_OF_TEETH": 3,
+    "insert_name": "3PKT 150508R-ML",
+    "CORNER_RADIUS": 0.8,
+    "CUTTER_DIAM": 40,
+    "SHANK_DIAM": 32,
+    "LENGTH": 110,
+    "SHANK_LENGTH": 40,
+    "FLUTE_LENGTH": 11.0,
+    "order_no": "3P TE90-340-W32-15"
+  },
+  "3P TE90-340-32-15-L200": {
+    "NUM_OF_TEETH": 3,
+    "insert_name": "3PKT 150508R-ML",
+    "CORNER_RADIUS": 0.8,
+    "CUTTER_DIAM": 40,
+    "SHANK_DIAM": 32,
+    "LENGTH": 200,
+    "SHANK_LENGTH": 40,
+    "FLUTE_LENGTH": 11.0,
+    "order_no": "3P TE90-340-32-15-L200"
+  },
+  "3P TE90-440-W32-15": {
+    "NUM_OF_TEETH": 4,
+    "insert_name": "3PKT 150508R-ML",
+    "CORNER_RADIUS": 0.8,
+    "CUTTER_DIAM": 40,
+    "SHANK_DIAM": 32,
+    "LENGTH": 110,
+    "SHANK_LENGTH": 40,
+    "FLUTE_LENGTH": 11.0,
+    "order_no": "3P TE90-440-W32-15"
+  }
+}

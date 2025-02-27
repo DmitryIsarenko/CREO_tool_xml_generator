@@ -1,0 +1,3 @@
+"MAS403 BT40-AD+B MF12.100": {"order_no": "Dandrea 71MBT-B40MF1210", "tool_max_diam": 12, "holdex_min_diam": 28, "holder_max_diam": 32, "max_shank_insertion_depth": 46, "holder_len": 73},
+"MAS403 BT40-AD+B MF20.100": {"order_no": "Dandrea 71MBT-B40MF2010", "tool_max_diam": 20, "holdex_min_diam": 48, "holder_max_diam": 48, "max_shank_insertion_depth": 63, "holder_len": 73},
+"MAS403 BT40-AD+B MF32.140": {"order_no": "Dandrea 71MBT-B40MF3214", "tool_max_diam": 32, "holdex_min_diam": 66, "holder_max_diam": 66, "max_shank_insertion_depth": 80, "holder_len": 113},

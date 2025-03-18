@@ -184,7 +184,7 @@ class VnutrRadMill(BaseTool):
             <Attr DataType="boolean" Name="ProLibraryTool" Value="false"/>
             <Attr DataType="boolean" Name="SketchTool" Value="false"/>
             <Attr DataType="boolean" Name="ToolByRef" Value="false"/>
-            <ModelInfo InstanceName="ROUNDED_PROFILE_MILL_ASM" Type="Assembly"/>
+            <ModelInfo FamilyName="ROUND_PROF_MILL_ASM" InstanceName="ROUND_PROF_MILL_ASM{self.d_for_bom()}" Type="Assembly"/>
             <MfgParam Name="LENGTH_UNITS" Value="{self.tool_data["LENGTH_UNITS"]}"/>
         
             <MfgParam Name="CUTTER_DIAM" Value="{self.tool_data["CUTTER_DIAM"]}"/>
@@ -258,9 +258,9 @@ class VnutrRadMill(BaseTool):
             <BOM>
                 <BOMComponent Comments=" " Name="BT40_COLLET_CHUCK" Quantity="1" Type="HOLDER"/>
                 <BOMComponent Comments=" " Name="BT40-45_PULL_STUD" Quantity="1" Type="HOLDER"/>
-                <BOMComponent Comments=" " Name="BT40_HOLDER" Quantity="1" Type="HOLDER"/>
-                <BOMComponent Comments=" " Name="ROUNDED_PROFILE_MILL_TAIL" Quantity="1" Type="HOLDER"/>
-                <BOMComponent Comments=" " Name="ROUNDED_PROFILE_MILL_CUTTER" Quantity="1" Type="GENERAL"/>
+                <BOMComponent Comments=" " Name="BT40_HOLDER{self.d_for_bom()}" Quantity="1" Type="HOLDER"/>
+                <BOMComponent Comments=" " Name="ROUND_PROF_MILL_TAIL{self.d_for_bom()}" Quantity="1" Type="HOLDER"/>
+                <BOMComponent Comments=" " Name="ROUND_PROF_MILL_CUTTER{self.d_for_bom()}" Quantity="1" Type="GENERAL"/>
             </BOM>
 """
         logger.debug(f"{self.tool_data["tool_name_str"]} - xml_BOM_components generated...")

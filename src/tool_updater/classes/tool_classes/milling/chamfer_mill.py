@@ -9,7 +9,8 @@ logger = logging.getLogger(__name__)
 class ChamferMill(BaseTool):
     # MANUAL TOOL DATA
     tool_material_manual = "VHM"
-    tool_type = "TAPER MILL"
+    # tool_type = "TAPER MILL"
+    tool_type = "MILLING"
 
     finishing_roughing_options = {
         "roughing": {
@@ -75,7 +76,10 @@ class ChamferMill(BaseTool):
         return self.catalog_tool_geometry[self.complex_size_name]["flute_diam"]
 
     def get_tip_diam(self):
-        return 0.2
+        try:
+            return self.catalog_tool_geometry[self.complex_size_name]["tip_diam"]
+        except:
+            return 0.2
 
     def get_corner_radius(self):
         return 0
@@ -102,7 +106,7 @@ class ChamferMill(BaseTool):
         t_suffix = self.tool_data["file_name_suffix"].upper()
 
         d = self.clear_str_from_trailing_zeros(str(self.tool_data["CUTTER_DIAM"]), sep=".").replace(".", "-")
-        angle = self.get_side_angle() * 2
+        angle = self.clear_str_from_trailing_zeros(str(self.get_side_angle() * 2), sep=".").replace(".", "-")
         l1 = self.clear_str_from_trailing_zeros(str(self.tool_data["FLUTE_LENGTH"]), sep=".").replace(".", "-")
         l2 = self.clear_str_from_trailing_zeros(str(self.tool_data["LENGTH"]), sep=".").replace(".", "-")
 
@@ -153,7 +157,7 @@ class ChamferMill(BaseTool):
             <Attr DataType="boolean" Name="ProLibraryTool" Value="false"/>
             <Attr DataType="boolean" Name="SketchTool" Value="false"/>
             <Attr DataType="boolean" Name="ToolByRef" Value="false"/>
-            <ModelInfo InstanceName="CHAMFER_MILL_ASM" Type="Assembly"/>
+            <ModelInfo FamilyName="CHAMFER_MILL_ASM" InstanceName="CHAMFER_MILL_ASM{self.d_for_bom()}" Type="Assembly"/>
             <MfgParam Name="LENGTH_UNITS" Value="{self.tool_data["LENGTH_UNITS"]}"/>
             <MfgParam Name="TOOL_MATERIAL" Value="{self.tool_data["TOOL_MATERIAL"]}"/>
             <MfgParam Name="NUM_OF_TEETH" Value="{self.tool_data["NUM_OF_TEETH"]}"/>
@@ -224,9 +228,9 @@ class ChamferMill(BaseTool):
             <BOM>
                 <BOMComponent Comments=" " Name="BT40_COLLET_CHUCK" Quantity="1" Type="HOLDER"/>
                 <BOMComponent Comments=" " Name="BT40-45_PULL_STUD" Quantity="1" Type="HOLDER"/>
-                <BOMComponent Comments=" " Name="BT40_HOLDER" Quantity="1" Type="HOLDER"/>
-                <BOMComponent Comments=" " Name="CHAMFER_MILL_TAIL" Quantity="1" Type="HOLDER"/>
-                <BOMComponent Comments=" " Name="CHAMFER_MILL_CUTTER" Quantity="1" Type="GENERAL"/>
+                <BOMComponent Comments=" " Name="BT40_HOLDER{self.d_for_bom()}" Quantity="1" Type="HOLDER"/>
+                <BOMComponent Comments=" " Name="CHAMFER_MILL_TAIL{self.d_for_bom()}" Quantity="1" Type="HOLDER"/>
+                <BOMComponent Comments=" " Name="CHAMFER_MILL_CUTTER{self.d_for_bom()}" Quantity="1" Type="GENERAL"/>
             </BOM>
 """
         logger.debug(f"{self.tool_data["tool_name_str"]} - xml_BOM_components generated...")

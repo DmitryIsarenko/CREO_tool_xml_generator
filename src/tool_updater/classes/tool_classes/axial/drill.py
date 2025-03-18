@@ -157,7 +157,7 @@ class Drill(BaseTool):
             <Attr DataType="boolean" Name="ProLibraryTool" Value="false"/>
             <Attr DataType="boolean" Name="SketchTool" Value="false"/>
             <Attr DataType="boolean" Name="ToolByRef" Value="false"/>
-            <ModelInfo InstanceName="DRILL_ASM" Type="Assembly"/>
+            <ModelInfo FamilyName="DRILL_ASM" InstanceName="DRILL_ASM{self.d_for_bom()}" Type="Assembly"/>
             <MfgParam Name="TOOL_MATERIAL" Value="{self.tool_data["TOOL_MATERIAL"]}"/>
             <MfgParam Name="LENGTH_UNITS" Value="{self.tool_data["LENGTH_UNITS"]}"/>
             <MfgParam Name="CUTTER_DIAM" Value="{self.tool_data["CUTTER_DIAM"]}"/>
@@ -223,10 +223,54 @@ class Drill(BaseTool):
             <BOM>
                 <BOMComponent Comments=" " Name="BT40_COLLET_CHUCK" Quantity="1" Type="HOLDER"/>
                 <BOMComponent Comments=" " Name="BT40-45_PULL_STUD" Quantity="1" Type="HOLDER"/>
-                <BOMComponent Comments=" " Name="BT40_HOLDER" Quantity="1" Type="HOLDER"/>
-                <BOMComponent Comments=" " Name="DRILL_TAIL" Quantity="1" Type="HOLDER"/>
-                <BOMComponent Comments=" " Name="DRILL_CUTTER" Quantity="1" Type="GENERAL"/>
+                <BOMComponent Comments=" " Name="BT40_HOLDER{self.d_for_bom()}" Quantity="1" Type="HOLDER"/>
+                <BOMComponent Comments=" " Name="DRILL_TAIL{self.d_for_bom()}" Quantity="1" Type="HOLDER"/>
+                <BOMComponent Comments=" " Name="DRILL_CUTTER{self.d_for_bom()}" Quantity="1" Type="GENERAL"/>
             </BOM>
 """
+        logger.debug(f"{self.tool_data["tool_name_str"]} - xml_BOM_components generated...")
+        return xml_part_str
+
+
+class DrillTurnMillAxialShort(Drill):
+
+    def set_xml_body_tool_params(self) -> str:
+        xml_part_str = f"""\
+        <ToolingSetup>
+            <Tool Id="{self.tool_data["tool_name_for_xml"]}" RefXmlId="encref_1" Type="{self.tool_data["tool_type"]}">
+                <Attr DataType="boolean" Name="UseOutline" Value="false"/>
+                <Attr DataType="boolean" Name="ProLibraryTool" Value="false"/>
+                <Attr DataType="boolean" Name="SketchTool" Value="false"/>
+                <Attr DataType="boolean" Name="ToolByRef" Value="false"/>
+                <ModelInfo FamilyName="TM_AX-S_SV_ASM" InstanceName="TM_AX-S_SV_ASM{self.d_for_bom()}" Type="Assembly"/>
+                <MfgParam Name="TOOL_MATERIAL" Value="{self.tool_data["TOOL_MATERIAL"]}"/>
+                <MfgParam Name="LENGTH_UNITS" Value="{self.tool_data["LENGTH_UNITS"]}"/>
+                <MfgParam Name="CUTTER_DIAM" Value="{self.tool_data["CUTTER_DIAM"]}"/>
+                <MfgParam Name="FLUTE_LENGTH" Value="{self.tool_data["FLUTE_LENGTH"]}"/>
+                <MfgParam Name="POINT_ANGLE" Value="{self.point_angle}"/>
+                <MfgParam Name="LENGTH" Value="{self.tool_data["len_out_of_holder"]}"/>
+                <MfgParam Name="HOLDER_DIA" Value="{self.tool_data["HOLDER_DIA"]}"/>
+                <MfgParam Name="HOLDER_LEN" Value="{self.tool_data["HOLDER_LEN"]}"/>
+                <MfgParam Name="GAUGE_X_LENGTH" Value="{self.tool_data["GAUGE_X_LENGTH"]}"/>
+                <MfgParam Name="GAUGE_Z_LENGTH" Value="{self.tool_data["GAUGE_Z_LENGTH"]}"/>
+                <MfgParam Name="COMP_OVERSIZE" Value="{self.tool_data["COMP_OVERSIZE"]}"/>
+                <MfgParam Name="TOOL_LONG_FLAG" Value="{self.tool_data["TOOL_LONG_FLAG"]}"/>
+                <MfgParam Name="COOLANT_OPTION" Value="{self.tool_data["COOLANT_OPTION"]}"/>
+                <MfgParam Name="COOLANT_PRESSURE" Value="{self.tool_data["COOLANT_PRESSURE"]}"/>
+                <MfgParam Name="SPINDLE_SENSE" Value="{self.tool_data["SPINDLE_SENSE"]}"/>
+                <MfgParam Name="TOOL_COMMENT" Value="{self.tool_data["TOOL_COMMENT"]}"/>
+        """
+        logger.debug(f"{self.tool_size_from_geom_catalogue} - xml_tool_params generated...")
+        return xml_part_str
+
+
+    def set_xml_bom_components(self) -> str:
+        xml_part_str = f"""\
+                <BOM>
+                    <BOMComponent Comments=" " Name="AXIAL_KOROTKY_EWS_107605" Quantity="1" Type="HOLDER"/>
+                    <BOMComponent Comments=" " Name="TM_SV_TAIL{self.d_for_bom()}" Quantity="1" Type="HOLDER"/>
+                    <BOMComponent Comments=" " Name="TM_SV_CUTTER{self.d_for_bom()}" Quantity="1" Type="GENERAL"/>
+                </BOM>
+    """
         logger.debug(f"{self.tool_data["tool_name_str"]} - xml_BOM_components generated...")
         return xml_part_str

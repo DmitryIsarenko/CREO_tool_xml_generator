@@ -117,7 +117,7 @@ class EndMill(BaseTool):
             <Attr DataType="boolean" Name="ProLibraryTool" Value="false"/>
             <Attr DataType="boolean" Name="SketchTool" Value="false"/>
             <Attr DataType="boolean" Name="ToolByRef" Value="false"/>
-            <ModelInfo InstanceName="ENDMILL_ASM" Type="Assembly"/>
+            <ModelInfo FamilyName="ENDMILL_ASM" InstanceName="ENDMILL_ASM{self.d_for_bom()}" Type="Assembly"/>
             <MfgParam Name="LENGTH_UNITS" Value="{self.tool_data["LENGTH_UNITS"]}"/>
             <MfgParam Name="CUTTER_DIAM" Value="{self.tool_data["CUTTER_DIAM"]}"/>
             <MfgParam Name="LENGTH" Value="{self.tool_data["len_out_of_holder"]}"/>
@@ -183,9 +183,9 @@ class EndMill(BaseTool):
             <BOM>
                 <BOMComponent Comments=" " Name="BT40_COLLET_CHUCK" Quantity="1" Type="HOLDER"/>
                 <BOMComponent Comments=" " Name="BT40-45_PULL_STUD" Quantity="1" Type="HOLDER"/>
-                <BOMComponent Comments=" " Name="BT40_HOLDER" Quantity="1" Type="HOLDER"/>
-                <BOMComponent Comments=" " Name="ENDMILL_TAIL" Quantity="1" Type="HOLDER"/>
-                <BOMComponent Comments=" " Name="ENDMILL_CUTTER" Quantity="1" Type="GENERAL"/>
+                <BOMComponent Comments=" " Name="BT40_HOLDER{self.d_for_bom()}" Quantity="1" Type="HOLDER"/>
+                <BOMComponent Comments=" " Name="ENDMILL_TAIL{self.d_for_bom()}" Quantity="1" Type="HOLDER"/>
+                <BOMComponent Comments=" " Name="ENDMILL_CUTTER{self.d_for_bom()}" Quantity="1" Type="GENERAL"/>
             </BOM>
 """
         logger.debug(f"{self.tool_data["tool_name_str"]} - xml_BOM_components generated...")

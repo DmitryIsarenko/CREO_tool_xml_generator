@@ -259,7 +259,7 @@ class TapBlind(Tap):
             <Attr DataType="boolean" Name="ProLibraryTool" Value="false"/>
             <Attr DataType="boolean" Name="SketchTool" Value="false"/>
             <Attr DataType="boolean" Name="ToolByRef" Value="false"/>
-            <ModelInfo InstanceName="TAP_BLIND_ASM" Type="Assembly"/>
+            <ModelInfo FamilyName="TAP_BLIND_ASM" InstanceName="TAP_BLIND_ASM{self.d_for_bom()}" Type="Assembly"/>
             <MfgParam Name="TOOL_MATERIAL" Value="{self.tool_data["TOOL_MATERIAL"]}"/>
             <MfgParam Name="LENGTH_UNITS" Value="{self.tool_data["LENGTH_UNITS"]}"/>
             <MfgParam Name="CUTTER_DIAM" Value="{self.tool_data["CUTTER_DIAM"]}"/>
@@ -287,9 +287,9 @@ class TapBlind(Tap):
             <BOM>
                 <BOMComponent Comments=" " Name="BT40_COLLET_CHUCK" Quantity="1" Type="HOLDER"/>
                 <BOMComponent Comments=" " Name="BT40-45_PULL_STUD" Quantity="1" Type="HOLDER"/>
-                <BOMComponent Comments=" " Name="BT40_HOLDER" Quantity="1" Type="HOLDER"/>
-                <BOMComponent Comments=" " Name="TAP_TAIL" Quantity="1" Type="HOLDER"/>
-                <BOMComponent Comments=" " Name="TAP_BLIND_CUTTER" Quantity="1" Type="GENERAL"/>
+                <BOMComponent Comments=" " Name="BT40_HOLDER{self.d_for_bom()}" Quantity="1" Type="HOLDER"/>
+                <BOMComponent Comments=" " Name="TAP_TAIL{self.d_for_bom()}" Quantity="1" Type="HOLDER"/>
+                <BOMComponent Comments=" " Name="TAP_BLIND_CUTTER{self.d_for_bom()}" Quantity="1" Type="GENERAL"/>
             </BOM>
 """
         logger.debug(f"{self.tool_data["tool_name_str"]} - xml_BOM_components generated...")
@@ -304,7 +304,7 @@ class TapThrough(Tap):
             <Attr DataType="boolean" Name="ProLibraryTool" Value="false"/>
             <Attr DataType="boolean" Name="SketchTool" Value="false"/>
             <Attr DataType="boolean" Name="ToolByRef" Value="false"/>
-            <ModelInfo InstanceName="TAP_THROUGH_ASM" Type="Assembly"/>
+            <ModelInfo FamilyName="TAP_THROUGH_ASM" InstanceName="TAP_THROUGH_ASM{self.d_for_bom()}" Type="Assembly"/>
             <MfgParam Name="TOOL_MATERIAL" Value="{self.tool_data["TOOL_MATERIAL"]}"/>
             <MfgParam Name="LENGTH_UNITS" Value="{self.tool_data["LENGTH_UNITS"]}"/>
             <MfgParam Name="CUTTER_DIAM" Value="{self.tool_data["CUTTER_DIAM"]}"/>
@@ -332,9 +332,9 @@ class TapThrough(Tap):
             <BOM>
                 <BOMComponent Comments=" " Name="BT40_COLLET_CHUCK" Quantity="1" Type="HOLDER"/>
                 <BOMComponent Comments=" " Name="BT40-45_PULL_STUD" Quantity="1" Type="HOLDER"/>
-                <BOMComponent Comments=" " Name="BT40_HOLDER" Quantity="1" Type="HOLDER"/>
-                <BOMComponent Comments=" " Name="TAP_TAIL" Quantity="1" Type="HOLDER"/>
-                <BOMComponent Comments=" " Name="TAP_THROUGH_CUTTER" Quantity="1" Type="GENERAL"/>
+                <BOMComponent Comments=" " Name="BT40_HOLDER{self.d_for_bom()}" Quantity="1" Type="HOLDER"/>
+                <BOMComponent Comments=" " Name="TAP_TAIL{self.d_for_bom()}" Quantity="1" Type="HOLDER"/>
+                <BOMComponent Comments=" " Name="TAP_THROUGH_CUTTER{self.d_for_bom()}" Quantity="1" Type="GENERAL"/>
             </BOM>
 """
         logger.debug(f"{self.tool_data["tool_name_str"]} - xml_BOM_components generated...")

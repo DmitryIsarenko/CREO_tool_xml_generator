@@ -5,6 +5,7 @@
     "full_body_len": 50,
     "full_body_diam": 6,
     "order_no": "Special A30",
-    "side_angle": 15
+    "side_angle": 15,
+    "tip_diam": 0.5
   }
 }

@@ -303,7 +303,7 @@ class GribMillFlat(BaseTool):
             <Attr DataType="boolean" Name="ProLibraryTool" Value="false"/>
             <Attr DataType="boolean" Name="SketchTool" Value="false"/>
             <Attr DataType="boolean" Name="ToolByRef" Value="false"/>
-            <ModelInfo InstanceName="SIDE_MILL_FLAT_ASM" Type="Assembly"/>
+            <ModelInfo FamilyName="SIDE_MILL_FLAT_ASM" InstanceName="SIDE_MILL_FLAT_ASM{self.d_for_bom()}" Type="Assembly"/>
             <MfgParam Name="LENGTH_UNITS" Value="{self.tool_data["LENGTH_UNITS"]}"/>
 
             <MfgParam Name="CUTTER_DIAM" Value="{self.tool_data["CUTTER_DIAM"]}"/>
@@ -376,9 +376,9 @@ class GribMillFlat(BaseTool):
             <BOM>
                 <BOMComponent Comments=" " Name="BT40_COLLET_CHUCK" Quantity="1" Type="HOLDER"/>
                 <BOMComponent Comments=" " Name="BT40-45_PULL_STUD" Quantity="1" Type="HOLDER"/>
-                <BOMComponent Comments=" " Name="BT40_HOLDER" Quantity="1" Type="HOLDER"/>
-                <BOMComponent Comments=" " Name="SIDE_MILL_FLAT_TAIL" Quantity="1" Type="HOLDER"/>
-                <BOMComponent Comments=" " Name="SIDE_MILL_FLAT_CUTTER" Quantity="1" Type="GENERAL"/>
+                <BOMComponent Comments=" " Name="BT40_HOLDER{self.d_for_bom()}" Quantity="1" Type="HOLDER"/>
+                <BOMComponent Comments=" " Name="SIDE_MILL_FLAT_TAIL{self.d_for_bom()}" Quantity="1" Type="HOLDER"/>
+                <BOMComponent Comments=" " Name="SIDE_MILL_FLAT_CUTTER{self.d_for_bom()}" Quantity="1" Type="GENERAL"/>
             </BOM>
 """
         logger.debug(f"{self.tool_data["tool_name_str"]} - xml_BOM_components generated...")
@@ -396,7 +396,7 @@ class GribMillChamfer(GribMillFlat):
             <Attr DataType="boolean" Name="ProLibraryTool" Value="false"/>
             <Attr DataType="boolean" Name="SketchTool" Value="false"/>
             <Attr DataType="boolean" Name="ToolByRef" Value="false"/>
-            <ModelInfo InstanceName="SIDE_MILL_CHAMFER_ASM" Type="Assembly"/>
+            <ModelInfo FamilyName="SIDE_MILL_CHAMFER_ASM" InstanceName="SIDE_MILL_CHAMFER_ASM{self.d_for_bom()}" Type="Assembly"/>
             <MfgParam Name="LENGTH_UNITS" Value="{self.tool_data["LENGTH_UNITS"]}"/>
             <MfgParam Name="CUTTER_DIAM" Value="{self.tool_data["CUTTER_DIAM"]}"/>
             <MfgParam Name="CORNER_CHAMFER" Value="{self.tool_data["CORNER_CHAMFER"]}"/>
@@ -426,9 +426,9 @@ class GribMillChamfer(GribMillFlat):
             <BOM>
                 <BOMComponent Comments=" " Name="BT40_COLLET_CHUCK" Quantity="1" Type="HOLDER"/>
                 <BOMComponent Comments=" " Name="BT40-45_PULL_STUD" Quantity="1" Type="HOLDER"/>
-                <BOMComponent Comments=" " Name="BT40_HOLDER" Quantity="1" Type="HOLDER"/>
-                <BOMComponent Comments=" " Name="SIDE_MILL_CHAMFER_TAIL" Quantity="1" Type="HOLDER"/>
-                <BOMComponent Comments=" " Name="SIDE_MILL_CHAMFER_CUTTER" Quantity="1" Type="GENERAL"/>
+                <BOMComponent Comments=" " Name="BT40_HOLDER{self.d_for_bom()}" Quantity="1" Type="HOLDER"/>
+                <BOMComponent Comments=" " Name="SIDE_MILL_CHAMFER_TAIL{self.d_for_bom()}" Quantity="1" Type="HOLDER"/>
+                <BOMComponent Comments=" " Name="SIDE_MILL_CHAMFER_CUTTER{self.d_for_bom()}" Quantity="1" Type="GENERAL"/>
             </BOM>
 """
         logger.debug(f"{self.tool_data["tool_name_str"]} - xml_BOM_components generated...")
@@ -445,7 +445,7 @@ class GribMillRounding(GribMillFlat):
             <Attr DataType="boolean" Name="ProLibraryTool" Value="false"/>
             <Attr DataType="boolean" Name="SketchTool" Value="false"/>
             <Attr DataType="boolean" Name="ToolByRef" Value="false"/>
-            <ModelInfo InstanceName="SIDE_MILL_ROUNDING_ASM" Type="Assembly"/>
+            <ModelInfo FamilyName="SIDE_MILL_ROUNDING_ASM" InstanceName="SIDE_MILL_ROUNDING_ASM{self.d_for_bom()}" Type="Assembly"/>
             <MfgParam Name="LENGTH_UNITS" Value="{self.tool_data["LENGTH_UNITS"]}"/>
             <MfgParam Name="CUTTER_DIAM" Value="{self.tool_data["CUTTER_DIAM"]}"/>
             <MfgParam Name="CORNER_RADIUS" Value="{self.tool_data["CORNER_RADIUS"]}"/>
@@ -475,9 +475,9 @@ class GribMillRounding(GribMillFlat):
             <BOM>
                 <BOMComponent Comments=" " Name="BT40_COLLET_CHUCK" Quantity="1" Type="HOLDER"/>
                 <BOMComponent Comments=" " Name="BT40-45_PULL_STUD" Quantity="1" Type="HOLDER"/>
-                <BOMComponent Comments=" " Name="BT40_HOLDER" Quantity="1" Type="HOLDER"/>
-                <BOMComponent Comments=" " Name="SIDE_MILL_ROUNDING_TAIL" Quantity="1" Type="HOLDER"/>
-                <BOMComponent Comments=" " Name="SIDE_MILL_ROUNDING_CUTTER" Quantity="1" Type="GENERAL"/>
+                <BOMComponent Comments=" " Name="BT40_HOLDER{self.d_for_bom()}" Quantity="1" Type="HOLDER"/>
+                <BOMComponent Comments=" " Name="SIDE_MILL_ROUNDING_TAIL{self.d_for_bom()}" Quantity="1" Type="HOLDER"/>
+                <BOMComponent Comments=" " Name="SIDE_MILL_ROUNDING_CUTTER{self.d_for_bom()}" Quantity="1" Type="GENERAL"/>
             </BOM>
 """
         logger.debug(f"{self.tool_data["tool_name_str"]} - xml_BOM_components generated...")

@@ -147,8 +147,6 @@ class Drill(BaseTool):
         )
         return t_name
 
-
-
     def set_xml_body_tool_params(self) -> str:
         xml_part_str = f"""\
     <ToolingSetup>
@@ -216,8 +214,6 @@ class Drill(BaseTool):
         logger.debug(f"{self.tool_size_from_geom_catalogue} - xml_tool_cut_data generated...")
         return total_string
 
-
-
     def set_xml_bom_components(self) -> str:
         xml_part_str = f"""\
             <BOM>
@@ -232,7 +228,12 @@ class Drill(BaseTool):
         return xml_part_str
 
 
-class DrillTurnMillAxialShort(Drill):
+class DrillTurnMill(Drill):
+    family_name = "TM_AX-S_SV_ASM"
+    instance_name = "TM_AX-S_SV_ASM"
+    holder_name = "AXIAL_KOROTKY_EWS_107605"
+    tail_name = "TM_SV_TAIL"
+    cutter_name = "TM_SV_CUTTER"
 
     def set_xml_body_tool_params(self) -> str:
         xml_part_str = f"""\
@@ -242,7 +243,7 @@ class DrillTurnMillAxialShort(Drill):
                 <Attr DataType="boolean" Name="ProLibraryTool" Value="false"/>
                 <Attr DataType="boolean" Name="SketchTool" Value="false"/>
                 <Attr DataType="boolean" Name="ToolByRef" Value="false"/>
-                <ModelInfo FamilyName="TM_AX-S_SV_ASM" InstanceName="TM_AX-S_SV_ASM{self.d_for_bom()}" Type="Assembly"/>
+                <ModelInfo FamilyName="{self.family_name}" InstanceName="{self.instance_name}{self.d_for_bom()}" Type="Assembly"/>
                 <MfgParam Name="TOOL_MATERIAL" Value="{self.tool_data["TOOL_MATERIAL"]}"/>
                 <MfgParam Name="LENGTH_UNITS" Value="{self.tool_data["LENGTH_UNITS"]}"/>
                 <MfgParam Name="CUTTER_DIAM" Value="{self.tool_data["CUTTER_DIAM"]}"/>
@@ -263,14 +264,53 @@ class DrillTurnMillAxialShort(Drill):
         logger.debug(f"{self.tool_size_from_geom_catalogue} - xml_tool_params generated...")
         return xml_part_str
 
-
     def set_xml_bom_components(self) -> str:
         xml_part_str = f"""\
                 <BOM>
-                    <BOMComponent Comments=" " Name="AXIAL_KOROTKY_EWS_107605" Quantity="1" Type="HOLDER"/>
-                    <BOMComponent Comments=" " Name="TM_SV_TAIL{self.d_for_bom()}" Quantity="1" Type="HOLDER"/>
-                    <BOMComponent Comments=" " Name="TM_SV_CUTTER{self.d_for_bom()}" Quantity="1" Type="GENERAL"/>
+                    <BOMComponent Comments=" " Name="{self.holder_name}" Quantity="1" Type="HOLDER"/>
+                    <BOMComponent Comments=" " Name="{self.tail_name}{self.d_for_bom()}" Quantity="1" Type="HOLDER"/>
+                    <BOMComponent Comments=" " Name="{self.cutter_name}{self.d_for_bom()}" Quantity="1" Type="GENERAL"/>
                 </BOM>
     """
         logger.debug(f"{self.tool_data["tool_name_str"]} - xml_BOM_components generated...")
         return xml_part_str
+
+
+class DrillTurnMillAxialShort(DrillTurnMill):
+    family_name = "TM_AX-S_SV_ASM"
+    instance_name = "TM_AX-S_SV_ASM"
+    holder_name = "AXIAL_KOROTKY_EWS_107605"
+    tail_name = "TM_SV_TAIL"
+    cutter_name = "TM_SV_CUTTER"
+
+
+class DrillTurnMillAxialRegular(DrillTurnMill):
+    family_name = "TM_AX-S_SV_ASM"
+    instance_name = "TM_AX-R_SV_ASM"
+    holder_name = "AXIAL_EWS_234762"
+    tail_name = "TM_SV_TAIL"
+    cutter_name = "TM_SV_CUTTER"
+
+
+class DrillTurnMillRadialOneSide(DrillTurnMill):
+    family_name = "TM_RAD-1S_SV_ASM"
+    instance_name = "TM_RAD-1S_SV_ASM"
+    holder_name = "RADIAL_1_EWS_195136"
+    tail_name = "TM_SV_TAIL"
+    cutter_name = "TM_SV_CUTTER"
+
+
+class DrillTurnMillRadialTwoSidesMainSpindle(DrillTurnMill):
+    family_name = "TM_RAD-2S-MAIN_SV_ASM"
+    instance_name = "TM_RAD-2S-MAIN_SV_ASM"
+    holder_name = "RADIAL_2_EWS_196914"
+    tail_name = "TM_SV_TAIL"
+    cutter_name = "TM_SV_CUTTER"
+
+
+class DrillTurnMillRadialTwoSidesSubSpindle(DrillTurnMill):
+    family_name = "TM_RAD-2S-SUB_SV_ASM"
+    instance_name = "TM_RAD-2S-SUB_SV_ASM"
+    holder_name = "RADIAL_2_EWS_196914"
+    tail_name = "TM_SV_TAIL"
+    cutter_name = "TM_SV_CUTTER"

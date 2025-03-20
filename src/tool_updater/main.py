@@ -16,7 +16,8 @@ from src.tool_updater.classes.tool_classes.milling.threadmill import ThreadMill
 from src.tool_updater.classes.tool_classes.milling.toroid_mill import ToroidMill
 from src.tool_updater.classes.tool_classes.milling.vnutr_rad_mill import VnutrRadMill
 from src.tool_updater.classes.tool_generator import ToolGenerator
-from tool_updater.classes.tool_classes.axial.drill import DrillTurnMillAxialShort
+from tool_updater.classes.tool_classes.axial.drill import DrillTurnMillAxialShort, DrillTurnMillAxialRegular, \
+    DrillTurnMillRadialOneSide, DrillTurnMillRadialTwoSidesMainSpindle, DrillTurnMillRadialTwoSidesSubSpindle
 from tool_updater.classes.tool_classes.axial.tap import TapBlind, TapThrough
 from tool_updater.classes.tool_classes.milling.disk_mill import DiskOtreznoiChamfer, DiskOtreznoiRounding
 from tool_updater.classes.tool_classes.milling.grib_mill import GribMillRounding, GribMillChamfer
@@ -62,41 +63,184 @@ def gen_drills():
         path_to_catalog_cut_data=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\axial\drills\China\2 cut_data.json",
     )
 
-
-def gen_turn_mill_drills():
+def gen_turn_mill_drills_axial_short():
     ToolGenerator.create_tools(
         tool_class=DrillTurnMillAxialShort,
-        target_path=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\база инструмента\target_path\TurnMill\Drill\Osawa 2386STI",
+        target_path=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\база инструмента\target_path\TurnMill\Приводные X Short\Drill\Osawa 2386STI",
         debug_mode=0,
 
         teeth_num=1,
-        file_name_prefix="tm_ax-s_sv_",
+        file_name_prefix="xs_sv_",
         file_name_suffix="_2386STI",
         path_to_catalog_geometry=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\axial\drills\Osawa\hss_regular_drills\2386STI.json",
         path_to_catalog_cut_data=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\axial\drills\Osawa\hss_regular_drills\2386STI_cut_data.json",
     )
     ToolGenerator.create_tools(
         tool_class=DrillTurnMillAxialShort,
-        target_path=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\база инструмента\target_path\TurnMill\Drill\Osawa 1692LS",
+        target_path=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\база инструмента\target_path\TurnMill\Приводные X Short\Drill\Osawa 1692LS",
         debug_mode=0,
 
         teeth_num=1,
-        file_name_prefix="sv_udlin_",
+        file_name_prefix="xs_sv_udlin_",
         file_name_suffix="_1692LS",
         path_to_catalog_geometry=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\axial\drills\Osawa\hss_extended_drills\1692LS.json",
         path_to_catalog_cut_data=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\axial\drills\Osawa\hss_extended_drills\1692LS_cut_data.json",
     )
     ToolGenerator.create_tools(
         tool_class=DrillTurnMillAxialShort,
-        target_path=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\база инструмента\target_path\TurnMill\Drill\China Extended",
+        target_path=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\база инструмента\target_path\TurnMill\Приводные X Short\Drill\China Extended",
         debug_mode=0,
 
         teeth_num=1,
-        file_name_prefix="sv_udlin_",
+        file_name_prefix="xs_sv_udlin_",
         file_name_suffix="_China",
         path_to_catalog_geometry=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\axial\drills\China\1 geom.json",
         path_to_catalog_cut_data=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\axial\drills\China\2 cut_data.json",
     )
+
+def gen_turn_mill_drills_axial_regular():
+    ToolGenerator.create_tools(
+        tool_class=DrillTurnMillAxialRegular,
+        target_path=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\база инструмента\target_path\TurnMill\Приводные X Regular\Drill\Osawa 2386STI",
+        debug_mode=0,
+
+        teeth_num=1,
+        file_name_prefix="x_sv_",
+        file_name_suffix="_2386STI",
+        path_to_catalog_geometry=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\axial\drills\Osawa\hss_regular_drills\2386STI.json",
+        path_to_catalog_cut_data=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\axial\drills\Osawa\hss_regular_drills\2386STI_cut_data.json",
+    )
+    ToolGenerator.create_tools(
+        tool_class=DrillTurnMillAxialRegular,
+        target_path=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\база инструмента\target_path\TurnMill\Приводные X Regular\Drill\Osawa 1692LS",
+        debug_mode=0,
+
+        teeth_num=1,
+        file_name_prefix="x_sv_udlin_",
+        file_name_suffix="_1692LS",
+        path_to_catalog_geometry=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\axial\drills\Osawa\hss_extended_drills\1692LS.json",
+        path_to_catalog_cut_data=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\axial\drills\Osawa\hss_extended_drills\1692LS_cut_data.json",
+    )
+    ToolGenerator.create_tools(
+        tool_class=DrillTurnMillAxialRegular,
+        target_path=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\база инструмента\target_path\TurnMill\Приводные X Regular\Drill\China Extended",
+        debug_mode=0,
+
+        teeth_num=1,
+        file_name_prefix="x_sv_udlin_",
+        file_name_suffix="_China",
+        path_to_catalog_geometry=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\axial\drills\China\1 geom.json",
+        path_to_catalog_cut_data=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\axial\drills\China\2 cut_data.json",
+    )
+
+
+def gen_turn_mill_drills_radial_1side():
+    ToolGenerator.create_tools(
+        tool_class=DrillTurnMillRadialOneSide,
+        target_path=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\база инструмента\target_path\TurnMill\Приводные Z 1-side\Drill\Osawa 2386STI",
+        debug_mode=0,
+
+        teeth_num=1,
+        file_name_prefix="z1_sv_",
+        file_name_suffix="_2386STI",
+        path_to_catalog_geometry=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\axial\drills\Osawa\hss_regular_drills\2386STI.json",
+        path_to_catalog_cut_data=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\axial\drills\Osawa\hss_regular_drills\2386STI_cut_data.json",
+    )
+    ToolGenerator.create_tools(
+        tool_class=DrillTurnMillRadialOneSide,
+        target_path=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\база инструмента\target_path\TurnMill\Приводные Z 1-side\Drill\Osawa 1692LS",
+        debug_mode=0,
+
+        teeth_num=1,
+        file_name_prefix="z1_sv_udlin_",
+        file_name_suffix="_1692LS",
+        path_to_catalog_geometry=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\axial\drills\Osawa\hss_extended_drills\1692LS.json",
+        path_to_catalog_cut_data=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\axial\drills\Osawa\hss_extended_drills\1692LS_cut_data.json",
+    )
+    ToolGenerator.create_tools(
+        tool_class=DrillTurnMillRadialOneSide,
+        target_path=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\база инструмента\target_path\TurnMill\Приводные Z 1-side\Drill\China Extended",
+        debug_mode=0,
+
+        teeth_num=1,
+        file_name_prefix="z1_sv_udlin_",
+        file_name_suffix="_China",
+        path_to_catalog_geometry=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\axial\drills\China\1 geom.json",
+        path_to_catalog_cut_data=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\axial\drills\China\2 cut_data.json",
+    )
+
+
+def gen_turn_mill_drills_radial_2sides_main_spindle():
+    ToolGenerator.create_tools(
+        tool_class=DrillTurnMillRadialTwoSidesMainSpindle,
+        target_path=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\база инструмента\target_path\TurnMill\Приводные Z 2-sides Main Spindle\Drill\Osawa 2386STI",
+        debug_mode=0,
+
+        teeth_num=1,
+        file_name_prefix="z2_sv_",
+        file_name_suffix="_2386STI",
+        path_to_catalog_geometry=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\axial\drills\Osawa\hss_regular_drills\2386STI.json",
+        path_to_catalog_cut_data=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\axial\drills\Osawa\hss_regular_drills\2386STI_cut_data.json",
+    )
+    ToolGenerator.create_tools(
+        tool_class=DrillTurnMillRadialTwoSidesMainSpindle,
+        target_path=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\база инструмента\target_path\TurnMill\Приводные Z 2-sides Main Spindle\Drill\Osawa 1692LS",
+        debug_mode=0,
+
+        teeth_num=1,
+        file_name_prefix="z2_sv_udlin_",
+        file_name_suffix="_1692LS",
+        path_to_catalog_geometry=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\axial\drills\Osawa\hss_extended_drills\1692LS.json",
+        path_to_catalog_cut_data=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\axial\drills\Osawa\hss_extended_drills\1692LS_cut_data.json",
+    )
+    ToolGenerator.create_tools(
+        tool_class=DrillTurnMillRadialTwoSidesMainSpindle,
+        target_path=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\база инструмента\target_path\TurnMill\Приводные Z 2-sides Main Spindle\Drill\China Extended",
+        debug_mode=0,
+
+        teeth_num=1,
+        file_name_prefix="z2_sv_udlin_",
+        file_name_suffix="_China",
+        path_to_catalog_geometry=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\axial\drills\China\1 geom.json",
+        path_to_catalog_cut_data=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\axial\drills\China\2 cut_data.json",
+    )
+
+
+def gen_turn_mill_drills_radial_2sides_sub_spindle():
+    ToolGenerator.create_tools(
+        tool_class=DrillTurnMillRadialTwoSidesSubSpindle,
+        target_path=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\база инструмента\target_path\TurnMill\Приводные Z 2-sides Sub Spindle\Drill\Osawa 2386STI",
+        debug_mode=0,
+
+        teeth_num=1,
+        file_name_prefix="z2sub_sv_",
+        file_name_suffix="_2386STI",
+        path_to_catalog_geometry=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\axial\drills\Osawa\hss_regular_drills\2386STI.json",
+        path_to_catalog_cut_data=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\axial\drills\Osawa\hss_regular_drills\2386STI_cut_data.json",
+    )
+    ToolGenerator.create_tools(
+        tool_class=DrillTurnMillRadialTwoSidesSubSpindle,
+        target_path=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\база инструмента\target_path\TurnMill\Приводные Z 2-sides Sub Spindle\Drill\Osawa 1692LS",
+        debug_mode=0,
+
+        teeth_num=1,
+        file_name_prefix="z2sub_sv_udlin_",
+        file_name_suffix="_1692LS",
+        path_to_catalog_geometry=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\axial\drills\Osawa\hss_extended_drills\1692LS.json",
+        path_to_catalog_cut_data=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\axial\drills\Osawa\hss_extended_drills\1692LS_cut_data.json",
+    )
+    ToolGenerator.create_tools(
+        tool_class=DrillTurnMillRadialTwoSidesSubSpindle,
+        target_path=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\база инструмента\target_path\TurnMill\Приводные Z 2-sides Sub Spindle\Drill\China Extended",
+        debug_mode=0,
+
+        teeth_num=1,
+        file_name_prefix="z2sub_sv_udlin_",
+        file_name_suffix="_China",
+        path_to_catalog_geometry=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\axial\drills\China\1 geom.json",
+        path_to_catalog_cut_data=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\axial\drills\China\2 cut_data.json",
+    )
+
 
 
 def gen_endmills():
@@ -684,7 +828,12 @@ def main():
     # axial
     # gen_centrovki()
     # gen_drills()
-    gen_turn_mill_drills()
+    gen_turn_mill_drills_axial_short()
+    gen_turn_mill_drills_axial_regular()
+    gen_turn_mill_drills_radial_1side()
+    gen_turn_mill_drills_radial_2sides_main_spindle()
+    gen_turn_mill_drills_radial_2sides_sub_spindle()
+
     # gen_zenkovki()
 #     gen_cekovki()
 #     gen_razvertki()

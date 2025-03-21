@@ -1,5 +1,5 @@
 from copy import deepcopy
-from math import pi
+from math import pi, ceil
 import io
 import datetime
 from src.tool_updater import config
@@ -655,7 +655,42 @@ class BaseTool:
 
 
     def d_for_bom(self) -> str:
-        diam_formatted = (str(self.tool_data["CUTTER_DIAM"]))
+        """
+        возвращает запись в виде _Dxx-xx, округленную в большую сторону с точностью до
+        0.1 - 20.00 - до 0.1мм
+        20.50 - 30.00 - до 0.5мм
+        31 - 50 - до 1мм
+        55 - 100 до 5мм
+        110 - 200 - до 10мм
+        220 - 600 - до 20мм
+        :return:
+        """
+        diam_float = float(self.tool_data["CUTTER_DIAM"])
+
+        if 0 <= diam_float <= 20:
+            diam_rounded = ceil(diam_float/0.1) * 0.1
+        elif 20 < diam_float <= 30:
+            diam_rounded = ceil(diam_float/0.5) * 0.5
+        elif 30 < diam_float <= 50:
+            diam_rounded = ceil(diam_float/1) * 1
+        elif 50 < diam_float <= 100:
+            diam_rounded = ceil(diam_float/5) * 5
+        elif 100 < diam_float <= 200:
+            diam_rounded = ceil(diam_float/10) * 10
+        elif 200 < diam_float <= 600:
+            diam_rounded = ceil(diam_float/20) * 20
+
+        diam_rounded = round(diam_rounded, 2)
+
+
+
+
+        # diam_rounded = ceil(diam_float * 10) / 10
+        diam_formatted = str(diam_rounded)
+
+        # diam_formatted = (str(self.tool_data["CUTTER_DIAM"]))
+
+
         if "." in diam_formatted:
             diam_formatted = diam_formatted.replace(".", "-")
         else:

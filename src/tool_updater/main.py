@@ -817,8 +817,8 @@ def main():
     # gen_vnutr_rad_mills()
 
     # threads
-    # gen_rezbofrezi()
-    # gen_metchiki()
+    gen_rezbofrezi()
+    gen_metchiki()
 
     # index mills
     # gen_disk_mills()
@@ -828,15 +828,16 @@ def main():
     # axial
     # gen_centrovki()
     # gen_drills()
-    gen_turn_mill_drills_axial_short()
-    gen_turn_mill_drills_axial_regular()
-    gen_turn_mill_drills_radial_1side()
-    gen_turn_mill_drills_radial_2sides_main_spindle()
-    gen_turn_mill_drills_radial_2sides_sub_spindle()
-
     # gen_zenkovki()
-#     gen_cekovki()
-#     gen_razvertki()
+    # gen_cekovki()
+    # gen_razvertki()
+
+    # gen_turn_mill_drills_axial_short()
+    # gen_turn_mill_drills_axial_regular()
+    # gen_turn_mill_drills_radial_1side()
+    # gen_turn_mill_drills_radial_2sides_main_spindle()
+    # gen_turn_mill_drills_radial_2sides_sub_spindle()
+
 
     """
     freza_konts_

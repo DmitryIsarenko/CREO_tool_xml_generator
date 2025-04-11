@@ -20,7 +20,6 @@ finishing_roughing_options = {
     },
 }
 
-
 # GEOMETRY DATA CATALOGUE
 key_order_no = "order_no"
 key_body_len = "full_body_len"
@@ -59,7 +58,6 @@ mfg_materials_dict = {
     "Не указано": key_iso_M,
 }
 
-
 lst_of_material_groups: list[str] = [
     key_iso_P,
     key_iso_M,
@@ -68,9 +66,6 @@ lst_of_material_groups: list[str] = [
     key_iso_S,
     key_iso_H,
 ]
-
-
-
 
 # ER collet sizes
 collet_sizes = {
@@ -97,5 +92,48 @@ collet_sizes = {
     "ER50": {
         "max_diam": 40,
         "nut_diam": 90,
+    },
+}
+
+turnmill_holders_safe_lengths = {
+    "TM_X_": {
+        "max_safe_length": 180,
+        "length_taken_by_holder": 94,
+    },
+    "TM_X_L_": {
+        "max_safe_length": 180,
+        "length_taken_by_holder": 101,
+    },
+    "TM_Z_1_": {
+        "max_safe_length": 10000,
+        "length_taken_by_holder": 0,
+    },
+    "TM_Z_2_": {
+        "max_safe_length": 10000,
+        "length_taken_by_holder": 0,
+    },
+    "TM_Z_SUB_": {
+        "max_safe_length": 160,
+        "length_taken_by_holder": 90.5,
+    },
+    "T_Z_ER_": {
+        "max_safe_length": 10000,
+        "length_taken_by_holder": 0,
+    },
+    "T_Z_SUB_ER_": {
+        "max_safe_length": 160,
+        "length_taken_by_holder": 76,
+    },
+    "T_Z_": {
+        "max_safe_length": 10000,
+        "length_taken_by_holder": 0,
+    },
+    "T_Z_SUB_": {
+        "max_safe_length": 160,
+        "length_taken_by_holder": 42.5,
+    },
+    "T_Z_F2_": {
+        "max_safe_length": 10000,
+        "length_taken_by_holder": 0,
     },
 }

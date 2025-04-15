@@ -32,16 +32,16 @@ from tool_updater.classes.tool_classes.axial.drill import DrillTurnMill_T_Z
 from tool_updater.classes.tool_classes.axial.drill import DrillTurnMill_T_Z_SUB
 from tool_updater.classes.tool_classes.axial.drill import DrillTurnMill_T_Z_F2
 
-from tool_updater.classes.tool_classes.milling.endmill import TurnMillEndmill_TM_X
-from tool_updater.classes.tool_classes.milling.endmill import TurnMillEndmill_TM_X_L
-from tool_updater.classes.tool_classes.milling.endmill import TurnMillEndmill_TM_Z_1
-from tool_updater.classes.tool_classes.milling.endmill import TurnMillEndmill_TM_Z_2
-from tool_updater.classes.tool_classes.milling.endmill import TurnMillEndmill_TM_Z_SUB
-from tool_updater.classes.tool_classes.milling.endmill import TurnMillEndmill_T_Z_ER
-from tool_updater.classes.tool_classes.milling.endmill import TurnMillEndmill_T_Z_SUB_ER
-from tool_updater.classes.tool_classes.milling.endmill import TurnMillEndmill_T_Z
-from tool_updater.classes.tool_classes.milling.endmill import TurnMillEndmill_T_Z_SUB
-from tool_updater.classes.tool_classes.milling.endmill import TurnMillEndmill_T_Z_F2
+from tool_updater.classes.tool_classes.milling.endmill import KontsTurnMill_TM_X
+from tool_updater.classes.tool_classes.milling.endmill import KontsTurnMill_TM_X_L
+from tool_updater.classes.tool_classes.milling.endmill import KontsTurnMill_TM_Z_1
+from tool_updater.classes.tool_classes.milling.endmill import KontsTurnMill_TM_Z_2
+from tool_updater.classes.tool_classes.milling.endmill import KontsTurnMill_TM_Z_SUB
+from tool_updater.classes.tool_classes.milling.endmill import KontsTurnMill_T_Z_ER
+from tool_updater.classes.tool_classes.milling.endmill import KontsTurnMill_T_Z_SUB_ER
+from tool_updater.classes.tool_classes.milling.endmill import KontsTurnMill_T_Z
+from tool_updater.classes.tool_classes.milling.endmill import KontsTurnMill_T_Z_SUB
+from tool_updater.classes.tool_classes.milling.endmill import KontsTurnMill_T_Z_F2
 
 from tool_updater.classes.tool_classes.milling.sphere_mill import SferaTurnMill_TM_X
 from tool_updater.classes.tool_classes.milling.sphere_mill import SferaTurnMill_TM_X_L
@@ -53,6 +53,31 @@ from tool_updater.classes.tool_classes.milling.sphere_mill import SferaTurnMill_
 from tool_updater.classes.tool_classes.milling.sphere_mill import SferaTurnMill_T_Z
 from tool_updater.classes.tool_classes.milling.sphere_mill import SferaTurnMill_T_Z_SUB
 from tool_updater.classes.tool_classes.milling.sphere_mill import SferaTurnMill_T_Z_F2
+
+from tool_updater.classes.tool_classes.milling.toroid_mill import ToroidTurnMill_TM_X
+from tool_updater.classes.tool_classes.milling.toroid_mill import ToroidTurnMill_TM_X_L
+from tool_updater.classes.tool_classes.milling.toroid_mill import ToroidTurnMill_TM_Z_1
+from tool_updater.classes.tool_classes.milling.toroid_mill import ToroidTurnMill_TM_Z_2
+from tool_updater.classes.tool_classes.milling.toroid_mill import ToroidTurnMill_TM_Z_SUB
+from tool_updater.classes.tool_classes.milling.toroid_mill import ToroidTurnMill_T_Z_ER
+from tool_updater.classes.tool_classes.milling.toroid_mill import ToroidTurnMill_T_Z_SUB_ER
+from tool_updater.classes.tool_classes.milling.toroid_mill import ToroidTurnMill_T_Z
+from tool_updater.classes.tool_classes.milling.toroid_mill import ToroidTurnMill_T_Z_SUB
+from tool_updater.classes.tool_classes.milling.toroid_mill import ToroidTurnMill_T_Z_F2
+
+from tool_updater.classes.tool_classes.milling.chamfer_mill import ChamferTurnMill_TM_X
+from tool_updater.classes.tool_classes.milling.chamfer_mill import ChamferTurnMill_TM_X_L
+from tool_updater.classes.tool_classes.milling.chamfer_mill import ChamferTurnMill_TM_Z_1
+from tool_updater.classes.tool_classes.milling.chamfer_mill import ChamferTurnMill_TM_Z_2
+from tool_updater.classes.tool_classes.milling.chamfer_mill import ChamferTurnMill_TM_Z_SUB
+from tool_updater.classes.tool_classes.milling.chamfer_mill import ChamferTurnMill_T_Z_ER
+from tool_updater.classes.tool_classes.milling.chamfer_mill import ChamferTurnMill_T_Z_SUB_ER
+from tool_updater.classes.tool_classes.milling.chamfer_mill import ChamferTurnMill_T_Z
+from tool_updater.classes.tool_classes.milling.chamfer_mill import ChamferTurnMill_T_Z_SUB
+from tool_updater.classes.tool_classes.milling.chamfer_mill import ChamferTurnMill_T_Z_F2
+
+
+
 logger = logging.getLogger("src")
 
 
@@ -280,43 +305,43 @@ def gen_endmills():
 def gen_turn_mill_endmills():
     all_holders = {
         "TM_X": {
-            "tool_class": TurnMillEndmill_TM_X,
+            "tool_class": KontsTurnMill_TM_X,
             "holder_subdir": "TM_X"
         },
         "TM_X_L": {
-            "tool_class": TurnMillEndmill_TM_X_L,
+            "tool_class": KontsTurnMill_TM_X_L,
             "holder_subdir": "TM_X_L"
         },
         "TM_Z_1": {
-            "tool_class": TurnMillEndmill_TM_Z_1,
+            "tool_class": KontsTurnMill_TM_Z_1,
             "holder_subdir": "TM_Z_1"
         },
         "TM_Z_2": {
-            "tool_class": TurnMillEndmill_TM_Z_2,
+            "tool_class": KontsTurnMill_TM_Z_2,
             "holder_subdir": "TM_Z_2"
         },
         "TM_Z_SUB": {
-            "tool_class": TurnMillEndmill_TM_Z_SUB,
+            "tool_class": KontsTurnMill_TM_Z_SUB,
             "holder_subdir": "TM_Z_SUB"
         },
         "T_Z_ER": {
-            "tool_class": TurnMillEndmill_T_Z_ER,
+            "tool_class": KontsTurnMill_T_Z_ER,
             "holder_subdir": "T_Z_ER"
         },
         "T_Z_SUB_ER": {
-            "tool_class": TurnMillEndmill_T_Z_SUB_ER,
+            "tool_class": KontsTurnMill_T_Z_SUB_ER,
             "holder_subdir": "T_Z_SUB_ER"
         },
         "T_Z": {
-            "tool_class": TurnMillEndmill_T_Z,
+            "tool_class": KontsTurnMill_T_Z,
             "holder_subdir": "T_Z"
         },
         "T_Z_SUB": {
-            "tool_class": TurnMillEndmill_T_Z_SUB,
+            "tool_class": KontsTurnMill_T_Z_SUB,
             "holder_subdir": "T_Z_SUB"
         },
         "T_Z_F2": {
-            "tool_class": TurnMillEndmill_T_Z_F2,
+            "tool_class": KontsTurnMill_T_Z_F2,
             "holder_subdir": "T_Z_F2"
         },
     }
@@ -559,6 +584,85 @@ def gen_toroidmills():
         path_to_catalog_geometry=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\milling\toroidal_endmills\Gesac\isoP_isoM\SS600-R4\SS600-R4.json",
         path_to_catalog_cut_data=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\milling\toroidal_endmills\Gesac\isoP_isoM\SS600-R4\SS600-R4_cut_data.json",
     )
+
+
+def gen_turn_mill_toroidmills():
+    all_holders = {
+        "TM_X": {
+            "tool_class": ToroidTurnMill_TM_X,
+            "holder_subdir": "TM_X"
+        },
+        "TM_X_L": {
+            "tool_class": ToroidTurnMill_TM_X_L,
+            "holder_subdir": "TM_X_L"
+        },
+        "TM_Z_1": {
+            "tool_class": ToroidTurnMill_TM_Z_1,
+            "holder_subdir": "TM_Z_1"
+        },
+        "TM_Z_2": {
+            "tool_class": ToroidTurnMill_TM_Z_2,
+            "holder_subdir": "TM_Z_2"
+        },
+        "TM_Z_SUB": {
+            "tool_class": ToroidTurnMill_TM_Z_SUB,
+            "holder_subdir": "TM_Z_SUB"
+        },
+        "T_Z_ER": {
+            "tool_class": ToroidTurnMill_T_Z_ER,
+            "holder_subdir": "T_Z_ER"
+        },
+        "T_Z_SUB_ER": {
+            "tool_class": ToroidTurnMill_T_Z_SUB_ER,
+            "holder_subdir": "T_Z_SUB_ER"
+        },
+        "T_Z": {
+            "tool_class": ToroidTurnMill_T_Z,
+            "holder_subdir": "T_Z"
+        },
+        "T_Z_SUB": {
+            "tool_class": ToroidTurnMill_T_Z_SUB,
+            "holder_subdir": "T_Z_SUB"
+        },
+        "T_Z_F2": {
+            "tool_class": ToroidTurnMill_T_Z_F2,
+            "holder_subdir": "T_Z_F2"
+        },
+    }
+
+    for holder in all_holders:
+        holder_subdir = all_holders[holder]["holder_subdir"]
+        tool_class = all_holders[holder]["tool_class"]
+        tool_prefix = holder_subdir.lower() + "_"
+
+        ToolGenerator.create_tools(
+            tool_class=tool_class,
+            target_path=fr"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\база инструмента\target_path\TurnMill\{holder_subdir}\ToroidMill\Gesac UA100-R3",
+            debug_mode=0,
+
+            file_name_prefix=tool_prefix + "fr_tor_",
+            # file_name_prefix="fr_tor_chist_",
+            # file_name_prefix="fr_tor_chern_",
+
+            teeth_num=3,
+            file_name_suffix="_UA100-R3",
+            path_to_catalog_geometry=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\milling\toroidal_endmills\Gesac\isoN\UA100-R3\UA100-R3.json",
+            path_to_catalog_cut_data=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\milling\toroidal_endmills\Gesac\isoN\UA100-R3\UA100-R3_cut_data.json",
+        )
+        ToolGenerator.create_tools(
+            tool_class=tool_class,
+            target_path=fr"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\база инструмента\target_path\TurnMill\{holder_subdir}\ToroidMill\Gesac SS600-R4",
+            debug_mode=0,
+
+            file_name_prefix=tool_prefix + "fr_tor_",
+            # file_name_prefix="fr_tor_chist_",
+            # file_name_prefix="fr_tor_chern_",
+
+            teeth_num=4,
+            file_name_suffix="_SS600-R4",
+            path_to_catalog_geometry=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\milling\toroidal_endmills\Gesac\isoP_isoM\SS600-R4\SS600-R4.json",
+            path_to_catalog_cut_data=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\milling\toroidal_endmills\Gesac\isoP_isoM\SS600-R4\SS600-R4_cut_data.json",
+        )
 
 
 def gen_disk_mills():
@@ -808,6 +912,115 @@ def gen_ugloviye():
         path_to_catalog_cut_data=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\milling\chamfer_mills\special\L45_cut_data.json",
     )
 
+def gen_turn_mill_ugloviye():
+    all_holders = {
+        "TM_X": {
+            "tool_class": ChamferTurnMill_TM_X,
+            "holder_subdir": "TM_X"
+        },
+        "TM_X_L": {
+            "tool_class": ChamferTurnMill_TM_X_L,
+            "holder_subdir": "TM_X_L"
+        },
+        "TM_Z_1": {
+            "tool_class": ChamferTurnMill_TM_Z_1,
+            "holder_subdir": "TM_Z_1"
+        },
+        "TM_Z_2": {
+            "tool_class": ChamferTurnMill_TM_Z_2,
+            "holder_subdir": "TM_Z_2"
+        },
+        "TM_Z_SUB": {
+            "tool_class": ChamferTurnMill_TM_Z_SUB,
+            "holder_subdir": "TM_Z_SUB"
+        },
+        "T_Z_ER": {
+            "tool_class": ChamferTurnMill_T_Z_ER,
+            "holder_subdir": "T_Z_ER"
+        },
+        "T_Z_SUB_ER": {
+            "tool_class": ChamferTurnMill_T_Z_SUB_ER,
+            "holder_subdir": "T_Z_SUB_ER"
+        },
+        "T_Z": {
+            "tool_class": ChamferTurnMill_T_Z,
+            "holder_subdir": "T_Z"
+        },
+        "T_Z_SUB": {
+            "tool_class": ChamferTurnMill_T_Z_SUB,
+            "holder_subdir": "T_Z_SUB"
+        },
+        "T_Z_F2": {
+            "tool_class": ChamferTurnMill_T_Z_F2,
+            "holder_subdir": "T_Z_F2"
+        },
+    }
+
+    for holder in all_holders:
+        holder_subdir = all_holders[holder]["holder_subdir"]
+        tool_class = all_holders[holder]["tool_class"]
+        tool_prefix = holder_subdir.lower() + "_"
+
+        ToolGenerator.create_tools(
+            tool_class=tool_class,
+            target_path=fr"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\база инструмента\target_path\TurnMill\{holder_subdir}\ChamferMill\Gesac UP210-L60",
+            teeth_num=4,
+            debug_mode=0,
+
+            file_name_prefix=tool_prefix + "uglovaya_",
+            file_name_suffix="_UP210-L60",
+            path_to_catalog_geometry=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\milling\chamfer_mills\Gesac\UP210\UP210-L60.json",
+            path_to_catalog_cut_data=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\milling\chamfer_mills\Gesac\UP210\UP210-L60_cut_data.json",
+        )
+        ToolGenerator.create_tools(
+            tool_class=tool_class,
+            target_path=fr"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\база инструмента\target_path\TurnMill\{holder_subdir}\ChamferMill\Gesac UP210-L90",
+            teeth_num=4,
+            debug_mode=0,
+
+            file_name_prefix=tool_prefix + "uglovaya_",
+            file_name_suffix="_UP210-L90",
+            path_to_catalog_geometry=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\milling\chamfer_mills\Gesac\UP210\UP210-L90.json",
+            path_to_catalog_cut_data=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\milling\chamfer_mills\Gesac\UP210\UP210-L90_cut_data.json",
+        )
+        ToolGenerator.create_tools(
+            tool_class=tool_class,
+            target_path=fr"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\база инструмента\target_path\TurnMill\{holder_subdir}\ChamferMill\Gesac UP210-L120",
+            teeth_num=4,
+            debug_mode=0,
+
+            file_name_prefix=tool_prefix + "uglovaya_",
+            file_name_suffix="_UP210-L120",
+            path_to_catalog_geometry=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\milling\chamfer_mills\Gesac\UP210\UP210-L120.json",
+            path_to_catalog_cut_data=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\milling\chamfer_mills\Gesac\UP210\UP210-L120_cut_data.json",
+        )
+
+        ToolGenerator.create_tools(
+            tool_class=tool_class,
+            target_path=fr"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\база инструмента\target_path\TurnMill\{holder_subdir}\ChamferMill\Special A30",
+            teeth_num=4,
+            debug_mode=0,
+
+            file_name_prefix=tool_prefix + "uglovaya_",
+            file_name_suffix="_A30",
+            path_to_catalog_geometry=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\milling\chamfer_mills\special\L30.json",
+            path_to_catalog_cut_data=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\milling\chamfer_mills\special\L30_cut_data.json",
+        )
+
+        ToolGenerator.create_tools(
+            tool_class=tool_class,
+            target_path=fr"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\база инструмента\target_path\TurnMill\{holder_subdir}\ChamferMill\Special A45",
+            teeth_num=4,
+            debug_mode=0,
+
+            file_name_prefix=tool_prefix + "uglovaya_",
+            file_name_suffix="_A45",
+            path_to_catalog_geometry=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\milling\chamfer_mills\special\L45.json",
+            path_to_catalog_cut_data=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\milling\chamfer_mills\special\L45_cut_data.json",
+        )
+
+
+
 
 def gen_gribkovie():
     ToolGenerator.create_tools(
@@ -990,8 +1203,13 @@ def main():
     #   axial
     # gen_turn_mill_drills()
     #   milling
-    gen_turn_mill_ballmills()
     # gen_turn_mill_endmills()
+    # gen_turn_mill_ballmills()
+    # gen_turn_mill_toroidmills()
+
+    #   chamfers and rad
+    gen_turn_mill_ugloviye()
+    # gen_turn_mill_vnutr_rad_mills()
 
     #   milling
     # gen_turn_mill_endmills()

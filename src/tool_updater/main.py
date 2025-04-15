@@ -43,6 +43,16 @@ from tool_updater.classes.tool_classes.milling.endmill import TurnMillEndmill_T_
 from tool_updater.classes.tool_classes.milling.endmill import TurnMillEndmill_T_Z_SUB
 from tool_updater.classes.tool_classes.milling.endmill import TurnMillEndmill_T_Z_F2
 
+from tool_updater.classes.tool_classes.milling.sphere_mill import SferaTurnMill_TM_X
+from tool_updater.classes.tool_classes.milling.sphere_mill import SferaTurnMill_TM_X_L
+from tool_updater.classes.tool_classes.milling.sphere_mill import SferaTurnMill_TM_Z_1
+from tool_updater.classes.tool_classes.milling.sphere_mill import SferaTurnMill_TM_Z_2
+from tool_updater.classes.tool_classes.milling.sphere_mill import SferaTurnMill_TM_Z_SUB
+from tool_updater.classes.tool_classes.milling.sphere_mill import SferaTurnMill_T_Z_ER
+from tool_updater.classes.tool_classes.milling.sphere_mill import SferaTurnMill_T_Z_SUB_ER
+from tool_updater.classes.tool_classes.milling.sphere_mill import SferaTurnMill_T_Z
+from tool_updater.classes.tool_classes.milling.sphere_mill import SferaTurnMill_T_Z_SUB
+from tool_updater.classes.tool_classes.milling.sphere_mill import SferaTurnMill_T_Z_F2
 logger = logging.getLogger("src")
 
 
@@ -82,6 +92,7 @@ def gen_drills():
         path_to_catalog_geometry=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\axial\drills\China\1 geom.json",
         path_to_catalog_cut_data=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\axial\drills\China\2 cut_data.json",
     )
+
 
 def gen_turn_mill_drills():
     all_holders = {
@@ -131,8 +142,6 @@ def gen_turn_mill_drills():
         holder_subdir = all_holders[holder]["holder_subdir"]
         tool_class = all_holders[holder]["tool_class"]
 
-
-
         tool_prefix = holder_subdir.lower() + "_"
         ToolGenerator.create_tools(
             tool_class=tool_class,
@@ -140,7 +149,7 @@ def gen_turn_mill_drills():
             debug_mode=0,
 
             teeth_num=1,
-            file_name_prefix= tool_prefix + "sv_",
+            file_name_prefix=tool_prefix + "sv_",
             file_name_suffix="_2386STI",
             path_to_catalog_geometry=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\axial\drills\Osawa\hss_regular_drills\2386STI.json",
             path_to_catalog_cut_data=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\axial\drills\Osawa\hss_regular_drills\2386STI_cut_data.json",
@@ -151,7 +160,7 @@ def gen_turn_mill_drills():
             debug_mode=0,
 
             teeth_num=1,
-            file_name_prefix= tool_prefix + "sv_udlin_",
+            file_name_prefix=tool_prefix + "sv_udlin_",
             file_name_suffix="_1692LS",
             path_to_catalog_geometry=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\axial\drills\Osawa\hss_extended_drills\1692LS.json",
             path_to_catalog_cut_data=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\axial\drills\Osawa\hss_extended_drills\1692LS_cut_data.json",
@@ -162,12 +171,11 @@ def gen_turn_mill_drills():
             debug_mode=0,
 
             teeth_num=1,
-            file_name_prefix= tool_prefix + "sv_udlin_",
+            file_name_prefix=tool_prefix + "sv_udlin_",
             file_name_suffix="_China",
             path_to_catalog_geometry=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\axial\drills\China\1 geom.json",
             path_to_catalog_cut_data=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\axial\drills\China\2 cut_data.json",
         )
-
 
 
 def gen_endmills():
@@ -269,7 +277,6 @@ def gen_endmills():
     )
 
 
-
 def gen_turn_mill_endmills():
     all_holders = {
         "TM_X": {
@@ -326,7 +333,7 @@ def gen_turn_mill_endmills():
             # debug_mode=1,
             # debug_mode=2,
 
-            file_name_prefix= tool_prefix + "fr_univ_",
+            file_name_prefix=tool_prefix + "fr_univ_",
             # file_name_prefix="fr_chern_",
             # file_name_prefix="fr_chist_",
 
@@ -343,7 +350,7 @@ def gen_turn_mill_endmills():
             # debug_mode=1,
             # debug_mode=2,
 
-            file_name_prefix= tool_prefix + "fr_univ_",
+            file_name_prefix=tool_prefix + "fr_univ_",
             # file_name_prefix="fr_chern_",
             # file_name_prefix="fr_chist_",
 
@@ -360,7 +367,7 @@ def gen_turn_mill_endmills():
             # debug_mode=1,
             # debug_mode=2,
 
-            file_name_prefix= tool_prefix + "fr_univ_",
+            file_name_prefix=tool_prefix + "fr_univ_",
             # file_name_prefix="fr_chern_",
             # file_name_prefix="fr_chist_",
 
@@ -378,7 +385,7 @@ def gen_turn_mill_endmills():
             # debug_mode=2,
 
             # file_name_prefix="fr_univ_",
-            file_name_prefix= tool_prefix + "fr_chern_",
+            file_name_prefix=tool_prefix + "fr_chern_",
             # file_name_prefix="fr_chist_",
 
             teeth_num=4,
@@ -394,7 +401,7 @@ def gen_turn_mill_endmills():
             # debug_mode=1,
             # debug_mode=2,
 
-            file_name_prefix= tool_prefix + "fr_konts_udlin_",
+            file_name_prefix=tool_prefix + "fr_konts_udlin_",
 
             teeth_num=3,
             file_name_suffix="_UA100-SL3",
@@ -408,17 +415,13 @@ def gen_turn_mill_endmills():
             # debug_mode=1,
             # debug_mode=2,
 
-            file_name_prefix= tool_prefix + "fr_konts_udlin_",
+            file_name_prefix=tool_prefix + "fr_konts_udlin_",
 
             teeth_num=4,
             file_name_suffix="_UP210-SL4",
             path_to_catalog_geometry=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\milling\endmills\Gesac\univ_isoP_iso_M\SS600-SL4(UP210-SL4)\SS600-SL4(UP210-SL4).json",
             path_to_catalog_cut_data=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\milling\endmills\Gesac\univ_isoP_iso_M\SS600-SL4(UP210-SL4)\SS600-SL4(UP210-SL4)_cut_data.json",
         )
-
-
-
-
 
 
 def gen_ballmills():
@@ -430,7 +433,6 @@ def gen_ballmills():
         file_name_prefix="sfera_",
         # file_name_prefix="sfera_chist_",
         # file_name_prefix="sfera_chern_",
-
 
         teeth_num=2,
         file_name_suffix="_UA100-B2",
@@ -451,6 +453,81 @@ def gen_ballmills():
         path_to_catalog_geometry=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\milling\ballnose_mills\Gesac\SS600-B4/SS600-B4.json",
         path_to_catalog_cut_data=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\milling\ballnose_mills\Gesac\SS600-B4/SS600-B4_cut_data.json",
     )
+
+
+def gen_turn_mill_ballmills():
+    all_holders = {
+        "TM_X": {
+            "tool_class": SferaTurnMill_TM_X,
+            "holder_subdir": "TM_X"
+        },
+        "TM_X_L": {
+            "tool_class": SferaTurnMill_TM_X_L,
+            "holder_subdir": "TM_X_L"
+        },
+        "TM_Z_1": {
+            "tool_class": SferaTurnMill_TM_Z_1,
+            "holder_subdir": "TM_Z_1"
+        },
+        "TM_Z_2": {
+            "tool_class": SferaTurnMill_TM_Z_2,
+            "holder_subdir": "TM_Z_2"
+        },
+        "TM_Z_SUB": {
+            "tool_class": SferaTurnMill_TM_Z_SUB,
+            "holder_subdir": "TM_Z_SUB"
+        },
+        "T_Z_ER": {
+            "tool_class": SferaTurnMill_T_Z_ER,
+            "holder_subdir": "T_Z_ER"
+        },
+        "T_Z_SUB_ER": {
+            "tool_class": SferaTurnMill_T_Z_SUB_ER,
+            "holder_subdir": "T_Z_SUB_ER"
+        },
+        "T_Z": {
+            "tool_class": SferaTurnMill_T_Z,
+            "holder_subdir": "T_Z"
+        },
+        "T_Z_SUB": {
+            "tool_class": SferaTurnMill_T_Z_SUB,
+            "holder_subdir": "T_Z_SUB"
+        },
+        "T_Z_F2": {
+            "tool_class": SferaTurnMill_T_Z_F2,
+            "holder_subdir": "T_Z_F2"
+        },
+    }
+
+    for holder in all_holders:
+        holder_subdir = all_holders[holder]["holder_subdir"]
+        tool_class = all_holders[holder]["tool_class"]
+
+        tool_prefix = holder_subdir.lower() + "_"
+
+        ToolGenerator.create_tools(
+            tool_class=tool_class,
+            target_path=fr"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\база инструмента\target_path\TurnMill\{holder_subdir}\BallMill\Gesac UA100-B2",
+            debug_mode=0,
+
+            file_name_prefix=tool_prefix + "sfera_",
+
+            teeth_num=2,
+            file_name_suffix="_UA100-B2",
+            path_to_catalog_geometry=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\milling\ballnose_mills\Gesac\UA100-B2\UA100-B2.json",
+            path_to_catalog_cut_data=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\milling\ballnose_mills\Gesac\UA100-B2\UA100-B2_cut_data.json",
+        )
+        ToolGenerator.create_tools(
+            tool_class=tool_class,
+            target_path=fr"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\база инструмента\target_path\TurnMill\{holder_subdir}\BallMill\Gesac SS600-B4",
+            debug_mode=0,
+
+            file_name_prefix=tool_prefix + "sfera_",
+            teeth_num=4,
+            file_name_suffix="_SS600-B4",
+            path_to_catalog_geometry=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\milling\ballnose_mills\Gesac\SS600-B4/SS600-B4.json",
+            path_to_catalog_cut_data=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\milling\ballnose_mills\Gesac\SS600-B4/SS600-B4_cut_data.json",
+        )
 
 
 def gen_toroidmills():
@@ -707,7 +784,6 @@ def gen_ugloviye():
         path_to_catalog_cut_data=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\milling\chamfer_mills\Gesac\UP210\UP210-L120_cut_data.json",
     )
 
-
     ToolGenerator.create_tools(
         tool_class=ChamferMill,
         target_path=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\база инструмента\target_path\ChamferMill\Special A30",
@@ -719,7 +795,6 @@ def gen_ugloviye():
         path_to_catalog_geometry=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\milling\chamfer_mills\special\L30.json",
         path_to_catalog_cut_data=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\milling\chamfer_mills\special\L30_cut_data.json",
     )
-
 
     ToolGenerator.create_tools(
         tool_class=ChamferMill,
@@ -911,16 +986,15 @@ def main():
     # gen_cekovki()
     # gen_razvertki()
 
-
-
     # turnmill
     #   axial
-    gen_turn_mill_drills()
+    # gen_turn_mill_drills()
+    #   milling
+    gen_turn_mill_ballmills()
+    # gen_turn_mill_endmills()
 
     #   milling
     # gen_turn_mill_endmills()
-
-
 
     """
     freza_konts_

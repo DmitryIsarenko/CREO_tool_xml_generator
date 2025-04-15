@@ -5,12 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="48ac9736-8a74-4e0d-b305-20a2e9cc5ab7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/tool_updater/classes/turnmill_len_adaptors.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/logs/log.log" beforeDir="false" afterPath="$PROJECT_DIR$/src/logs/log.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tool_updater/classes/tool_classes/axial/drill.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/tool_updater/classes/tool_classes/axial/drill.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tool_updater/classes/tool_classes/milling/endmill.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/tool_updater/classes/tool_classes/milling/endmill.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tool_updater/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/tool_updater/config.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tool_updater/classes/tool_classes/milling/sphere_mill.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/tool_updater/classes/tool_classes/milling/sphere_mill.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tool_updater/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/tool_updater/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -241,7 +238,8 @@
       <workItem from="1742822910915" duration="7339000" />
       <workItem from="1744020487067" duration="620000" />
       <workItem from="1744183847297" duration="1615000" />
-      <workItem from="1744349674262" duration="6776000" />
+      <workItem from="1744349674262" duration="6869000" />
+      <workItem from="1744636948517" duration="1974000" />
     </task>
     <servers />
   </component>

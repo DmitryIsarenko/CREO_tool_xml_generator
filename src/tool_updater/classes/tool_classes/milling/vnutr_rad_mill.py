@@ -188,22 +188,25 @@ class VnutrRadMill(BaseTool):
             <Attr DataType="boolean" Name="ProLibraryTool" Value="false"/>
             <Attr DataType="boolean" Name="SketchTool" Value="false"/>
             <Attr DataType="boolean" Name="ToolByRef" Value="false"/>
+            
             <ModelInfo FamilyName="ROUND_PROF_MILL_ASM" InstanceName="ROUND_PROF_MILL_ASM{self.d_for_bom()}" Type="Assembly"/>
-            <MfgParam Name="LENGTH_UNITS" Value="{self.tool_data["LENGTH_UNITS"]}"/>
         
             <MfgParam Name="CUTTER_DIAM" Value="{self.tool_data["CUTTER_DIAM"]}"/>
             <MfgParam Name="CORNER_RADIUS" Value="{self.corner_radius}"/>
             <MfgParam Name="SHANK_DIAM" Value="{self.shank_diam}"/>
+            <MfgParam Name="NUM_OF_TEETH" Value="{self.tool_data["NUM_OF_TEETH"]}"/>
         
             <MfgParam Name="LENGTH" Value="{self.tool_data["len_out_of_holder"]}"/>
             <MfgParam Name="CUT_LENGTH" Value="{self.cut_length}"/>
             <MfgParam Name="TIP_LENGTH" Value="-"/>
-                
-            <MfgParam Name="NUM_OF_TEETH" Value="{self.tool_data["NUM_OF_TEETH"]}"/>
+                        
             <MfgParam Name="HOLDER_DIA" Value="{self.tool_data["HOLDER_DIA"]}"/>
             <MfgParam Name="HOLDER_LEN" Value="{self.tool_data["HOLDER_LEN"]}"/>
                 
+            <MfgParam Name="LENGTH_UNITS" Value="{self.tool_data["LENGTH_UNITS"]}"/>
             <MfgParam Name="TOOL_MATERIAL" Value="{self.tool_data["TOOL_MATERIAL"]}"/>
+            <MfgParam Name="TOOL_COMMENT" Value="{self.tool_data["TOOL_COMMENT"]}"/>
+            
             <MfgParam Name="GAUGE_X_LENGTH" Value="{self.tool_data["GAUGE_X_LENGTH"]}"/>
             <MfgParam Name="GAUGE_Z_LENGTH" Value="{self.tool_data["GAUGE_Z_LENGTH"]}"/>
             <MfgParam Name="COMP_OVERSIZE" Value="{self.tool_data["COMP_OVERSIZE"]}"/>
@@ -211,7 +214,6 @@ class VnutrRadMill(BaseTool):
             <MfgParam Name="COOLANT_OPTION" Value="{self.tool_data["COOLANT_OPTION"]}"/>
             <MfgParam Name="COOLANT_PRESSURE" Value="{self.tool_data["COOLANT_PRESSURE"]}"/>
             <MfgParam Name="SPINDLE_SENSE" Value="{self.tool_data["SPINDLE_SENSE"]}"/>
-            <MfgParam Name="TOOL_COMMENT" Value="{self.tool_data["TOOL_COMMENT"]}"/>
     """
         logger.debug(f"{self.tool_size_from_geom_catalogue} - xml_tool_params generated...")
         return xml_part_str
@@ -352,10 +354,13 @@ class R_VnutrTurnMill(VnutrRadMill):
             <ModelInfo FamilyName="{self.family_name}" InstanceName="{self.instance_name}{self.d_for_bom()}" Type="Assembly"/>
 
             <MfgParam Name="CUTTER_DIAM" Value="{self.tool_data["CUTTER_DIAM"]}"/>
-            <MfgParam Name="FLUTE_LENGTH" Value="{self.tool_data["FLUTE_LENGTH"]}"/>
-            <MfgParam Name="CORNER_RADIUS" Value="{self.tool_data["CORNER_RADIUS"]}"/>
-            <MfgParam Name="LENGTH" Value="{self.tool_data["len_out_of_holder"]}"/>
+            <MfgParam Name="CORNER_RADIUS" Value="{self.corner_radius}"/>
+            <MfgParam Name="SHANK_DIAM" Value="{self.shank_diam}"/>
             <MfgParam Name="NUM_OF_TEETH" Value="{self.tool_data["NUM_OF_TEETH"]}"/>
+        
+            <MfgParam Name="LENGTH" Value="{self.tool_data["len_out_of_holder"]}"/>
+            <MfgParam Name="CUT_LENGTH" Value="{self.cut_length}"/>
+            <MfgParam Name="TIP_LENGTH" Value="-"/>
 
             <MfgParam Name="HOLDER_DIA" Value="{self.tool_data["HOLDER_DIA"]}"/>
             <MfgParam Name="HOLDER_LEN" Value="{self.tool_data["HOLDER_LEN"]}"/>
@@ -365,6 +370,8 @@ class R_VnutrTurnMill(VnutrRadMill):
 
             <MfgParam Name="LENGTH_UNITS" Value="{self.tool_data["LENGTH_UNITS"]}"/>
             <MfgParam Name="TOOL_MATERIAL" Value="{self.tool_data["TOOL_MATERIAL"]}"/>
+            <MfgParam Name="TOOL_COMMENT" Value="{self.tool_data["TOOL_COMMENT"]}"/>
+     
             <MfgParam Name="GAUGE_X_LENGTH" Value="{self.tool_data["GAUGE_X_LENGTH"]}"/>
             <MfgParam Name="GAUGE_Z_LENGTH" Value="{self.tool_data["GAUGE_Z_LENGTH"]}"/>
             <MfgParam Name="COMP_OVERSIZE" Value="{self.tool_data["COMP_OVERSIZE"]}"/>
@@ -372,7 +379,6 @@ class R_VnutrTurnMill(VnutrRadMill):
             <MfgParam Name="COOLANT_OPTION" Value="{self.tool_data["COOLANT_OPTION"]}"/>
             <MfgParam Name="COOLANT_PRESSURE" Value="{self.tool_data["COOLANT_PRESSURE"]}"/>
             <MfgParam Name="SPINDLE_SENSE" Value="{self.tool_data["SPINDLE_SENSE"]}"/>
-            <MfgParam Name="TOOL_COMMENT" Value="{self.tool_data["TOOL_COMMENT"]}"/>
         """
         # logger.debug(f"{self.tool_size_from_geom_catalogue} - xml_tool_params generated...")
         return xml_part_str

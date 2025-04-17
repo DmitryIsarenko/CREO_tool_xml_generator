@@ -142,6 +142,30 @@ from tool_updater.classes.tool_classes.milling.disk_mill import Disk_FlTurnMill_
 from tool_updater.classes.tool_classes.milling.disk_mill import Disk_FlTurnMill_T_Z_SUB
 from tool_updater.classes.tool_classes.milling.disk_mill import Disk_FlTurnMill_T_Z_F2
 
+from tool_updater.classes.tool_classes.milling.vnutr_rad_mill import R_VnutrTurnMill_TM_X
+from tool_updater.classes.tool_classes.milling.vnutr_rad_mill import R_VnutrTurnMill_TM_X_L
+from tool_updater.classes.tool_classes.milling.vnutr_rad_mill import R_VnutrTurnMill_TM_Z_1
+from tool_updater.classes.tool_classes.milling.vnutr_rad_mill import R_VnutrTurnMill_TM_Z_2
+from tool_updater.classes.tool_classes.milling.vnutr_rad_mill import R_VnutrTurnMill_TM_Z_SUB
+from tool_updater.classes.tool_classes.milling.vnutr_rad_mill import R_VnutrTurnMill_T_Z_ER
+from tool_updater.classes.tool_classes.milling.vnutr_rad_mill import R_VnutrTurnMill_T_Z_SUB_ER
+from tool_updater.classes.tool_classes.milling.vnutr_rad_mill import R_VnutrTurnMill_T_Z
+from tool_updater.classes.tool_classes.milling.vnutr_rad_mill import R_VnutrTurnMill_T_Z_SUB
+from tool_updater.classes.tool_classes.milling.vnutr_rad_mill import R_VnutrTurnMill_T_Z_F2
+
+from tool_updater.classes.tool_classes.milling.threadmill import ThreadTurnMill_TM_X
+from tool_updater.classes.tool_classes.milling.threadmill import ThreadTurnMill_TM_X_L
+from tool_updater.classes.tool_classes.milling.threadmill import ThreadTurnMill_TM_Z_1
+from tool_updater.classes.tool_classes.milling.threadmill import ThreadTurnMill_TM_Z_2
+from tool_updater.classes.tool_classes.milling.threadmill import ThreadTurnMill_TM_Z_SUB
+from tool_updater.classes.tool_classes.milling.threadmill import ThreadTurnMill_T_Z_ER
+from tool_updater.classes.tool_classes.milling.threadmill import ThreadTurnMill_T_Z_SUB_ER
+from tool_updater.classes.tool_classes.milling.threadmill import ThreadTurnMill_T_Z
+from tool_updater.classes.tool_classes.milling.threadmill import ThreadTurnMill_T_Z_SUB
+from tool_updater.classes.tool_classes.milling.threadmill import ThreadTurnMill_T_Z_F2
+
+
+
 logger = logging.getLogger("src")
 
 
@@ -1061,6 +1085,68 @@ def gen_vnutr_rad_mills():
         path_to_catalog_geometry=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\milling\internal_R\Precitool\178815\178815.json",
     )
 
+def gen_turn_mill_vnutr_rad_mills():
+    all_holders = {
+        "TM_X": {
+            "tool_class": R_VnutrTurnMill_TM_X,
+            "holder_subdir": "TM_X"
+        },
+        "TM_X_L": {
+            "tool_class": R_VnutrTurnMill_TM_X_L,
+            "holder_subdir": "TM_X_L"
+        },
+        "TM_Z_1": {
+            "tool_class": R_VnutrTurnMill_TM_Z_1,
+            "holder_subdir": "TM_Z_1"
+        },
+        "TM_Z_2": {
+            "tool_class": R_VnutrTurnMill_TM_Z_2,
+            "holder_subdir": "TM_Z_2"
+        },
+        "TM_Z_SUB": {
+            "tool_class": R_VnutrTurnMill_TM_Z_SUB,
+            "holder_subdir": "TM_Z_SUB"
+        },
+        "T_Z_ER": {
+            "tool_class": R_VnutrTurnMill_T_Z_ER,
+            "holder_subdir": "T_Z_ER"
+        },
+        "T_Z_SUB_ER": {
+            "tool_class": R_VnutrTurnMill_T_Z_SUB_ER,
+            "holder_subdir": "T_Z_SUB_ER"
+        },
+        "T_Z": {
+            "tool_class": R_VnutrTurnMill_T_Z,
+            "holder_subdir": "T_Z"
+        },
+        "T_Z_SUB": {
+            "tool_class": R_VnutrTurnMill_T_Z_SUB,
+            "holder_subdir": "T_Z_SUB"
+        },
+        "T_Z_F2": {
+            "tool_class": R_VnutrTurnMill_T_Z_F2,
+            "holder_subdir": "T_Z_F2"
+        },
+    }
+
+    for holder in all_holders:
+        holder_subdir = all_holders[holder]["holder_subdir"]
+        tool_class = all_holders[holder]["tool_class"]
+
+        tool_prefix = holder_subdir.lower() + "_"
+
+        ToolGenerator.create_tools(
+            tool_class=tool_class,
+            target_path=fr"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\база инструмента\target_path\TurnMill\{holder_subdir}\VnutrRadMill\Precitool 178815",
+            teeth_num=4,
+            debug_mode=0,
+
+            file_name_prefix=tool_prefix + "vnutr_rad_",
+            file_name_suffix="_178815",
+            path_to_catalog_cut_data=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\milling\internal_R\Precitool\178815\178815_cut_data.json",
+            path_to_catalog_geometry=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\milling\internal_R\Precitool\178815\178815.json",
+        )
+
 
 def gen_razvertki():
     ToolGenerator.create_tools(
@@ -1585,6 +1671,81 @@ def gen_rezbofrezi():
         path_to_catalog_cut_data=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\milling\thread_milling\Vardex\Helicool\inch\helicool_g_cut_data.json",
     )
 
+def gen_turn_mill_rezbofrezi():
+    all_holders = {
+        "TM_X": {
+            "tool_class": ThreadTurnMill_TM_X,
+            "holder_subdir": "TM_X"
+        },
+        "TM_X_L": {
+            "tool_class": ThreadTurnMill_TM_X_L,
+            "holder_subdir": "TM_X_L"
+        },
+        "TM_Z_1": {
+            "tool_class": ThreadTurnMill_TM_Z_1,
+            "holder_subdir": "TM_Z_1"
+        },
+        "TM_Z_2": {
+            "tool_class": ThreadTurnMill_TM_Z_2,
+            "holder_subdir": "TM_Z_2"
+        },
+        "TM_Z_SUB": {
+            "tool_class": ThreadTurnMill_TM_Z_SUB,
+            "holder_subdir": "TM_Z_SUB"
+        },
+        "T_Z_ER": {
+            "tool_class": ThreadTurnMill_T_Z_ER,
+            "holder_subdir": "T_Z_ER"
+        },
+        "T_Z_SUB_ER": {
+            "tool_class": ThreadTurnMill_T_Z_SUB_ER,
+            "holder_subdir": "T_Z_SUB_ER"
+        },
+        "T_Z": {
+            "tool_class": ThreadTurnMill_T_Z,
+            "holder_subdir": "T_Z"
+        },
+        "T_Z_SUB": {
+            "tool_class": ThreadTurnMill_T_Z_SUB,
+            "holder_subdir": "T_Z_SUB"
+        },
+        "T_Z_F2": {
+            "tool_class": ThreadTurnMill_T_Z_F2,
+            "holder_subdir": "T_Z_F2"
+        },
+    }
+
+    for holder in all_holders:
+        holder_subdir = all_holders[holder]["holder_subdir"]
+        tool_class = all_holders[holder]["tool_class"]
+
+        tool_prefix = holder_subdir.lower() + "_"
+
+        ToolGenerator.create_tools(
+            tool_class=tool_class,
+            target_path=fr"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\база инструмента\target_path\TurnMill\{holder_subdir}\ThreadMill\Vardex Metric Helicool",
+            teeth_num=1,
+            debug_mode=0,
+
+            file_name_prefix=tool_prefix + "rezbofr_",
+            file_name_suffix="_helicool",
+            path_to_catalog_geometry=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\milling\thread_milling\Vardex\Helicool\metric\helicool_m.json",
+            path_to_catalog_cut_data=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\milling\thread_milling\Vardex\Helicool\metric\helicool_m_cut_data.json",
+
+        )
+        ToolGenerator.create_tools(
+            tool_class=tool_class,
+            target_path=fr"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\база инструмента\target_path\TurnMill\{holder_subdir}\ThreadMill\Vardex Inch Helicool",
+            teeth_num=1,
+            debug_mode=0,
+
+            file_name_prefix=tool_prefix + "rezbofr_",
+            file_name_suffix="_helicool",
+            path_to_catalog_geometry=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\milling\thread_milling\Vardex\Helicool\inch\helicool_g.json",
+            path_to_catalog_cut_data=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\milling\thread_milling\Vardex\Helicool\inch\helicool_g_cut_data.json",
+        )
+
+
 
 def gen_index_mills():
     ToolGenerator.create_tools(
@@ -1675,9 +1836,16 @@ def main():
     # gen_cekovki()
     # gen_razvertki()
 
+
     # turnmill
     #   axial
+    # gen_turn_mill_centrovki()
     # gen_turn_mill_drills()
+    # gen_turn_mill_zenkovki()
+    # gen_turn_mill_cekovki()
+    # gen_turn_mill_razvertki()
+
+
     #   milling
     # gen_turn_mill_endmills()
     # gen_turn_mill_ballmills()
@@ -1689,8 +1857,14 @@ def main():
 
     #   index mills
     # gen_turn_mill_gribkovie()
-    gen_turn_mill_disks()
+    # gen_turn_mill_disks()
     # gen_turn_mill_index_mills()
+
+
+    # threads
+    # gen_turn_mill_rezbofrezi()
+    # gen_turn_mill_metchiki()
+
 
     """
     freza_konts_

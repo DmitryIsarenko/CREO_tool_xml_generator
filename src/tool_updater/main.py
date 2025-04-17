@@ -76,7 +76,71 @@ from tool_updater.classes.tool_classes.milling.chamfer_mill import ChamferTurnMi
 from tool_updater.classes.tool_classes.milling.chamfer_mill import ChamferTurnMill_T_Z_SUB
 from tool_updater.classes.tool_classes.milling.chamfer_mill import ChamferTurnMill_T_Z_F2
 
+from tool_updater.classes.tool_classes.milling.grib_mill import Grib_FlTurnMill_TM_X
+from tool_updater.classes.tool_classes.milling.grib_mill import Grib_FlTurnMill_TM_X_L
+from tool_updater.classes.tool_classes.milling.grib_mill import Grib_FlTurnMill_TM_Z_1
+from tool_updater.classes.tool_classes.milling.grib_mill import Grib_FlTurnMill_TM_Z_2
+from tool_updater.classes.tool_classes.milling.grib_mill import Grib_FlTurnMill_TM_Z_SUB
+from tool_updater.classes.tool_classes.milling.grib_mill import Grib_FlTurnMill_T_Z_ER
+from tool_updater.classes.tool_classes.milling.grib_mill import Grib_FlTurnMill_T_Z_SUB_ER
+from tool_updater.classes.tool_classes.milling.grib_mill import Grib_FlTurnMill_T_Z
+from tool_updater.classes.tool_classes.milling.grib_mill import Grib_FlTurnMill_T_Z_SUB
+from tool_updater.classes.tool_classes.milling.grib_mill import Grib_FlTurnMill_T_Z_F2
 
+from tool_updater.classes.tool_classes.milling.grib_mill import Grib_ChTurnMill_TM_X
+from tool_updater.classes.tool_classes.milling.grib_mill import Grib_ChTurnMill_TM_X_L
+from tool_updater.classes.tool_classes.milling.grib_mill import Grib_ChTurnMill_TM_Z_1
+from tool_updater.classes.tool_classes.milling.grib_mill import Grib_ChTurnMill_TM_Z_2
+from tool_updater.classes.tool_classes.milling.grib_mill import Grib_ChTurnMill_TM_Z_SUB
+from tool_updater.classes.tool_classes.milling.grib_mill import Grib_ChTurnMill_T_Z_ER
+from tool_updater.classes.tool_classes.milling.grib_mill import Grib_ChTurnMill_T_Z_SUB_ER
+from tool_updater.classes.tool_classes.milling.grib_mill import Grib_ChTurnMill_T_Z
+from tool_updater.classes.tool_classes.milling.grib_mill import Grib_ChTurnMill_T_Z_SUB
+from tool_updater.classes.tool_classes.milling.grib_mill import Grib_ChTurnMill_T_Z_F2
+
+from tool_updater.classes.tool_classes.milling.grib_mill import Grib_RoTurnMill_TM_X
+from tool_updater.classes.tool_classes.milling.grib_mill import Grib_RoTurnMill_TM_X_L
+from tool_updater.classes.tool_classes.milling.grib_mill import Grib_RoTurnMill_TM_Z_1
+from tool_updater.classes.tool_classes.milling.grib_mill import Grib_RoTurnMill_TM_Z_2
+from tool_updater.classes.tool_classes.milling.grib_mill import Grib_RoTurnMill_TM_Z_SUB
+from tool_updater.classes.tool_classes.milling.grib_mill import Grib_RoTurnMill_T_Z_ER
+from tool_updater.classes.tool_classes.milling.grib_mill import Grib_RoTurnMill_T_Z_SUB_ER
+from tool_updater.classes.tool_classes.milling.grib_mill import Grib_RoTurnMill_T_Z
+from tool_updater.classes.tool_classes.milling.grib_mill import Grib_RoTurnMill_T_Z_SUB
+from tool_updater.classes.tool_classes.milling.grib_mill import Grib_RoTurnMill_T_Z_F2
+
+from tool_updater.classes.tool_classes.milling.disk_mill import Disk_ChTurnMill_TM_X
+from tool_updater.classes.tool_classes.milling.disk_mill import Disk_ChTurnMill_TM_X_L
+from tool_updater.classes.tool_classes.milling.disk_mill import Disk_ChTurnMill_TM_Z_1
+from tool_updater.classes.tool_classes.milling.disk_mill import Disk_ChTurnMill_TM_Z_2
+from tool_updater.classes.tool_classes.milling.disk_mill import Disk_ChTurnMill_TM_Z_SUB
+from tool_updater.classes.tool_classes.milling.disk_mill import Disk_ChTurnMill_T_Z_ER
+from tool_updater.classes.tool_classes.milling.disk_mill import Disk_ChTurnMill_T_Z_SUB_ER
+from tool_updater.classes.tool_classes.milling.disk_mill import Disk_ChTurnMill_T_Z
+from tool_updater.classes.tool_classes.milling.disk_mill import Disk_ChTurnMill_T_Z_SUB
+from tool_updater.classes.tool_classes.milling.disk_mill import Disk_ChTurnMill_T_Z_F2
+
+from tool_updater.classes.tool_classes.milling.disk_mill import Disk_RoTurnMill_TM_X
+from tool_updater.classes.tool_classes.milling.disk_mill import Disk_RoTurnMill_TM_X_L
+from tool_updater.classes.tool_classes.milling.disk_mill import Disk_RoTurnMill_TM_Z_1
+from tool_updater.classes.tool_classes.milling.disk_mill import Disk_RoTurnMill_TM_Z_2
+from tool_updater.classes.tool_classes.milling.disk_mill import Disk_RoTurnMill_TM_Z_SUB
+from tool_updater.classes.tool_classes.milling.disk_mill import Disk_RoTurnMill_T_Z_ER
+from tool_updater.classes.tool_classes.milling.disk_mill import Disk_RoTurnMill_T_Z_SUB_ER
+from tool_updater.classes.tool_classes.milling.disk_mill import Disk_RoTurnMill_T_Z
+from tool_updater.classes.tool_classes.milling.disk_mill import Disk_RoTurnMill_T_Z_SUB
+from tool_updater.classes.tool_classes.milling.disk_mill import Disk_RoTurnMill_T_Z_F2
+
+from tool_updater.classes.tool_classes.milling.disk_mill import Disk_FlTurnMill_TM_X
+from tool_updater.classes.tool_classes.milling.disk_mill import Disk_FlTurnMill_TM_X_L
+from tool_updater.classes.tool_classes.milling.disk_mill import Disk_FlTurnMill_TM_Z_1
+from tool_updater.classes.tool_classes.milling.disk_mill import Disk_FlTurnMill_TM_Z_2
+from tool_updater.classes.tool_classes.milling.disk_mill import Disk_FlTurnMill_TM_Z_SUB
+from tool_updater.classes.tool_classes.milling.disk_mill import Disk_FlTurnMill_T_Z_ER
+from tool_updater.classes.tool_classes.milling.disk_mill import Disk_FlTurnMill_T_Z_SUB_ER
+from tool_updater.classes.tool_classes.milling.disk_mill import Disk_FlTurnMill_T_Z
+from tool_updater.classes.tool_classes.milling.disk_mill import Disk_FlTurnMill_T_Z_SUB
+from tool_updater.classes.tool_classes.milling.disk_mill import Disk_FlTurnMill_T_Z_F2
 
 logger = logging.getLogger("src")
 
@@ -703,6 +767,201 @@ def gen_disk_mills():
     )
 
 
+def gen_turn_mill_disks():
+    gen_turn_mill_disks_flat()
+    gen_turn_mill_disks_chamfer()
+    gen_turn_mill_disks_rounding()
+
+
+def gen_turn_mill_disks_chamfer():
+    all_holders = {
+        "TM_X": {
+            "tool_class": Disk_ChTurnMill_TM_X,
+            "holder_subdir": "TM_X"
+        },
+        "TM_X_L": {
+            "tool_class": Disk_ChTurnMill_TM_X_L,
+            "holder_subdir": "TM_X_L"
+        },
+        "TM_Z_1": {
+            "tool_class": Disk_ChTurnMill_TM_Z_1,
+            "holder_subdir": "TM_Z_1"
+        },
+        "TM_Z_2": {
+            "tool_class": Disk_ChTurnMill_TM_Z_2,
+            "holder_subdir": "TM_Z_2"
+        },
+        "TM_Z_SUB": {
+            "tool_class": Disk_ChTurnMill_TM_Z_SUB,
+            "holder_subdir": "TM_Z_SUB"
+        },
+        "T_Z_ER": {
+            "tool_class": Disk_ChTurnMill_T_Z_ER,
+            "holder_subdir": "T_Z_ER"
+        },
+        "T_Z_SUB_ER": {
+            "tool_class": Disk_ChTurnMill_T_Z_SUB_ER,
+            "holder_subdir": "T_Z_SUB_ER"
+        },
+        "T_Z": {
+            "tool_class": Disk_ChTurnMill_T_Z,
+            "holder_subdir": "T_Z"
+        },
+        "T_Z_SUB": {
+            "tool_class": Disk_ChTurnMill_T_Z_SUB,
+            "holder_subdir": "T_Z_SUB"
+        },
+        "T_Z_F2": {
+            "tool_class": Disk_ChTurnMill_T_Z_F2,
+            "holder_subdir": "T_Z_F2"
+        },
+    }
+
+    for holder in all_holders:
+        holder_subdir = all_holders[holder]["holder_subdir"]
+        tool_class = all_holders[holder]["tool_class"]
+        tool_prefix = holder_subdir.lower() + "_"
+
+        ToolGenerator.create_tools(
+            #             tool_class=DiskOtreznoiChamfer,
+            tool_class=tool_class,
+            target_path=fr"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\база инструмента\target_path\TurnMill\{holder_subdir}\DiskOtreznoi\Iscar SGSF-E8 GSFP-5.4-90",
+            teeth_num=1,
+            debug_mode=0,
+
+            file_name_prefix=tool_prefix + "disk_",
+            file_name_suffix="_SGSF_GSFP",
+            path_to_catalog_geometry=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src/tool_updater/catalogs/milling/otrez_disk/Iscar E8 GSFP-5.4-90\SGSF_GSFP.json",
+            path_to_catalog_cut_data=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src/tool_updater/catalogs/milling/otrez_disk/Iscar E8 GSFP-5.4-90\SGSF_cut_data.json",
+        )
+
+
+def gen_turn_mill_disks_rounding():
+    all_holders = {
+        "TM_X": {
+            "tool_class": Disk_RoTurnMill_TM_X,
+            "holder_subdir": "TM_X"
+        },
+        "TM_X_L": {
+            "tool_class": Disk_RoTurnMill_TM_X_L,
+            "holder_subdir": "TM_X_L"
+        },
+        "TM_Z_1": {
+            "tool_class": Disk_RoTurnMill_TM_Z_1,
+            "holder_subdir": "TM_Z_1"
+        },
+        "TM_Z_2": {
+            "tool_class": Disk_RoTurnMill_TM_Z_2,
+            "holder_subdir": "TM_Z_2"
+        },
+        "TM_Z_SUB": {
+            "tool_class": Disk_RoTurnMill_TM_Z_SUB,
+            "holder_subdir": "TM_Z_SUB"
+        },
+        "T_Z_ER": {
+            "tool_class": Disk_RoTurnMill_T_Z_ER,
+            "holder_subdir": "T_Z_ER"
+        },
+        "T_Z_SUB_ER": {
+            "tool_class": Disk_RoTurnMill_T_Z_SUB_ER,
+            "holder_subdir": "T_Z_SUB_ER"
+        },
+        "T_Z": {
+            "tool_class": Disk_RoTurnMill_T_Z,
+            "holder_subdir": "T_Z"
+        },
+        "T_Z_SUB": {
+            "tool_class": Disk_RoTurnMill_T_Z_SUB,
+            "holder_subdir": "T_Z_SUB"
+        },
+        "T_Z_F2": {
+            "tool_class": Disk_RoTurnMill_T_Z_F2,
+            "holder_subdir": "T_Z_F2"
+        },
+    }
+
+    for holder in all_holders:
+        holder_subdir = all_holders[holder]["holder_subdir"]
+        tool_class = all_holders[holder]["tool_class"]
+        tool_prefix = holder_subdir.lower() + "_"
+
+        ToolGenerator.create_tools(
+            #             tool_class=DiskOtreznoiRounding,
+            tool_class=tool_class,
+            target_path=fr"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\база инструмента\target_path\TurnMill\{holder_subdir}\DiskOtreznoi\Iscar SGSF-GSFU",
+            teeth_num=1,
+            debug_mode=0,
+
+            file_name_prefix=tool_prefix + "disk_",
+            file_name_suffix="_SGSF_GSFU",
+            path_to_catalog_geometry=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src/tool_updater/catalogs/milling/otrez_disk/Iscar GSFU\SGSF_GSFU.json",
+            path_to_catalog_cut_data=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src/tool_updater/catalogs/milling/otrez_disk/Iscar GSFU\SGSF_cut_data.json",
+        )
+
+
+def gen_turn_mill_disks_flat():
+    all_holders = {
+        "TM_X": {
+            "tool_class": Disk_FlTurnMill_TM_X,
+            "holder_subdir": "TM_X"
+        },
+        "TM_X_L": {
+            "tool_class": Disk_FlTurnMill_TM_X_L,
+            "holder_subdir": "TM_X_L"
+        },
+        "TM_Z_1": {
+            "tool_class": Disk_FlTurnMill_TM_Z_1,
+            "holder_subdir": "TM_Z_1"
+        },
+        "TM_Z_2": {
+            "tool_class": Disk_FlTurnMill_TM_Z_2,
+            "holder_subdir": "TM_Z_2"
+        },
+        "TM_Z_SUB": {
+            "tool_class": Disk_FlTurnMill_TM_Z_SUB,
+            "holder_subdir": "TM_Z_SUB"
+        },
+        "T_Z_ER": {
+            "tool_class": Disk_FlTurnMill_T_Z_ER,
+            "holder_subdir": "T_Z_ER"
+        },
+        "T_Z_SUB_ER": {
+            "tool_class": Disk_FlTurnMill_T_Z_SUB_ER,
+            "holder_subdir": "T_Z_SUB_ER"
+        },
+        "T_Z": {
+            "tool_class": Disk_FlTurnMill_T_Z,
+            "holder_subdir": "T_Z"
+        },
+        "T_Z_SUB": {
+            "tool_class": Disk_FlTurnMill_T_Z_SUB,
+            "holder_subdir": "T_Z_SUB"
+        },
+        "T_Z_F2": {
+            "tool_class": Disk_FlTurnMill_T_Z_F2,
+            "holder_subdir": "T_Z_F2"
+        },
+    }
+
+    for holder in all_holders:
+        holder_subdir = all_holders[holder]["holder_subdir"]
+        tool_class = all_holders[holder]["tool_class"]
+        tool_prefix = holder_subdir.lower() + "_"
+
+        ToolGenerator.create_tools(
+            # tool_class=DiskOtreznoiFlat,
+            tool_class=tool_class,
+            target_path=fr"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\база инструмента\target_path\TurnMill\{holder_subdir}\DiskOtreznoi\Iscar SGSF-GSFN",
+            teeth_num=1,
+            debug_mode=0,
+
+            file_name_prefix=tool_prefix + "disk_",
+            file_name_suffix="_SGSF_GSFN",
+            path_to_catalog_geometry=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\milling\otrez_disk\Iscar GSFN\SGSF_GSFN.json",
+            path_to_catalog_cut_data=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\milling\otrez_disk\Iscar GSFN\SGSF_cut_data.json",
+        )
+
+
 def gen_zenkovki():
     ToolGenerator.create_tools(
         tool_class=CounterSink,
@@ -912,6 +1171,7 @@ def gen_ugloviye():
         path_to_catalog_cut_data=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\milling\chamfer_mills\special\L45_cut_data.json",
     )
 
+
 def gen_turn_mill_ugloviye():
     all_holders = {
         "TM_X": {
@@ -1020,8 +1280,6 @@ def gen_turn_mill_ugloviye():
         )
 
 
-
-
 def gen_gribkovie():
     ToolGenerator.create_tools(
         tool_class=GribMillRounding,
@@ -1082,6 +1340,224 @@ def gen_gribkovie():
         path_to_catalog_geometry=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src/tool_updater/catalogs/milling/gribkovie/Iscar/MultiMaster/TS-N chamfer\TS-N.json",
         path_to_catalog_cut_data=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src/tool_updater/catalogs/milling/gribkovie/Iscar/MultiMaster/TS-N chamfer\TS-N_cut_data.json",
     )
+
+
+def gen_turn_mill_gribkovie():
+    gen_turn_mill_gribkovie_flat()
+    gen_turn_mill_gribkovie_chamfer()
+    gen_turn_mill_gribkovie_rounding()
+
+
+def gen_turn_mill_gribkovie_chamfer():
+    all_holders = {
+        "TM_X": {
+            "tool_class": Grib_ChTurnMill_TM_X,
+            "holder_subdir": "TM_X"
+        },
+        "TM_X_L": {
+            "tool_class": Grib_ChTurnMill_TM_X_L,
+            "holder_subdir": "TM_X_L"
+        },
+        "TM_Z_1": {
+            "tool_class": Grib_ChTurnMill_TM_Z_1,
+            "holder_subdir": "TM_Z_1"
+        },
+        "TM_Z_2": {
+            "tool_class": Grib_ChTurnMill_TM_Z_2,
+            "holder_subdir": "TM_Z_2"
+        },
+        "TM_Z_SUB": {
+            "tool_class": Grib_ChTurnMill_TM_Z_SUB,
+            "holder_subdir": "TM_Z_SUB"
+        },
+        "T_Z_ER": {
+            "tool_class": Grib_ChTurnMill_T_Z_ER,
+            "holder_subdir": "T_Z_ER"
+        },
+        "T_Z_SUB_ER": {
+            "tool_class": Grib_ChTurnMill_T_Z_SUB_ER,
+            "holder_subdir": "T_Z_SUB_ER"
+        },
+        "T_Z": {
+            "tool_class": Grib_ChTurnMill_T_Z,
+            "holder_subdir": "T_Z"
+        },
+        "T_Z_SUB": {
+            "tool_class": Grib_ChTurnMill_T_Z_SUB,
+            "holder_subdir": "T_Z_SUB"
+        },
+        "T_Z_F2": {
+            "tool_class": Grib_ChTurnMill_T_Z_F2,
+            "holder_subdir": "T_Z_F2"
+        },
+    }
+
+    for holder in all_holders:
+        holder_subdir = all_holders[holder]["holder_subdir"]
+        tool_class = all_holders[holder]["tool_class"]
+        tool_prefix = holder_subdir.lower() + "_"
+
+        ToolGenerator.create_tools(
+            tool_class=tool_class,
+            target_path=fr"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\база инструмента\target_path\TurnMill\{holder_subdir}\GribMill\Iscar MM GRIT-45A",
+            teeth_num=1,
+            debug_mode=0,
+
+            file_name_prefix=tool_prefix + "grib_",
+            file_name_suffix="_GRIT-45A",
+            path_to_catalog_geometry=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\milling\gribkovie\Iscar\MultiMaster\GRIT-45A\GRIT-45A.json",
+            path_to_catalog_cut_data=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\milling\gribkovie\Iscar\MultiMaster\GRIT\GRIT_cut_data.json",
+        )
+
+        ToolGenerator.create_tools(
+            tool_class=tool_class,
+            target_path=fr"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\база инструмента\target_path\TurnMill\{holder_subdir}\GribMill\Iscar MM TS-N chamfer",
+            teeth_num=1,
+            debug_mode=0,
+
+            file_name_prefix=tool_prefix + "grib_",
+            file_name_suffix="_TS-N",
+            path_to_catalog_geometry=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src/tool_updater/catalogs/milling/gribkovie/Iscar/MultiMaster/TS-N chamfer\TS-N.json",
+            path_to_catalog_cut_data=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src/tool_updater/catalogs/milling/gribkovie/Iscar/MultiMaster/TS-N chamfer\TS-N_cut_data.json",
+        )
+
+
+def gen_turn_mill_gribkovie_rounding():
+    all_holders = {
+        "TM_X": {
+            "tool_class": Grib_RoTurnMill_TM_X,
+            "holder_subdir": "TM_X"
+        },
+        "TM_X_L": {
+            "tool_class": Grib_RoTurnMill_TM_X_L,
+            "holder_subdir": "TM_X_L"
+        },
+        "TM_Z_1": {
+            "tool_class": Grib_RoTurnMill_TM_Z_1,
+            "holder_subdir": "TM_Z_1"
+        },
+        "TM_Z_2": {
+            "tool_class": Grib_RoTurnMill_TM_Z_2,
+            "holder_subdir": "TM_Z_2"
+        },
+        "TM_Z_SUB": {
+            "tool_class": Grib_RoTurnMill_TM_Z_SUB,
+            "holder_subdir": "TM_Z_SUB"
+        },
+        "T_Z_ER": {
+            "tool_class": Grib_RoTurnMill_T_Z_ER,
+            "holder_subdir": "T_Z_ER"
+        },
+        "T_Z_SUB_ER": {
+            "tool_class": Grib_RoTurnMill_T_Z_SUB_ER,
+            "holder_subdir": "T_Z_SUB_ER"
+        },
+        "T_Z": {
+            "tool_class": Grib_RoTurnMill_T_Z,
+            "holder_subdir": "T_Z"
+        },
+        "T_Z_SUB": {
+            "tool_class": Grib_RoTurnMill_T_Z_SUB,
+            "holder_subdir": "T_Z_SUB"
+        },
+        "T_Z_F2": {
+            "tool_class": Grib_RoTurnMill_T_Z_F2,
+            "holder_subdir": "T_Z_F2"
+        },
+    }
+
+    for holder in all_holders:
+        holder_subdir = all_holders[holder]["holder_subdir"]
+        tool_class = all_holders[holder]["tool_class"]
+        tool_prefix = holder_subdir.lower() + "_"
+
+        ToolGenerator.create_tools(
+            tool_class=tool_class,
+            target_path=fr"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\база инструмента\target_path\TurnMill\{holder_subdir}\GribMill\Iscar MM GRIT",
+            teeth_num=1,
+            debug_mode=0,
+
+            file_name_prefix=tool_prefix + "grib_",
+            file_name_suffix="_GRIT",
+            path_to_catalog_geometry=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\milling\gribkovie\Iscar\MultiMaster\GRIT\GRIT.json",
+            path_to_catalog_cut_data=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\milling\gribkovie\Iscar\MultiMaster\GRIT\GRIT_cut_data.json",
+        )
+
+        ToolGenerator.create_tools(
+            tool_class=tool_class,
+            target_path=fr"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\база инструмента\target_path\TurnMill\{holder_subdir}\GribMill\Iscar MM TS-H",
+            teeth_num=1,
+            debug_mode=0,
+
+            file_name_prefix=tool_prefix + "grib_",
+            file_name_suffix="_TS-H",
+            path_to_catalog_geometry=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\milling\gribkovie\Iscar\MultiMaster\TS-H\TS-H.json",
+            path_to_catalog_cut_data=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\milling\gribkovie\Iscar\MultiMaster\TS-H\TS-H_cut_data.json",
+        )
+
+        ToolGenerator.create_tools(
+            tool_class=tool_class,
+            target_path=fr"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\база инструмента\target_path\TurnMill\{holder_subdir}\GribMill\Iscar MM TS-N rounding",
+            teeth_num=1,
+            debug_mode=0,
+
+            file_name_prefix=tool_prefix + "grib_",
+            file_name_suffix="_TS-N",
+            path_to_catalog_geometry=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src/tool_updater/catalogs/milling/gribkovie/Iscar/MultiMaster/TS-N rounding\TS-N.json",
+            path_to_catalog_cut_data=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src/tool_updater/catalogs/milling/gribkovie/Iscar/MultiMaster/TS-N rounding\TS-N_cut_data.json",
+        )
+
+
+def gen_turn_mill_gribkovie_flat():
+    all_holders = {
+        "TM_X": {
+            "tool_class": Grib_FlTurnMill_TM_X,
+            "holder_subdir": "TM_X"
+        },
+        "TM_X_L": {
+            "tool_class": Grib_FlTurnMill_TM_X_L,
+            "holder_subdir": "TM_X_L"
+        },
+        "TM_Z_1": {
+            "tool_class": Grib_FlTurnMill_TM_Z_1,
+            "holder_subdir": "TM_Z_1"
+        },
+        "TM_Z_2": {
+            "tool_class": Grib_FlTurnMill_TM_Z_2,
+            "holder_subdir": "TM_Z_2"
+        },
+        "TM_Z_SUB": {
+            "tool_class": Grib_FlTurnMill_TM_Z_SUB,
+            "holder_subdir": "TM_Z_SUB"
+        },
+        "T_Z_ER": {
+            "tool_class": Grib_FlTurnMill_T_Z_ER,
+            "holder_subdir": "T_Z_ER"
+        },
+        "T_Z_SUB_ER": {
+            "tool_class": Grib_FlTurnMill_T_Z_SUB_ER,
+            "holder_subdir": "T_Z_SUB_ER"
+        },
+        "T_Z": {
+            "tool_class": Grib_FlTurnMill_T_Z,
+            "holder_subdir": "T_Z"
+        },
+        "T_Z_SUB": {
+            "tool_class": Grib_FlTurnMill_T_Z_SUB,
+            "holder_subdir": "T_Z_SUB"
+        },
+        "T_Z_F2": {
+            "tool_class": Grib_FlTurnMill_T_Z_F2,
+            "holder_subdir": "T_Z_F2"
+        },
+    }
+
+    for holder in all_holders:
+        holder_subdir = all_holders[holder]["holder_subdir"]
+        tool_class = all_holders[holder]["tool_class"]
+        tool_prefix = holder_subdir.lower() + "_"
+
+        pass
 
 
 def gen_rezbofrezi():
@@ -1208,11 +1684,13 @@ def main():
     # gen_turn_mill_toroidmills()
 
     #   chamfers and rad
-    gen_turn_mill_ugloviye()
+    # gen_turn_mill_ugloviye()
     # gen_turn_mill_vnutr_rad_mills()
 
-    #   milling
-    # gen_turn_mill_endmills()
+    #   index mills
+    # gen_turn_mill_gribkovie()
+    gen_turn_mill_disks()
+    # gen_turn_mill_index_mills()
 
     """
     freza_konts_

@@ -7,8 +7,12 @@
     <list default="true" id="48ac9736-8a74-4e0d-b305-20a2e9cc5ab7" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/logs/log.log" beforeDir="false" afterPath="$PROJECT_DIR$/src/logs/log.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tool_updater/classes/tool_classes/milling/threadmill.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/tool_updater/classes/tool_classes/milling/threadmill.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tool_updater/classes/tool_classes/milling/vnutr_rad_mill.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/tool_updater/classes/tool_classes/milling/vnutr_rad_mill.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tool_updater/classes/tool_classes/axial/centerdrill.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/tool_updater/classes/tool_classes/axial/centerdrill.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tool_updater/classes/tool_classes/axial/counterbore.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/tool_updater/classes/tool_classes/axial/counterbore.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tool_updater/classes/tool_classes/axial/countersink.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/tool_updater/classes/tool_classes/axial/countersink.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tool_updater/classes/tool_classes/axial/drill.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/tool_updater/classes/tool_classes/axial/drill.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tool_updater/classes/tool_classes/axial/reamer.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/tool_updater/classes/tool_classes/axial/reamer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tool_updater/classes/tool_classes/axial/tap.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/tool_updater/classes/tool_classes/axial/tap.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tool_updater/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/tool_updater/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -242,7 +246,8 @@
       <workItem from="1744349674262" duration="6869000" />
       <workItem from="1744636948517" duration="2616000" />
       <workItem from="1744709635424" duration="12116000" />
-      <workItem from="1744795566115" duration="4873000" />
+      <workItem from="1744795566115" duration="7291000" />
+      <workItem from="1744970291502" duration="4395000" />
     </task>
     <servers />
   </component>
@@ -268,6 +273,6 @@
     </watches-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/tool_base$main__1_.coverage" NAME="main (1) Coverage Results" MODIFIED="1744867887730" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/tool_updater" />
+    <SUITE FILE_PATH="coverage/tool_base$main__1_.coverage" NAME="main (1) Coverage Results" MODIFIED="1744975171587" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/tool_updater" />
   </component>
 </project>

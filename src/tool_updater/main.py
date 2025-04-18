@@ -165,6 +165,76 @@ from tool_updater.classes.tool_classes.milling.threadmill import ThreadTurnMill_
 from tool_updater.classes.tool_classes.milling.threadmill import ThreadTurnMill_T_Z_F2
 
 
+from tool_updater.classes.tool_classes.axial.centerdrill import CenterDrillTurnMill_TM_X
+from tool_updater.classes.tool_classes.axial.centerdrill import CenterDrillTurnMill_TM_X_L
+from tool_updater.classes.tool_classes.axial.centerdrill import CenterDrillTurnMill_TM_Z_1
+from tool_updater.classes.tool_classes.axial.centerdrill import CenterDrillTurnMill_TM_Z_2
+from tool_updater.classes.tool_classes.axial.centerdrill import CenterDrillTurnMill_TM_Z_SUB
+from tool_updater.classes.tool_classes.axial.centerdrill import CenterDrillTurnMill_T_Z_ER
+from tool_updater.classes.tool_classes.axial.centerdrill import CenterDrillTurnMill_T_Z_SUB_ER
+from tool_updater.classes.tool_classes.axial.centerdrill import CenterDrillTurnMill_T_Z
+from tool_updater.classes.tool_classes.axial.centerdrill import CenterDrillTurnMill_T_Z_SUB
+from tool_updater.classes.tool_classes.axial.centerdrill import CenterDrillTurnMill_T_Z_F2
+
+
+from tool_updater.classes.tool_classes.axial.countersink import CounterSinkTurnMill_TM_X
+from tool_updater.classes.tool_classes.axial.countersink import CounterSinkTurnMill_TM_X_L
+from tool_updater.classes.tool_classes.axial.countersink import CounterSinkTurnMill_TM_Z_1
+from tool_updater.classes.tool_classes.axial.countersink import CounterSinkTurnMill_TM_Z_2
+from tool_updater.classes.tool_classes.axial.countersink import CounterSinkTurnMill_TM_Z_SUB
+from tool_updater.classes.tool_classes.axial.countersink import CounterSinkTurnMill_T_Z_ER
+from tool_updater.classes.tool_classes.axial.countersink import CounterSinkTurnMill_T_Z_SUB_ER
+from tool_updater.classes.tool_classes.axial.countersink import CounterSinkTurnMill_T_Z
+from tool_updater.classes.tool_classes.axial.countersink import CounterSinkTurnMill_T_Z_SUB
+from tool_updater.classes.tool_classes.axial.countersink import CounterSinkTurnMill_T_Z_F2
+
+
+from tool_updater.classes.tool_classes.axial.counterbore import CounterBoreTurnMill_TM_X
+from tool_updater.classes.tool_classes.axial.counterbore import CounterBoreTurnMill_TM_X_L
+from tool_updater.classes.tool_classes.axial.counterbore import CounterBoreTurnMill_TM_Z_1
+from tool_updater.classes.tool_classes.axial.counterbore import CounterBoreTurnMill_TM_Z_2
+from tool_updater.classes.tool_classes.axial.counterbore import CounterBoreTurnMill_TM_Z_SUB
+from tool_updater.classes.tool_classes.axial.counterbore import CounterBoreTurnMill_T_Z_ER
+from tool_updater.classes.tool_classes.axial.counterbore import CounterBoreTurnMill_T_Z_SUB_ER
+from tool_updater.classes.tool_classes.axial.counterbore import CounterBoreTurnMill_T_Z
+from tool_updater.classes.tool_classes.axial.counterbore import CounterBoreTurnMill_T_Z_SUB
+from tool_updater.classes.tool_classes.axial.counterbore import CounterBoreTurnMill_T_Z_F2
+
+
+from tool_updater.classes.tool_classes.axial.reamer import ReamerTurnMill_TM_X
+from tool_updater.classes.tool_classes.axial.reamer import ReamerTurnMill_TM_X_L
+from tool_updater.classes.tool_classes.axial.reamer import ReamerTurnMill_TM_Z_1
+from tool_updater.classes.tool_classes.axial.reamer import ReamerTurnMill_TM_Z_2
+from tool_updater.classes.tool_classes.axial.reamer import ReamerTurnMill_TM_Z_SUB
+from tool_updater.classes.tool_classes.axial.reamer import ReamerTurnMill_T_Z_ER
+from tool_updater.classes.tool_classes.axial.reamer import ReamerTurnMill_T_Z_SUB_ER
+from tool_updater.classes.tool_classes.axial.reamer import ReamerTurnMill_T_Z
+from tool_updater.classes.tool_classes.axial.reamer import ReamerTurnMill_T_Z_SUB
+from tool_updater.classes.tool_classes.axial.reamer import ReamerTurnMill_T_Z_F2
+
+
+from tool_updater.classes.tool_classes.axial.tap import TapBlindTurnMill_TM_X
+from tool_updater.classes.tool_classes.axial.tap import TapBlindTurnMill_TM_X_L
+from tool_updater.classes.tool_classes.axial.tap import TapBlindTurnMill_TM_Z_1
+from tool_updater.classes.tool_classes.axial.tap import TapBlindTurnMill_TM_Z_2
+from tool_updater.classes.tool_classes.axial.tap import TapBlindTurnMill_TM_Z_SUB
+from tool_updater.classes.tool_classes.axial.tap import TapBlindTurnMill_T_Z_ER
+from tool_updater.classes.tool_classes.axial.tap import TapBlindTurnMill_T_Z_SUB_ER
+from tool_updater.classes.tool_classes.axial.tap import TapBlindTurnMill_T_Z
+from tool_updater.classes.tool_classes.axial.tap import TapBlindTurnMill_T_Z_SUB
+from tool_updater.classes.tool_classes.axial.tap import TapBlindTurnMill_T_Z_F2
+
+from tool_updater.classes.tool_classes.axial.tap import TapThroughTurnMill_TM_X
+from tool_updater.classes.tool_classes.axial.tap import TapThroughTurnMill_TM_X_L
+from tool_updater.classes.tool_classes.axial.tap import TapThroughTurnMill_TM_Z_1
+from tool_updater.classes.tool_classes.axial.tap import TapThroughTurnMill_TM_Z_2
+from tool_updater.classes.tool_classes.axial.tap import TapThroughTurnMill_TM_Z_SUB
+from tool_updater.classes.tool_classes.axial.tap import TapThroughTurnMill_T_Z_ER
+from tool_updater.classes.tool_classes.axial.tap import TapThroughTurnMill_T_Z_SUB_ER
+from tool_updater.classes.tool_classes.axial.tap import TapThroughTurnMill_T_Z
+from tool_updater.classes.tool_classes.axial.tap import TapThroughTurnMill_T_Z_SUB
+from tool_updater.classes.tool_classes.axial.tap import TapThroughTurnMill_T_Z_F2
+
 
 logger = logging.getLogger("src")
 
@@ -1071,6 +1141,166 @@ def gen_metchiki():
         path_to_catalog_cut_data=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\axial\taps\Garant\inch\through_hole\133300\133300_cut_data.json",
     )
 
+def gen_turnmill_metchiki():
+    gen_turnmill_metchiki_blind()
+    gen_turnmill_metchiki_through()
+
+def gen_turnmill_metchiki_blind():
+    all_holders = {
+        "TM_X": {
+            "tool_class": TapBlindTurnMill_TM_X,
+            "holder_subdir": "TM_X"
+        },
+        "TM_X_L": {
+            "tool_class": TapBlindTurnMill_TM_X_L,
+            "holder_subdir": "TM_X_L"
+        },
+        "TM_Z_1": {
+            "tool_class": TapBlindTurnMill_TM_Z_1,
+            "holder_subdir": "TM_Z_1"
+        },
+        "TM_Z_2": {
+            "tool_class": TapBlindTurnMill_TM_Z_2,
+            "holder_subdir": "TM_Z_2"
+        },
+        "TM_Z_SUB": {
+            "tool_class": TapBlindTurnMill_TM_Z_SUB,
+            "holder_subdir": "TM_Z_SUB"
+        },
+        "T_Z_ER": {
+            "tool_class": TapBlindTurnMill_T_Z_ER,
+            "holder_subdir": "T_Z_ER"
+        },
+        "T_Z_SUB_ER": {
+            "tool_class": TapBlindTurnMill_T_Z_SUB_ER,
+            "holder_subdir": "T_Z_SUB_ER"
+        },
+        "T_Z": {
+            "tool_class": TapBlindTurnMill_T_Z,
+            "holder_subdir": "T_Z"
+        },
+        "T_Z_SUB": {
+            "tool_class": TapBlindTurnMill_T_Z_SUB,
+            "holder_subdir": "T_Z_SUB"
+        },
+        "T_Z_F2": {
+            "tool_class": TapBlindTurnMill_T_Z_F2,
+            "holder_subdir": "T_Z_F2"
+        },
+    }
+
+    for holder in all_holders:
+        holder_subdir = all_holders[holder]["holder_subdir"]
+        tool_class = all_holders[holder]["tool_class"]
+
+        tool_prefix = holder_subdir.lower() + "_"
+
+
+        ToolGenerator.create_tools(
+            # tool_class=TapBlind,
+            tool_class=tool_class,
+            target_path=fr"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\база инструмента\target_path\TurnMill\{holder_subdir}\Tap\Garant Metric Blind 135850",
+            teeth_num=1,
+            debug_mode=0,
+
+            file_name_prefix=tool_prefix + "metchik_gluh_",
+            file_name_suffix="_135850",
+            path_to_catalog_geometry=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\axial\taps\Garant\metric\blind_hole\135850\135850.json",
+            path_to_catalog_cut_data=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\axial\taps\Garant\metric\blind_hole\135850\135850_cut_data.json",
+        )
+
+        ToolGenerator.create_tools(
+#             tool_class=TapBlind,
+            tool_class=tool_class,
+            target_path=fr"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\база инструмента\target_path\TurnMill\{holder_subdir}\Tap\Garant Inch blind 137805",
+            teeth_num=1,
+            debug_mode=0,
+
+            file_name_prefix=tool_prefix + "metchik_gluh_",
+            file_name_suffix="_137805",
+            path_to_catalog_geometry=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\axial\taps\Garant\inch\blind_hole\137805\137805.json",
+            path_to_catalog_cut_data=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\axial\taps\Garant\inch\blind_hole\137805\137805_cut_data.json",
+        )
+
+
+
+def gen_turnmill_metchiki_through():
+    all_holders = {
+        "TM_X": {
+            "tool_class": TapBlindTurnMill_TM_X,
+            "holder_subdir": "TM_X"
+        },
+        "TM_X_L": {
+            "tool_class": TapBlindTurnMill_TM_X_L,
+            "holder_subdir": "TM_X_L"
+        },
+        "TM_Z_1": {
+            "tool_class": TapBlindTurnMill_TM_Z_1,
+            "holder_subdir": "TM_Z_1"
+        },
+        "TM_Z_2": {
+            "tool_class": TapBlindTurnMill_TM_Z_2,
+            "holder_subdir": "TM_Z_2"
+        },
+        "TM_Z_SUB": {
+            "tool_class": TapBlindTurnMill_TM_Z_SUB,
+            "holder_subdir": "TM_Z_SUB"
+        },
+        "T_Z_ER": {
+            "tool_class": TapBlindTurnMill_T_Z_ER,
+            "holder_subdir": "T_Z_ER"
+        },
+        "T_Z_SUB_ER": {
+            "tool_class": TapBlindTurnMill_T_Z_SUB_ER,
+            "holder_subdir": "T_Z_SUB_ER"
+        },
+        "T_Z": {
+            "tool_class": TapBlindTurnMill_T_Z,
+            "holder_subdir": "T_Z"
+        },
+        "T_Z_SUB": {
+            "tool_class": TapBlindTurnMill_T_Z_SUB,
+            "holder_subdir": "T_Z_SUB"
+        },
+        "T_Z_F2": {
+            "tool_class": TapBlindTurnMill_T_Z_F2,
+            "holder_subdir": "T_Z_F2"
+        },
+    }
+
+    for holder in all_holders:
+        holder_subdir = all_holders[holder]["holder_subdir"]
+        tool_class = all_holders[holder]["tool_class"]
+
+        tool_prefix = holder_subdir.lower() + "_"
+
+
+        ToolGenerator.create_tools(
+            #             tool_class=TapThrough,
+            tool_class=tool_class,
+            target_path=fr"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\база инструмента\target_path\TurnMill\{holder_subdir}\Tap\Garant Metric through 132640",
+            teeth_num=1,
+            debug_mode=0,
+
+            file_name_prefix=tool_prefix + "metchik_skvozn_",
+            file_name_suffix="_132640",
+            path_to_catalog_geometry=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\axial\taps\Garant\metric\through_hole\132640\132640.json",
+            path_to_catalog_cut_data=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\axial\taps\Garant\metric\through_hole\132640\132640_cut_data.json",
+        )
+
+        ToolGenerator.create_tools(
+            #             tool_class=TapThrough,
+            tool_class=tool_class,
+            target_path=fr"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\база инструмента\target_path\TurnMill\{holder_subdir}\Tap\Garant Inch through 133300",
+            teeth_num=1,
+            debug_mode=0,
+
+            file_name_prefix=tool_prefix + "metchik_skvozn_",
+            file_name_suffix="_133300",
+            path_to_catalog_geometry=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\axial\taps\Garant\inch\through_hole\133300\133300.json",
+            path_to_catalog_cut_data=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\axial\taps\Garant\inch\through_hole\133300\133300_cut_data.json",
+        )
+
 
 def gen_vnutr_rad_mills():
     ToolGenerator.create_tools(
@@ -1196,6 +1426,295 @@ def gen_cekovki():
         path_to_catalog_geometry=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\axial\counterbores\Precitool\111010\111010.json",
         path_to_catalog_cut_data=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\axial\counterbores\Precitool\111010\111010_cut_data.json",
     )
+
+
+def gen_turn_mill_centrovki():
+    all_holders = {
+        "TM_X": {
+            "tool_class": CenterDrillTurnMill_TM_X,
+            "holder_subdir": "TM_X"
+        },
+        "TM_X_L": {
+            "tool_class": CenterDrillTurnMill_TM_X_L,
+            "holder_subdir": "TM_X_L"
+        },
+        "TM_Z_1": {
+            "tool_class": CenterDrillTurnMill_TM_Z_1,
+            "holder_subdir": "TM_Z_1"
+        },
+        "TM_Z_2": {
+            "tool_class": CenterDrillTurnMill_TM_Z_2,
+            "holder_subdir": "TM_Z_2"
+        },
+        "TM_Z_SUB": {
+            "tool_class": CenterDrillTurnMill_TM_Z_SUB,
+            "holder_subdir": "TM_Z_SUB"
+        },
+        "T_Z_ER": {
+            "tool_class": CenterDrillTurnMill_T_Z_ER,
+            "holder_subdir": "T_Z_ER"
+        },
+        "T_Z_SUB_ER": {
+            "tool_class": CenterDrillTurnMill_T_Z_SUB_ER,
+            "holder_subdir": "T_Z_SUB_ER"
+        },
+        "T_Z": {
+            "tool_class": CenterDrillTurnMill_T_Z,
+            "holder_subdir": "T_Z"
+        },
+        "T_Z_SUB": {
+            "tool_class": CenterDrillTurnMill_T_Z_SUB,
+            "holder_subdir": "T_Z_SUB"
+        },
+        "T_Z_F2": {
+            "tool_class": CenterDrillTurnMill_T_Z_F2,
+            "holder_subdir": "T_Z_F2"
+        },
+    }
+
+    for holder in all_holders:
+        holder_subdir = all_holders[holder]["holder_subdir"]
+        tool_class = all_holders[holder]["tool_class"]
+
+        tool_prefix = holder_subdir.lower() + "_"
+
+        ToolGenerator.create_tools(
+            tool_class=tool_class,
+            target_path=fr"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\база инструмента\target_path\TurnMill\{holder_subdir}\CenterDrill\Precitool 105200",
+            teeth_num=1,
+            debug_mode=0,
+
+            file_name_prefix=tool_prefix + "centr_",
+            file_name_suffix="_105200",
+            path_to_catalog_geometry=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\axial\center_drills\Precitool\105200\105200.json",
+            path_to_catalog_cut_data=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\axial\center_drills\Precitool\105200\105200_cut_data.json",
+        )
+        ToolGenerator.create_tools(
+            tool_class=tool_class,
+            target_path=fr"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\база инструмента\target_path\TurnMill\{holder_subdir}\CenterDrill\Precitool 105600L",
+            teeth_num=1,
+            debug_mode=0,
+
+            file_name_prefix=tool_prefix + "centr_udlin_",
+            file_name_suffix="_105600L",
+            path_to_catalog_geometry=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\axial\center_drills\Precitool\105600L - extended\105600L.json",
+            path_to_catalog_cut_data=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\axial\center_drills\Precitool\105600L - extended\105600L_cut_data.json",
+        )
+
+
+def gen_turn_mill_zenkovki():
+    all_holders = {
+        "TM_X": {
+            "tool_class": CounterSinkTurnMill_TM_X,
+            "holder_subdir": "TM_X"
+        },
+        "TM_X_L": {
+            "tool_class": CounterSinkTurnMill_TM_X_L,
+            "holder_subdir": "TM_X_L"
+        },
+        "TM_Z_1": {
+            "tool_class": CounterSinkTurnMill_TM_Z_1,
+            "holder_subdir": "TM_Z_1"
+        },
+        "TM_Z_2": {
+            "tool_class": CounterSinkTurnMill_TM_Z_2,
+            "holder_subdir": "TM_Z_2"
+        },
+        "TM_Z_SUB": {
+            "tool_class": CounterSinkTurnMill_TM_Z_SUB,
+            "holder_subdir": "TM_Z_SUB"
+        },
+        "T_Z_ER": {
+            "tool_class": CounterSinkTurnMill_T_Z_ER,
+            "holder_subdir": "T_Z_ER"
+        },
+        "T_Z_SUB_ER": {
+            "tool_class": CounterSinkTurnMill_T_Z_SUB_ER,
+            "holder_subdir": "T_Z_SUB_ER"
+        },
+        "T_Z": {
+            "tool_class": CounterSinkTurnMill_T_Z,
+            "holder_subdir": "T_Z"
+        },
+        "T_Z_SUB": {
+            "tool_class": CounterSinkTurnMill_T_Z_SUB,
+            "holder_subdir": "T_Z_SUB"
+        },
+        "T_Z_F2": {
+            "tool_class": CounterSinkTurnMill_T_Z_F2,
+            "holder_subdir": "T_Z_F2"
+        },
+    }
+
+    for holder in all_holders:
+        holder_subdir = all_holders[holder]["holder_subdir"]
+        tool_class = all_holders[holder]["tool_class"]
+
+        tool_prefix = holder_subdir.lower() + "_"
+
+
+        ToolGenerator.create_tools(
+            tool_class=tool_class,
+            target_path=fr"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\база инструмента\target_path\TurnMill\{holder_subdir}\CounterSink\Precitool 110120",
+            teeth_num=1,
+            debug_mode=0,
+
+            file_name_prefix=tool_prefix + "zenk_",
+            file_name_suffix="_110120",
+            path_to_catalog_geometry=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\axial\countersinks\Precitool\110120\110120.json",
+            path_to_catalog_cut_data=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\axial\countersinks\Precitool\110120\110120_cut_data.json",
+        )
+
+
+def gen_turn_mill_cekovki():
+    all_holders = {
+        "TM_X": {
+            "tool_class": CounterBoreTurnMill_TM_X,
+            "holder_subdir": "TM_X"
+        },
+        "TM_X_L": {
+            "tool_class": CounterBoreTurnMill_TM_X_L,
+            "holder_subdir": "TM_X_L"
+        },
+        "TM_Z_1": {
+            "tool_class": CounterBoreTurnMill_TM_Z_1,
+            "holder_subdir": "TM_Z_1"
+        },
+        "TM_Z_2": {
+            "tool_class": CounterBoreTurnMill_TM_Z_2,
+            "holder_subdir": "TM_Z_2"
+        },
+        "TM_Z_SUB": {
+            "tool_class": CounterBoreTurnMill_TM_Z_SUB,
+            "holder_subdir": "TM_Z_SUB"
+        },
+        "T_Z_ER": {
+            "tool_class": CounterBoreTurnMill_T_Z_ER,
+            "holder_subdir": "T_Z_ER"
+        },
+        "T_Z_SUB_ER": {
+            "tool_class": CounterBoreTurnMill_T_Z_SUB_ER,
+            "holder_subdir": "T_Z_SUB_ER"
+        },
+        "T_Z": {
+            "tool_class": CounterBoreTurnMill_T_Z,
+            "holder_subdir": "T_Z"
+        },
+        "T_Z_SUB": {
+            "tool_class": CounterBoreTurnMill_T_Z_SUB,
+            "holder_subdir": "T_Z_SUB"
+        },
+        "T_Z_F2": {
+            "tool_class": CounterBoreTurnMill_T_Z_F2,
+            "holder_subdir": "T_Z_F2"
+        },
+    }
+
+    for holder in all_holders:
+        holder_subdir = all_holders[holder]["holder_subdir"]
+        tool_class = all_holders[holder]["tool_class"]
+
+        tool_prefix = holder_subdir.lower() + "_"
+
+
+        ToolGenerator.create_tools(
+            tool_class=tool_class,
+            target_path=fr"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\база инструмента\target_path\TurnMill\{holder_subdir}\CounterBore\Precitool 111010",
+            teeth_num=1,
+            debug_mode=0,
+
+            file_name_prefix=tool_prefix + "cekov_",
+            file_name_suffix="_111010",
+            path_to_catalog_geometry=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\axial\counterbores\Precitool\111010\111010.json",
+            path_to_catalog_cut_data=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\axial\counterbores\Precitool\111010\111010_cut_data.json",
+        )
+
+
+
+
+def gen_turn_mill_razvertki():
+    all_holders = {
+        "TM_X": {
+            "tool_class": ReamerTurnMill_TM_X,
+            "holder_subdir": "TM_X"
+        },
+        "TM_X_L": {
+            "tool_class": ReamerTurnMill_TM_X_L,
+            "holder_subdir": "TM_X_L"
+        },
+        "TM_Z_1": {
+            "tool_class": ReamerTurnMill_TM_Z_1,
+            "holder_subdir": "TM_Z_1"
+        },
+        "TM_Z_2": {
+            "tool_class": ReamerTurnMill_TM_Z_2,
+            "holder_subdir": "TM_Z_2"
+        },
+        "TM_Z_SUB": {
+            "tool_class": ReamerTurnMill_TM_Z_SUB,
+            "holder_subdir": "TM_Z_SUB"
+        },
+        "T_Z_ER": {
+            "tool_class": ReamerTurnMill_T_Z_ER,
+            "holder_subdir": "T_Z_ER"
+        },
+        "T_Z_SUB_ER": {
+            "tool_class": ReamerTurnMill_T_Z_SUB_ER,
+            "holder_subdir": "T_Z_SUB_ER"
+        },
+        "T_Z": {
+            "tool_class": ReamerTurnMill_T_Z,
+            "holder_subdir": "T_Z"
+        },
+        "T_Z_SUB": {
+            "tool_class": ReamerTurnMill_T_Z_SUB,
+            "holder_subdir": "T_Z_SUB"
+        },
+        "T_Z_F2": {
+            "tool_class": ReamerTurnMill_T_Z_F2,
+            "holder_subdir": "T_Z_F2"
+        },
+    }
+
+    for holder in all_holders:
+        holder_subdir = all_holders[holder]["holder_subdir"]
+        tool_class = all_holders[holder]["tool_class"]
+
+        tool_prefix = holder_subdir.lower() + "_"
+
+        ToolGenerator.create_tools(
+            tool_class=tool_class,
+            target_path=fr"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\база инструмента\target_path\TurnMill\{holder_subdir}\Reamer\Guhring 1409",
+            teeth_num=1,
+            debug_mode=0,
+
+            file_name_prefix=tool_prefix + "razvert_",
+            file_name_suffix="_1409",
+            path_to_catalog_geometry=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\axial\reamers\Guhring\1409\1409.json",
+            path_to_catalog_cut_data=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\axial\reamers\Guhring\1409\1409_cut_data.json",
+        )
+        ToolGenerator.create_tools(
+            tool_class=tool_class,
+            target_path=fr"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\база инструмента\target_path\TurnMill\{holder_subdir}\Reamer\Garant 162961",
+            teeth_num=1,
+            debug_mode=0,
+
+            file_name_prefix=tool_prefix + "razvert_udlin_",
+            file_name_suffix="_162961",
+            path_to_catalog_geometry=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\axial\reamers\Garant\162961\162961.json",
+            path_to_catalog_cut_data=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\axial\reamers\Garant\162961\162961_cut_data.json",
+        )
+        ToolGenerator.create_tools(
+            tool_class=tool_class,
+            target_path=fr"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\база инструмента\target_path\TurnMill\{holder_subdir}\Reamer\Guhring 1411",
+            teeth_num=1,
+            debug_mode=0,
+
+            file_name_prefix=tool_prefix + "razvert_",
+            file_name_suffix="_1411",
+            path_to_catalog_geometry=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\axial\reamers\Guhring\1411\1411.json",
+            path_to_catalog_cut_data=r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\axial\reamers\Guhring\1411\1411_cut_data.json",
+        )
 
 
 def gen_ugloviye():
@@ -1839,8 +2358,8 @@ def main():
 
     # turnmill
     #   axial
-    # gen_turn_mill_centrovki()
     # gen_turn_mill_drills()
+    # gen_turn_mill_centrovki()
     # gen_turn_mill_zenkovki()
     # gen_turn_mill_cekovki()
     # gen_turn_mill_razvertki()
@@ -1863,7 +2382,7 @@ def main():
 
     # threads
     # gen_turn_mill_rezbofrezi()
-    # gen_turn_mill_metchiki()
+    # gen_turnmill_metchiki()
 
 
     """

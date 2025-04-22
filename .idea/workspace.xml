@@ -6,13 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="48ac9736-8a74-4e0d-b305-20a2e9cc5ab7" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/logs/log.log" beforeDir="false" afterPath="$PROJECT_DIR$/src/logs/log.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tool_updater/classes/tool_classes/axial/centerdrill.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/tool_updater/classes/tool_classes/axial/centerdrill.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tool_updater/classes/tool_classes/axial/counterbore.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/tool_updater/classes/tool_classes/axial/counterbore.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tool_updater/classes/tool_classes/axial/countersink.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/tool_updater/classes/tool_classes/axial/countersink.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tool_updater/classes/tool_classes/axial/drill.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/tool_updater/classes/tool_classes/axial/drill.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tool_updater/classes/tool_classes/axial/reamer.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/tool_updater/classes/tool_classes/axial/reamer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tool_updater/classes/tool_classes/axial/tap.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/tool_updater/classes/tool_classes/axial/tap.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tool_updater/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/tool_updater/config.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tool_updater/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/tool_updater/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -45,27 +39,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python.main (1).executor&quot;: &quot;Run&quot;,
-    &quot;Python.main.executor&quot;: &quot;Run&quot;,
-    &quot;Python.tool_renamer.executor&quot;: &quot;Run&quot;,
-    &quot;Python.transform_cut_data (1).executor&quot;: &quot;Run&quot;,
-    &quot;Python.transform_cut_data.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;ShowUsagesActions.previewPropertyKey&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;solid__tools&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/WORK_DIRECTORY/10_Programming/Projects/tool_base/tool_base/src/tool_updater/catalogs/milling/index_mills/Taegu Tec/3P TF90-15&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.main (1).executor": "Run",
+    "Python.main.executor": "Run",
+    "Python.tool_renamer.executor": "Run",
+    "Python.transform_cut_data (1).executor": "Run",
+    "Python.transform_cut_data.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "ShowUsagesActions.previewPropertyKey": "true",
+    "git-widget-placeholder": "main__optimisation",
+    "last_opened_file_path": "W:/SOFT/Tool_generator_python_2025/tool_base",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.keymap",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\milling\index_mills\Taegu Tec\3P TF90-15" />
@@ -247,7 +241,9 @@
       <workItem from="1744636948517" duration="2616000" />
       <workItem from="1744709635424" duration="12116000" />
       <workItem from="1744795566115" duration="7291000" />
-      <workItem from="1744970291502" duration="4395000" />
+      <workItem from="1744970291502" duration="4854000" />
+      <workItem from="1745221993550" duration="12000" />
+      <workItem from="1745300616714" duration="1833000" />
     </task>
     <servers />
   </component>

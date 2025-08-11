@@ -2333,58 +2333,58 @@ def gen_index_mills():
 
 def main():
     # VHMs
-    gen_endmills()
-    gen_toroidmills()
-    gen_ballmills()
+    # gen_endmills()
+    # gen_toroidmills()
+    # gen_ballmills()
 
     # chamfers and rad
-    gen_ugloviye()
-    gen_vnutr_rad_mills()
+    # gen_ugloviye()
+    # gen_vnutr_rad_mills()
 
     # threads
-    gen_rezbofrezi()
+    # gen_rezbofrezi()
     gen_metchiki()
 
     # index mills
-    gen_disk_mills()
-    gen_gribkovie()
-    gen_index_mills()
+    # gen_disk_mills()
+    # gen_gribkovie()
+    # gen_index_mills()
 
     # axial
-    gen_centrovki()
-    gen_drills()
-    gen_zenkovki()
-    gen_cekovki()
-    gen_razvertki()
+    # gen_centrovki()
+    # gen_drills()
+    # gen_zenkovki()
+    # gen_cekovki()
+    # gen_razvertki()
 
 
     # turnmill
     #   axial
-    gen_turn_mill_drills()
-    gen_turn_mill_centrovki()
-    gen_turn_mill_zenkovki()
-    gen_turn_mill_cekovki()
-    gen_turn_mill_razvertki()
+    # gen_turn_mill_drills()
+    # gen_turn_mill_centrovki()
+    # gen_turn_mill_zenkovki()
+    # gen_turn_mill_cekovki()
+    # gen_turn_mill_razvertki()
 
 
     #   milling
-    gen_turn_mill_endmills()
-    gen_turn_mill_ballmills()
-    gen_turn_mill_toroidmills()
+    # gen_turn_mill_endmills()
+    # gen_turn_mill_ballmills()
+    # gen_turn_mill_toroidmills()
 
     #   chamfers and rad
-    gen_turn_mill_ugloviye()
-    gen_turn_mill_vnutr_rad_mills()
+    # gen_turn_mill_ugloviye()
+    # gen_turn_mill_vnutr_rad_mills()
 
     #   index mills
-    gen_turn_mill_gribkovie()
-    gen_turn_mill_disks()
+    # gen_turn_mill_gribkovie()
+    # gen_turn_mill_disks()
     # gen_turn_mill_index_mills()
 
 
     # threads
-    gen_turn_mill_rezbofrezi()
-    gen_turnmill_metchiki()
+    # gen_turn_mill_rezbofrezi()
+    # gen_turnmill_metchiki()
 
 
     """

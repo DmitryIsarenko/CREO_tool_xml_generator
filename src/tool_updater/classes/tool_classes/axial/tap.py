@@ -1,11 +1,12 @@
 from src.tool_updater import config
 import logging
-from math import ceil
+from math import ceil, pi
 
 from src.tool_updater.classes.turnmill_len_adaptors import adapt_length, adapt_flute_length
 from src.tool_updater.config import turnmill_holders_safe_lengths
 
 from src.tool_updater.classes.tool_classes.base_tool import BaseTool
+from src.tool_updater.config import NDIGITS_SURFACE_SPEED
 
 logger = logging.getLogger(__name__)
 
@@ -95,6 +96,18 @@ class Tap(BaseTool):
         pitch = self.calc_thread_pitch()
         chamfer = round(pitch * turns, ndigits=config.NDIGITS_AXIAL_FEED)
         return chamfer
+       
+        
+    def calc_rpm(self, *args, **kwargs):
+        rpm = self.get_cutter_diam() * 20 if self.get_cutter_diam() * 20 < 120 else 120
+        return rpm
+    
+    # def get_vc(self, key_iso_material, fin_or_rough):
+    def get_vc(self, *args, **kwargs):
+        vc = round(self.calc_rpm() * self.get_cutter_diam() * pi / 1000, ndigits=NDIGITS_SURFACE_SPEED)
+        return vc
+
+    
 
     @staticmethod
     def clear_str_from_trailing_zeros(str_to_clean: str, sep: str):
@@ -233,8 +246,6 @@ class Tap(BaseTool):
                     </Condition>
                     <MfgParam Name="TOOL_SPINDLE_RPM" Unit="rev_per_min" Value="{self.tool_data["cut_data"][mat_iso_name]["roughing"]["TOOL_SPINDLE_RPM"]}"/>
                     <MfgParam Name="TOOL_FEED_PER_UNIT" Unit="mm_per_rev" Value="{self.tool_data["cut_data"][mat_iso_name]["roughing"]["TOOL_FEED_PER_UNIT"]}"/>
-                    <MfgParam Name="TOOL_SURFACE_SPEED" Unit="m_per_min" Value="{self.tool_data["cut_data"][mat_iso_name]["roughing"]["TOOL_SURFACE_SPEED"]}"/>
-                    <MfgParam Name="TOOL_FEED_RATE" Unit="mm_per_min" Value="{self.tool_data["cut_data"][mat_iso_name]["roughing"]["TOOL_FEED_RATE"]}"/>
                 </Technology>
                 <Technology>
                     <Condition>
@@ -242,8 +253,6 @@ class Tap(BaseTool):
                     </Condition>
                     <MfgParam Name="TOOL_SPINDLE_RPM" Unit="rev_per_min" Value="{self.tool_data["cut_data"][mat_iso_name]["finishing"]["TOOL_SPINDLE_RPM"]}"/>
                     <MfgParam Name="TOOL_FEED_PER_UNIT" Unit="mm_per_rev" Value="{self.tool_data["cut_data"][mat_iso_name]["finishing"]["TOOL_FEED_PER_UNIT"]}"/>
-                    <MfgParam Name="TOOL_SURFACE_SPEED" Unit="m_per_min" Value="{self.tool_data["cut_data"][mat_iso_name]["finishing"]["TOOL_SURFACE_SPEED"]}"/>
-                    <MfgParam Name="TOOL_FEED_RATE" Unit="mm_per_min" Value="{self.tool_data["cut_data"][mat_iso_name]["finishing"]["TOOL_FEED_RATE"]}"/>
                 </Technology>
             </ToolCutData>
         """
@@ -251,6 +260,42 @@ class Tap(BaseTool):
 
         logger.debug(f"{self.tool_size_from_geom_catalogue} - xml_tool_cut_data generated...")
         return total_string
+
+    # def set_xml_body_tool_cut_data(self):
+    #     total_string = ""
+    #     for material_name, mat_iso_name in config.mfg_materials_dict.items():
+    #         xml_part_str = f"""\
+    #     <ToolCutData>
+    #             <Material>
+    #                 <MfgParam Name="STOCK_MATERIAL" Value="{material_name}"/>
+    #             </Material>
+    #             <CutDataUnitSystem>
+    #                 <MfgParam Name="CUT_DATA_UNITS" Value="METRIC"/>
+    #             </CutDataUnitSystem>
+    #             <Technology>
+    #                 <Condition>
+    #                     <MfgParam Name="APPLICATION_TYPE" Value="ROUGHING"/>
+    #                 </Condition>
+    #                 <MfgParam Name="TOOL_SPINDLE_RPM" Unit="rev_per_min" Value="{self.tool_data["cut_data"][mat_iso_name]["roughing"]["TOOL_SPINDLE_RPM"]}"/>
+    #                 <MfgParam Name="TOOL_FEED_PER_UNIT" Unit="mm_per_rev" Value="{self.tool_data["cut_data"][mat_iso_name]["roughing"]["TOOL_FEED_PER_UNIT"]}"/>
+    #                 <MfgParam Name="TOOL_SURFACE_SPEED" Unit="m_per_min" Value="{self.tool_data["cut_data"][mat_iso_name]["roughing"]["TOOL_SURFACE_SPEED"]}"/>
+    #                 <MfgParam Name="TOOL_FEED_RATE" Unit="mm_per_min" Value="{self.tool_data["cut_data"][mat_iso_name]["roughing"]["TOOL_FEED_RATE"]}"/>
+    #             </Technology>
+    #             <Technology>
+    #                 <Condition>
+    #                     <MfgParam Name="APPLICATION_TYPE" Value="FINISHING"/>
+    #                 </Condition>
+    #                 <MfgParam Name="TOOL_SPINDLE_RPM" Unit="rev_per_min" Value="{self.tool_data["cut_data"][mat_iso_name]["finishing"]["TOOL_SPINDLE_RPM"]}"/>
+    #                 <MfgParam Name="TOOL_FEED_PER_UNIT" Unit="mm_per_rev" Value="{self.tool_data["cut_data"][mat_iso_name]["finishing"]["TOOL_FEED_PER_UNIT"]}"/>
+    #                 <MfgParam Name="TOOL_SURFACE_SPEED" Unit="m_per_min" Value="{self.tool_data["cut_data"][mat_iso_name]["finishing"]["TOOL_SURFACE_SPEED"]}"/>
+    #                 <MfgParam Name="TOOL_FEED_RATE" Unit="mm_per_min" Value="{self.tool_data["cut_data"][mat_iso_name]["finishing"]["TOOL_FEED_RATE"]}"/>
+    #             </Technology>
+    #         </ToolCutData>
+    #     """
+    #         total_string += xml_part_str
+
+    #     logger.debug(f"{self.tool_size_from_geom_catalogue} - xml_tool_cut_data generated...")
+    #     return total_string
 
 
 

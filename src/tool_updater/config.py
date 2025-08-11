@@ -1,6 +1,6 @@
 # абсолютный путь до папки, в которой планируется генерировать xml для всего инструмента
 # в конце не должно быть слэша
-abs_path_to_dir_where_to_create_tool_xmls = r"w:\SOFT\Tool_generator_python_2025\temp_dir_for_tools\v04"
+abs_path_to_dir_where_to_create_tool_xmls = r"w:\SOFT\Tool_generator_python_2025\temp_dir_for_tools\v04 доп материалы"
 # abs_path_to_dir_where_to_create_tool_xmls = r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\база инструмента\target_path"
 
 
@@ -8,8 +8,6 @@ abs_path_to_dir_where_to_create_tool_xmls = r"w:\SOFT\Tool_generator_python_2025
 # в конце не должно быть слэша
 abs_path_to_dir_where_project_is_located = r"w:\SOFT\Tool_generator_python_2025\tool_base"
 # abs_path_to_dir_where_project_is_located = r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base"
-
-
 
 
 MAX_RPM = 18000
@@ -21,7 +19,8 @@ NDIGITS_RADIAL_FEED = 3
 NDIGITS_SPINDLE = 2
 NDIGITS_SURFACE_SPEED = 3
 
-vc_min_or_max = 0  # 0 для минимальной скорости, -1 для максимальной, если их указано две или более
+# 0 для минимальной скорости, -1 для максимальной, если их указано две или более
+vc_min_or_max = 0
 
 finishing_roughing_options = {
     "roughing": {
@@ -51,10 +50,17 @@ key_num_of_teeth = "num_of_teeth"
 # main key. Value will be dictionary with subkeys
 key_iso_P = "iso_P"  # От низколегированных до высоколегированных и стальное литье
 key_iso_M = "iso_M"  # Вся нержавейка. 12% хрома и больше
-key_iso_K = "iso_K"  # Все чугуны. Серые, ковкие, с шаровидным, вермикулярным графитом, отпущенный ковкий
+# Все чугуны. Серые, ковкие, с шаровидным, вермикулярным графитом, отпущенный ковкий
+key_iso_K = "iso_K"
 key_iso_N = "iso_N"  # Цветные металлы. Алюминий, медь, латунь, бронза...
-key_iso_S = "iso_S"  # Жаропрочные сплавы. Высоколегированные материалы на основе железа, никеля, кобальта и титана
-key_iso_H = "iso_H"  # Матералы высокой твердости. Стали 45-65HRC и отбеленный чугун 400-600HB
+# Жаропрочные сплавы. Высоколегированные материалы на основе железа, никеля, кобальта и титана
+key_iso_S = "iso_S"
+# Матералы высокой твердости. Стали 45-65HRC и отбеленный чугун 400-600HB
+key_iso_H = "iso_H"
+key_not_iso_plexiglas = "PLEXIGLAS"  # Плексиглас. У нас "стекла".
+key_not_iso_pa6 = "PA6"  # Полиамид ПА6. наш обычный пластик
+key_not_iso_ptte = "PTTE"  # Фторопласт
+key_not_iso_brass = "BRASS"  # Латунь
 
 # Subkeys for cutdata catalogue
 key_vc = "Vc"  # Скорость резания
@@ -69,10 +75,34 @@ mfg_materials_dict = {
     "ALUMINIUM": key_iso_N,
     "STEEL-20": key_iso_P,
     "12X18H10T": key_iso_M,
-    "Не указано": key_iso_M,
+    # "Не указано": key_iso_M,
+    "HARDENED_STEEL": key_iso_H,
+    "PLEXIGLAS": key_iso_M,
+}
+mfg_materials_dict = {
+    # ISO N = Алюминий
+    "ALUMINIUM": key_iso_N,
+    # ISO P = Низколегированные стали
+    "STEEL-20": key_iso_P,
+    # ISO M - Нержавеющие стали
+    "12X18H10T": key_iso_M,
+    # ISO H = Закаленные стали
+    "HARD-STEEL": key_iso_H,
+    # ISO S = Жаропрочные сплавы
+    "HEAT-RESISTANT": key_iso_S,
+
+    # Плексигласс, для "стекол"
+    "PLEXIGLAS": key_not_iso_plexiglas,
+    # Полиамид
+    "PA6": key_not_iso_pa6,
+    # Фторопласт
+    "PTTE": key_not_iso_ptte,
+    # Латунь
+    "BRASS": key_not_iso_brass,
 }
 
-lst_of_material_groups: list[str] = [
+
+lst_of_iso_material_groups: list[str] = [
     key_iso_P,
     key_iso_M,
     key_iso_K,
@@ -80,6 +110,58 @@ lst_of_material_groups: list[str] = [
     key_iso_S,
     key_iso_H,
 ]
+
+lst_of_not_iso_material_groups: list[str] = [
+    key_not_iso_brass,
+    key_not_iso_pa6,
+    key_not_iso_plexiglas,
+    key_not_iso_ptte,
+]
+
+not_iso_materials_modifyers: dict = {
+    key_not_iso_plexiglas: {
+        "from_iso": key_iso_N,
+        "k_Vc": 0.65,
+        "k_Ae": 0.5,
+        "k_Ap": 1,
+        "k_Fz": 0.6,
+    },
+    key_not_iso_pa6: {
+        "from_iso": key_iso_N,
+        "k_Vc": 0.8,
+        "k_Ae": 1,
+        "k_Ap": 0.7,
+        "k_Fz": 0.85,
+    },
+    key_not_iso_ptte: {
+        "from_iso": key_iso_N,
+        "k_Vc": 0.7,
+        "k_Ae": 1,
+        "k_Ap": 0.6,
+        "k_Fz": 0.7,
+    },
+    key_not_iso_brass: {
+        "from_iso": key_iso_N,
+        "k_Vc": 0.6,
+        "k_Ae": 1.1,
+        "k_Ap": 1,
+        "k_Fz": 0.75,
+    },
+    key_iso_H: {
+        "from_iso": key_iso_P,
+        "k_Vc": 0.3,
+        "k_Ae": 0.4,
+        "k_Ap": 0.4,
+        "k_Fz": 0.5,
+    },
+    key_iso_S: {
+        "from_iso": key_iso_M,
+        "k_Vc": 0.4,
+        "k_Ae": 0.5,
+        "k_Ap": 0.6,
+        "k_Fz": 0.7,
+    },
+}
 
 # ER collet sizes
 collet_sizes = {

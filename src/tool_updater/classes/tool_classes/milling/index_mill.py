@@ -229,7 +229,7 @@ class IndexMill(BaseTool):
             return 0
 
     def calc_cut_data_for_all_material_groups(self):
-        for key_iso_material in config.lst_of_material_groups:
+        for key_iso_material in config.lst_of_iso_material_groups:
             for fin_or_rough in self.finishing_roughing_options:
                 tool_surface_speed = self.get_vc(key_iso_material=key_iso_material, fin_or_rough=fin_or_rough)
                 tool_spindle_rpm = self.calc_rpm(Vc=tool_surface_speed)

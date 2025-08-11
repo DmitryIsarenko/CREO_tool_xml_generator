@@ -67,7 +67,8 @@ class BaseTool:
         if self.debug:
             self.finishing_roughing_options = {
                 "roughing": {
-                    "vc_modifier": 1,  # Множитель для подачи (и на зуб, и на оборот)
+                    # Множитель для подачи (и на зуб, и на оборот)
+                    "vc_modifier": 1,
                     "feed_rate_multiplier": 1,  # Множитель для скорости резания
                 },
                 "finishing": {
@@ -207,7 +208,8 @@ class BaseTool:
                 if key in [key_fn, key_f, key_fz]:
                     cut_key = key
                     break
-            diam_groups = [key for key in self.catalog_cut_data[iso_key][cut_key]]
+            diam_groups = [
+                key for key in self.catalog_cut_data[iso_key][cut_key]]
             t_diam = self.tool_data["tool_diam_float"]
             suitable_grp = list()
             for grp_ind, grp in enumerate(diam_groups):
@@ -224,7 +226,7 @@ class BaseTool:
 
             return suitable_grp[-1]
         except:
-#             logger.critical(f"{self.tool_data["tool_name_str"]} - Diam group not calculated")
+            #             logger.critical(f"{self.tool_data["tool_name_str"]} - Diam group not calculated")
             return "None"
 
     #
@@ -232,9 +234,11 @@ class BaseTool:
     #
     # CALCULATIONS FOR CUT DATA CATALOGUE
     def calc_cut_data_for_all_material_groups(self):
-        for key_iso_material in config.lst_of_material_groups:
+        for key_iso_material in config.lst_of_iso_material_groups:
+
             for fin_or_rough in self.finishing_roughing_options:
-                tool_surface_speed = self.get_vc(key_iso_material=key_iso_material, fin_or_rough=fin_or_rough)
+                tool_surface_speed = self.get_vc(
+                    key_iso_material=key_iso_material, fin_or_rough=fin_or_rough)
                 tool_spindle_rpm = self.calc_rpm(Vc=tool_surface_speed)
 
                 self.tool_data["cut_data"][key_iso_material][fin_or_rough]["TOOL_SURFACE_SPEED"] = tool_surface_speed
@@ -244,8 +248,10 @@ class BaseTool:
                                                              fin_or_rough=fin_or_rough)
                 tool_feed_rate = self.calc_feed_rate(key_iso_material=key_iso_material, RPM=tool_spindle_rpm,
                                                      fin_or_rough=fin_or_rough)
-                tool_axial_depth = self.calc_axial_depth(key_iso_material=key_iso_material)
-                tool_radial_depth = self.calc_radial_depth(key_iso_material=key_iso_material)
+                tool_axial_depth = self.calc_axial_depth(
+                    key_iso_material=key_iso_material)
+                tool_radial_depth = self.calc_radial_depth(
+                    key_iso_material=key_iso_material)
 
                 multiplyer = 1
                 if tool_spindle_rpm >= config.MAX_RPM:
@@ -264,12 +270,79 @@ class BaseTool:
                 self.tool_data["cut_data"][key_iso_material][fin_or_rough]["TOOL_RADIAL_DEPTH"] = round(
                     tool_radial_depth * multiplyer, ndigits=config.NDIGITS_RADIAL_FEED)
 
+        for non_iso_key in config.lst_of_not_iso_material_groups:
+            for fin_or_rough in self.finishing_roughing_options:
+
+                from_iso = config.not_iso_materials_modifyers[non_iso_key]["from_iso"]
+                k_Vc = config.not_iso_materials_modifyers[non_iso_key]["k_Vc"]
+                k_Ae = config.not_iso_materials_modifyers[non_iso_key]["k_Ae"]
+                k_Ap = config.not_iso_materials_modifyers[non_iso_key]["k_Ap"]
+                k_Fz = config.not_iso_materials_modifyers[non_iso_key]["k_Fz"]
+
+                self.tool_data["cut_data"][non_iso_key][fin_or_rough]["TOOL_SPINDLE_RPM"] = \
+                    round(self.tool_data["cut_data"][from_iso][fin_or_rough]["TOOL_SPINDLE_RPM"]
+                          * k_Vc, ndigits=config.NDIGITS_SPINDLE)
+
+                self.tool_data["cut_data"][non_iso_key][fin_or_rough]["TOOL_SURFACE_SPEED"] = \
+                    round(self.tool_data["cut_data"][from_iso][fin_or_rough]["TOOL_SURFACE_SPEED"]
+                          * k_Vc, ndigits=config.NDIGITS_SURFACE_SPEED)
+
+                self.tool_data["cut_data"][non_iso_key][fin_or_rough]["TOOL_FEED_PER_UNIT"] = \
+                    round(self.tool_data["cut_data"][from_iso][fin_or_rough]["TOOL_FEED_PER_UNIT"]
+                          * k_Fz, ndigits=config.NDIGITS_FEED_PER_UNIT)
+
+                self.tool_data["cut_data"][non_iso_key][fin_or_rough]["TOOL_FEED_RATE"] = \
+                    round(self.tool_data["cut_data"][from_iso][fin_or_rough]["TOOL_FEED_RATE"]
+                          * k_Fz, ndigits=config.NDIGITS_FEED)
+
+                self.tool_data["cut_data"][non_iso_key][fin_or_rough]["TOOL_AXIAL_DEPTH"] = \
+                    round(self.tool_data["cut_data"][from_iso][fin_or_rough]["TOOL_AXIAL_DEPTH"]
+                          * k_Ap, ndigits=config.NDIGITS_AXIAL_FEED)
+
+                self.tool_data["cut_data"][non_iso_key][fin_or_rough]["TOOL_RADIAL_DEPTH"] = \
+                    round(self.tool_data["cut_data"][from_iso][fin_or_rough]["TOOL_RADIAL_DEPTH"]
+                          * k_Ae, ndigits=config.NDIGITS_RADIAL_FEED)
+
+        for non_iso_key in ["iso_H", "iso_S"]:
+            for fin_or_rough in self.finishing_roughing_options:
+                if self.tool_data["cut_data"][non_iso_key][fin_or_rough]["TOOL_SPINDLE_RPM"] == 0:
+
+                    from_iso = config.not_iso_materials_modifyers[non_iso_key]["from_iso"]
+                    k_Vc = config.not_iso_materials_modifyers[non_iso_key]["k_Vc"]
+                    k_Ae = config.not_iso_materials_modifyers[non_iso_key]["k_Ae"]
+                    k_Ap = config.not_iso_materials_modifyers[non_iso_key]["k_Ap"]
+                    k_Fz = config.not_iso_materials_modifyers[non_iso_key]["k_Fz"]
+
+                    self.tool_data["cut_data"][non_iso_key][fin_or_rough]["TOOL_SPINDLE_RPM"] = \
+                        round(self.tool_data["cut_data"][from_iso][fin_or_rough]["TOOL_SPINDLE_RPM"]
+                              * k_Vc, ndigits=config.NDIGITS_SPINDLE)
+
+                    self.tool_data["cut_data"][non_iso_key][fin_or_rough]["TOOL_SURFACE_SPEED"] = \
+                        round(self.tool_data["cut_data"][from_iso][fin_or_rough]["TOOL_SURFACE_SPEED"]
+                              * k_Vc, ndigits=config.NDIGITS_SURFACE_SPEED)
+
+                    self.tool_data["cut_data"][non_iso_key][fin_or_rough]["TOOL_FEED_PER_UNIT"] = \
+                        round(self.tool_data["cut_data"][from_iso][fin_or_rough]["TOOL_FEED_PER_UNIT"]
+                              * k_Fz, ndigits=config.NDIGITS_FEED_PER_UNIT)
+
+                    self.tool_data["cut_data"][non_iso_key][fin_or_rough]["TOOL_FEED_RATE"] = \
+                        round(self.tool_data["cut_data"][from_iso][fin_or_rough]["TOOL_FEED_RATE"]
+                              * k_Fz, ndigits=config.NDIGITS_FEED)
+
+                    self.tool_data["cut_data"][non_iso_key][fin_or_rough]["TOOL_AXIAL_DEPTH"] = \
+                        round(self.tool_data["cut_data"][from_iso][fin_or_rough]["TOOL_AXIAL_DEPTH"]
+                              * k_Ap, ndigits=config.NDIGITS_AXIAL_FEED)
+
+                    self.tool_data["cut_data"][non_iso_key][fin_or_rough]["TOOL_RADIAL_DEPTH"] = \
+                        round(self.tool_data["cut_data"][from_iso][fin_or_rough]["TOOL_RADIAL_DEPTH"]
+                              * k_Ae, ndigits=config.NDIGITS_RADIAL_FEED)
+
     def calc_rpm(self, Vc: int | float) -> float:
         try:
             rpm = 1000 * Vc / (pi * self.tool_data["tool_diam_float"])
             return round(rpm, ndigits=config.NDIGITS_SPINDLE)
         except:
-#             logger.critical(f"{self.tool_data["tool_name_str"]} - RPM not calculated")
+            #             logger.critical(f"{self.tool_data["tool_name_str"]} - RPM not calculated")
             return 0
 
     def calc_feed_per_unit(self, key_iso_material, fin_or_rough: str) -> float:
@@ -280,7 +353,7 @@ class BaseTool:
             fz = F / RPM / self.tool_data["NUM_OF_TEETH"] * feed_multiplier
             return round(fz, ndigits=config.NDIGITS_FEED_PER_UNIT)
         except:
-#             logger.critical(f"{self.tool_data["tool_name_str"]} - feed per unit not calculated")
+            #             logger.critical(f"{self.tool_data["tool_name_str"]} - feed per unit not calculated")
             return 0
 
     def calc_feed_rate(self, key_iso_material, RPM, fin_or_rough) -> float:
@@ -290,23 +363,25 @@ class BaseTool:
             Fn = Fn * RPM * feed_multiplier
             return round(Fn, ndigits=config.NDIGITS_FEED)
         except:
-#             logger.critical(f"{self.tool_data["tool_name_str"]} - feed per min not calculated")
+            #             logger.critical(f"{self.tool_data["tool_name_str"]} - feed per min not calculated")
             return 0
 
     def calc_axial_depth(self, key_iso_material) -> float:
         try:
-            axial_depth = float(self.tool_data["CUTTER_DIAM"]) * self.axial_depth_modifiyers[key_iso_material]
+            axial_depth = float(
+                self.tool_data["CUTTER_DIAM"]) * self.axial_depth_modifiyers[key_iso_material]
             return round(axial_depth, ndigits=config.NDIGITS_AXIAL_FEED)
         except:
-#             logger.warning(f"{self.tool_data["tool_name_str"]} - axial depth not calculated")
+            #             logger.warning(f"{self.tool_data["tool_name_str"]} - axial depth not calculated")
             return 0
 
     def calc_radial_depth(self, key_iso_material):
         try:
-            radial_depth = float(self.tool_data["CUTTER_DIAM"]) * self.radial_depth_modifiyers[key_iso_material]
+            radial_depth = float(
+                self.tool_data["CUTTER_DIAM"]) * self.radial_depth_modifiyers[key_iso_material]
             return round(radial_depth, ndigits=config.NDIGITS_RADIAL_FEED)
         except:
-#             logger.warning(f"{self.tool_data["tool_name_str"]} - radial depth not calculated")
+            #             logger.warning(f"{self.tool_data["tool_name_str"]} - radial depth not calculated")
             return 0
 
     def calc_nut_diam(self) -> int:
@@ -328,10 +403,11 @@ class BaseTool:
 
     def calc_len_out_of_holder(self):
         try:
-            length = round(float(self.tool_data["FLUTE_LENGTH"]) + float(self.tool_data["CUTTER_DIAM"]), ndigits=0, )
+            length = round(float(
+                self.tool_data["FLUTE_LENGTH"]) + float(self.tool_data["CUTTER_DIAM"]), ndigits=0, )
             return length
         except:
-#             logger.critical(f"{self.tool_data["tool_name_str"]} - nut diam not calculated")
+            #             logger.critical(f"{self.tool_data["tool_name_str"]} - nut diam not calculated")
             return 0
 
     #
@@ -350,9 +426,12 @@ class BaseTool:
         t_prefix = self.tool_data["file_name_prefix"].upper()
         t_suffix = self.tool_data["file_name_suffix"].upper()
 
-        d = self.clear_str_from_trailing_zeros(str(self.tool_data["CUTTER_DIAM"]), sep=".").replace(".", "-")
-        l1 = self.clear_str_from_trailing_zeros(str(self.tool_data["FLUTE_LENGTH"]), sep=".").replace(".", "-")
-        l2 = self.clear_str_from_trailing_zeros(str(self.tool_data["LENGTH"]), sep=".").replace(".", "-")
+        d = self.clear_str_from_trailing_zeros(
+            str(self.tool_data["CUTTER_DIAM"]), sep=".").replace(".", "-")
+        l1 = self.clear_str_from_trailing_zeros(
+            str(self.tool_data["FLUTE_LENGTH"]), sep=".").replace(".", "-")
+        l2 = self.clear_str_from_trailing_zeros(
+            str(self.tool_data["LENGTH"]), sep=".").replace(".", "-")
 
         t_name = (
             f"{t_prefix}"
@@ -367,9 +446,12 @@ class BaseTool:
         t_prefix = self.tool_data["file_name_prefix"]
         t_suffix = self.tool_data["file_name_suffix"]
 
-        d = self.clear_str_from_trailing_zeros(str(self.tool_data["CUTTER_DIAM"]), sep=".")
-        l1 = self.clear_str_from_trailing_zeros(str(self.tool_data["FLUTE_LENGTH"]), sep=".")
-        l2 = self.clear_str_from_trailing_zeros(str(self.tool_data["LENGTH"]), sep=".")
+        d = self.clear_str_from_trailing_zeros(
+            str(self.tool_data["CUTTER_DIAM"]), sep=".")
+        l1 = self.clear_str_from_trailing_zeros(
+            str(self.tool_data["FLUTE_LENGTH"]), sep=".")
+        l2 = self.clear_str_from_trailing_zeros(
+            str(self.tool_data["LENGTH"]), sep=".")
 
         t_name = (
             f"{t_prefix}"
@@ -400,21 +482,23 @@ class BaseTool:
     #
     #
     # FILE OPERATIONS
+
     def write_new_file(self, path):
         try:
             with io.open(
                     file=f"{path}\\"
-                         # f"{self.tool_data["file_name_prefix"]}"
-                         f"{self.tool_data["file_name"]}"
-                         # f"{self.tool_data["file_name_suffix"]}"
-                         f"{self.tool_file_extension}",
+                # f"{self.tool_data["file_name_prefix"]}"
+                f"{self.tool_data["file_name"]}"
+                # f"{self.tool_data["file_name_suffix"]}"
+                f"{self.tool_file_extension}",
                     mode="w",
                     encoding="utf-8",
             ) as f:
                 # f.writelines(body_lines)
                 f.writelines(self.tool_xml)
         except:
-            logger.critical(f"{self.tool_data["tool_name_str"]} - file not created")
+            logger.critical(
+                f"{self.tool_data["tool_name_str"]} - file not created")
             pass
 
     #
@@ -432,12 +516,12 @@ class BaseTool:
     def set_tool_xml(self):
         if self.debug == 0:
             # try:
-                self.tool_xml = ""
-                self.tool_xml += self.set_xml_head()
-                self.tool_xml += self.set_xml_body_tool_params()
-                self.tool_xml += self.set_xml_body_tool_cut_data()
-                self.tool_xml += self.set_xml_bom_components()
-                self.tool_xml += self.set_xml_tail()
+            self.tool_xml = ""
+            self.tool_xml += self.set_xml_head()
+            self.tool_xml += self.set_xml_body_tool_params()
+            self.tool_xml += self.set_xml_body_tool_cut_data()
+            self.tool_xml += self.set_xml_bom_components()
+            self.tool_xml += self.set_xml_tail()
             # except:
             #     self.tool_xml = "ERROR IN XML GENERATION"
             #     logger.critical(f"{self.tool_data["tool_name_str"]} - XML not created")
@@ -556,7 +640,8 @@ class BaseTool:
     <DateTime>{self.DATETIME}</DateTime>
     <ApplicationInfo AppName="Creo" AppVersion="8.0.11.0" FtVersion="360051" Language="russian" MdlVersion="2012"/>
 """
-        logger.debug(f"{self.tool_data["tool_name_str"]} - xml_head generated...")
+        logger.debug(
+            f"{self.tool_data["tool_name_str"]} - xml_head generated...")
         return xml_part_str
 
     def set_xml_body_tool_params(self) -> str:
@@ -584,7 +669,8 @@ class BaseTool:
             <MfgParam Name="FLUTE_LENGTH" Value="{self.tool_data["FLUTE_LENGTH"]}"/>
             <MfgParam Name="TOOL_COMMENT" Value="{self.tool_data["TOOL_COMMENT"]}"/>
 """
-        logger.debug(f"{self.tool_data["tool_name_str"]} - xml_tool_params generated...")
+        logger.debug(
+            f"{self.tool_data["tool_name_str"]} - xml_tool_params generated...")
         return xml_part_str
 
     def set_xml_body_tool_cut_data(self) -> str:
@@ -624,7 +710,8 @@ class BaseTool:
 """
             total_string += xml_part_str
 
-        logger.debug(f"{self.tool_data["tool_name_str"]} - xml_tool_cut_data generated...")
+        logger.debug(
+            f"{self.tool_data["tool_name_str"]} - xml_tool_cut_data generated...")
         return total_string
 
     def set_xml_bom_components(self) -> str:
@@ -636,7 +723,8 @@ class BaseTool:
                 <BOMComponent Comments=" " Name="common" Quantity="1" Type="GENERAL"/>
             </BOM>
 """
-        logger.debug(f"{self.tool_data["tool_name_str"]} - xml_BOM_components generated...")
+        logger.debug(
+            f"{self.tool_data["tool_name_str"]} - xml_BOM_components generated...")
         return xml_part_str
 
     def set_xml_tail(self) -> str:
@@ -650,9 +738,9 @@ class BaseTool:
     </ToolingSetup>
 </MfgSetupDocument>
 """
-        logger.debug(f"{self.tool_data["tool_name_str"]} - xml_tail generated...")
+        logger.debug(
+            f"{self.tool_data["tool_name_str"]} - xml_tail generated...")
         return xml_part_str
-
 
     def d_for_bom(self) -> str:
         """
@@ -682,14 +770,10 @@ class BaseTool:
 
         diam_rounded = round(diam_rounded, 2)
 
-
-
-
         # diam_rounded = ceil(diam_float * 10) / 10
         diam_formatted = str(diam_rounded)
 
         # diam_formatted = (str(self.tool_data["CUTTER_DIAM"]))
-
 
         if "." in diam_formatted:
             diam_formatted = diam_formatted.replace(".", "-")

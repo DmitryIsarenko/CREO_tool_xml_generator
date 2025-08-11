@@ -1143,9 +1143,11 @@ def gen_metchiki():
         path_to_catalog_cut_data=fr"{abs_path_to_dir_where_project_is_located}\src\tool_updater\catalogs\axial\taps\Garant\inch\through_hole\133300\133300_cut_data.json",
     )
 
+
 def gen_turnmill_metchiki():
     gen_turnmill_metchiki_blind()
     gen_turnmill_metchiki_through()
+
 
 def gen_turnmill_metchiki_blind():
     all_holders = {
@@ -1197,7 +1199,6 @@ def gen_turnmill_metchiki_blind():
 
         tool_prefix = holder_subdir.lower() + "_"
 
-
         ToolGenerator.create_tools(
             # tool_class=TapBlind,
             tool_class=tool_class,
@@ -1212,7 +1213,7 @@ def gen_turnmill_metchiki_blind():
         )
 
         ToolGenerator.create_tools(
-#             tool_class=TapBlind,
+            #             tool_class=TapBlind,
             tool_class=tool_class,
             target_path=fr"{abs_path_to_dir_where_to_create_tool_xmls}\TurnMill\{holder_subdir}\Tap\Garant Inch blind 137805",
             teeth_num=1,
@@ -1223,7 +1224,6 @@ def gen_turnmill_metchiki_blind():
             path_to_catalog_geometry=fr"{abs_path_to_dir_where_project_is_located}\src\tool_updater\catalogs\axial\taps\Garant\inch\blind_hole\137805\137805.json",
             path_to_catalog_cut_data=fr"{abs_path_to_dir_where_project_is_located}\src\tool_updater\catalogs\axial\taps\Garant\inch\blind_hole\137805\137805_cut_data.json",
         )
-
 
 
 def gen_turnmill_metchiki_through():
@@ -1276,7 +1276,6 @@ def gen_turnmill_metchiki_through():
 
         tool_prefix = holder_subdir.lower() + "_"
 
-
         ToolGenerator.create_tools(
             #             tool_class=TapThrough,
             tool_class=tool_class,
@@ -1316,6 +1315,7 @@ def gen_vnutr_rad_mills():
         path_to_catalog_cut_data=fr"{abs_path_to_dir_where_project_is_located}\src\tool_updater\catalogs\milling\internal_R\Precitool\178815\178815_cut_data.json",
         path_to_catalog_geometry=fr"{abs_path_to_dir_where_project_is_located}\src\tool_updater\catalogs\milling\internal_R\Precitool\178815\178815.json",
     )
+
 
 def gen_turn_mill_vnutr_rad_mills():
     all_holders = {
@@ -1554,7 +1554,6 @@ def gen_turn_mill_zenkovki():
 
         tool_prefix = holder_subdir.lower() + "_"
 
-
         ToolGenerator.create_tools(
             tool_class=tool_class,
             target_path=fr"{abs_path_to_dir_where_to_create_tool_xmls}\TurnMill\{holder_subdir}\CounterSink\Precitool 110120",
@@ -1618,7 +1617,6 @@ def gen_turn_mill_cekovki():
 
         tool_prefix = holder_subdir.lower() + "_"
 
-
         ToolGenerator.create_tools(
             tool_class=tool_class,
             target_path=fr"{abs_path_to_dir_where_to_create_tool_xmls}\TurnMill\{holder_subdir}\CounterBore\Precitool 111010",
@@ -1630,8 +1628,6 @@ def gen_turn_mill_cekovki():
             path_to_catalog_geometry=fr"{abs_path_to_dir_where_project_is_located}\src\tool_updater\catalogs\axial\counterbores\Precitool\111010\111010.json",
             path_to_catalog_cut_data=fr"{abs_path_to_dir_where_project_is_located}\src\tool_updater\catalogs\axial\counterbores\Precitool\111010\111010_cut_data.json",
         )
-
-
 
 
 def gen_turn_mill_razvertki():
@@ -2192,6 +2188,7 @@ def gen_rezbofrezi():
         path_to_catalog_cut_data=fr"{abs_path_to_dir_where_project_is_located}\src\tool_updater\catalogs\milling\thread_milling\Vardex\Helicool\inch\helicool_g_cut_data.json",
     )
 
+
 def gen_turn_mill_rezbofrezi():
     all_holders = {
         "TM_X": {
@@ -2267,7 +2264,6 @@ def gen_turn_mill_rezbofrezi():
         )
 
 
-
 def gen_index_mills():
     ToolGenerator.create_tools(
         tool_class=IndexMillSingleASMs,
@@ -2333,59 +2329,55 @@ def gen_index_mills():
 
 def main():
     # VHMs
-    # gen_endmills()
-    # gen_toroidmills()
-    # gen_ballmills()
+    gen_endmills()
+    gen_toroidmills()
+    gen_ballmills()
 
     # chamfers and rad
-    # gen_ugloviye()
-    # gen_vnutr_rad_mills()
+    gen_ugloviye()
+    gen_vnutr_rad_mills()
 
     # threads
-    # gen_rezbofrezi()
+    gen_rezbofrezi()
     gen_metchiki()
 
     # index mills
-    # gen_disk_mills()
-    # gen_gribkovie()
-    # gen_index_mills()
+    gen_disk_mills()
+    gen_gribkovie()
+    gen_index_mills()
 
     # axial
-    # gen_centrovki()
-    # gen_drills()
-    # gen_zenkovki()
-    # gen_cekovki()
-    # gen_razvertki()
-
+    gen_centrovki()
+    gen_drills()
+    gen_zenkovki()
+    gen_cekovki()
+    gen_razvertki()
 
     # turnmill
     #   axial
-    # gen_turn_mill_drills()
-    # gen_turn_mill_centrovki()
-    # gen_turn_mill_zenkovki()
-    # gen_turn_mill_cekovki()
-    # gen_turn_mill_razvertki()
-
+    gen_turn_mill_drills()
+    gen_turn_mill_centrovki()
+    gen_turn_mill_zenkovki()
+    gen_turn_mill_cekovki()
+    gen_turn_mill_razvertki()
 
     #   milling
-    # gen_turn_mill_endmills()
-    # gen_turn_mill_ballmills()
-    # gen_turn_mill_toroidmills()
+    gen_turn_mill_endmills()
+    gen_turn_mill_ballmills()
+    gen_turn_mill_toroidmills()
 
     #   chamfers and rad
-    # gen_turn_mill_ugloviye()
-    # gen_turn_mill_vnutr_rad_mills()
+    gen_turn_mill_ugloviye()
+    gen_turn_mill_vnutr_rad_mills()
 
     #   index mills
-    # gen_turn_mill_gribkovie()
-    # gen_turn_mill_disks()
+    gen_turn_mill_gribkovie()
+    gen_turn_mill_disks()
     # gen_turn_mill_index_mills()
 
-
     # threads
-    # gen_turn_mill_rezbofrezi()
-    # gen_turnmill_metchiki()
-
+    gen_turn_mill_rezbofrezi()
+    gen_turnmill_metchiki()
 
     """
     freza_konts_

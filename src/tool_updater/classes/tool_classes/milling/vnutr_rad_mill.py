@@ -5,8 +5,8 @@ import logging
 from src.tool_updater.classes.tool_classes.base_tool import BaseTool
 from math import ceil
 
-from tool_updater.classes.turnmill_len_adaptors import adapt_length, adapt_flute_length
-from tool_updater.config import turnmill_holders_safe_lengths
+from src.tool_updater.classes.turnmill_len_adaptors import adapt_length, adapt_flute_length
+from src.tool_updater.config import turnmill_holders_safe_lengths
 
 logger = logging.getLogger(__name__)
 

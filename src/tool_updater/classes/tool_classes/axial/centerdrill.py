@@ -1,8 +1,8 @@
 from src.tool_updater import config
 from math import ceil
 
-from tool_updater.classes.turnmill_len_adaptors import adapt_length, adapt_flute_length
-from tool_updater.config import turnmill_holders_safe_lengths
+from src.tool_updater.classes.turnmill_len_adaptors import adapt_length, adapt_flute_length
+from src.tool_updater.config import turnmill_holders_safe_lengths
 
 import logging
 

@@ -8,7 +8,8 @@ logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 
 console_handler = logging.StreamHandler()
-logfile_handler = logging.FileHandler(filename="../logs/log.log", mode="w")
+# logfile_handler = logging.FileHandler(filename="../logs/log.log", mode="w")
+logfile_handler = logging.FileHandler(filename="./src/logs/log.log", mode="w")
 
 console_formatter = logging.Formatter(fmt=format_string_console, datefmt=date_format)
 logfile_formatter = logging.Formatter(fmt=format_string_logfile, datefmt=date_format)

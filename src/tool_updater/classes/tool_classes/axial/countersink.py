@@ -2,11 +2,11 @@ from src.tool_updater import config
 import logging
 from math import ceil
 
-from tool_updater.classes.turnmill_len_adaptors import adapt_length, adapt_flute_length
-from tool_updater.config import turnmill_holders_safe_lengths
+from src.tool_updater.classes.turnmill_len_adaptors import adapt_length, adapt_flute_length
+from src.tool_updater.config import turnmill_holders_safe_lengths
 
 from src.tool_updater.classes.tool_classes.base_tool import BaseTool
-from tool_updater.classes.tool_renamer import suffix
+from src.tool_updater.classes.tool_renamer import suffix
 
 logger = logging.getLogger(__name__)
 

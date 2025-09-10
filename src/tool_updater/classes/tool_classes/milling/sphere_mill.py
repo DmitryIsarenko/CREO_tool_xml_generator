@@ -35,12 +35,12 @@ class BallMill(BaseTool):
         "iso_H": 0.1,
     }
     radial_depth_modifiyers = {
-        "iso_P": 0.015,
-        "iso_M": 0.015,
-        "iso_K": 0.015,
-        "iso_N": 0.015,
-        "iso_S": 0.015,
-        "iso_H": 0.015,
+        "iso_P": 0.01875,
+        "iso_M": 0.01875,
+        "iso_K": 0.01875,
+        "iso_N": 0.01875,
+        "iso_S": 0.01875,
+        "iso_H": 0.01875,
     }
 
     def __init__(self,
@@ -139,7 +139,8 @@ class BallMill(BaseTool):
             <MfgParam Name="FLUTE_LENGTH" Value="{self.tool_data["FLUTE_LENGTH"]}"/>
             <MfgParam Name="TOOL_COMMENT" Value="{self.tool_data["TOOL_COMMENT"]}"/>
     """
-        logger.debug(f"{self.tool_size_from_geom_catalogue} - xml_tool_params generated...")
+        logger.debug(
+            f"{self.tool_size_from_geom_catalogue} - xml_tool_params generated...")
         return xml_part_str
 
     def set_xml_body_tool_cut_data(self):
@@ -179,10 +180,9 @@ class BallMill(BaseTool):
         """
             total_string += xml_part_str
 
-        logger.debug(f"{self.tool_size_from_geom_catalogue} - xml_tool_cut_data generated...")
+        logger.debug(
+            f"{self.tool_size_from_geom_catalogue} - xml_tool_cut_data generated...")
         return total_string
-
-
 
     def set_xml_bom_components(self) -> str:
         xml_part_str = f"""\
@@ -194,7 +194,8 @@ class BallMill(BaseTool):
                 <BOMComponent Comments=" " Name="BALL_MILL_CUTTER{self.d_for_bom()}" Quantity="1" Type="GENERAL"/>
             </BOM>
 """
-        logger.debug(f"{self.tool_data["tool_name_str"]} - xml_BOM_components generated...")
+        logger.debug(
+            f"{self.tool_data["tool_name_str"]} - xml_BOM_components generated...")
         return xml_part_str
 
     # def d_for_bom(self) -> str:
@@ -210,8 +211,8 @@ class BallMill(BaseTool):
     #         diam_formatted = diam_formatted[0:6:1]
     #
     #     return "_D" + diam_formatted
-    
-    
+
+
 class SferaTurnMill(BallMill):
     holder_prefix = "TM_X_"
     family_name = "TM_X_SFERA_ASM"
@@ -221,9 +222,6 @@ class SferaTurnMill(BallMill):
     cutter_name = "SFERA_CUT"
     max_safe_length = turnmill_holders_safe_lengths[holder_prefix]["max_safe_length"]
     length_taken_by_holder = turnmill_holders_safe_lengths[holder_prefix]["length_taken_by_holder"]
-
-
-
 
     def d_for_bom(self) -> str:
         """
@@ -258,7 +256,6 @@ class SferaTurnMill(BallMill):
 
         # diam_formatted = (str(self.tool_data["CUTTER_DIAM"]))
 
-
         if "." in diam_formatted:
             diam_formatted = diam_formatted.replace(".", "-")
         else:
@@ -282,7 +279,6 @@ class SferaTurnMill(BallMill):
             default_flute_length=self.tool_data["FLUTE_LENGTH"],
             full_length_adapted=self.tool_data["len_out_of_holder"]
         )
-
 
     def set_xml_body_tool_params(self) -> str:
         self.adapt_drill_lengths()
@@ -319,7 +315,8 @@ class SferaTurnMill(BallMill):
             <MfgParam Name="SPINDLE_SENSE" Value="{self.tool_data["SPINDLE_SENSE"]}"/>
             <MfgParam Name="TOOL_COMMENT" Value="{self.tool_data["TOOL_COMMENT"]}"/>
         """
-        logger.debug(f"{self.tool_size_from_geom_catalogue} - xml_tool_params generated...")
+        logger.debug(
+            f"{self.tool_size_from_geom_catalogue} - xml_tool_params generated...")
         return xml_part_str
 
     def set_xml_bom_components(self) -> str:
@@ -330,7 +327,8 @@ class SferaTurnMill(BallMill):
                     <BOMComponent Comments=" " Name="{self.cutter_name}{self.d_for_bom()}" Quantity="1" Type="GENERAL"/>
                 </BOM>
     """
-        logger.debug(f"{self.tool_data["tool_name_str"]} - xml_BOM_components generated...")
+        logger.debug(
+            f"{self.tool_data["tool_name_str"]} - xml_BOM_components generated...")
         return xml_part_str
 
 
@@ -366,7 +364,6 @@ class SferaTurnMill_TM_X_L(SferaTurnMill):
     length_taken_by_holder = turnmill_holders_safe_lengths[holder_prefix]["length_taken_by_holder"]
 
 
-
 class SferaTurnMill_TM_Z_1(SferaTurnMill):
     """
     TM_Z_1_
@@ -382,7 +379,6 @@ class SferaTurnMill_TM_Z_1(SferaTurnMill):
     length_taken_by_holder = turnmill_holders_safe_lengths[holder_prefix]["length_taken_by_holder"]
 
 
-
 class SferaTurnMill_TM_Z_2(SferaTurnMill):
     """
     TM_Z_2_
@@ -396,7 +392,6 @@ class SferaTurnMill_TM_Z_2(SferaTurnMill):
     cutter_name = "SFERA_CUT"
     max_safe_length = turnmill_holders_safe_lengths[holder_prefix]["max_safe_length"]
     length_taken_by_holder = turnmill_holders_safe_lengths[holder_prefix]["length_taken_by_holder"]
-
 
 
 class SferaTurnMill_TM_Z_SUB(SferaTurnMill):
@@ -430,7 +425,6 @@ class SferaTurnMill_T_Z_ER(SferaTurnMill):
 
     cutter_name = "SFERA_CUT"
 
-
     def set_xml_bom_components(self) -> str:
         xml_part_str = f"""\
                 <BOM>
@@ -440,7 +434,8 @@ class SferaTurnMill_T_Z_ER(SferaTurnMill):
                     <BOMComponent Comments=" " Name="{self.cutter_name}{self.d_for_bom()}" Quantity="1" Type="GENERAL"/>
                 </BOM>
     """
-        logger.debug(f"{self.tool_data["tool_name_str"]} - xml_BOM_components generated...")
+        logger.debug(
+            f"{self.tool_data["tool_name_str"]} - xml_BOM_components generated...")
         return xml_part_str
 
 
@@ -469,7 +464,8 @@ class SferaTurnMill_T_Z_SUB_ER(SferaTurnMill):
                     <BOMComponent Comments=" " Name="{self.cutter_name}{self.d_for_bom()}" Quantity="1" Type="GENERAL"/>
                 </BOM>
     """
-        logger.debug(f"{self.tool_data["tool_name_str"]} - xml_BOM_components generated...")
+        logger.debug(
+            f"{self.tool_data["tool_name_str"]} - xml_BOM_components generated...")
         return xml_part_str
 
 
@@ -488,7 +484,6 @@ class SferaTurnMill_T_Z(SferaTurnMill):
     length_taken_by_holder = turnmill_holders_safe_lengths[holder_prefix]["length_taken_by_holder"]
 
 
-
 class SferaTurnMill_T_Z_SUB(SferaTurnMill):
     """
     T_Z_SUB_
@@ -504,7 +499,6 @@ class SferaTurnMill_T_Z_SUB(SferaTurnMill):
     length_taken_by_holder = turnmill_holders_safe_lengths[holder_prefix]["length_taken_by_holder"]
 
 
-
 class SferaTurnMill_T_Z_F2(SferaTurnMill):
     """
     T_Z_F2_
@@ -518,7 +512,6 @@ class SferaTurnMill_T_Z_F2(SferaTurnMill):
     cutter_name = "SFERA_CUT"
     max_safe_length = turnmill_holders_safe_lengths[holder_prefix]["max_safe_length"]
     length_taken_by_holder = turnmill_holders_safe_lengths[holder_prefix]["length_taken_by_holder"]
-
 
 
 """
@@ -545,7 +538,6 @@ T_Z_SUB_
 T_Z_F2_
     HOLDER_AXIS_EWS_135834
 """
-
 
 
 """

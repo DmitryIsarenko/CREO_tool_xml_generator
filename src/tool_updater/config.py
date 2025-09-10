@@ -121,10 +121,10 @@ lst_of_not_iso_material_groups: list[str] = [
 not_iso_materials_modifyers: dict = {
     key_not_iso_plexiglas: {
         "from_iso": key_iso_N,
-        "k_Vc": 0.65,
+        "k_Vc": 0.4,
         "k_Ae": 0.5,
         "k_Ap": 1,
-        "k_Fz": 0.6,
+        "k_Fz": 0.3,
     },
     key_not_iso_pa6: {
         "from_iso": key_iso_N,
@@ -152,7 +152,7 @@ not_iso_materials_modifyers: dict = {
         "k_Vc": 0.3,
         "k_Ae": 0.4,
         "k_Ap": 0.4,
-        "k_Fz": 0.5,
+        "k_Fz": 0.4,
     },
     key_iso_S: {
         "from_iso": key_iso_M,

@@ -45,6 +45,7 @@ class IndexMill(BaseTool):
     }
 
     path_to_holder_geometry_catalog = r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\milling\index_mills\holders_Dandrea.json"
+
     def __init__(self,
                  tool_size_from_geom_catalogue: str,
                  catalog_tool_cut_data: dict,
@@ -92,7 +93,6 @@ class IndexMill(BaseTool):
     def get_tool_shank_diam(self):
         return self.catalog_tool_geometry[self.tool_name_from_input]["SHANK_DIAM"]
 
-
     def get_cutter_diam(self):
         d = self.catalog_tool_geometry[self.tool_name_from_input]["CUTTER_DIAM"]
         return d
@@ -100,6 +100,7 @@ class IndexMill(BaseTool):
     def get_tool_diam_float(self):
         d = self.catalog_tool_geometry[self.tool_name_from_input]["CUTTER_DIAM"]
         return d
+
     def calc_axial_depth(self, key_iso_material) -> float:
         insert_name = self.catalog_tool_geometry[self.tool_name_from_input]["insert_name"]
         ap = self.catalog_tool_cut_data[insert_name]["Ap"][0]
@@ -145,8 +146,8 @@ class IndexMill(BaseTool):
             return 50
         return hol_body_min_len
 
-
     # FORMATTING RECENTLY EXISTING/EXTRACTED DATA
+
     def create_tool_name_for_geom_catalogue(self):
         t_name = self.tool_data["tool_name_str"]
         return t_name
@@ -157,9 +158,12 @@ class IndexMill(BaseTool):
     def create_tool_name_for_xml(self):
         t_prefix = self.tool_data["file_name_prefix"].upper()
         t_suffix = self.tool_data["file_name_suffix"].upper()
-        d = self.clear_str_from_trailing_zeros(str(self.tool_data["CUTTER_DIAM"]), sep=".").replace(".", "-")
-        l1 = self.clear_str_from_trailing_zeros(str(self.calc_len_out_of_holder()), sep=".").replace(".", "-")
-        l2 = self.clear_str_from_trailing_zeros(str(self.get_full_tool_length()), sep=".").replace(".", "-")
+        d = self.clear_str_from_trailing_zeros(
+            str(self.tool_data["CUTTER_DIAM"]), sep=".").replace(".", "-")
+        l1 = self.clear_str_from_trailing_zeros(
+            str(self.calc_len_out_of_holder()), sep=".").replace(".", "-")
+        l2 = self.clear_str_from_trailing_zeros(
+            str(self.get_full_tool_length()), sep=".").replace(".", "-")
 
         t_name = (
             f"{t_prefix}"
@@ -167,9 +171,9 @@ class IndexMill(BaseTool):
             f"_Z{self.get_tool_teeth_num()}"
             f"_L{l1}"
             f"_L{l2}"
-            f"_{self.tool_name_from_input.replace(" ","_")}"
+            f"_{self.tool_name_from_input.replace(" ", "_")}"
             # f"{t_suffix}"
-            )
+        )
 
         return t_name
 
@@ -177,9 +181,12 @@ class IndexMill(BaseTool):
         t_prefix = self.tool_data["file_name_prefix"]
         t_suffix = self.tool_data["file_name_suffix"]
 
-        d = self.clear_str_from_trailing_zeros(str(self.tool_data["CUTTER_DIAM"]), sep=".")
-        l1 = self.clear_str_from_trailing_zeros(str(self.calc_len_out_of_holder()), sep=".")
-        l2 = self.clear_str_from_trailing_zeros(str(self.get_full_tool_length()), sep=".")
+        d = self.clear_str_from_trailing_zeros(
+            str(self.tool_data["CUTTER_DIAM"]), sep=".")
+        l1 = self.clear_str_from_trailing_zeros(
+            str(self.calc_len_out_of_holder()), sep=".")
+        l2 = self.clear_str_from_trailing_zeros(
+            str(self.get_full_tool_length()), sep=".")
 
         t_name = (
             f"{t_prefix}"
@@ -189,7 +196,7 @@ class IndexMill(BaseTool):
             f"_L{l2}"
             f"_({self.tool_name_from_input})"
             f"{t_suffix}"
-            )
+        )
 
         return t_name
 
@@ -211,7 +218,6 @@ class IndexMill(BaseTool):
             # logger.warning(f"{self.tool_data["tool_name_str"]} - Tool flute len not found")
             return ""
 
-
     def get_vc(self, key_iso_material: str, fin_or_rough):
         try:
             insert_name = self.catalog_tool_geometry[self.tool_name_from_input]["insert_name"]
@@ -228,39 +234,79 @@ class IndexMill(BaseTool):
             # logger.critical(f"{self.tool_data["tool_name_str"]} - Vc not found")
             return 0
 
-    def calc_cut_data_for_all_material_groups(self):
-        for key_iso_material in config.lst_of_iso_material_groups:
-            for fin_or_rough in self.finishing_roughing_options:
-                tool_surface_speed = self.get_vc(key_iso_material=key_iso_material, fin_or_rough=fin_or_rough)
-                tool_spindle_rpm = self.calc_rpm(Vc=tool_surface_speed)
+    # def calc_cut_data_for_all_material_groups(self):
+    #     for key_iso_material in config.lst_of_iso_material_groups:
+    #         for fin_or_rough in self.finishing_roughing_options:
+    #             tool_surface_speed = self.get_vc(
+    #                 key_iso_material=key_iso_material, fin_or_rough=fin_or_rough)
+    #             tool_spindle_rpm = self.calc_rpm(Vc=tool_surface_speed)
 
-                self.tool_data["cut_data"][key_iso_material][fin_or_rough][
-                    "TOOL_SURFACE_SPEED"] = tool_surface_speed
-                self.tool_data["cut_data"][key_iso_material][fin_or_rough]["TOOL_SPINDLE_RPM"] = tool_spindle_rpm
+    #             self.tool_data["cut_data"][key_iso_material][fin_or_rough][
+    #                 "TOOL_SURFACE_SPEED"] = tool_surface_speed
+    #             self.tool_data["cut_data"][key_iso_material][fin_or_rough]["TOOL_SPINDLE_RPM"] = tool_spindle_rpm
 
-                tool_feed_per_unit = self.calc_feed_per_unit(key_iso_material=key_iso_material,
-                                                             fin_or_rough=fin_or_rough)
-                tool_feed_rate = self.calc_feed_rate(key_iso_material=key_iso_material, RPM=tool_spindle_rpm,
-                                                     fin_or_rough=fin_or_rough)
-                tool_axial_depth = self.calc_axial_depth(key_iso_material=key_iso_material)
-                tool_radial_depth = self.calc_radial_depth(key_iso_material=key_iso_material)
+    #             tool_feed_per_unit = self.calc_feed_per_unit(key_iso_material=key_iso_material,
+    #                                                          fin_or_rough=fin_or_rough)
+    #             tool_feed_rate = self.calc_feed_rate(key_iso_material=key_iso_material, RPM=tool_spindle_rpm,
+    #                                                  fin_or_rough=fin_or_rough)
+    #             tool_axial_depth = self.calc_axial_depth(
+    #                 key_iso_material=key_iso_material)
+    #             tool_radial_depth = self.calc_radial_depth(
+    #                 key_iso_material=key_iso_material)
 
-                multiplyer = 1
-                if tool_spindle_rpm >= config.MAX_RPM:
-                    multiplyer = config.MAX_RPM / tool_spindle_rpm
-                    self.tool_data["cut_data"][key_iso_material][fin_or_rough]["TOOL_SPINDLE_RPM"] = round(
-                        tool_spindle_rpm * multiplyer, ndigits=config.NDIGITS_SPINDLE)
-                    self.tool_data["cut_data"][key_iso_material][fin_or_rough]["TOOL_SURFACE_SPEED"] = round(
-                        tool_surface_speed * multiplyer, ndigits=config.NDIGITS_SURFACE_SPEED)
+    #             multiplyer = 1
+    #             if tool_spindle_rpm >= config.MAX_RPM:
+    #                 multiplyer = config.MAX_RPM / tool_spindle_rpm
+    #                 self.tool_data["cut_data"][key_iso_material][fin_or_rough]["TOOL_SPINDLE_RPM"] = round(
+    #                     tool_spindle_rpm * multiplyer, ndigits=config.NDIGITS_SPINDLE)
+    #                 self.tool_data["cut_data"][key_iso_material][fin_or_rough]["TOOL_SURFACE_SPEED"] = round(
+    #                     tool_surface_speed * multiplyer, ndigits=config.NDIGITS_SURFACE_SPEED)
 
-                self.tool_data["cut_data"][key_iso_material][fin_or_rough]["TOOL_FEED_PER_UNIT"] = round(
-                    tool_feed_per_unit * multiplyer, ndigits=config.NDIGITS_FEED_PER_UNIT)
-                self.tool_data["cut_data"][key_iso_material][fin_or_rough]["TOOL_FEED_RATE"] = round(
-                    tool_feed_rate * multiplyer, ndigits=config.NDIGITS_FEED)
-                self.tool_data["cut_data"][key_iso_material][fin_or_rough]["TOOL_AXIAL_DEPTH"] = round(
-                    tool_axial_depth * multiplyer, ndigits=config.NDIGITS_AXIAL_FEED)
-                self.tool_data["cut_data"][key_iso_material][fin_or_rough]["TOOL_RADIAL_DEPTH"] = round(
-                    tool_radial_depth * multiplyer, ndigits=config.NDIGITS_RADIAL_FEED)
+    #             self.tool_data["cut_data"][key_iso_material][fin_or_rough]["TOOL_FEED_PER_UNIT"] = round(
+    #                 tool_feed_per_unit * multiplyer, ndigits=config.NDIGITS_FEED_PER_UNIT)
+    #             self.tool_data["cut_data"][key_iso_material][fin_or_rough]["TOOL_FEED_RATE"] = round(
+    #                 tool_feed_rate * multiplyer, ndigits=config.NDIGITS_FEED)
+    #             self.tool_data["cut_data"][key_iso_material][fin_or_rough]["TOOL_AXIAL_DEPTH"] = round(
+    #                 tool_axial_depth * multiplyer, ndigits=config.NDIGITS_AXIAL_FEED)
+    #             self.tool_data["cut_data"][key_iso_material][fin_or_rough]["TOOL_RADIAL_DEPTH"] = round(
+    #                 tool_radial_depth * multiplyer, ndigits=config.NDIGITS_RADIAL_FEED)
+
+    # def calc_cut_data_for_all_material_groups(self):
+    #     for key_iso_material in config.lst_of_iso_material_groups:
+    #         for fin_or_rough in self.finishing_roughing_options:
+    #             tool_surface_speed = self.get_vc(
+    #                 key_iso_material=key_iso_material, fin_or_rough=fin_or_rough)
+    #             tool_spindle_rpm = self.calc_rpm(Vc=tool_surface_speed)
+
+    #             self.tool_data["cut_data"][key_iso_material][fin_or_rough][
+    #                 "TOOL_SURFACE_SPEED"] = tool_surface_speed
+    #             self.tool_data["cut_data"][key_iso_material][fin_or_rough]["TOOL_SPINDLE_RPM"] = tool_spindle_rpm
+
+    #             tool_feed_per_unit = self.calc_feed_per_unit(key_iso_material=key_iso_material,
+    #                                                          fin_or_rough=fin_or_rough)
+    #             tool_feed_rate = self.calc_feed_rate(key_iso_material=key_iso_material, RPM=tool_spindle_rpm,
+    #                                                  fin_or_rough=fin_or_rough)
+    #             tool_axial_depth = self.calc_axial_depth(
+    #                 key_iso_material=key_iso_material)
+    #             tool_radial_depth = self.calc_radial_depth(
+    #                 key_iso_material=key_iso_material)
+
+    #             multiplyer = 1
+    #             if tool_spindle_rpm >= config.MAX_RPM:
+    #                 multiplyer = config.MAX_RPM / tool_spindle_rpm
+    #                 self.tool_data["cut_data"][key_iso_material][fin_or_rough]["TOOL_SPINDLE_RPM"] = round(
+    #                     tool_spindle_rpm * multiplyer, ndigits=config.NDIGITS_SPINDLE)
+    #                 self.tool_data["cut_data"][key_iso_material][fin_or_rough]["TOOL_SURFACE_SPEED"] = round(
+    #                     tool_surface_speed * multiplyer, ndigits=config.NDIGITS_SURFACE_SPEED)
+
+    #             self.tool_data["cut_data"][key_iso_material][fin_or_rough]["TOOL_FEED_PER_UNIT"] = round(
+    #                 tool_feed_per_unit * multiplyer, ndigits=config.NDIGITS_FEED_PER_UNIT)
+    #             self.tool_data["cut_data"][key_iso_material][fin_or_rough]["TOOL_FEED_RATE"] = round(
+    #                 tool_feed_rate * multiplyer, ndigits=config.NDIGITS_FEED)
+    #             self.tool_data["cut_data"][key_iso_material][fin_or_rough]["TOOL_AXIAL_DEPTH"] = round(
+    #                 tool_axial_depth * multiplyer, ndigits=config.NDIGITS_AXIAL_FEED)
+    #             self.tool_data["cut_data"][key_iso_material][fin_or_rough]["TOOL_RADIAL_DEPTH"] = round(
+    #                 tool_radial_depth * multiplyer, ndigits=config.NDIGITS_RADIAL_FEED)
 
     def calc_rpm(self, Vc: int | float) -> float:
         try:
@@ -290,7 +336,6 @@ class IndexMill(BaseTool):
             return Fz
         except:
             return 0
-
 
     def calc_feed_rate(self, key_iso_material, RPM, fin_or_rough) -> float:
         try:
@@ -352,7 +397,8 @@ class IndexMill(BaseTool):
             <MfgParam Name="SPINDLE_SENSE" Value="{self.tool_data["SPINDLE_SENSE"]}"/>
             <MfgParam Name="TOOL_COMMENT" Value="{self.tool_data["TOOL_COMMENT"]}"/>
     """
-        logger.debug(f"{self.tool_name_from_input} - xml_tool_params generated...")
+        logger.debug(
+            f"{self.tool_name_from_input} - xml_tool_params generated...")
         return xml_part_str
 
     def set_xml_body_tool_cut_data(self):
@@ -392,10 +438,9 @@ class IndexMill(BaseTool):
         """
             total_string += xml_part_str
 
-        logger.debug(f"{self.tool_name_from_input} - xml_tool_cut_data generated...")
+        logger.debug(
+            f"{self.tool_name_from_input} - xml_tool_cut_data generated...")
         return total_string
-
-
 
     def set_xml_bom_components(self) -> str:
         xml_part_str = f"""\
@@ -407,12 +452,12 @@ class IndexMill(BaseTool):
                 <BOMComponent Comments=" " Name="INDEX_MILL_CUTTER" Quantity="1" Type="GENERAL"/>
             </BOM>
 """
-        logger.debug(f"{self.tool_data["tool_name_str"]} - xml_BOM_components generated...")
+        logger.debug(
+            f"{self.tool_data["tool_name_str"]} - xml_BOM_components generated...")
         return xml_part_str
 
 
 class IndexMillSingleASMs(IndexMill):
-
 
     def set_xml_body_tool_params(self) -> str:
         xml_part_str = f"""\
@@ -445,7 +490,8 @@ class IndexMillSingleASMs(IndexMill):
             <MfgParam Name="SPINDLE_SENSE" Value="{self.tool_data["SPINDLE_SENSE"]}"/>
             <MfgParam Name="TOOL_COMMENT" Value="{self.tool_data["TOOL_COMMENT"]}"/>
     """
-        logger.debug(f"{self.tool_name_from_input} - xml_tool_params generated...")
+        logger.debug(
+            f"{self.tool_name_from_input} - xml_tool_params generated...")
         return xml_part_str
 
     def set_xml_bom_components(self) -> str:
@@ -458,9 +504,9 @@ class IndexMillSingleASMs(IndexMill):
                     <BOMComponent Comments=" " Name="{self.get_insert_prt_name_for_xml()}" Quantity="{self.tool_data["NUM_OF_TEETH"]}" Type="GENERAL"/>
                 </BOM>
     """
-        logger.debug(f"{self.tool_data["tool_name_str"]} - xml_BOM_components generated...")
+        logger.debug(
+            f"{self.tool_data["tool_name_str"]} - xml_BOM_components generated...")
         return xml_part_str
-
 
 
 # class IndexMillTaeguTec3PTE90_10(IndexMill):

@@ -1,0 +1,71 @@
+[project]
+name = "creo-tool-xml-generator"
+version = "0.1.0"
+description = "Generate CREO tool XML from geometry and cutting data catalogs."
+readme = "readme.md"
+authors = [
+    { name = "Isarenko Dmitrii", email = "isarenko.dmitry.it@gmail.com" }
+]
+requires-python = ">=3.14"
+dependencies = []
+
+[dependency-groups]
+dev = [
+    "mypy>=2.4.0",
+    "pytest>=9.1.1",
+    "ruff>=0.17.1",
+]
+
+[tool.uv]
+package = false
+
+[tool.ruff]
+target-version = "py314"
+line-length = 79
+fix = true
+src = ["."]
+extend-exclude = ["generated_xmls", "memory-bank"]
+
+[tool.ruff.lint]
+select = ["E", "W", "F", "I", "B", "C4", "UP", "YTT", "ANN", "D"]
+fixable = ["ALL"]
+unfixable = ["D", "ANN"]
+ignore = ["D107", "D203", "D213", "D100", "D104"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.lint.flake8-annotations]
+allow-star-arg-any = false
+mypy-init-return = false
+suppress-none-returning = false
+
+[tool.ruff.lint.isort]
+force-single-line = false
+force-sort-within-sections = true
+lines-after-imports = 2
+
+[tool.ruff.format]
+indent-style = "space"
+quote-style = "single"
+
+[tool.mypy]
+python_version = "3.14"
+files = ["src"]
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_decorators = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+warn_unreachable = true
+exclude = ["^build/", "^dist/", "^generated_xmls/"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+python_files = ["test_*.py"]

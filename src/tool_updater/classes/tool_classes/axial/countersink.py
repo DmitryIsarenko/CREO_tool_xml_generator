@@ -6,7 +6,6 @@ from src.tool_updater.classes.turnmill_len_adaptors import adapt_length, adapt_f
 from src.tool_updater.config import turnmill_holders_safe_lengths
 
 from src.tool_updater.classes.tool_classes.base_tool import BaseTool
-from src.tool_updater.classes.tool_renamer import suffix
 
 logger = logging.getLogger(__name__)
 

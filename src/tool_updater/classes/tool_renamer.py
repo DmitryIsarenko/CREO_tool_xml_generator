@@ -32,7 +32,7 @@ def execute_renaming(
             raise ValueError('Prefix and suffix must be filename fragments.')
 
     plans: list[tuple[Path, Path]] = []
-    documents: list[ElementTree.ElementTree] = []
+    documents: list[ElementTree.ElementTree[ElementTree.Element[str]]] = []
     names: set[str] = set()
     source_files = [
         file

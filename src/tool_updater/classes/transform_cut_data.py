@@ -1,3 +1,6 @@
+from collections.abc import Sequence
+
+
 list_of_feed_P = [
     1210,
     1160,
@@ -63,7 +66,7 @@ multiplier_M_to_N = 4
 
 
 def transform_feeds(
-    list_of_feed: list[float],
+    list_of_feed: Sequence[float],
     iso_from: dict[str, float],
     iso_to: dict[str, float],
     Vc_from: float,

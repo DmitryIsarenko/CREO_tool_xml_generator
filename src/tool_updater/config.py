@@ -1,5 +1,7 @@
 from pathlib import Path
 
+from src.tool_updater.data_types import MaterialModifiers
+
 
 PROJECT_DIR = Path(__file__).resolve().parents[2]
 CATALOGS_DIR = PROJECT_DIR / 'src' / 'tool_updater' / 'catalogs'
@@ -102,7 +104,7 @@ lst_of_not_iso_material_groups: list[str] = [
     key_not_iso_ptte,
 ]
 
-not_iso_materials_modifyers: dict = {
+not_iso_materials_modifyers: dict[str, MaterialModifiers] = {
     key_not_iso_plexiglas: {
         'from_iso': key_iso_N,
         'k_Vc': 0.4,
@@ -175,7 +177,7 @@ collet_sizes = {
     },
 }
 
-turnmill_holders_safe_lengths = {
+turnmill_holders_safe_lengths: dict[str, dict[str, float]] = {
     'TM_X_': {
         'max_safe_length': 180,
         'length_taken_by_holder': 94,

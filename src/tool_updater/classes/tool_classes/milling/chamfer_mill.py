@@ -1,5 +1,6 @@
 import logging
 from math import ceil
+from typing import cast
 
 from src.tool_updater import config
 from src.tool_updater.classes.tool_classes.base_tool import BaseTool
@@ -8,6 +9,7 @@ from src.tool_updater.classes.turnmill_len_adaptors import (
     adapt_length,
 )
 from src.tool_updater.config import turnmill_holders_safe_lengths
+from src.tool_updater.data_types import Catalog
 
 
 logger = logging.getLogger(__name__)
@@ -51,8 +53,8 @@ class ChamferMill(BaseTool):
     def __init__(
         self,
         tool_size_from_geom_catalogue: str,
-        catalog_tool_cut_data: dict,
-        catalog_tool_geometry: dict,
+        catalog_tool_cut_data: Catalog,
+        catalog_tool_geometry: Catalog,
         teeth_num: int,
         file_name_prefix: str,
         file_name_suffix: str,
@@ -84,14 +86,18 @@ class ChamferMill(BaseTool):
 
     def get_shank_diam(self) -> float:
         """Return shank diam."""
-        return self.catalog_tool_geometry[self.complex_size_name]['flute_diam']
+        return cast(
+            float,
+            self.catalog_tool_geometry[self.complex_size_name]['flute_diam'],
+        )
 
     def get_tip_diam(self) -> float:
         """Return tip diam."""
         try:
-            return self.catalog_tool_geometry[self.complex_size_name][
-                'tip_diam'
-            ]
+            return cast(
+                float,
+                self.catalog_tool_geometry[self.complex_size_name]['tip_diam'],
+            )
         except KeyError:
             return 0.2
 
@@ -101,7 +107,10 @@ class ChamferMill(BaseTool):
 
     def get_side_angle(self) -> float:
         """Return side angle."""
-        return self.catalog_tool_geometry[self.complex_size_name]['side_angle']
+        return cast(
+            float,
+            self.catalog_tool_geometry[self.complex_size_name]['side_angle'],
+        )
 
     def calc_len_out_of_holder(self) -> float:
         """Calculate len out of holder."""
@@ -111,7 +120,7 @@ class ChamferMill(BaseTool):
         _flute_len = self.catalog_tool_geometry[self.complex_size_name][
             'flute_len'
         ]
-        return hol_len - 25
+        return cast(float, hol_len - 25)
 
     # FORMATTING RECENTLY EXISTING/EXTRACTED DATA
     def create_tool_name_for_geom_catalogue(self) -> str:
@@ -178,7 +187,7 @@ class ChamferMill(BaseTool):
             self.tool_data['cut_data_diam_group']
         ]
         F *= feed_multiplier
-        return round(F, ndigits=config.NDIGITS_FEED)
+        return cast(float, round(F, ndigits=config.NDIGITS_FEED))
 
     def set_xml_body_tool_params(self) -> str:
         """Set xml body tool params."""

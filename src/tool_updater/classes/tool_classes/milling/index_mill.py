@@ -1,9 +1,11 @@
 import json
 import logging
 from math import pi
+from typing import cast
 
 from src.tool_updater import config
 from src.tool_updater.classes.tool_classes.base_tool import BaseTool
+from src.tool_updater.data_types import Catalog
 
 
 logger = logging.getLogger(__name__)
@@ -56,8 +58,8 @@ class IndexMill(BaseTool):
     def __init__(
         self,
         tool_size_from_geom_catalogue: str,
-        catalog_tool_cut_data: dict,
-        catalog_tool_geometry: dict,
+        catalog_tool_cut_data: Catalog,
+        catalog_tool_geometry: Catalog,
         teeth_num: int,
         file_name_prefix: str,
         file_name_suffix: str,
@@ -98,29 +100,32 @@ class IndexMill(BaseTool):
                 self.tool_name_from_input
             ]['insert_name']
             r = self.catalog_tool_cut_data[insert_name]['RE']
-            return r
+            return cast(float, r)
         except KeyError:
             return 0
 
     def get_tool_shank_diam(self) -> float:
         """Return tool shank diam."""
-        return self.catalog_tool_geometry[self.tool_name_from_input][
-            'SHANK_DIAM'
-        ]
+        return cast(
+            float,
+            self.catalog_tool_geometry[self.tool_name_from_input][
+                'SHANK_DIAM'
+            ],
+        )
 
-    def get_cutter_diam(self) -> float | str:
+    def get_cutter_diam(self) -> float:
         """Return cutter diam."""
         d = self.catalog_tool_geometry[self.tool_name_from_input][
             'CUTTER_DIAM'
         ]
-        return d
+        return cast(float, d)
 
     def get_tool_diam_float(self) -> float:
         """Return tool diam float."""
         d = self.catalog_tool_geometry[self.tool_name_from_input][
             'CUTTER_DIAM'
         ]
-        return d
+        return cast(float, d)
 
     def calc_axial_depth(self, key_iso_material: str) -> float:
         """Calculate axial depth."""
@@ -128,7 +133,7 @@ class IndexMill(BaseTool):
             'insert_name'
         ]
         ap = self.catalog_tool_cut_data[insert_name]['Ap'][0]
-        return ap * self.axial_depth_modifiyers[key_iso_material]
+        return cast(float, ap * self.axial_depth_modifiyers[key_iso_material])
 
     def calc_radial_depth(self, key_iso_material: str) -> float:
         # return self.tool_data["CUTTER_DIAM"] *
@@ -138,7 +143,7 @@ class IndexMill(BaseTool):
             'insert_name'
         ]
         ae = self.catalog_tool_cut_data[insert_name]['Ae'][0]
-        return ae * self.tool_data['CUTTER_DIAM']
+        return cast(float, ae * self.tool_data['CUTTER_DIAM'])
         # return ae * self.axial_depth_modifiyers[key_iso_material]
         # return self.tool_data["CUTTER_DIAM"] *
         # self.radial_depth_modifiyers[key_iso_material]
@@ -152,26 +157,36 @@ class IndexMill(BaseTool):
         """Return tool holder data."""
         shank_diam = self.get_tool_shank_diam()
         if 50 >= shank_diam > 32:
-            return self.catalog_holder_geometry['MAS403 BT40-AD+B MF50']
+            return cast(
+                dict, self.catalog_holder_geometry['MAS403 BT40-AD+B MF50']
+            )
         elif 32 >= shank_diam > 20:
-            return self.catalog_holder_geometry['MAS403 BT40-AD+B MF32.140']
+            return cast(
+                dict, self.catalog_holder_geometry['MAS403 BT40-AD+B MF32.140']
+            )
         elif 20 >= shank_diam > 12:
-            return self.catalog_holder_geometry['MAS403 BT40-AD+B MF20.100']
+            return cast(
+                dict, self.catalog_holder_geometry['MAS403 BT40-AD+B MF20.100']
+            )
         elif 12 >= shank_diam > 0:
-            return self.catalog_holder_geometry['MAS403 BT40-AD+B MF12.100']
+            return cast(
+                dict, self.catalog_holder_geometry['MAS403 BT40-AD+B MF12.100']
+            )
         else:
-            return self.catalog_holder_geometry['MAS403 BT40-AD+B MF200']
+            return cast(
+                dict, self.catalog_holder_geometry['MAS403 BT40-AD+B MF200']
+            )
 
     def get_holder_len(self) -> float | str:
         """Return holder len."""
-        return self.get_tool_holder_data()['holder_len']
+        return cast(float | str, self.get_tool_holder_data()['holder_len'])
 
     def get_full_tool_length(self) -> float:
         """Return full tool length."""
         full_tool_len = self.catalog_tool_geometry[self.tool_name_from_input][
             'LENGTH'
         ]
-        return full_tool_len
+        return cast(float, full_tool_len)
 
     def calc_len_out_of_holder(self) -> float:
         """Calculate len out of holder."""
@@ -179,7 +194,7 @@ class IndexMill(BaseTool):
         hol_body_min_len = self.get_full_tool_length() - hol_depth
         if hol_body_min_len <= 0:
             return 50
-        return hol_body_min_len
+        return cast(float, hol_body_min_len)
 
     # FORMATTING RECENTLY EXISTING/EXTRACTED DATA
 
@@ -190,9 +205,12 @@ class IndexMill(BaseTool):
 
     def create_tool_name_for_cut_catalogue(self) -> float | str:
         """Create tool name for cut catalogue."""
-        return self.catalog_tool_geometry[self.tool_name_from_input][
-            'insert_name'
-        ]
+        return cast(
+            float | str,
+            self.catalog_tool_geometry[self.tool_name_from_input][
+                'insert_name'
+            ],
+        )
 
     def create_tool_name_for_xml(self) -> str:
         """Create tool name for xml."""
@@ -249,15 +267,21 @@ class IndexMill(BaseTool):
 
     def get_tool_flute_length(self) -> float:
         """Return tool flute length."""
-        return self.catalog_tool_geometry[self.tool_name_from_input][
-            'FLUTE_LENGTH'
-        ]
+        return cast(
+            float,
+            self.catalog_tool_geometry[self.tool_name_from_input][
+                'FLUTE_LENGTH'
+            ],
+        )
 
     def get_tool_teeth_num(self) -> int:
         """Return tool teeth num."""
-        return self.catalog_tool_geometry[self.tool_name_from_input][
-            'NUM_OF_TEETH'
-        ]
+        return cast(
+            int,
+            self.catalog_tool_geometry[self.tool_name_from_input][
+                'NUM_OF_TEETH'
+            ],
+        )
 
     def get_tool_comment(self) -> str:
         """Return tool comment."""
@@ -266,7 +290,7 @@ class IndexMill(BaseTool):
             insert_name = self.catalog_tool_geometry[
                 self.tool_name_from_input
             ]['insert_name']
-            return t_name + ' + ' + insert_name
+            return cast(str, t_name + ' + ' + insert_name)
         except KeyError:
             # logger.warning(f"{self.tool_data["tool_name_str"]} - Tool flute
             # len not found")
@@ -293,17 +317,16 @@ class IndexMill(BaseTool):
                     'vc_modifier'
                 ]
                 return vc_data
-            if (
-                type(vc_data) is list
-                or type(vc_data) is set
-                or type(vc_data) is tuple
-            ):
+            if isinstance(vc_data, (list, tuple)):
                 vc_data = vc_data[config.vc_min_or_max]
                 vc_data *= self.finishing_roughing_options[fin_or_rough][
                     'vc_modifier'
                 ]
                 vc_data = round(vc_data, ndigits=config.NDIGITS_SURFACE_SPEED)
-                return vc_data
+                return cast(float, vc_data)
+            raise ValueError(
+                f'Invalid insert surface speed for {key_iso_material}'
+            )
         except KeyError as exc:
             raise ValueError(
                 f'Invalid insert cutting data for {key_iso_material}'
@@ -332,7 +355,7 @@ class IndexMill(BaseTool):
     #             tool_radial_depth = self.calc_radial_depth(
     #                 key_iso_material=key_iso_material)
 
-    #             multiplyer = 1
+    #             multiplyer = 1.0
     #             if tool_spindle_rpm >= config.MAX_RPM:
     #                 multiplyer = config.MAX_RPM / tool_spindle_rpm
     # self.tool_data["cut_data"][key_iso_material][fin_or_rough]["TOOL_SPINDLE_
@@ -378,7 +401,7 @@ class IndexMill(BaseTool):
     #             tool_radial_depth = self.calc_radial_depth(
     #                 key_iso_material=key_iso_material)
 
-    #             multiplyer = 1
+    #             multiplyer = 1.0
     #             if tool_spindle_rpm >= config.MAX_RPM:
     #                 multiplyer = config.MAX_RPM / tool_spindle_rpm
     # self.tool_data["cut_data"][key_iso_material][fin_or_rough]["TOOL_SPINDLE_
@@ -432,7 +455,7 @@ class IndexMill(BaseTool):
         Fz_min = self.catalog_cut_data[insert_name]['Fz'][0]
         Fz_max = self.catalog_cut_data[insert_name]['Fz'][1]
         Fz = (Fz_max + Fz_min) / 2
-        return Fz
+        return cast(float, Fz)
 
     def calc_feed_rate(
         self, key_iso_material: str, RPM: float, fin_or_rough: str
@@ -446,25 +469,32 @@ class IndexMill(BaseTool):
             'NUM_OF_TEETH'
         ]
         F = Fz * z * RPM * feed_multiplier
-        return round(F, ndigits=config.NDIGITS_FEED)
+        return cast(float, round(F, ndigits=config.NDIGITS_FEED))
 
     def get_asm_name_for_xml(self) -> str:
         """Return asm name for xml."""
-        return self.catalog_tool_geometry[self.tool_name_from_input][
-            'asm_name'
-        ]
+        return cast(
+            str,
+            self.catalog_tool_geometry[self.tool_name_from_input]['asm_name'],
+        )
 
     def get_body_name_for_xml(self) -> str:
         """Return body name for xml."""
-        return self.catalog_tool_geometry[self.tool_name_from_input][
-            'body_prt_name'
-        ]
+        return cast(
+            str,
+            self.catalog_tool_geometry[self.tool_name_from_input][
+                'body_prt_name'
+            ],
+        )
 
     def get_insert_prt_name_for_xml(self) -> str:
         """Return insert prt name for xml."""
-        return self.catalog_tool_geometry[self.tool_name_from_input][
-            'insert_prt_name'
-        ]
+        return cast(
+            str,
+            self.catalog_tool_geometry[self.tool_name_from_input][
+                'insert_prt_name'
+            ],
+        )
 
     def set_xml_body_tool_params(self) -> str:
         """Set xml body tool params."""

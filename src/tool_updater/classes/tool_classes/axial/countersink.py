@@ -1,5 +1,6 @@
 import logging
 from math import ceil
+from typing import cast
 
 from src.tool_updater import config
 from src.tool_updater.classes.tool_classes.base_tool import BaseTool
@@ -8,6 +9,7 @@ from src.tool_updater.classes.turnmill_len_adaptors import (
     adapt_length,
 )
 from src.tool_updater.config import turnmill_holders_safe_lengths
+from src.tool_updater.data_types import Catalog
 
 
 logger = logging.getLogger(__name__)
@@ -41,8 +43,8 @@ class CounterSink(BaseTool):
     def __init__(
         self,
         tool_size_from_geom_catalogue: str,
-        catalog_tool_cut_data: dict,
-        catalog_tool_geometry: dict,
+        catalog_tool_cut_data: Catalog,
+        catalog_tool_geometry: Catalog,
         teeth_num: int,
         file_name_prefix: str,
         file_name_suffix: str,
@@ -82,12 +84,12 @@ class CounterSink(BaseTool):
 
     def create_file_name(self) -> str:
         """Create file name."""
-        real_fl_len = (
+        real_fl_len_numeric = (
             float(self.tool_data['CUTTER_DIAM'])
             - self.get_tool_point_diameter()
         ) / 2
         real_fl_len = self.clear_str_from_trailing_zeros(
-            str(real_fl_len), sep='.'
+            str(real_fl_len_numeric), sep='.'
         )
         d = self.clear_str_from_trailing_zeros(
             str(self.tool_data['CUTTER_DIAM']), sep='.'
@@ -110,12 +112,12 @@ class CounterSink(BaseTool):
 
     def create_tool_name_for_xml(self) -> str:
         """Create tool name for xml."""
-        real_fl_len = (
+        real_fl_len_numeric = (
             float(self.tool_data['CUTTER_DIAM'])
             - self.get_tool_point_diameter()
         ) / 2
         real_fl_len = self.clear_str_from_trailing_zeros(
-            str(real_fl_len), sep='.'
+            str(real_fl_len_numeric), sep='.'
         ).replace('.', '-')
         d = self.clear_str_from_trailing_zeros(
             str(self.tool_data['CUTTER_DIAM']), sep='.'
@@ -140,9 +142,12 @@ class CounterSink(BaseTool):
 
     def get_tool_point_diameter(self) -> int:
         """Return tool point diameter."""
-        return self.catalog_tool_geometry[
-            self.create_tool_name_for_geom_catalogue()
-        ]['point_diameter']
+        return cast(
+            int,
+            self.catalog_tool_geometry[
+                self.create_tool_name_for_geom_catalogue()
+            ]['point_diameter'],
+        )
 
     @staticmethod
     def clear_str_from_trailing_zeros(str_to_clean: str, sep: str) -> str:
@@ -167,11 +172,12 @@ class CounterSink(BaseTool):
 
     def calc_len_out_of_holder(self) -> float:
         """Calculate len out of holder."""
-        return (
+        return cast(
+            float,
             self.catalog_tool_geometry[
                 self.create_tool_name_for_geom_catalogue()
             ]['full_body_len']
-            / 2
+            / 2,
         )
 
     def calc_feed_rate(
@@ -185,7 +191,7 @@ class CounterSink(BaseTool):
             'feed_rate_multiplier'
         ]
         Fn = Fn * RPM * feed_multiplier
-        return round(Fn, ndigits=config.NDIGITS_FEED)
+        return cast(float, round(Fn, ndigits=config.NDIGITS_FEED))
 
     def calc_feed_per_unit(
         self, key_iso_material: str, fin_or_rough: str
@@ -200,7 +206,7 @@ class CounterSink(BaseTool):
         # RPM = self.tool_data["cut_data"][key_iso_material][fin_or_rough]["TOO
         # L_SPINDLE_RPM"]
         Fn = Fn * feed_multiplier
-        return round(Fn, ndigits=config.NDIGITS_FEED_PER_UNIT)
+        return cast(float, round(Fn, ndigits=config.NDIGITS_FEED_PER_UNIT))
 
     def calc_radial_depth(self, key_iso_material: str) -> float:
         """Calculate radial depth."""

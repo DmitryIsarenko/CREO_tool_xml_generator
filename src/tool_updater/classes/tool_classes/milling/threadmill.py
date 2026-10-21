@@ -1,5 +1,6 @@
 import logging
 from math import ceil
+from typing import cast
 
 from src.tool_updater import config
 from src.tool_updater.classes.tool_classes.base_tool import BaseTool
@@ -8,6 +9,7 @@ from src.tool_updater.classes.turnmill_len_adaptors import (
     adapt_length,
 )
 from src.tool_updater.config import turnmill_holders_safe_lengths
+from src.tool_updater.data_types import Catalog
 
 
 logger = logging.getLogger(__name__)
@@ -50,8 +52,8 @@ class ThreadMill(BaseTool):
     def __init__(
         self,
         tool_size_from_geom_catalogue: str,
-        catalog_tool_cut_data: dict,
-        catalog_tool_geometry: dict,
+        catalog_tool_cut_data: Catalog,
+        catalog_tool_geometry: Catalog,
         teeth_num: int,
         file_name_prefix: str,
         file_name_suffix: str,
@@ -79,9 +81,12 @@ class ThreadMill(BaseTool):
 
     def get_insert_length(self) -> float:
         """Return insert length."""
-        return self.catalog_tool_geometry[self.tool_size_from_geom_catalogue][
-            'cutter_len'
-        ]
+        return cast(
+            float,
+            self.catalog_tool_geometry[self.tool_size_from_geom_catalogue][
+                'cutter_len'
+            ],
+        )
 
     def get_end_offset(self) -> float:
         """Return end offset."""
@@ -89,55 +94,76 @@ class ThreadMill(BaseTool):
 
     def get_tool_teeth_num(self) -> int:
         """Return tool teeth num."""
-        return self.catalog_tool_geometry[self.tool_size_from_geom_catalogue][
-            'feathers_num'
-        ]
+        return cast(
+            int,
+            self.catalog_tool_geometry[self.tool_size_from_geom_catalogue][
+                'feathers_num'
+            ],
+        )
 
     def get_tool_diam_float(self) -> float:
         """Return tool diam float."""
-        return self.catalog_tool_geometry[self.tool_size_from_geom_catalogue][
-            'flute_diam'
-        ]
+        return cast(
+            float,
+            self.catalog_tool_geometry[self.tool_size_from_geom_catalogue][
+                'flute_diam'
+            ],
+        )
 
-    def get_cutter_diam(self) -> float | str:
+    def get_cutter_diam(self) -> str:
         """Return cutter diam."""
-        return self.catalog_tool_geometry[self.tool_size_from_geom_catalogue][
-            'flute_diam'
-        ]
+        return cast(
+            str,
+            self.catalog_tool_geometry[self.tool_size_from_geom_catalogue][
+                'flute_diam'
+            ],
+        )
 
     def get_tool_flute_length(self) -> float:
         """Return tool flute length."""
         tool_length = self.catalog_tool_geometry[
             self.tool_size_from_geom_catalogue
         ]['cutter_len']
-        return tool_length
+        return cast(float, tool_length)
 
     def calc_axial_depth(self, key_iso_material: str) -> float:
         """Calculate axial depth."""
-        return self.catalog_tool_geometry[self.tool_size_from_geom_catalogue][
-            'cutter_len'
-        ]
+        return cast(
+            float,
+            self.catalog_tool_geometry[self.tool_size_from_geom_catalogue][
+                'cutter_len'
+            ],
+        )
 
     def get_thread_step(self) -> float:
         """Return thread step."""
         try:
-            return self.catalog_tool_geometry[
-                self.tool_size_from_geom_catalogue
-            ]['thread_pitch']
+            return cast(
+                float,
+                self.catalog_tool_geometry[self.tool_size_from_geom_catalogue][
+                    'thread_pitch'
+                ],
+            )
         except KeyError:
-            return round(
-                25.4
-                / self.catalog_tool_geometry[
-                    self.tool_size_from_geom_catalogue
-                ]['threads_per_inch'],
-                ndigits=3,
+            return cast(
+                float,
+                round(
+                    25.4
+                    / self.catalog_tool_geometry[
+                        self.tool_size_from_geom_catalogue
+                    ]['threads_per_inch'],
+                    ndigits=3,
+                ),
             )
 
     def get_full_tool_length(self) -> float:
         """Return full tool length."""
-        return self.catalog_tool_geometry[self.tool_size_from_geom_catalogue][
-            'full_body_len'
-        ]
+        return cast(
+            float,
+            self.catalog_tool_geometry[self.tool_size_from_geom_catalogue][
+                'full_body_len'
+            ],
+        )
 
     def calc_len_out_of_holder(self) -> float:
         """Calculate len out of holder."""
@@ -158,17 +184,17 @@ class ThreadMill(BaseTool):
         ]['flute_diam']
 
         len_1 = max([flute_len + flute_diam, full_body_len / 2])
-        return round(len_1, ndigits=1)
+        return cast(float, round(len_1, ndigits=1))
 
     def calc_nut_diam(self) -> int:
         # try:
         """Calculate nut diam."""
-        cut_d = self.get_cutter_diam()
+        cut_d = cast(float, self.get_cutter_diam())
         nut_diam = 0
         for er in config.collet_sizes:
             max_d: int = config.collet_sizes[er]['max_diam']
             if cut_d <= max_d:
-                nut_diam: int = config.collet_sizes[er]['nut_diam']
+                nut_diam = config.collet_sizes[er]['nut_diam']
                 break
             else:
                 continue
@@ -239,7 +265,7 @@ class ThreadMill(BaseTool):
             self.tool_data['cut_data_diam_group']
         ]
         F = Fz * feed_multiplier * teeth * RPM
-        return round(F, ndigits=config.NDIGITS_FEED)
+        return cast(float, round(F, ndigits=config.NDIGITS_FEED))
 
     def calc_feed_per_unit(
         self, key_iso_material: str, fin_or_rough: str
@@ -252,7 +278,7 @@ class ThreadMill(BaseTool):
             self.tool_data['cut_data_diam_group']
         ]
         Fz = Fz * feed_multiplier
-        return round(Fz, ndigits=config.NDIGITS_FEED)
+        return cast(float, round(Fz, ndigits=config.NDIGITS_FEED))
 
     def set_xml_body_tool_params(self) -> str:
         # <MfgParam Name="END_OFFSET" Value="{self.end_offset}"/>

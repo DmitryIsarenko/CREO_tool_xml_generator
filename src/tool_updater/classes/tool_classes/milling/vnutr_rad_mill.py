@@ -1,5 +1,6 @@
 import logging
 from math import ceil, pi
+from typing import cast
 
 from src.tool_updater import config
 from src.tool_updater.classes.tool_classes.base_tool import BaseTool
@@ -8,6 +9,7 @@ from src.tool_updater.classes.turnmill_len_adaptors import (
     adapt_length,
 )
 from src.tool_updater.config import turnmill_holders_safe_lengths
+from src.tool_updater.data_types import Catalog
 
 
 logger = logging.getLogger(__name__)
@@ -50,8 +52,8 @@ class VnutrRadMill(BaseTool):
     def __init__(
         self,
         tool_size_from_geom_catalogue: str,
-        catalog_tool_cut_data: dict,
-        catalog_tool_geometry: dict,
+        catalog_tool_cut_data: Catalog,
+        catalog_tool_geometry: Catalog,
         teeth_num: int,
         file_name_prefix: str,
         file_name_suffix: str,
@@ -83,9 +85,12 @@ class VnutrRadMill(BaseTool):
 
     def get_corner_radius(self) -> float:
         """Return corner radius."""
-        return self.catalog_tool_geometry[self.tool_size_from_geom_catalogue][
-            'corner_radius'
-        ]
+        return cast(
+            float,
+            self.catalog_tool_geometry[self.tool_size_from_geom_catalogue][
+                'corner_radius'
+            ],
+        )
 
     def get_shank_diam(self) -> float:
         """Return shank diam."""
@@ -95,28 +100,35 @@ class VnutrRadMill(BaseTool):
         cut_d = self.get_cutter_diam()
         if shank == cut_d:
             shank += 0.1
-        return shank
+        return cast(float, shank)
 
     def get_cut_length(self) -> float:
         """Return cut length."""
-        return (
+        return cast(
+            float,
             self.catalog_tool_geometry[self.tool_size_from_geom_catalogue][
                 'corner_radius'
             ]
-            + 0.1
+            + 0.1,
         )
 
     def get_tip_length(self) -> float:
         """Return tip length."""
-        return self.catalog_tool_geometry[self.tool_size_from_geom_catalogue][
-            'tip_length'
-        ]
+        return cast(
+            float,
+            self.catalog_tool_geometry[self.tool_size_from_geom_catalogue][
+                'tip_length'
+            ],
+        )
 
-    def get_cutter_diam(self) -> float | str:
+    def get_cutter_diam(self) -> float:
         """Return cutter diam."""
-        return self.catalog_tool_geometry[self.tool_size_from_geom_catalogue][
-            'cutter_diam'
-        ]
+        return cast(
+            float,
+            self.catalog_tool_geometry[self.tool_size_from_geom_catalogue][
+                'cutter_diam'
+            ],
+        )
 
     def calc_feed_per_unit(
         self, key_iso_material: str, fin_or_rough: str
@@ -131,15 +143,16 @@ class VnutrRadMill(BaseTool):
         # RPM = self.tool_data["cut_data"][key_iso_material][fin_or_rough]["TOO
         # L_SPINDLE_RPM"]
         fz = Fz * feed_multiplier
-        return round(fz, ndigits=config.NDIGITS_FEED_PER_UNIT)
+        return cast(float, round(fz, ndigits=config.NDIGITS_FEED_PER_UNIT))
 
     def calc_len_out_of_holder(self) -> float:
         """Calculate len out of holder."""
-        return (
+        return cast(
+            float,
             self.catalog_tool_geometry[self.tool_size_from_geom_catalogue][
                 'full_body_len'
             ]
-            / 2
+            / 2,
         )
 
     def calc_feed_rate(
@@ -157,22 +170,26 @@ class VnutrRadMill(BaseTool):
 
     def calc_rpm(self, Vc: int | float) -> float:
         """Calculate rpm."""
-        rpm = 1000 * Vc / (pi * self.tool_data['CUTTER_DIAM'])
+        rpm = 1000 * Vc / (pi * cast(float, self.tool_data['CUTTER_DIAM']))
         return round(rpm, ndigits=config.NDIGITS_SPINDLE)
 
     def calc_axial_depth(self, key_iso_material: str) -> float:
         """Calculate axial depth."""
-        return self.catalog_tool_geometry[self.tool_size_from_geom_catalogue][
-            'corner_radius'
-        ]
+        return cast(
+            float,
+            self.catalog_tool_geometry[self.tool_size_from_geom_catalogue][
+                'corner_radius'
+            ],
+        )
 
     def calc_radial_depth(self, key_iso_material: str) -> float:
         """Calculate radial depth."""
-        return (
+        return cast(
+            float,
             self.catalog_tool_geometry[self.tool_size_from_geom_catalogue][
                 'corner_radius'
             ]
-            * self.radial_depth_modifiyers[key_iso_material]
+            * self.radial_depth_modifiyers[key_iso_material],
         )
 
     # FORMATTING RECENTLY EXISTING/EXTRACTED DATA

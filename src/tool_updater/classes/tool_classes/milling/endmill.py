@@ -1,5 +1,6 @@
 import logging
 from math import ceil
+from typing import cast
 
 from src.tool_updater import config
 from src.tool_updater.classes.tool_classes.base_tool import BaseTool
@@ -8,6 +9,7 @@ from src.tool_updater.classes.turnmill_len_adaptors import (
     adapt_length,
 )
 from src.tool_updater.config import turnmill_holders_safe_lengths
+from src.tool_updater.data_types import Catalog
 
 
 logger = logging.getLogger(__name__)
@@ -50,8 +52,8 @@ class EndMill(BaseTool):
     def __init__(
         self,
         tool_size_from_geom_catalogue: str,
-        catalog_tool_cut_data: dict,
-        catalog_tool_geometry: dict,
+        catalog_tool_cut_data: Catalog,
+        catalog_tool_geometry: Catalog,
         teeth_num: int,
         file_name_prefix: str,
         file_name_suffix: str,
@@ -90,10 +92,11 @@ class EndMill(BaseTool):
         """Create tool name for xml."""
         t_prefix = self.tool_data['file_name_prefix'].upper()
         _t_suffix = self.tool_data['file_name_suffix'].upper()
+        cutter_diam = cast(str, self.tool_data['CUTTER_DIAM'])
         t_name = (
             f''
             f'{t_prefix}'
-            f'D{self.tool_data["CUTTER_DIAM"].replace(".", "-")}'
+            f'D{cutter_diam.replace(".", "-")}'
             f'_L{self.tool_data["FLUTE_LENGTH"]}'
             f'-L{self.tool_data["LENGTH"]}'
             # f"{t_suffix}"
@@ -125,7 +128,7 @@ class EndMill(BaseTool):
             self.tool_data['cut_data_diam_group']
         ]
         F *= feed_multiplier
-        return round(F, ndigits=config.NDIGITS_FEED)
+        return cast(float, round(F, ndigits=config.NDIGITS_FEED))
 
     def set_xml_body_tool_params(self) -> str:
         """Set xml body tool params."""

@@ -1,5 +1,6 @@
 import logging
 from math import ceil
+from typing import cast
 
 from src.tool_updater import config
 from src.tool_updater.classes.tool_classes.base_tool import BaseTool
@@ -8,6 +9,7 @@ from src.tool_updater.classes.turnmill_len_adaptors import (
     adapt_length,
 )
 from src.tool_updater.config import turnmill_holders_safe_lengths
+from src.tool_updater.data_types import Catalog
 
 
 logger = logging.getLogger(__name__)
@@ -41,8 +43,8 @@ class CounterBore(BaseTool):
     def __init__(
         self,
         tool_size_from_geom_catalogue: str,
-        catalog_tool_cut_data: dict,
-        catalog_tool_geometry: dict,
+        catalog_tool_cut_data: Catalog,
+        catalog_tool_geometry: Catalog,
         teeth_num: int,
         file_name_prefix: str,
         file_name_suffix: str,
@@ -79,21 +81,30 @@ class CounterBore(BaseTool):
 
     def get_point_diameter(self) -> float:
         """Return point diameter."""
-        return self.catalog_tool_geometry[self.tool_size_from_geom_catalogue][
-            'point_diameter'
-        ]
+        return cast(
+            float,
+            self.catalog_tool_geometry[self.tool_size_from_geom_catalogue][
+                'point_diameter'
+            ],
+        )
 
     def get_tip_offset(self) -> float:
         """Return tip offset."""
-        return self.catalog_tool_geometry[self.tool_size_from_geom_catalogue][
-            'point_len'
-        ]
+        return cast(
+            float,
+            self.catalog_tool_geometry[self.tool_size_from_geom_catalogue][
+                'point_len'
+            ],
+        )
 
     def get_side_angle(self) -> float:
         """Return side angle."""
-        return self.catalog_tool_geometry[self.tool_size_from_geom_catalogue][
-            'side_angle'
-        ]
+        return cast(
+            float,
+            self.catalog_tool_geometry[self.tool_size_from_geom_catalogue][
+                'side_angle'
+            ],
+        )
 
     def calc_len_out_of_holder(self) -> float:
         """Calculate len out of holder."""
@@ -103,13 +114,16 @@ class CounterBore(BaseTool):
         full_body_len = self.catalog_tool_geometry[
             self.tool_size_from_geom_catalogue
         ]['full_body_len']
-        return full_body_len - tail_holding_len
+        return cast(float, full_body_len - tail_holding_len)
 
     def get_tool_flute_length(self) -> float:
         """Return tool flute length."""
-        return self.catalog_tool_geometry[self.tool_size_from_geom_catalogue][
-            'flute_len'
-        ]
+        return cast(
+            float,
+            self.catalog_tool_geometry[self.tool_size_from_geom_catalogue][
+                'flute_len'
+            ],
+        )
 
     # def get_tool_teeth_num(self):
     # return self.catalog_tool_geometry[self.tool_size_from_geom_catalogue]["te
@@ -117,21 +131,30 @@ class CounterBore(BaseTool):
 
     def get_tool_diam_float(self) -> float:
         """Return tool diam float."""
-        return self.catalog_tool_geometry[self.tool_size_from_geom_catalogue][
-            'cutter_diam'
-        ]
+        return cast(
+            float,
+            self.catalog_tool_geometry[self.tool_size_from_geom_catalogue][
+                'cutter_diam'
+            ],
+        )
 
-    def get_cutter_diam(self) -> float | str:
+    def get_cutter_diam(self) -> float:
         """Return cutter diam."""
-        return self.catalog_tool_geometry[self.tool_size_from_geom_catalogue][
-            'cutter_diam'
-        ]
+        return cast(
+            float,
+            self.catalog_tool_geometry[self.tool_size_from_geom_catalogue][
+                'cutter_diam'
+            ],
+        )
 
     def get_full_tool_length(self) -> float:
         """Return full tool length."""
-        return self.catalog_tool_geometry[self.tool_size_from_geom_catalogue][
-            'full_body_len'
-        ]
+        return cast(
+            float,
+            self.catalog_tool_geometry[self.tool_size_from_geom_catalogue][
+                'full_body_len'
+            ],
+        )
 
     # FORMATTING RECENTLY EXISTING/EXTRACTED DATA
     def create_tool_name_for_geom_catalogue(self) -> str:
@@ -223,7 +246,7 @@ class CounterBore(BaseTool):
             'feed_rate_multiplier'
         ]
         Fn = Fn * RPM * feed_multiplier
-        return round(Fn, ndigits=config.NDIGITS_FEED)
+        return cast(float, round(Fn, ndigits=config.NDIGITS_FEED))
 
     def calc_feed_per_unit(
         self, key_iso_material: str, fin_or_rough: str
@@ -238,7 +261,7 @@ class CounterBore(BaseTool):
         # RPM = self.tool_data["cut_data"][key_iso_material][fin_or_rough]["TOO
         # L_SPINDLE_RPM"]
         Fn = Fn * feed_multiplier
-        return round(Fn, ndigits=config.NDIGITS_FEED_PER_UNIT)
+        return cast(float, round(Fn, ndigits=config.NDIGITS_FEED_PER_UNIT))
 
     def calc_radial_depth(self, key_iso_material: str) -> float:
         """Calculate radial depth."""

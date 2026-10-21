@@ -1,5 +1,6 @@
 import logging
 from math import ceil
+from typing import cast
 
 from src.tool_updater import config
 from src.tool_updater.classes.tool_classes.base_tool import BaseTool
@@ -8,6 +9,7 @@ from src.tool_updater.classes.turnmill_len_adaptors import (
     adapt_length,
 )
 from src.tool_updater.config import turnmill_holders_safe_lengths
+from src.tool_updater.data_types import Catalog
 
 
 logger = logging.getLogger(__name__)
@@ -41,8 +43,8 @@ class Reamer(BaseTool):
     def __init__(
         self,
         tool_size_from_geom_catalogue: str,
-        catalog_tool_cut_data: dict,
-        catalog_tool_geometry: dict,
+        catalog_tool_cut_data: Catalog,
+        catalog_tool_geometry: Catalog,
         teeth_num: int,
         file_name_prefix: str,
         file_name_suffix: str,
@@ -73,33 +75,43 @@ class Reamer(BaseTool):
         # return self.catalog_tool_geometry[self.tool_size_from_geom_catalogue]
         # ["side_angle"]
         """Return side angle."""
-        return (
+        return cast(
+            float,
             self.catalog_tool_geometry[self.tool_size_from_geom_catalogue][
                 'corner_chamfer'
             ]
-            * 0.001
+            * 0.001,
         )
 
     def calc_len_out_of_holder(self) -> float:
         """Calculate len out of holder."""
-        return self.catalog_tool_geometry[self.tool_size_from_geom_catalogue][
-            'len_out_of_holder'
-        ]
+        return cast(
+            float,
+            self.catalog_tool_geometry[self.tool_size_from_geom_catalogue][
+                'len_out_of_holder'
+            ],
+        )
 
     def get_tool_teeth_num(self) -> int:
         """Return tool teeth num."""
-        return self.catalog_tool_geometry[self.tool_size_from_geom_catalogue][
-            'teeth_num'
-        ]
+        return cast(
+            int,
+            self.catalog_tool_geometry[self.tool_size_from_geom_catalogue][
+                'teeth_num'
+            ],
+        )
 
     # def get_tool_corner_chamfer(self):
     # return self.catalog_tool_geometry[self.tool_size_from_geom_catalogue]["co
     # rner_chamfer"]
     def get_tool_corner_chamfer(self) -> float:
         """Return tool corner chamfer."""
-        return self.catalog_tool_geometry[
-            self.create_tool_name_for_geom_catalogue()
-        ]['corner_chamfer']
+        return cast(
+            float,
+            self.catalog_tool_geometry[
+                self.create_tool_name_for_geom_catalogue()
+            ]['corner_chamfer'],
+        )
 
     # FORMATTING RECENTLY EXISTING/EXTRACTED DATA
     def create_tool_name_for_geom_catalogue(self) -> str:
@@ -144,7 +156,7 @@ class Reamer(BaseTool):
             'feed_rate_multiplier'
         ]
         Fn = Fn * RPM * feed_multiplier
-        return round(Fn, ndigits=config.NDIGITS_FEED)
+        return cast(float, round(Fn, ndigits=config.NDIGITS_FEED))
 
     def calc_feed_per_unit(
         self, key_iso_material: str, fin_or_rough: str
@@ -159,7 +171,7 @@ class Reamer(BaseTool):
         # RPM = self.tool_data["cut_data"][key_iso_material][fin_or_rough]["TOO
         # L_SPINDLE_RPM"]
         Fn = Fn * feed_multiplier
-        return round(Fn, ndigits=config.NDIGITS_FEED_PER_UNIT)
+        return cast(float, round(Fn, ndigits=config.NDIGITS_FEED_PER_UNIT))
 
     def calc_radial_depth(self, key_iso_material: str) -> float:
         """Calculate radial depth."""

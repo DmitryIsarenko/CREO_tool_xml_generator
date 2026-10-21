@@ -3,9 +3,11 @@ import datetime
 import logging
 from math import ceil, pi
 from pathlib import Path
+from typing import cast
 
 from src.tool_updater import config
 from src.tool_updater.config import key_f, key_fn, key_fz
+from src.tool_updater.data_types import Catalog, ToolData
 from src.tool_updater.default_tool_dict import default_tool_dict
 
 
@@ -25,7 +27,7 @@ class BaseTool:
 
     holder_len_manual = '50.00'
 
-    finishing_roughing_options = {
+    finishing_roughing_options: dict[str, dict[str, float]] = {
         'roughing': {
             'vc_modifier': 1,  # Множитель для подачи (и на зуб, и на оборот)
             'feed_rate_multiplier': 1,  # Множитель для скорости резания
@@ -36,7 +38,7 @@ class BaseTool:
         },
     }
 
-    axial_depth_modifiyers = {
+    axial_depth_modifiyers: dict[str, float] = {
         'iso_P': 1.0,
         'iso_M': 1.0,
         'iso_K': 1.0,
@@ -44,7 +46,7 @@ class BaseTool:
         'iso_S': 1.0,
         'iso_H': 1.0,
     }
-    radial_depth_modifiyers = {
+    radial_depth_modifiyers: dict[str, float] = {
         'iso_P': 0.1,
         'iso_M': 0.1,
         'iso_K': 0.1,
@@ -56,8 +58,8 @@ class BaseTool:
     def __init__(
         self,
         tool_size_from_geom_catalogue: str,
-        catalog_tool_cut_data: dict,
-        catalog_tool_geometry: dict,
+        catalog_tool_cut_data: Catalog,
+        catalog_tool_geometry: Catalog,
         teeth_num: int,
         file_name_prefix: str,
         file_name_suffix: str,
@@ -139,7 +141,7 @@ class BaseTool:
         fractional_part = t_name.split('.')[1]
         if len(fractional_part) < 2:
             t_name += '0'
-        return self.catalog_geom[t_name][config.key_body_len]
+        return cast(float, self.catalog_geom[t_name][config.key_body_len])
 
     def get_tool_flute_length(self) -> float:
         """Return tool flute length."""
@@ -147,12 +149,12 @@ class BaseTool:
         fractional_part = t_name.split('.')[1]
         if len(fractional_part) < 2:
             t_name += '0'
-        return self.catalog_geom[t_name][config.key_flute_len]
+        return cast(float, self.catalog_geom[t_name][config.key_flute_len])
 
     def get_tool_comment(self) -> str:
         """Return the optional catalog comment."""
         name = self.tool_data['tool_name_for_geom_catalogue']
-        return self.catalog_geom[name].get(config.key_order_no, '')
+        return cast(str, self.catalog_geom[name].get(config.key_order_no, ''))
 
     def get_tool_diam_float(self) -> float:
         """Return tool diam float."""
@@ -186,9 +188,12 @@ class BaseTool:
         if isinstance(value, (int, float)):
             return value * modifier
         if isinstance(value, (list, tuple)) and value:
-            return round(
-                value[config.vc_min_or_max] * modifier,
-                ndigits=config.NDIGITS_SURFACE_SPEED,
+            return cast(
+                float,
+                round(
+                    value[config.vc_min_or_max] * modifier,
+                    ndigits=config.NDIGITS_SURFACE_SPEED,
+                ),
             )
         raise ValueError(f'Invalid surface speed for {key_iso_material}')
 
@@ -202,7 +207,9 @@ class BaseTool:
             if key in [key_fn, key_f, key_fz]:
                 cut_key = key
                 break
-        diam_groups = list(self.catalog_cut_data[iso_key][cut_key])
+        diam_groups = list(
+            cast(dict[str, float], self.catalog_cut_data[iso_key][cut_key])
+        )
         t_diam = self.tool_data['tool_diam_float']
         suitable_grp = []
         for grp_ind, grp in enumerate(diam_groups):
@@ -264,7 +271,7 @@ class BaseTool:
                     key_iso_material=key_iso_material
                 )
 
-                multiplyer = 1
+                multiplyer: float = 1
                 if tool_spindle_rpm >= config.MAX_RPM:
                     multiplyer = config.MAX_RPM / tool_spindle_rpm
                     self.tool_data['cut_data'][key_iso_material][fin_or_rough][
@@ -317,9 +324,12 @@ class BaseTool:
                 self.tool_data['cut_data'][non_iso_key][fin_or_rough][
                     'TOOL_SPINDLE_RPM'
                 ] = round(
-                    self.tool_data['cut_data'][from_iso][fin_or_rough][
-                        'TOOL_SPINDLE_RPM'
-                    ]
+                    cast(
+                        float,
+                        self.tool_data['cut_data'][from_iso][fin_or_rough][
+                            'TOOL_SPINDLE_RPM'
+                        ],
+                    )
                     * k_Vc,
                     ndigits=config.NDIGITS_SPINDLE,
                 )
@@ -327,9 +337,12 @@ class BaseTool:
                 self.tool_data['cut_data'][non_iso_key][fin_or_rough][
                     'TOOL_SURFACE_SPEED'
                 ] = round(
-                    self.tool_data['cut_data'][from_iso][fin_or_rough][
-                        'TOOL_SURFACE_SPEED'
-                    ]
+                    cast(
+                        float,
+                        self.tool_data['cut_data'][from_iso][fin_or_rough][
+                            'TOOL_SURFACE_SPEED'
+                        ],
+                    )
                     * k_Vc,
                     ndigits=config.NDIGITS_SURFACE_SPEED,
                 )
@@ -337,9 +350,12 @@ class BaseTool:
                 self.tool_data['cut_data'][non_iso_key][fin_or_rough][
                     'TOOL_FEED_PER_UNIT'
                 ] = round(
-                    self.tool_data['cut_data'][from_iso][fin_or_rough][
-                        'TOOL_FEED_PER_UNIT'
-                    ]
+                    cast(
+                        float,
+                        self.tool_data['cut_data'][from_iso][fin_or_rough][
+                            'TOOL_FEED_PER_UNIT'
+                        ],
+                    )
                     * k_Fz,
                     ndigits=config.NDIGITS_FEED_PER_UNIT,
                 )
@@ -347,9 +363,12 @@ class BaseTool:
                 self.tool_data['cut_data'][non_iso_key][fin_or_rough][
                     'TOOL_FEED_RATE'
                 ] = round(
-                    self.tool_data['cut_data'][from_iso][fin_or_rough][
-                        'TOOL_FEED_RATE'
-                    ]
+                    cast(
+                        float,
+                        self.tool_data['cut_data'][from_iso][fin_or_rough][
+                            'TOOL_FEED_RATE'
+                        ],
+                    )
                     * k_Fz,
                     ndigits=config.NDIGITS_FEED,
                 )
@@ -357,9 +376,12 @@ class BaseTool:
                 self.tool_data['cut_data'][non_iso_key][fin_or_rough][
                     'TOOL_AXIAL_DEPTH'
                 ] = round(
-                    self.tool_data['cut_data'][from_iso][fin_or_rough][
-                        'TOOL_AXIAL_DEPTH'
-                    ]
+                    cast(
+                        float,
+                        self.tool_data['cut_data'][from_iso][fin_or_rough][
+                            'TOOL_AXIAL_DEPTH'
+                        ],
+                    )
                     * k_Ap,
                     ndigits=config.NDIGITS_AXIAL_FEED,
                 )
@@ -367,9 +389,12 @@ class BaseTool:
                 self.tool_data['cut_data'][non_iso_key][fin_or_rough][
                     'TOOL_RADIAL_DEPTH'
                 ] = round(
-                    self.tool_data['cut_data'][from_iso][fin_or_rough][
-                        'TOOL_RADIAL_DEPTH'
-                    ]
+                    cast(
+                        float,
+                        self.tool_data['cut_data'][from_iso][fin_or_rough][
+                            'TOOL_RADIAL_DEPTH'
+                        ],
+                    )
                     * k_Ae,
                     ndigits=config.NDIGITS_RADIAL_FEED,
                 )
@@ -401,9 +426,12 @@ class BaseTool:
                     self.tool_data['cut_data'][non_iso_key][fin_or_rough][
                         'TOOL_SPINDLE_RPM'
                     ] = round(
-                        self.tool_data['cut_data'][from_iso][fin_or_rough][
-                            'TOOL_SPINDLE_RPM'
-                        ]
+                        cast(
+                            float,
+                            self.tool_data['cut_data'][from_iso][fin_or_rough][
+                                'TOOL_SPINDLE_RPM'
+                            ],
+                        )
                         * k_Vc,
                         ndigits=config.NDIGITS_SPINDLE,
                     )
@@ -411,9 +439,12 @@ class BaseTool:
                     self.tool_data['cut_data'][non_iso_key][fin_or_rough][
                         'TOOL_SURFACE_SPEED'
                     ] = round(
-                        self.tool_data['cut_data'][from_iso][fin_or_rough][
-                            'TOOL_SURFACE_SPEED'
-                        ]
+                        cast(
+                            float,
+                            self.tool_data['cut_data'][from_iso][fin_or_rough][
+                                'TOOL_SURFACE_SPEED'
+                            ],
+                        )
                         * k_Vc,
                         ndigits=config.NDIGITS_SURFACE_SPEED,
                     )
@@ -421,9 +452,12 @@ class BaseTool:
                     self.tool_data['cut_data'][non_iso_key][fin_or_rough][
                         'TOOL_FEED_PER_UNIT'
                     ] = round(
-                        self.tool_data['cut_data'][from_iso][fin_or_rough][
-                            'TOOL_FEED_PER_UNIT'
-                        ]
+                        cast(
+                            float,
+                            self.tool_data['cut_data'][from_iso][fin_or_rough][
+                                'TOOL_FEED_PER_UNIT'
+                            ],
+                        )
                         * k_Fz,
                         ndigits=config.NDIGITS_FEED_PER_UNIT,
                     )
@@ -431,9 +465,12 @@ class BaseTool:
                     self.tool_data['cut_data'][non_iso_key][fin_or_rough][
                         'TOOL_FEED_RATE'
                     ] = round(
-                        self.tool_data['cut_data'][from_iso][fin_or_rough][
-                            'TOOL_FEED_RATE'
-                        ]
+                        cast(
+                            float,
+                            self.tool_data['cut_data'][from_iso][fin_or_rough][
+                                'TOOL_FEED_RATE'
+                            ],
+                        )
                         * k_Fz,
                         ndigits=config.NDIGITS_FEED,
                     )
@@ -441,9 +478,12 @@ class BaseTool:
                     self.tool_data['cut_data'][non_iso_key][fin_or_rough][
                         'TOOL_AXIAL_DEPTH'
                     ] = round(
-                        self.tool_data['cut_data'][from_iso][fin_or_rough][
-                            'TOOL_AXIAL_DEPTH'
-                        ]
+                        cast(
+                            float,
+                            self.tool_data['cut_data'][from_iso][fin_or_rough][
+                                'TOOL_AXIAL_DEPTH'
+                            ],
+                        )
                         * k_Ap,
                         ndigits=config.NDIGITS_AXIAL_FEED,
                     )
@@ -451,9 +491,12 @@ class BaseTool:
                     self.tool_data['cut_data'][non_iso_key][fin_or_rough][
                         'TOOL_RADIAL_DEPTH'
                     ] = round(
-                        self.tool_data['cut_data'][from_iso][fin_or_rough][
-                            'TOOL_RADIAL_DEPTH'
-                        ]
+                        cast(
+                            float,
+                            self.tool_data['cut_data'][from_iso][fin_or_rough][
+                                'TOOL_RADIAL_DEPTH'
+                            ],
+                        )
                         * k_Ae,
                         ndigits=config.NDIGITS_RADIAL_FEED,
                     )
@@ -477,7 +520,7 @@ class BaseTool:
             'TOOL_SPINDLE_RPM'
         ]
         fz = F / RPM / self.tool_data['NUM_OF_TEETH'] * feed_multiplier
-        return round(fz, ndigits=config.NDIGITS_FEED_PER_UNIT)
+        return cast(float, round(fz, ndigits=config.NDIGITS_FEED_PER_UNIT))
 
     def calc_feed_rate(
         self, key_iso_material: str, RPM: float, fin_or_rough: str
@@ -490,7 +533,7 @@ class BaseTool:
             'feed_rate_multiplier'
         ]
         Fn = Fn * RPM * feed_multiplier
-        return round(Fn, ndigits=config.NDIGITS_FEED)
+        return cast(float, round(Fn, ndigits=config.NDIGITS_FEED))
 
     def calc_axial_depth(self, key_iso_material: str) -> float:
         """Calculate axial depth."""
@@ -508,14 +551,14 @@ class BaseTool:
         )
         return round(radial_depth, ndigits=config.NDIGITS_RADIAL_FEED)
 
-    def calc_nut_diam(self) -> int:
+    def calc_nut_diam(self) -> float:
         """Calculate nut diam."""
-        cut_d = float(self.tool_data.get('CUTTER_DIAM'))
+        cut_d = float(self.tool_data['CUTTER_DIAM'])
         nut_diam = 0
         for er in config.collet_sizes:
             max_d: int = config.collet_sizes[er]['max_diam']
             if cut_d <= max_d:
-                nut_diam: int = config.collet_sizes[er]['nut_diam']
+                nut_diam = config.collet_sizes[er]['nut_diam']
                 break
             else:
                 continue
@@ -613,7 +656,7 @@ class BaseTool:
     # DEFAULT TOOL DICT
     def set_default_tool_data(self) -> None:
         """Set default tool data."""
-        self.tool_data = deepcopy(default_tool_dict)
+        self.tool_data = cast(ToolData, deepcopy(default_tool_dict))
 
     # XML DEFINITION
     def set_tool_xml(self) -> None:

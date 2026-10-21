@@ -1,5 +1,7 @@
 """Holder class mappings shared by catalog job builders."""
 
+from typing import TypedDict
+
 from src.tool_updater.classes.tool_classes.axial.centerdrill import (
     CenterDrillTurnMill_T_Z,
     CenterDrillTurnMill_T_Z_ER,
@@ -72,6 +74,7 @@ from src.tool_updater.classes.tool_classes.axial.tap import (
     TapBlindTurnMill_TM_Z_2,
     TapBlindTurnMill_TM_Z_SUB,
 )
+from src.tool_updater.classes.tool_classes.base_tool import BaseTool
 from src.tool_updater.classes.tool_classes.milling.chamfer_mill import (
     ChamferTurnMill_T_Z,
     ChamferTurnMill_T_Z_ER,
@@ -210,7 +213,14 @@ from src.tool_updater.classes.tool_classes.milling.vnutr_rad_mill import (
 )
 
 
-TURN_MILL_DRILLS_HOLDERS = {
+class HolderDefinition(TypedDict):
+    """Describe a tool class and its holder output directory."""
+
+    tool_class: type[BaseTool]
+    holder_subdir: str
+
+
+TURN_MILL_DRILLS_HOLDERS: dict[str, HolderDefinition] = {
     'TM_X': {'tool_class': DrillTurnMill_TM_X, 'holder_subdir': 'TM_X'},
     'TM_X_L': {'tool_class': DrillTurnMill_TM_X_L, 'holder_subdir': 'TM_X_L'},
     'TM_Z_1': {'tool_class': DrillTurnMill_TM_Z_1, 'holder_subdir': 'TM_Z_1'},
@@ -231,7 +241,7 @@ TURN_MILL_DRILLS_HOLDERS = {
     },
     'T_Z_F2': {'tool_class': DrillTurnMill_T_Z_F2, 'holder_subdir': 'T_Z_F2'},
 }
-TURN_MILL_ENDMILLS_HOLDERS = {
+TURN_MILL_ENDMILLS_HOLDERS: dict[str, HolderDefinition] = {
     'TM_X': {'tool_class': KontsTurnMill_TM_X, 'holder_subdir': 'TM_X'},
     'TM_X_L': {'tool_class': KontsTurnMill_TM_X_L, 'holder_subdir': 'TM_X_L'},
     'TM_Z_1': {'tool_class': KontsTurnMill_TM_Z_1, 'holder_subdir': 'TM_Z_1'},
@@ -252,7 +262,7 @@ TURN_MILL_ENDMILLS_HOLDERS = {
     },
     'T_Z_F2': {'tool_class': KontsTurnMill_T_Z_F2, 'holder_subdir': 'T_Z_F2'},
 }
-TURN_MILL_BALLMILLS_HOLDERS = {
+TURN_MILL_BALLMILLS_HOLDERS: dict[str, HolderDefinition] = {
     'TM_X': {'tool_class': SferaTurnMill_TM_X, 'holder_subdir': 'TM_X'},
     'TM_X_L': {'tool_class': SferaTurnMill_TM_X_L, 'holder_subdir': 'TM_X_L'},
     'TM_Z_1': {'tool_class': SferaTurnMill_TM_Z_1, 'holder_subdir': 'TM_Z_1'},
@@ -273,7 +283,7 @@ TURN_MILL_BALLMILLS_HOLDERS = {
     },
     'T_Z_F2': {'tool_class': SferaTurnMill_T_Z_F2, 'holder_subdir': 'T_Z_F2'},
 }
-TURN_MILL_TOROIDMILLS_HOLDERS = {
+TURN_MILL_TOROIDMILLS_HOLDERS: dict[str, HolderDefinition] = {
     'TM_X': {'tool_class': ToroidTurnMill_TM_X, 'holder_subdir': 'TM_X'},
     'TM_X_L': {'tool_class': ToroidTurnMill_TM_X_L, 'holder_subdir': 'TM_X_L'},
     'TM_Z_1': {'tool_class': ToroidTurnMill_TM_Z_1, 'holder_subdir': 'TM_Z_1'},
@@ -294,7 +304,7 @@ TURN_MILL_TOROIDMILLS_HOLDERS = {
     },
     'T_Z_F2': {'tool_class': ToroidTurnMill_T_Z_F2, 'holder_subdir': 'T_Z_F2'},
 }
-TURN_MILL_DISKS_CHAMFER_HOLDERS = {
+TURN_MILL_DISKS_CHAMFER_HOLDERS: dict[str, HolderDefinition] = {
     'TM_X': {'tool_class': Disk_ChTurnMill_TM_X, 'holder_subdir': 'TM_X'},
     'TM_X_L': {
         'tool_class': Disk_ChTurnMill_TM_X_L,
@@ -330,7 +340,7 @@ TURN_MILL_DISKS_CHAMFER_HOLDERS = {
         'holder_subdir': 'T_Z_F2',
     },
 }
-TURN_MILL_DISKS_ROUNDING_HOLDERS = {
+TURN_MILL_DISKS_ROUNDING_HOLDERS: dict[str, HolderDefinition] = {
     'TM_X': {'tool_class': Disk_RoTurnMill_TM_X, 'holder_subdir': 'TM_X'},
     'TM_X_L': {
         'tool_class': Disk_RoTurnMill_TM_X_L,
@@ -366,7 +376,7 @@ TURN_MILL_DISKS_ROUNDING_HOLDERS = {
         'holder_subdir': 'T_Z_F2',
     },
 }
-TURN_MILL_DISKS_FLAT_HOLDERS = {
+TURN_MILL_DISKS_FLAT_HOLDERS: dict[str, HolderDefinition] = {
     'TM_X': {'tool_class': Disk_FlTurnMill_TM_X, 'holder_subdir': 'TM_X'},
     'TM_X_L': {
         'tool_class': Disk_FlTurnMill_TM_X_L,
@@ -402,7 +412,7 @@ TURN_MILL_DISKS_FLAT_HOLDERS = {
         'holder_subdir': 'T_Z_F2',
     },
 }
-TURNMILL_METCHIKI_BLIND_HOLDERS = {
+TURNMILL_METCHIKI_BLIND_HOLDERS: dict[str, HolderDefinition] = {
     'TM_X': {'tool_class': TapBlindTurnMill_TM_X, 'holder_subdir': 'TM_X'},
     'TM_X_L': {
         'tool_class': TapBlindTurnMill_TM_X_L,
@@ -438,7 +448,7 @@ TURNMILL_METCHIKI_BLIND_HOLDERS = {
         'holder_subdir': 'T_Z_F2',
     },
 }
-TURNMILL_METCHIKI_THROUGH_HOLDERS = {
+TURNMILL_METCHIKI_THROUGH_HOLDERS: dict[str, HolderDefinition] = {
     'TM_X': {'tool_class': TapBlindTurnMill_TM_X, 'holder_subdir': 'TM_X'},
     'TM_X_L': {
         'tool_class': TapBlindTurnMill_TM_X_L,
@@ -474,7 +484,7 @@ TURNMILL_METCHIKI_THROUGH_HOLDERS = {
         'holder_subdir': 'T_Z_F2',
     },
 }
-TURN_MILL_VNUTR_RAD_MILLS_HOLDERS = {
+TURN_MILL_VNUTR_RAD_MILLS_HOLDERS: dict[str, HolderDefinition] = {
     'TM_X': {'tool_class': R_VnutrTurnMill_TM_X, 'holder_subdir': 'TM_X'},
     'TM_X_L': {
         'tool_class': R_VnutrTurnMill_TM_X_L,
@@ -510,7 +520,7 @@ TURN_MILL_VNUTR_RAD_MILLS_HOLDERS = {
         'holder_subdir': 'T_Z_F2',
     },
 }
-TURN_MILL_CENTROVKI_HOLDERS = {
+TURN_MILL_CENTROVKI_HOLDERS: dict[str, HolderDefinition] = {
     'TM_X': {'tool_class': CenterDrillTurnMill_TM_X, 'holder_subdir': 'TM_X'},
     'TM_X_L': {
         'tool_class': CenterDrillTurnMill_TM_X_L,
@@ -546,7 +556,7 @@ TURN_MILL_CENTROVKI_HOLDERS = {
         'holder_subdir': 'T_Z_F2',
     },
 }
-TURN_MILL_ZENKOVKI_HOLDERS = {
+TURN_MILL_ZENKOVKI_HOLDERS: dict[str, HolderDefinition] = {
     'TM_X': {'tool_class': CounterSinkTurnMill_TM_X, 'holder_subdir': 'TM_X'},
     'TM_X_L': {
         'tool_class': CounterSinkTurnMill_TM_X_L,
@@ -582,7 +592,7 @@ TURN_MILL_ZENKOVKI_HOLDERS = {
         'holder_subdir': 'T_Z_F2',
     },
 }
-TURN_MILL_CEKOVKI_HOLDERS = {
+TURN_MILL_CEKOVKI_HOLDERS: dict[str, HolderDefinition] = {
     'TM_X': {'tool_class': CounterBoreTurnMill_TM_X, 'holder_subdir': 'TM_X'},
     'TM_X_L': {
         'tool_class': CounterBoreTurnMill_TM_X_L,
@@ -618,7 +628,7 @@ TURN_MILL_CEKOVKI_HOLDERS = {
         'holder_subdir': 'T_Z_F2',
     },
 }
-TURN_MILL_RAZVERTKI_HOLDERS = {
+TURN_MILL_RAZVERTKI_HOLDERS: dict[str, HolderDefinition] = {
     'TM_X': {'tool_class': ReamerTurnMill_TM_X, 'holder_subdir': 'TM_X'},
     'TM_X_L': {'tool_class': ReamerTurnMill_TM_X_L, 'holder_subdir': 'TM_X_L'},
     'TM_Z_1': {'tool_class': ReamerTurnMill_TM_Z_1, 'holder_subdir': 'TM_Z_1'},
@@ -639,7 +649,7 @@ TURN_MILL_RAZVERTKI_HOLDERS = {
     },
     'T_Z_F2': {'tool_class': ReamerTurnMill_T_Z_F2, 'holder_subdir': 'T_Z_F2'},
 }
-TURN_MILL_UGLOVIYE_HOLDERS = {
+TURN_MILL_UGLOVIYE_HOLDERS: dict[str, HolderDefinition] = {
     'TM_X': {'tool_class': ChamferTurnMill_TM_X, 'holder_subdir': 'TM_X'},
     'TM_X_L': {
         'tool_class': ChamferTurnMill_TM_X_L,
@@ -675,7 +685,7 @@ TURN_MILL_UGLOVIYE_HOLDERS = {
         'holder_subdir': 'T_Z_F2',
     },
 }
-TURN_MILL_GRIBKOVIE_CHAMFER_HOLDERS = {
+TURN_MILL_GRIBKOVIE_CHAMFER_HOLDERS: dict[str, HolderDefinition] = {
     'TM_X': {'tool_class': Grib_ChTurnMill_TM_X, 'holder_subdir': 'TM_X'},
     'TM_X_L': {
         'tool_class': Grib_ChTurnMill_TM_X_L,
@@ -711,7 +721,7 @@ TURN_MILL_GRIBKOVIE_CHAMFER_HOLDERS = {
         'holder_subdir': 'T_Z_F2',
     },
 }
-TURN_MILL_GRIBKOVIE_ROUNDING_HOLDERS = {
+TURN_MILL_GRIBKOVIE_ROUNDING_HOLDERS: dict[str, HolderDefinition] = {
     'TM_X': {'tool_class': Grib_RoTurnMill_TM_X, 'holder_subdir': 'TM_X'},
     'TM_X_L': {
         'tool_class': Grib_RoTurnMill_TM_X_L,
@@ -747,7 +757,7 @@ TURN_MILL_GRIBKOVIE_ROUNDING_HOLDERS = {
         'holder_subdir': 'T_Z_F2',
     },
 }
-TURN_MILL_GRIBKOVIE_FLAT_HOLDERS = {
+TURN_MILL_GRIBKOVIE_FLAT_HOLDERS: dict[str, HolderDefinition] = {
     'TM_X': {'tool_class': Grib_FlTurnMill_TM_X, 'holder_subdir': 'TM_X'},
     'TM_X_L': {
         'tool_class': Grib_FlTurnMill_TM_X_L,
@@ -783,7 +793,7 @@ TURN_MILL_GRIBKOVIE_FLAT_HOLDERS = {
         'holder_subdir': 'T_Z_F2',
     },
 }
-TURN_MILL_REZBOFREZI_HOLDERS = {
+TURN_MILL_REZBOFREZI_HOLDERS: dict[str, HolderDefinition] = {
     'TM_X': {'tool_class': ThreadTurnMill_TM_X, 'holder_subdir': 'TM_X'},
     'TM_X_L': {'tool_class': ThreadTurnMill_TM_X_L, 'holder_subdir': 'TM_X_L'},
     'TM_Z_1': {'tool_class': ThreadTurnMill_TM_Z_1, 'holder_subdir': 'TM_Z_1'},

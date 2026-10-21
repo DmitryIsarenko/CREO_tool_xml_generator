@@ -1,5 +1,6 @@
 import logging
 from math import ceil
+from typing import cast
 
 from src.tool_updater import config
 from src.tool_updater.classes.tool_classes.base_tool import BaseTool
@@ -8,6 +9,7 @@ from src.tool_updater.classes.turnmill_len_adaptors import (
     adapt_length,
 )
 from src.tool_updater.config import turnmill_holders_safe_lengths
+from src.tool_updater.data_types import Catalog
 
 
 logger = logging.getLogger(__name__)
@@ -41,8 +43,8 @@ class Drill(BaseTool):
     def __init__(
         self,
         tool_size_from_geom_catalogue: str,
-        catalog_tool_cut_data: dict,
-        catalog_tool_geometry: dict,
+        catalog_tool_cut_data: Catalog,
+        catalog_tool_geometry: Catalog,
         teeth_num: int,
         file_name_prefix: str,
         file_name_suffix: str,
@@ -80,9 +82,12 @@ class Drill(BaseTool):
 
     def get_tool_point_angle(self) -> float:
         """Return tool point angle."""
-        return self.catalog_tool_geometry[self.tool_size_from_geom_catalogue][
-            'point_angle'
-        ]
+        return cast(
+            float,
+            self.catalog_tool_geometry[self.tool_size_from_geom_catalogue][
+                'point_angle'
+            ],
+        )
 
     @staticmethod
     def clear_str_from_trailing_zeros(str_to_clean: str, sep: str) -> str:
@@ -116,7 +121,7 @@ class Drill(BaseTool):
             'feed_rate_multiplier'
         ]
         Fn = Fn * RPM * feed_multiplier
-        return round(Fn, ndigits=config.NDIGITS_FEED)
+        return cast(float, round(Fn, ndigits=config.NDIGITS_FEED))
 
     def calc_feed_per_unit(
         self, key_iso_material: str, fin_or_rough: str
@@ -131,7 +136,7 @@ class Drill(BaseTool):
         # RPM = self.tool_data["cut_data"][key_iso_material][fin_or_rough]["TOO
         # L_SPINDLE_RPM"]
         Fn = Fn * feed_multiplier
-        return round(Fn, ndigits=config.NDIGITS_FEED_PER_UNIT)
+        return cast(float, round(Fn, ndigits=config.NDIGITS_FEED_PER_UNIT))
 
     def calc_radial_depth(self, key_iso_material: str) -> float:
         """Calculate radial depth."""

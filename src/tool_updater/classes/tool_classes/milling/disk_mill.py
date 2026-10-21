@@ -1,6 +1,7 @@
 import json
 import logging
 from math import ceil
+from typing import cast
 
 from src.tool_updater import config
 from src.tool_updater.classes.tool_classes.base_tool import BaseTool
@@ -9,6 +10,7 @@ from src.tool_updater.classes.turnmill_len_adaptors import (
     adapt_length,
 )
 from src.tool_updater.config import turnmill_holders_safe_lengths
+from src.tool_updater.data_types import Catalog
 
 
 logger = logging.getLogger(__name__)
@@ -62,8 +64,8 @@ class DiskOtreznoiFlat(BaseTool):
     def __init__(
         self,
         tool_size_from_geom_catalogue: str,
-        catalog_tool_cut_data: dict,
-        catalog_tool_geometry: dict,
+        catalog_tool_cut_data: Catalog,
+        catalog_tool_geometry: Catalog,
         teeth_num: int,
         file_name_prefix: str,
         file_name_suffix: str,
@@ -132,13 +134,16 @@ class DiskOtreznoiFlat(BaseTool):
     def get_tool_shank_diam(self) -> float:
         """Return tool shank diam."""
         hol_size = self.get_tool_holder_size()
-        return self.catalog_holder_geometry[hol_size][config.key_shank_diam]
+        return cast(
+            float,
+            self.catalog_holder_geometry[hol_size][config.key_shank_diam],
+        )
 
     def get_tool_diam_float(self) -> float:
         """Return tool diam float."""
         return float(self.get_tool_flute_diam_from_complex_size())
 
-    def get_cutter_diam(self) -> float | str:
+    def get_cutter_diam(self) -> str:
         """Return cutter diam."""
         return self.get_tool_flute_diam_from_complex_size()
 
@@ -148,9 +153,12 @@ class DiskOtreznoiFlat(BaseTool):
 
     def calc_radial_depth(self, key_iso_material: str) -> float:
         """Calculate radial depth."""
-        return self.catalog_cut_data[key_iso_material][config.key_ae][
-            self.get_tool_cutter_width_from_complex_size()
-        ]
+        return cast(
+            float,
+            self.catalog_cut_data[key_iso_material][config.key_ae][
+                self.get_tool_cutter_width_from_complex_size()
+            ],
+        )
 
     # def get_holder_len(self):
     #     hol_size = self.get_tool_holder_size()
@@ -172,7 +180,7 @@ class DiskOtreznoiFlat(BaseTool):
         """Return full tool length."""
         hol_size = self.get_tool_holder_size()
         hol_len = self.catalog_holder_geometry[hol_size]['holder_len']
-        return hol_len
+        return cast(float, hol_len)
 
     def calc_len_out_of_holder(self) -> float:
         """Calculate len out of holder."""
@@ -182,7 +190,7 @@ class DiskOtreznoiFlat(BaseTool):
         ]
         hol_body_len = self.catalog_holder_geometry[hol_size]['holder_len']
         len_out_of_holder = max(hol_body_len / 2, hol_body_min_len)
-        return len_out_of_holder
+        return cast(float, len_out_of_holder)
 
     def calc_feed_per_unit(
         self, key_iso_material: str, fin_or_rough: str
@@ -194,7 +202,7 @@ class DiskOtreznoiFlat(BaseTool):
         # str(self.catalog_cut_data[key_iso_material][config.key_fz][cut_w])
         # while len(Fz.split(sep=".")[1]) < 2:
         #     Fz += "0"
-        return Fz
+        return cast(float, Fz)
 
     # FORMATTING RECENTLY EXISTING/EXTRACTED DATA
     def create_tool_name_for_geom_catalogue(self) -> str:
@@ -212,7 +220,7 @@ class DiskOtreznoiFlat(BaseTool):
         t_prefix = self.tool_data['file_name_prefix'].upper()
         _t_suffix = self.tool_data['file_name_suffix'].upper()
         d = self.clear_str_from_trailing_zeros(
-            self.tool_data['CUTTER_DIAM'], sep='.'
+            cast(str, self.tool_data['CUTTER_DIAM']), sep='.'
         ).replace('.', '-')
         w = self.clear_str_from_trailing_zeros(
             self.get_tool_cutter_width_from_complex_size(), sep='.'
@@ -261,7 +269,7 @@ class DiskOtreznoiFlat(BaseTool):
         t_suffix = self.tool_data['file_name_suffix']
 
         d = self.clear_str_from_trailing_zeros(
-            self.tool_data['CUTTER_DIAM'], sep='.'
+            cast(str, self.tool_data['CUTTER_DIAM']), sep='.'
         )
         w = self.clear_str_from_trailing_zeros(
             self.get_tool_cutter_width_from_complex_size(), sep='.'
@@ -309,15 +317,18 @@ class DiskOtreznoiFlat(BaseTool):
             config.key_num_of_teeth
         ]
         F = Fz * z * RPM * feed_multiplier
-        return round(F, ndigits=config.NDIGITS_FEED)
+        return cast(float, round(F, ndigits=config.NDIGITS_FEED))
 
     def get_tool_teeth_num(self) -> int:
         """Return tool teeth num."""
-        return self.catalog_tool_geometry[self.complex_size_name][
-            config.key_num_of_teeth
-        ]
+        return cast(
+            int,
+            self.catalog_tool_geometry[self.complex_size_name][
+                config.key_num_of_teeth
+            ],
+        )
 
-    def calc_nut_diam(self) -> int:
+    def calc_nut_diam(self) -> float:
         """Calculate nut diam."""
         return self.get_tool_shank_diam() + 20
 

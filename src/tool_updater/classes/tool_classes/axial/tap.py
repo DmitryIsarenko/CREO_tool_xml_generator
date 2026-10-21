@@ -1,5 +1,6 @@
 import logging
 from math import ceil, pi
+from typing import cast
 
 from src.tool_updater import config
 from src.tool_updater.classes.tool_classes.base_tool import BaseTool
@@ -11,6 +12,7 @@ from src.tool_updater.config import (
     NDIGITS_SURFACE_SPEED,
     turnmill_holders_safe_lengths,
 )
+from src.tool_updater.data_types import Catalog
 
 
 logger = logging.getLogger(__name__)
@@ -44,8 +46,8 @@ class Tap(BaseTool):
     def __init__(
         self,
         tool_size_from_geom_catalogue: str,
-        catalog_tool_cut_data: dict,
-        catalog_tool_geometry: dict,
+        catalog_tool_cut_data: Catalog,
+        catalog_tool_geometry: Catalog,
         teeth_num: int,
         file_name_prefix: str,
         file_name_suffix: str,
@@ -84,29 +86,41 @@ class Tap(BaseTool):
         t_name = self.tool_data['tool_diam_float']
         return t_name
 
-    def get_cutter_diam(self) -> float | str:
+    def get_cutter_diam(self) -> float:
         """Return cutter diam."""
-        return self.catalog_tool_geometry[self.tool_size_from_geom_catalogue][
-            'flute_diam'
-        ]
+        return cast(
+            float,
+            self.catalog_tool_geometry[self.tool_size_from_geom_catalogue][
+                'flute_diam'
+            ],
+        )
 
     def get_tool_diam_float(self) -> float:
         """Return tool diam float."""
-        return self.catalog_tool_geometry[self.tool_size_from_geom_catalogue][
-            'flute_diam'
-        ]
+        return cast(
+            float,
+            self.catalog_tool_geometry[self.tool_size_from_geom_catalogue][
+                'flute_diam'
+            ],
+        )
 
     def get_point_diameter(self) -> float:
         """Return point diameter."""
-        return self.catalog_tool_geometry[self.tool_size_from_geom_catalogue][
-            'tapping_hole_diam'
-        ]
+        return cast(
+            float,
+            self.catalog_tool_geometry[self.tool_size_from_geom_catalogue][
+                'tapping_hole_diam'
+            ],
+        )
 
     def get_tool_flute_length(self) -> float:
         """Return tool flute length."""
-        return self.catalog_tool_geometry[self.tool_size_from_geom_catalogue][
-            config.key_flute_len
-        ]
+        return cast(
+            float,
+            self.catalog_tool_geometry[self.tool_size_from_geom_catalogue][
+                config.key_flute_len
+            ],
+        )
 
     def calc_len_out_of_holder(self) -> float:
         """Calculate len out of holder."""
@@ -121,7 +135,7 @@ class Tap(BaseTool):
         ]
         pitch = self.calc_thread_pitch()
         chamfer = round(pitch * turns, ndigits=config.NDIGITS_AXIAL_FEED)
-        return chamfer
+        return cast(float, chamfer)
 
     def calc_rpm(self, *args: object, **kwargs: object) -> float:
         """Calculate rpm."""
@@ -185,14 +199,14 @@ class Tap(BaseTool):
             Fn = self.catalog_tool_geometry[
                 self.tool_size_from_geom_catalogue
             ]['thread_pitch']
-            return Fn
+            return cast(float, Fn)
         except KeyError:
             threads_per_inch = self.catalog_tool_geometry[
                 self.tool_size_from_geom_catalogue
             ]['threads_per_inch']
             inch = 25.4
             Fn = inch / threads_per_inch
-            return round(Fn, ndigits=3)
+            return cast(float, round(Fn, ndigits=3))
 
     def calc_radial_depth(self, key_iso_material: str) -> float:
         """Calculate radial depth."""

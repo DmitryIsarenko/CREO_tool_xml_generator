@@ -1,19 +1,17 @@
-.venv
-venv
-.idea
-src/logs
-src/__pycache__
-__pycache__
-*/*/*/*/*/*/*/*/*/*/__pycache__
-*/*/*/*/*/*/*/*/*/__pycache__
-*/*/*/*/*/*/*/*/__pycache__
-*/*/*/*/*/*/*/__pycache__
-*/*/*/*/*/*/__pycache__
-*/*/*/*/*/__pycache__
-*/*/*/*/__pycache__
-*/*/*/__pycache__
-*/*/__pycache__
-*/__pycache__
-__pycache__
+# Python bytecode
+__pycache__/
+*.py[cod]
 
-generated_xmls
+# Virtual environments
+.venv/
+venv/
+
+# Local IDE settings
+.idea/
+
+# Logs and generated files
+/src/logs/
+/generated_xmls/
+
+# Local project context
+/memory-bank/

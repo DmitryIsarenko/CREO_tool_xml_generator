@@ -18,16 +18,8 @@ NDIGITS_SURFACE_SPEED = 3
 # 0 для минимальной скорости, -1 для максимальной, если их указано две или более
 vc_min_or_max = 0
 
-finishing_roughing_options = {
-    "roughing": {
-        "vc_modifier": 1,  # Множитель для подачи (и на зуб, и на оборот)
-        "feed_rate_multiplier": 0.6,  # Множитель для скорости резания
-    },
-    "finishing": {
-        "vc_modifier": 1.2,
-        "feed_rate_multiplier": 0.4,
-    },
-}
+XML_EXTENSION = '.xml'
+TEXT_ENCODING = 'utf-8'
 
 # GEOMETRY DATA CATALOGUE
 key_order_no = "order_no"
@@ -67,14 +59,6 @@ key_f = "F"  # Подача мм/мин
 key_ae = "Ae"  # Радиальная подача (engagement)
 key_ap = "Ap"  # Осевая подача (profile)
 
-mfg_materials_dict = {
-    "ALUMINIUM": key_iso_N,
-    "STEEL-20": key_iso_P,
-    "12X18H10T": key_iso_M,
-    # "Не указано": key_iso_M,
-    "HARDENED_STEEL": key_iso_H,
-    "PLEXIGLAS": key_iso_M,
-}
 mfg_materials_dict = {
     # ISO N = Алюминий
     "ALUMINIUM": key_iso_N,

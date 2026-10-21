@@ -1,23 +1,20 @@
-from copy import deepcopy
-from math import pi, ceil
-from pathlib import Path
 import datetime
-from src.tool_updater import config
-from src.tool_updater.default_tool_dict import default_tool_dict
-
 import logging
+from copy import deepcopy
+from math import ceil, pi
+from pathlib import Path
 
+from src.tool_updater import config
 from src.tool_updater.config import key_f, key_fn, key_fz
+from src.tool_updater.default_tool_dict import default_tool_dict
 
 logger = logging.getLogger(__name__)
 
 
-# noinspection PyBroadException
 class BaseTool:
     # BASIC DATA
-    tool_file_extension = ".xml"
+    tool_file_extension = config.XML_EXTENSION
     DATETIME = datetime.datetime.today().strftime("%Y - %m-%dT%H:%M:%S")
-    # DATETIME = "2024 - 11-13T12:12:12"
 
     # MANUAL TOOL DATA
     tool_type = "default tool type"
@@ -122,11 +119,7 @@ class BaseTool:
         self.calc_cut_data_for_all_material_groups()
 
         # 4 Генерация XML
-        # self.set_tool_xml()
 
-    #
-    #
-    #
     # GET FROM GEOM CATALOGUE
     def get_full_tool_length(self) -> float:
         try:
@@ -136,7 +129,6 @@ class BaseTool:
                 t_name += "0"
             return self.catalog_geom[t_name][config.key_body_len]
         except:
-            # logger.warning(f"{self.tool_data["tool_name_str"]} - Tool len not found")
             return 0
 
     def get_tool_flute_length(self) -> float:
@@ -147,7 +139,6 @@ class BaseTool:
                 t_name += "0"
             return self.catalog_geom[t_name][config.key_flute_len]
         except:
-            # logger.warning(f"{self.tool_data["tool_name_str"]} - Tool flute len not found")
             return 0
 
     def get_tool_comment(self) -> str:
@@ -155,7 +146,6 @@ class BaseTool:
             t_name = self.tool_data["tool_name_for_geom_catalogue"]
             return self.catalog_geom[t_name][config.key_order_no]
         except:
-            # logger.warning(f"{self.tool_data["tool_name_str"]} - Tool flute len not found")
             return ""
 
     def get_tool_diam_float(self):
@@ -176,9 +166,6 @@ class BaseTool:
     def get_tool_type(self):
         return self.tool_type
 
-    #
-    #
-    #
     # GET FROM CUT DATA CATALOGUE
     def get_vc(self, key_iso_material: str, fin_or_rough):
         try:
@@ -192,12 +179,8 @@ class BaseTool:
                 vc_data = round(vc_data, ndigits=config.NDIGITS_SURFACE_SPEED)
                 return vc_data
         except KeyError:
-            # logger.critical(f"{self.tool_data["tool_name_str"]} - Vc not found")
             return 0
 
-    #
-    #
-    #
     # CALCULATIONS FOR GEOMETRY CATALOGUE
     def calc_diam_group_name(self):
         try:
@@ -226,12 +209,8 @@ class BaseTool:
 
             return suitable_grp[-1]
         except:
-            #             logger.critical(f"{self.tool_data["tool_name_str"]} - Diam group not calculated")
             return "None"
 
-    #
-    #
-    #
     # CALCULATIONS FOR CUT DATA CATALOGUE
     def calc_cut_data_for_all_material_groups(self):
         for key_iso_material in config.lst_of_iso_material_groups:
@@ -342,7 +321,6 @@ class BaseTool:
             rpm = 1000 * Vc / (pi * self.tool_data["tool_diam_float"])
             return round(rpm, ndigits=config.NDIGITS_SPINDLE)
         except:
-            #             logger.critical(f"{self.tool_data["tool_name_str"]} - RPM not calculated")
             return 0
 
     def calc_feed_per_unit(self, key_iso_material, fin_or_rough: str) -> float:
@@ -353,7 +331,6 @@ class BaseTool:
             fz = F / RPM / self.tool_data["NUM_OF_TEETH"] * feed_multiplier
             return round(fz, ndigits=config.NDIGITS_FEED_PER_UNIT)
         except:
-            #             logger.critical(f"{self.tool_data["tool_name_str"]} - feed per unit not calculated")
             return 0
 
     def calc_feed_rate(self, key_iso_material, RPM, fin_or_rough) -> float:
@@ -363,7 +340,6 @@ class BaseTool:
             Fn = Fn * RPM * feed_multiplier
             return round(Fn, ndigits=config.NDIGITS_FEED)
         except:
-            #             logger.critical(f"{self.tool_data["tool_name_str"]} - feed per min not calculated")
             return 0
 
     def calc_axial_depth(self, key_iso_material) -> float:
@@ -372,7 +348,6 @@ class BaseTool:
                 self.tool_data["CUTTER_DIAM"]) * self.axial_depth_modifiyers[key_iso_material]
             return round(axial_depth, ndigits=config.NDIGITS_AXIAL_FEED)
         except:
-            #             logger.warning(f"{self.tool_data["tool_name_str"]} - axial depth not calculated")
             return 0
 
     def calc_radial_depth(self, key_iso_material):
@@ -381,11 +356,9 @@ class BaseTool:
                 self.tool_data["CUTTER_DIAM"]) * self.radial_depth_modifiyers[key_iso_material]
             return round(radial_depth, ndigits=config.NDIGITS_RADIAL_FEED)
         except:
-            #             logger.warning(f"{self.tool_data["tool_name_str"]} - radial depth not calculated")
             return 0
 
     def calc_nut_diam(self) -> int:
-        # try:
         cut_d = float(self.tool_data.get("CUTTER_DIAM"))
         nut_diam = 0
         for er in config.collet_sizes:
@@ -397,9 +370,6 @@ class BaseTool:
                 continue
         return nut_diam
 
-    # except:
-    #     logger.critical(f"{self.tool_data["tool_name_str"]} - nut diam not calculated")
-    #     return 0
 
     def calc_len_out_of_holder(self):
         try:
@@ -407,12 +377,8 @@ class BaseTool:
                 self.tool_data["FLUTE_LENGTH"]) + float(self.tool_data["CUTTER_DIAM"]), ndigits=0, )
             return length
         except:
-            #             logger.critical(f"{self.tool_data["tool_name_str"]} - nut diam not calculated")
             return 0
 
-    #
-    #
-    #
     # FORMATTING RECENTLY EXISTING/EXTRACTED DATA
     def create_tool_name_for_geom_catalogue(self):
         t_name = self.tool_data["tool_name_str"]
@@ -438,7 +404,6 @@ class BaseTool:
             f"D{d}"
             f"_L{l1}"
             f"_L{l2}"
-            # f"{t_suffix}"
         )
         return t_name
 
@@ -478,9 +443,6 @@ class BaseTool:
         except:
             pass
         return new_str
-    #
-    #
-    #
     # FILE OPERATIONS
 
     def write_new_file(self, path: str | Path) -> None:
@@ -489,32 +451,22 @@ class BaseTool:
             f'{self.tool_data["file_name"]}{self.tool_file_extension}'
         )
         output_file = Path(path) / file_name
-        output_file.write_text(self.tool_xml, encoding='utf-8')
+        output_file.write_text(self.tool_xml, encoding=config.TEXT_ENCODING)
 
-    #
-    #
-    #
     # DEFAULT TOOL DICT
     def set_default_tool_data(self):
 
         self.tool_data = deepcopy(default_tool_dict)
 
-    #
-    #
-    #
     # XML DEFINITION
     def set_tool_xml(self):
         if self.debug == 0:
-            # try:
             self.tool_xml = ""
             self.tool_xml += self.set_xml_head()
             self.tool_xml += self.set_xml_body_tool_params()
             self.tool_xml += self.set_xml_body_tool_cut_data()
             self.tool_xml += self.set_xml_bom_components()
             self.tool_xml += self.set_xml_tail()
-            # except:
-            #     self.tool_xml = "ERROR IN XML GENERATION"
-            #     logger.critical(f"{self.tool_data["tool_name_str"]} - XML not created")
         elif self.debug == 1:
             self.tool_xml = \
                 f"""\
@@ -617,9 +569,6 @@ class BaseTool:
                     "TOOL_AXIAL_DEPTH" =   {self.tool_data["cut_data"][config.key_iso_N]["finishing"]["TOOL_AXIAL_DEPTH"]}
                     "TOOL_RADIAL_DEPTH"  = {self.tool_data["cut_data"][config.key_iso_N]["finishing"]["TOOL_RADIAL_DEPTH"]}
             """
-            # except:
-            #     self.tool_xml = "ERROR IN DEBUG XML GENERATION"
-            #     logger.critical(f"{self.tool_data["tool_name_str"]} - debug XML not created")
 
     def set_xml_head(self) -> str:
         xml_part_str = f"""\
@@ -760,10 +709,8 @@ class BaseTool:
 
         diam_rounded = round(diam_rounded, 2)
 
-        # diam_rounded = ceil(diam_float * 10) / 10
         diam_formatted = str(diam_rounded)
 
-        # diam_formatted = (str(self.tool_data["CUTTER_DIAM"]))
 
         if "." in diam_formatted:
             diam_formatted = diam_formatted.replace(".", "-")

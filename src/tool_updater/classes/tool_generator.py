@@ -1,22 +1,27 @@
 import json
-import os
+from pathlib import Path
+
+from src.tool_updater.classes.tool_classes.base_tool import BaseTool
 
 
 class ToolGenerator:
+    """Generate tool XML files from geometry and cutting data catalogs."""
+
     @staticmethod
     def create_tools(*,
-                     tool_class,
-                     path_to_catalog_geometry: str,
-                     path_to_catalog_cut_data: str,
-                     teeth_num:int,
-                     target_path: str,
+                     tool_class: type[BaseTool],
+                     path_to_catalog_geometry: str | Path,
+                     path_to_catalog_cut_data: str | Path,
+                     teeth_num: int,
+                     target_path: str | Path,
                      file_name_prefix: str,
                      file_name_suffix: str,
                      debug_mode: int,
-                     ):
-        with open(path_to_catalog_geometry, mode="r") as f:
+                     ) -> None:
+        """Read catalogs and write XML files to the target directory."""
+        with Path(path_to_catalog_geometry).open(encoding='utf-8') as f:
             catalog_tool_geometry = json.load(f)
-        with open(path_to_catalog_cut_data, mode="r") as f:
+        with Path(path_to_catalog_cut_data).open(encoding='utf-8') as f:
             catalog_tool_cut_data = json.load(f)
 
         list_of_tool_sizes = [tool_size for tool_size in catalog_tool_geometry.keys()]
@@ -37,9 +42,9 @@ class ToolGenerator:
         for t in list_of_new_tool_obj:
             print(t.tool_data["tool_name_str"])
 
-        if not os.path.exists(target_path):
-            os.makedirs(target_path)
+        target_directory = Path(target_path)
+        target_directory.mkdir(parents=True, exist_ok=True)
 
         for tool in list_of_new_tool_obj:
             tool.set_tool_xml()
-            tool.write_new_file(path=target_path)
+            tool.write_new_file(path=target_directory)

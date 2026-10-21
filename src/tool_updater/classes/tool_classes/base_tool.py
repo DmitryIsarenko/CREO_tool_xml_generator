@@ -1,6 +1,6 @@
 from copy import deepcopy
 from math import pi, ceil
-import io
+from pathlib import Path
 import datetime
 from src.tool_updater import config
 from src.tool_updater.default_tool_dict import default_tool_dict
@@ -483,23 +483,13 @@ class BaseTool:
     #
     # FILE OPERATIONS
 
-    def write_new_file(self, path):
-        try:
-            with io.open(
-                    file=f"{path}\\"
-                # f"{self.tool_data["file_name_prefix"]}"
-                f"{self.tool_data["file_name"]}"
-                # f"{self.tool_data["file_name_suffix"]}"
-                f"{self.tool_file_extension}",
-                    mode="w",
-                    encoding="utf-8",
-            ) as f:
-                # f.writelines(body_lines)
-                f.writelines(self.tool_xml)
-        except:
-            logger.critical(
-                f"{self.tool_data["tool_name_str"]} - file not created")
-            pass
+    def write_new_file(self, path: str | Path) -> None:
+        """Write tool XML and let the caller handle file errors."""
+        file_name = (
+            f'{self.tool_data["file_name"]}{self.tool_file_extension}'
+        )
+        output_file = Path(path) / file_name
+        output_file.write_text(self.tool_xml, encoding='utf-8')
 
     #
     #

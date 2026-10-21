@@ -1,13 +1,9 @@
-# абсолютный путь до папки, в которой планируется генерировать xml для всего инструмента
-# в конце не должно быть слэша
-abs_path_to_dir_where_to_create_tool_xmls = r"w:\SOFT\Tool_generator_python_2025\temp_dir_for_tools\v04 доп материалы"
-# abs_path_to_dir_where_to_create_tool_xmls = r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\база инструмента\target_path"
+from pathlib import Path
 
 
-# часть абсолютного пути, которая определяет путь ДО папки, где лежит сам проект
-# в конце не должно быть слэша
-abs_path_to_dir_where_project_is_located = r"w:\SOFT\Tool_generator_python_2025\tool_base"
-# abs_path_to_dir_where_project_is_located = r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base"
+PROJECT_DIR = Path(__file__).resolve().parents[2]
+CATALOGS_DIR = PROJECT_DIR / 'src' / 'tool_updater' / 'catalogs'
+OUTPUT_DIR = PROJECT_DIR / 'generated_xmls'
 
 
 MAX_RPM = 18000

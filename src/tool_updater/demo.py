@@ -1,6 +1,5 @@
-"""Generate one synthetic example on Windows, not for machining."""
+"""Generate one synthetic example, not for machining."""
 
-import os
 from pathlib import Path
 from tempfile import TemporaryDirectory
 from xml.etree import ElementTree
@@ -10,27 +9,24 @@ from src.tool_updater.classes.tool_classes.milling.sphere_mill import (
     BallMill,
 )
 from src.tool_updater.classes.tool_generator import ToolGenerator
+from src.tool_updater.config import PROJECT_DIR
 
 
 def main() -> None:
     """Generate and check demo XML without using production output paths."""
-    if os.name != 'nt':
-        raise RuntimeError('The existing XML writer requires Windows.')
-
     configure_logging()
-    project_directory = Path(__file__).resolve().parents[2]
-    example_directory = project_directory / 'examples' / 'demo'
-    output_directory = project_directory / 'generated_xmls' / 'demo'
+    example_directory = PROJECT_DIR / 'examples' / 'demo'
+    output_directory = PROJECT_DIR / 'generated_xmls' / 'demo'
     output_directory.mkdir(parents=True, exist_ok=True)
 
-    # A fresh directory prevents an old XML from hiding a write failure.
+    # Validate the new XML before replacing the previous demo result.
     with TemporaryDirectory(dir=output_directory) as temporary_directory:
         ToolGenerator.create_tools(
             tool_class=BallMill,
-            path_to_catalog_geometry=str(example_directory / 'geometry.json'),
-            path_to_catalog_cut_data=str(example_directory / 'cut_data.json'),
+            path_to_catalog_geometry=example_directory / 'geometry.json',
+            path_to_catalog_cut_data=example_directory / 'cut_data.json',
             teeth_num=2,
-            target_path=temporary_directory,
+            target_path=Path(temporary_directory),
             file_name_prefix='demo_ball_',
             file_name_suffix='_NOT_FOR_MACHINING',
             debug_mode=0,

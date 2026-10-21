@@ -44,7 +44,10 @@ class IndexMill(BaseTool):
         "iso_H": 0.65,
     }
 
-    path_to_holder_geometry_catalog = r"c:\WORK_DIRECTORY\10_Programming\Projects\tool_base\tool_base\src\tool_updater\catalogs\milling\index_mills\holders_Dandrea.json"
+    path_to_holder_geometry_catalog = (
+        config.CATALOGS_DIR / 'milling' / 'index_mills'
+        / 'holders_Dandrea.json'
+    )
 
     def __init__(self,
                  tool_size_from_geom_catalogue: str,
@@ -64,7 +67,7 @@ class IndexMill(BaseTool):
         self.file_name_suffix = file_name_suffix
         self.debug_mode = debug_mode
 
-        with open(self.path_to_holder_geometry_catalog, mode="r") as f:
+        with self.path_to_holder_geometry_catalog.open(encoding='utf-8') as f:
             self.catalog_holder_geometry = json.load(f)
 
         super().__init__(

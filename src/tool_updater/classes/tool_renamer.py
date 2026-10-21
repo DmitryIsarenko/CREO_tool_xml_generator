@@ -1,104 +1,117 @@
-import os
-import io
-from pprint import pprint
+"""Copy tool XML with new identifiers without deleting source files."""
 
-extension = ".xml"
-prefix = ""
-suffix = "_B"
-new_register = "2"
-if_delete_old_files = False
+import argparse
+from collections.abc import Sequence
+from pathlib import Path
+from xml.etree import ElementTree
 
-path_pairs = [
-    # {
-    #     "path_from": r"c:\WORK_DIRECTORY\01 WORK\3 Изменения\база инструмента\rename_from/",
-    #     "path_to": r"c:\WORK_DIRECTORY\01 WORK\3 Изменения\база инструмента\rename_to/",
-    # },
-    {
-        "path_from": r"w:\ROBOCOPY\sharing\CREO8_START_NC\Mfg_Settings\mfg_new_tool_dir\Токарные\Канавочные/",
-        "path_to": r"w:\ROBOCOPY\sharing\CREO8_START_NC\Mfg_Settings\mfg_new_tool_dir\Токарные\Канавочные_B/",
-    },
-    {
-        "path_from": r"w:\ROBOCOPY\sharing\CREO8_START_NC\Mfg_Settings\mfg_new_tool_dir\Токарные\Проходные/",
-        "path_to": r"w:\ROBOCOPY\sharing\CREO8_START_NC\Mfg_Settings\mfg_new_tool_dir\Токарные\Проходные_B/",
-    },
-    {
-        "path_from": r"w:\ROBOCOPY\sharing\CREO8_START_NC\Mfg_Settings\mfg_new_tool_dir\Токарные\Расточные/",
-        "path_to": r"w:\ROBOCOPY\sharing\CREO8_START_NC\Mfg_Settings\mfg_new_tool_dir\Токарные\Расточные_B/",
-    },
-    {
-        "path_from": r"w:\ROBOCOPY\sharing\CREO8_START_NC\Mfg_Settings\mfg_new_tool_dir\Токарные\Резьбовые/",
-        "path_to": r"w:\ROBOCOPY\sharing\CREO8_START_NC\Mfg_Settings\mfg_new_tool_dir\Токарные\Резьбовые_B/",
-    },
-]
+from src.tool_updater.config import TEXT_ENCODING, XML_EXTENSION
 
 
 def execute_renaming(
-        path_from: str,
-        path_to: str,
-        preffix: str,
-        suffix: str,
-        new_register: str,
-        if_delete_old_files: bool = False,
-):
-    lst_of_files: list[str] = os.listdir(path=path_from)
-    pprint(lst_of_files)
+    path_from: str | Path,
+    path_to: str | Path,
+    *,
+    prefix: str = '',
+    suffix: str = '_B',
+    new_register: str = '2',
+    overwrite: bool = False,
+    dry_run: bool = True,
+) -> list[tuple[Path, Path]]:
+    """Validate XML copies and optionally write them to another directory."""
+    source = Path(path_from).resolve()
+    target = Path(path_to).resolve()
+    if source == target:
+        raise ValueError('Source and target directories must differ.')
+    if not source.is_dir():
+        raise NotADirectoryError(source)
+    if not new_register.isdecimal():
+        raise ValueError('Register must be a non-negative integer.')
+    for part in (prefix, suffix):
+        if any(char in part for char in '/\\:*?"<>|'):
+            raise ValueError('Prefix and suffix must be filename fragments.')
 
-    for old_filename in lst_of_files:
-        if extension in old_filename:
-            with io.open(file=f"{path_from}{old_filename}", mode="r", encoding="utf-8") as f:
-                file_lines = f.readlines()
+    plans: list[tuple[Path, Path]] = []
+    documents: list[ElementTree.ElementTree] = []
+    names: set[str] = set()
+    source_files = [
+        file
+        for file in sorted(source.iterdir())
+        if file.is_file() and file.suffix.lower() == XML_EXTENSION
+    ]
+    for file in source_files:
+        destination = target / f'{prefix}{file.stem}{suffix}{file.suffix}'
+        name = destination.name.casefold()
+        if name in names:
+            raise ValueError(f'Duplicate output filename: {destination}')
+        names.add(name)
+        if destination.exists() and not overwrite:
+            raise FileExistsError(destination)
+        if destination.is_dir():
+            raise IsADirectoryError(destination)
+        if destination.is_symlink():
+            raise ValueError(
+                f'Symbolic-link output is not allowed: {destination}'
+            )
+        if any(destination == original for original in source_files):
+            raise ValueError('A destination points to a source XML.')
 
-            new_file_lines = change_tool_id(file_lines=file_lines, preffix=preffix, suffix=suffix)
-            new_file_lines = change_register(file_lines=new_file_lines, new_register=new_register)
+        tree = ElementTree.parse(file)
+        tools = list(tree.getroot().iter('Tool'))
+        if not tools:
+            raise ValueError(f'No Tool element in {file}')
+        for tool in tools:
+            identifier = tool.get('Id')
+            if not identifier:
+                raise ValueError(f'Missing Tool Id in {file}')
+            tool.set('Id', f'{prefix}{identifier}{suffix}')
+        for element in tree.getroot().iter():
+            if 'Register' in element.attrib:
+                element.set('Register', new_register)
+        plans.append((file, destination))
+        documents.append(tree)
 
-            new_filename = preffix + old_filename.split(".")[0] + suffix + "." + old_filename.split(".")[1]
-
-            with io.open(file=f"{path_to}{new_filename}", mode="w", encoding="utf-8") as f:
-                f.writelines(new_file_lines)
-
-        if if_delete_old_files:
-            delete_old_files(path_from)
-
-
-def delete_old_files(path):
-    for filename in os.listdir(path):
-        os.remove(path=f"{path}{filename}")
-
-
-def change_tool_id(file_lines: list[str], preffix, suffix):
-    for ind, line in enumerate(file_lines):
-        if "<Tool Id=" in line:
-            splitted_line = line.split('"')
-
-            splitted_line[1] = preffix + splitted_line[1] + suffix
-            new_line = '"'.join(splitted_line)
-
-            file_lines[ind] = new_line
-    return file_lines
+    if not dry_run and plans:
+        target.mkdir(parents=True, exist_ok=True)
+        mode = 'wb' if overwrite else 'xb'
+        for (_, destination), tree in zip(plans, documents, strict=True):
+            with destination.open(mode) as output:
+                tree.write(
+                    output, encoding=TEXT_ENCODING, xml_declaration=True
+                )
+    return plans
 
 
-def change_register(file_lines: list[str], new_register: str):
-    for ind, line in enumerate(file_lines):
-        if 'Register="' in line:
-            full_line_list = line.split('Register')
-            right_part_list = full_line_list[1].split('"')
-            right_part_list[1] = new_register
-            new_right_part = '"'.join(right_part_list)
-            new_line = "Register".join([
-                full_line_list[0],
-                new_right_part,
-            ])
-            file_lines[ind] = new_line
-    return file_lines
+def main(argv: Sequence[str] | None = None) -> int:
+    """Preview XML copies unless writing is explicitly requested."""
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('source', type=Path)
+    parser.add_argument('target', type=Path)
+    parser.add_argument('--prefix', default='')
+    parser.add_argument('--suffix', default='_B')
+    parser.add_argument('--register', default='2')
+    parser.add_argument('--overwrite', action='store_true')
+    parser.add_argument('--write', action='store_true')
+    args = parser.parse_args(argv)
+    try:
+        plans = execute_renaming(
+            args.source,
+            args.target,
+            prefix=args.prefix,
+            suffix=args.suffix,
+            new_register=args.register,
+            overwrite=args.overwrite,
+            dry_run=not args.write,
+        )
+    except (OSError, ValueError, ElementTree.ParseError) as exc:
+        parser.exit(1, f'Copy failed: {exc}\n')
+    for source, target in plans:
+        print(f'{source} -> {target}')
+    print(
+        f'{len(plans)} files; ' + ('written' if args.write else 'preview only')
+    )
+    return 0
 
 
 if __name__ == '__main__':
-    for path in path_pairs:
-        execute_renaming(
-            path_from=path["path_from"],
-            path_to=path["path_to"],
-            preffix=prefix,
-            suffix=suffix,
-            new_register=new_register,
-            if_delete_old_files=if_delete_old_files,
-        )
+    raise SystemExit(main())

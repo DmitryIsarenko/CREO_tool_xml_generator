@@ -90,7 +90,7 @@ class IndexMill(BaseTool):
             insert_name = self.catalog_tool_geometry[self.tool_name_from_input]["insert_name"]
             r = self.catalog_tool_cut_data[insert_name]["RE"]
             return r
-        except:
+        except KeyError:
             return 0
 
     def get_tool_shank_diam(self):
@@ -207,19 +207,21 @@ class IndexMill(BaseTool):
         return self.catalog_tool_geometry[self.tool_name_from_input]["FLUTE_LENGTH"]
 
     def get_tool_teeth_num(self):
-        try:
-            return self.catalog_tool_geometry[self.tool_name_from_input]["NUM_OF_TEETH"]
-        except:
-            return 0
+        return self.catalog_tool_geometry[self.tool_name_from_input]["NUM_OF_TEETH"]
 
     def get_tool_comment(self) -> str:
         try:
             t_name = self.tool_name_from_input
             insert_name = self.catalog_tool_geometry[self.tool_name_from_input]["insert_name"]
             return t_name + " + " + insert_name
-        except:
+        except KeyError:
             # logger.warning(f"{self.tool_data["tool_name_str"]} - Tool flute len not found")
             return ""
+
+    def has_cutting_data(self, material: str) -> bool:
+        """Check material availability for the selected insert."""
+        insert = self.catalog_tool_geometry[self.tool_name_from_input]['insert_name']
+        return material in self.catalog_cut_data[insert]['Vc']
 
     def get_vc(self, key_iso_material: str, fin_or_rough):
         try:
@@ -233,9 +235,10 @@ class IndexMill(BaseTool):
                 vc_data *= self.finishing_roughing_options[fin_or_rough]["vc_modifier"]
                 vc_data = round(vc_data, ndigits=config.NDIGITS_SURFACE_SPEED)
                 return vc_data
-        except KeyError:
-            # logger.critical(f"{self.tool_data["tool_name_str"]} - Vc not found")
-            return 0
+        except KeyError as exc:
+            raise ValueError(
+                f'Invalid insert cutting data for {key_iso_material}'
+            ) from exc
 
     # def calc_cut_data_for_all_material_groups(self):
     #     for key_iso_material in config.lst_of_iso_material_groups:
@@ -312,12 +315,8 @@ class IndexMill(BaseTool):
     #                 tool_radial_depth * multiplyer, ndigits=config.NDIGITS_RADIAL_FEED)
 
     def calc_rpm(self, Vc: int | float) -> float:
-        try:
-            rpm = 1000 * Vc / (pi * self.tool_data["tool_diam_float"])
-            return round(rpm, ndigits=config.NDIGITS_SPINDLE)
-        except:
-            #             logger.critical(f"{self.tool_data["tool_name_str"]} - RPM not calculated")
-            return 0
+        rpm = 1000 * Vc / (pi * self.tool_data["tool_diam_float"])
+        return round(rpm, ndigits=config.NDIGITS_SPINDLE)
 
     # def calc_feed_per_unit(self, key_iso_material, fin_or_rough: str) -> float:
     #     try:
@@ -331,43 +330,27 @@ class IndexMill(BaseTool):
     #         return 0
 
     def calc_feed_per_unit(self, key_iso_material, fin_or_rough):
-        try:
-            insert_name = self.catalog_tool_geometry[self.tool_name_from_input]["insert_name"]
-            Fz_min = self.catalog_cut_data[insert_name]["Fz"][0]
-            Fz_max = self.catalog_cut_data[insert_name]["Fz"][1]
-            Fz = (Fz_max + Fz_min) / 2
-            return Fz
-        except:
-            return 0
+        insert_name = self.catalog_tool_geometry[self.tool_name_from_input]["insert_name"]
+        Fz_min = self.catalog_cut_data[insert_name]["Fz"][0]
+        Fz_max = self.catalog_cut_data[insert_name]["Fz"][1]
+        Fz = (Fz_max + Fz_min) / 2
+        return Fz
 
     def calc_feed_rate(self, key_iso_material, RPM, fin_or_rough) -> float:
-        try:
-            feed_multiplier = self.finishing_roughing_options[fin_or_rough]["feed_rate_multiplier"]
-            Fz = self.calc_feed_per_unit(key_iso_material, fin_or_rough)
-            z = self.catalog_tool_geometry[self.tool_name_from_input]["NUM_OF_TEETH"]
-            F = Fz * z * RPM * feed_multiplier
-            return round(F, ndigits=config.NDIGITS_FEED)
-        except:
-            # logger.critical(f"{self.tool_data["tool_name_str"]} - feed per min not calculated")
-            return 0
+        feed_multiplier = self.finishing_roughing_options[fin_or_rough]["feed_rate_multiplier"]
+        Fz = self.calc_feed_per_unit(key_iso_material, fin_or_rough)
+        z = self.catalog_tool_geometry[self.tool_name_from_input]["NUM_OF_TEETH"]
+        F = Fz * z * RPM * feed_multiplier
+        return round(F, ndigits=config.NDIGITS_FEED)
 
     def get_asm_name_for_xml(self):
-        try:
-            return self.catalog_tool_geometry[self.tool_name_from_input]["asm_name"]
-        except:
-            return "Not found <<asm_name>>"
+        return self.catalog_tool_geometry[self.tool_name_from_input]["asm_name"]
 
     def get_body_name_for_xml(self):
-        try:
-            return self.catalog_tool_geometry[self.tool_name_from_input]["body_prt_name"]
-        except:
-            return "Not found <<body_prt_name>>"
+        return self.catalog_tool_geometry[self.tool_name_from_input]["body_prt_name"]
 
     def get_insert_prt_name_for_xml(self):
-        try:
-            return self.catalog_tool_geometry[self.tool_name_from_input]["insert_prt_name"]
-        except:
-            return "Not found <<insert_prt_name>>"
+        return self.catalog_tool_geometry[self.tool_name_from_input]["insert_prt_name"]
 
     def set_xml_body_tool_params(self) -> str:
         xml_part_str = f"""\

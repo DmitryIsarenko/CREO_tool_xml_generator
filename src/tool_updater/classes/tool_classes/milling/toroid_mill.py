@@ -133,14 +133,10 @@ class ToroidMill(BaseTool):
         return t_name
 
     def calc_feed_rate(self, key_iso_material, RPM, fin_or_rough) -> float:
-        try:
-            feed_multiplier = self.finishing_roughing_options[fin_or_rough]["feed_rate_multiplier"]
-            F = self.catalog_cut_data[key_iso_material][config.key_f][self.tool_data["cut_data_diam_group"]]
-            F *= feed_multiplier
-            return round(F, ndigits=config.NDIGITS_FEED)
-        except:
-            # logger.critical(f"{self.tool_data["tool_name_str"]} - feed per min not calculated")
-            return 0
+        feed_multiplier = self.finishing_roughing_options[fin_or_rough]["feed_rate_multiplier"]
+        F = self.catalog_cut_data[key_iso_material][config.key_f][self.tool_data["cut_data_diam_group"]]
+        F *= feed_multiplier
+        return round(F, ndigits=config.NDIGITS_FEED)
 
     def set_xml_body_tool_params(self) -> str:
         xml_part_str = f"""\

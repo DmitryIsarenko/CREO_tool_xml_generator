@@ -120,11 +120,8 @@ class DiskOtreznoiFlat(BaseTool):
         return float(self.get_tool_cutter_width_from_complex_size())
 
     def calc_radial_depth(self, key_iso_material):
-        try:
-            return self.catalog_cut_data[key_iso_material][config.key_ae][
-                self.get_tool_cutter_width_from_complex_size()]
-        except:
-            return 0
+        return self.catalog_cut_data[key_iso_material][config.key_ae][
+            self.get_tool_cutter_width_from_complex_size()]
 
     # def get_holder_len(self):
     #     hol_size = self.get_tool_holder_size()
@@ -143,25 +140,19 @@ class DiskOtreznoiFlat(BaseTool):
         return hol_len
 
     def calc_len_out_of_holder(self):
-        try:
-            hol_size = self.get_tool_holder_size()
-            hol_body_min_len = self.catalog_holder_geometry[hol_size]["holder_min_len"]
-            hol_body_len = self.catalog_holder_geometry[hol_size]["holder_len"]
-            len_out_of_holder = max(hol_body_len / 2, hol_body_min_len)
-            return len_out_of_holder
-        except:
-            return 0
+        hol_size = self.get_tool_holder_size()
+        hol_body_min_len = self.catalog_holder_geometry[hol_size]["holder_min_len"]
+        hol_body_len = self.catalog_holder_geometry[hol_size]["holder_len"]
+        len_out_of_holder = max(hol_body_len / 2, hol_body_min_len)
+        return len_out_of_holder
 
     def calc_feed_per_unit(self, key_iso_material, fin_or_rough):
-        try:
-            cut_w = self.get_tool_cutter_width_from_complex_size()
-            Fz = self.catalog_cut_data[key_iso_material][config.key_fz][cut_w]
-            # Fz = str(self.catalog_cut_data[key_iso_material][config.key_fz][cut_w])
-            # while len(Fz.split(sep=".")[1]) < 2:
-            #     Fz += "0"
-            return Fz
-        except:
-            return 0
+        cut_w = self.get_tool_cutter_width_from_complex_size()
+        Fz = self.catalog_cut_data[key_iso_material][config.key_fz][cut_w]
+        # Fz = str(self.catalog_cut_data[key_iso_material][config.key_fz][cut_w])
+        # while len(Fz.split(sep=".")[1]) < 2:
+        #     Fz += "0"
+        return Fz
 
     # FORMATTING RECENTLY EXISTING/EXTRACTED DATA
     def create_tool_name_for_geom_catalogue(self):
@@ -289,21 +280,14 @@ class DiskOtreznoiFlat(BaseTool):
         return t_name
 
     def calc_feed_rate(self, key_iso_material, RPM, fin_or_rough) -> float:
-        try:
-            feed_multiplier = self.finishing_roughing_options[fin_or_rough]["feed_rate_multiplier"]
-            Fz = self.catalog_cut_data[key_iso_material][config.key_fz][self.get_tool_cutter_width_from_complex_size()]
-            z = self.catalog_tool_geometry[self.complex_size_name][config.key_num_of_teeth]
-            F = Fz * z * RPM * feed_multiplier
-            return round(F, ndigits=config.NDIGITS_FEED)
-        except:
-            # logger.critical(f"{self.tool_data["tool_name_str"]} - feed per min not calculated")
-            return 0
+        feed_multiplier = self.finishing_roughing_options[fin_or_rough]["feed_rate_multiplier"]
+        Fz = self.catalog_cut_data[key_iso_material][config.key_fz][self.get_tool_cutter_width_from_complex_size()]
+        z = self.catalog_tool_geometry[self.complex_size_name][config.key_num_of_teeth]
+        F = Fz * z * RPM * feed_multiplier
+        return round(F, ndigits=config.NDIGITS_FEED)
 
     def get_tool_teeth_num(self):
-        try:
-            return self.catalog_tool_geometry[self.complex_size_name][config.key_num_of_teeth]
-        except:
-            return 0
+        return self.catalog_tool_geometry[self.complex_size_name][config.key_num_of_teeth]
 
     def calc_nut_diam(self) -> int:
         return self.get_tool_shank_diam() + 20

@@ -179,25 +179,17 @@ class ThreadMill(BaseTool):
 
 
     def calc_feed_rate(self, key_iso_material, RPM, fin_or_rough) -> float:
-        try:
-            feed_multiplier = self.finishing_roughing_options[fin_or_rough]["feed_rate_multiplier"]
-            teeth = self.catalog_tool_geometry[self.tool_size_from_geom_catalogue]["feathers_num"]
-            Fz = self.catalog_cut_data[key_iso_material][config.key_fz][self.tool_data["cut_data_diam_group"]]
-            F = Fz * feed_multiplier * teeth * RPM
-            return round(F, ndigits=config.NDIGITS_FEED)
-        except:
-            # logger.critical(f"{self.tool_data["tool_name_str"]} - feed per min not calculated")
-            return 0
+        feed_multiplier = self.finishing_roughing_options[fin_or_rough]["feed_rate_multiplier"]
+        teeth = self.catalog_tool_geometry[self.tool_size_from_geom_catalogue]["feathers_num"]
+        Fz = self.catalog_cut_data[key_iso_material][config.key_fz][self.tool_data["cut_data_diam_group"]]
+        F = Fz * feed_multiplier * teeth * RPM
+        return round(F, ndigits=config.NDIGITS_FEED)
 
     def calc_feed_per_unit(self, key_iso_material, fin_or_rough: str) -> float:
-        try:
-            feed_multiplier = self.finishing_roughing_options[fin_or_rough]["feed_rate_multiplier"]
-            Fz = self.catalog_cut_data[key_iso_material][config.key_fz][self.tool_data["cut_data_diam_group"]]
-            Fz = Fz * feed_multiplier
-            return round(Fz, ndigits=config.NDIGITS_FEED)
-        except:
-#             logger.critical(f"{self.tool_data["tool_name_str"]} - feed per min not calculated")
-            return 0
+        feed_multiplier = self.finishing_roughing_options[fin_or_rough]["feed_rate_multiplier"]
+        Fz = self.catalog_cut_data[key_iso_material][config.key_fz][self.tool_data["cut_data_diam_group"]]
+        Fz = Fz * feed_multiplier
+        return round(Fz, ndigits=config.NDIGITS_FEED)
 
 
 

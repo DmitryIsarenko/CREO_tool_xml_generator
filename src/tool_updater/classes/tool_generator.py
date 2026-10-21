@@ -1,4 +1,5 @@
 import json
+from math import isfinite
 from pathlib import Path
 
 from src.tool_updater.classes.tool_classes.base_tool import BaseTool
@@ -25,18 +26,38 @@ class ToolGenerator:
         with Path(path_to_catalog_cut_data).open(encoding=TEXT_ENCODING) as f:
             catalog_tool_cut_data = json.load(f)
 
+        if not isinstance(catalog_tool_geometry, dict) or not catalog_tool_geometry:
+            raise ValueError(f'Expected non-empty geometry: {path_to_catalog_geometry}')
+        if not isinstance(catalog_tool_cut_data, dict) or not catalog_tool_cut_data:
+            raise ValueError(f'Expected non-empty cutting data: {path_to_catalog_cut_data}')
+        if isinstance(teeth_num, bool) or teeth_num <= 0:
+            raise ValueError('The number of teeth must be positive.')
+
         tools: list[BaseTool] = []
 
         for tool_size in catalog_tool_geometry:
-            tool = tool_class(
-                tool_size_from_geom_catalogue=tool_size,
-                catalog_tool_cut_data=catalog_tool_cut_data,
-                catalog_tool_geometry=catalog_tool_geometry,
-                teeth_num=teeth_num,
-                file_name_prefix=file_name_prefix,
-                file_name_suffix=file_name_suffix,
-                debug_mode=debug_mode,
-            )
+            try:
+                tool = tool_class(
+                    tool_size_from_geom_catalogue=tool_size,
+                    catalog_tool_cut_data=catalog_tool_cut_data,
+                    catalog_tool_geometry=catalog_tool_geometry,
+                    teeth_num=teeth_num,
+                    file_name_prefix=file_name_prefix,
+                    file_name_suffix=file_name_suffix,
+                    debug_mode=debug_mode,
+                )
+                for field in ('CUTTER_DIAM', 'LENGTH', 'FLUTE_LENGTH',
+                              'NUM_OF_TEETH'):
+                    value = float(tool.tool_data[field])
+                    if not isfinite(value) or value <= 0:
+                        raise ValueError(f'{field} must be finite and positive')
+            except (KeyError, ValueError, TypeError, IndexError,
+                    ZeroDivisionError) as exc:
+                raise ValueError(
+                    f'{tool_class.__name__}, size {tool_size!r}: {exc}; '
+                    f'geometry={path_to_catalog_geometry}; '
+                    f'cutting data={path_to_catalog_cut_data}'
+                ) from exc
             tools.append(tool)
 
         for tool in tools:

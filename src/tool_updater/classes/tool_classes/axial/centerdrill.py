@@ -158,7 +158,7 @@ class CenterDrill(BaseTool):
             else:
                 new_str += sep + "0"
 
-        except:
+        except IndexError:
             pass
         return new_str
 
@@ -174,25 +174,17 @@ class CenterDrill(BaseTool):
         # return self.catalog_tool_geometry[self.create_tool_name_for_geom_catalogue()]["full_body_len"] / 2
 
     def calc_feed_rate(self, key_iso_material, RPM, fin_or_rough) -> float:
-        try:
-            Fn = self.catalog_cut_data[key_iso_material][config.key_fn][self.tool_data["cut_data_diam_group"]]
-            feed_multiplier = self.finishing_roughing_options[fin_or_rough]["feed_rate_multiplier"]
-            Fn = Fn * RPM * feed_multiplier
-            return round(Fn, ndigits=config.NDIGITS_FEED)
-        except:
-            # logger.critical(f"{self.tool_data["tool_name_str"]} - feed per min not calculated")
-            return 0
+        Fn = self.catalog_cut_data[key_iso_material][config.key_fn][self.tool_data["cut_data_diam_group"]]
+        feed_multiplier = self.finishing_roughing_options[fin_or_rough]["feed_rate_multiplier"]
+        Fn = Fn * RPM * feed_multiplier
+        return round(Fn, ndigits=config.NDIGITS_FEED)
 
     def calc_feed_per_unit(self, key_iso_material, fin_or_rough: str) -> float:
-        try:
-            feed_multiplier = self.finishing_roughing_options[fin_or_rough]["feed_rate_multiplier"]
-            Fn = self.catalog_cut_data[key_iso_material][config.key_fn][self.tool_data["cut_data_diam_group"]]
-            # RPM = self.tool_data["cut_data"][key_iso_material][fin_or_rough]["TOOL_SPINDLE_RPM"]
-            Fn = Fn * feed_multiplier
-            return round(Fn, ndigits=config.NDIGITS_FEED_PER_UNIT)
-        except:
-            # logger.critical(f"{self.tool_data["tool_name_str"]} - feed per unit not calculated")
-            return 0
+        feed_multiplier = self.finishing_roughing_options[fin_or_rough]["feed_rate_multiplier"]
+        Fn = self.catalog_cut_data[key_iso_material][config.key_fn][self.tool_data["cut_data_diam_group"]]
+        # RPM = self.tool_data["cut_data"][key_iso_material][fin_or_rough]["TOOL_SPINDLE_RPM"]
+        Fn = Fn * feed_multiplier
+        return round(Fn, ndigits=config.NDIGITS_FEED_PER_UNIT)
 
     def calc_radial_depth(self, key_iso_material):
         return 0

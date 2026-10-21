@@ -96,36 +96,24 @@ class VnutrRadMill(BaseTool):
         return self.catalog_tool_geometry[self.tool_size_from_geom_catalogue]["cutter_diam"]
 
     def calc_feed_per_unit(self, key_iso_material, fin_or_rough: str) -> float:
-        try:
-            feed_multiplier = self.finishing_roughing_options[fin_or_rough]["feed_rate_multiplier"]
-            Fz = self.catalog_cut_data[key_iso_material][config.key_fz][self.tool_data["cut_data_diam_group"]]
-            # RPM = self.tool_data["cut_data"][key_iso_material][fin_or_rough]["TOOL_SPINDLE_RPM"]
-            fz = Fz * feed_multiplier
-            return round(fz, ndigits=config.NDIGITS_FEED_PER_UNIT)
-        except:
-            # logger.critical(f"{self.tool_data["tool_name_str"]} - feed per unit not calculated")
-            return 0
+        feed_multiplier = self.finishing_roughing_options[fin_or_rough]["feed_rate_multiplier"]
+        Fz = self.catalog_cut_data[key_iso_material][config.key_fz][self.tool_data["cut_data_diam_group"]]
+        # RPM = self.tool_data["cut_data"][key_iso_material][fin_or_rough]["TOOL_SPINDLE_RPM"]
+        fz = Fz * feed_multiplier
+        return round(fz, ndigits=config.NDIGITS_FEED_PER_UNIT)
 
     def calc_len_out_of_holder(self):
         return self.catalog_tool_geometry[self.tool_size_from_geom_catalogue]["full_body_len"] / 2
 
     def calc_feed_rate(self, key_iso_material, RPM, fin_or_rough) -> float:
-        try:
-            Fz = self.calc_feed_per_unit(key_iso_material=key_iso_material, fin_or_rough=fin_or_rough)
-            feed_multiplier = self.finishing_roughing_options[fin_or_rough]["feed_rate_multiplier"]
-            Fn = Fz * self.teeth_num * RPM * feed_multiplier
-            return round(Fn, ndigits=config.NDIGITS_FEED)
-        except:
-#             logger.critical(f"{self.tool_data["tool_name_str"]} - feed per min not calculated")
-            return 0
+        Fz = self.calc_feed_per_unit(key_iso_material=key_iso_material, fin_or_rough=fin_or_rough)
+        feed_multiplier = self.finishing_roughing_options[fin_or_rough]["feed_rate_multiplier"]
+        Fn = Fz * self.teeth_num * RPM * feed_multiplier
+        return round(Fn, ndigits=config.NDIGITS_FEED)
 
     def calc_rpm(self, Vc: int | float) -> float:
-        try:
-            rpm = 1000 * Vc / (pi * self.tool_data["CUTTER_DIAM"])
-            return round(rpm, ndigits=config.NDIGITS_SPINDLE)
-        except:
-#             logger.critical(f"{self.tool_data["tool_name_str"]} - RPM not calculated")
-            return 0
+        rpm = 1000 * Vc / (pi * self.tool_data["CUTTER_DIAM"])
+        return round(rpm, ndigits=config.NDIGITS_SPINDLE)
 
     def calc_axial_depth(self, key_iso_material) -> float:
         return self.catalog_tool_geometry[self.tool_size_from_geom_catalogue]["corner_radius"]

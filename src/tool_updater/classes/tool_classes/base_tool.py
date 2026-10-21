@@ -122,31 +122,23 @@ class BaseTool:
 
     # GET FROM GEOM CATALOGUE
     def get_full_tool_length(self) -> float:
-        try:
-            t_name = self.tool_data["tool_name_for_geom_catalogue"]
-            fractional_part = t_name.split(".")[1]
-            if len(fractional_part) < 2:
-                t_name += "0"
-            return self.catalog_geom[t_name][config.key_body_len]
-        except:
-            return 0
+        t_name = self.tool_data["tool_name_for_geom_catalogue"]
+        fractional_part = t_name.split(".")[1]
+        if len(fractional_part) < 2:
+            t_name += "0"
+        return self.catalog_geom[t_name][config.key_body_len]
 
     def get_tool_flute_length(self) -> float:
-        try:
-            t_name = self.tool_data["tool_name_for_geom_catalogue"]
-            fractional_part = t_name.split(".")[1]
-            if len(fractional_part) < 2:
-                t_name += "0"
-            return self.catalog_geom[t_name][config.key_flute_len]
-        except:
-            return 0
+        t_name = self.tool_data["tool_name_for_geom_catalogue"]
+        fractional_part = t_name.split(".")[1]
+        if len(fractional_part) < 2:
+            t_name += "0"
+        return self.catalog_geom[t_name][config.key_flute_len]
 
     def get_tool_comment(self) -> str:
-        try:
-            t_name = self.tool_data["tool_name_for_geom_catalogue"]
-            return self.catalog_geom[t_name][config.key_order_no]
-        except:
-            return ""
+        """Return the optional catalog comment."""
+        name = self.tool_data['tool_name_for_geom_catalogue']
+        return self.catalog_geom[name].get(config.key_order_no, '')
 
     def get_tool_diam_float(self):
         return float(self.tool_data["tool_name_str"])
@@ -167,53 +159,58 @@ class BaseTool:
         return self.tool_type
 
     # GET FROM CUT DATA CATALOGUE
-    def get_vc(self, key_iso_material: str, fin_or_rough):
-        try:
-            vc_data = self.catalog_cut_data[key_iso_material][config.key_vc]
-            if type(vc_data) is int or type(vc_data) is float:
-                vc_data *= self.finishing_roughing_options[fin_or_rough]["vc_modifier"]
-                return vc_data
-            if type(vc_data) is list or type(vc_data) is set or type(vc_data) is tuple:
-                vc_data = vc_data[config.vc_min_or_max]
-                vc_data *= self.finishing_roughing_options[fin_or_rough]["vc_modifier"]
-                vc_data = round(vc_data, ndigits=config.NDIGITS_SURFACE_SPEED)
-                return vc_data
-        except KeyError:
-            return 0
+    def get_vc(self, key_iso_material: str, fin_or_rough: str) -> float:
+        """Read surface speed for a supported material."""
+        value = self.catalog_cut_data[key_iso_material][config.key_vc]
+        modifier = self.finishing_roughing_options[fin_or_rough]['vc_modifier']
+        if isinstance(value, (int, float)):
+            return value * modifier
+        if isinstance(value, (list, tuple)) and value:
+            return round(
+                value[config.vc_min_or_max] * modifier,
+                ndigits=config.NDIGITS_SURFACE_SPEED,
+            )
+        raise ValueError(f'Invalid surface speed for {key_iso_material}')
 
     # CALCULATIONS FOR GEOMETRY CATALOGUE
     def calc_diam_group_name(self):
-        try:
-            iso_key = list(self.catalog_cut_data.keys())[0]
-            cut_keys = list(self.catalog_cut_data[iso_key].keys())
-            cut_key = key_fn
-            for key in cut_keys:
-                if key in [key_fn, key_f, key_fz]:
-                    cut_key = key
-                    break
-            diam_groups = [
-                key for key in self.catalog_cut_data[iso_key][cut_key]]
-            t_diam = self.tool_data["tool_diam_float"]
-            suitable_grp = list()
-            for grp_ind, grp in enumerate(diam_groups):
-                grp_float = float(grp)
-                if t_diam == grp_float:
+        iso_key = list(self.catalog_cut_data.keys())[0]
+        cut_keys = list(self.catalog_cut_data[iso_key].keys())
+        cut_key = key_fn
+        for key in cut_keys:
+            if key in [key_fn, key_f, key_fz]:
+                cut_key = key
+                break
+        diam_groups = [
+            key for key in self.catalog_cut_data[iso_key][cut_key]]
+        t_diam = self.tool_data["tool_diam_float"]
+        suitable_grp = list()
+        for grp_ind, grp in enumerate(diam_groups):
+            grp_float = float(grp)
+            if t_diam == grp_float:
+                suitable_grp.append(grp)
+                break
+            elif t_diam > grp_float:
+                suitable_grp.append(grp)
+            elif t_diam < grp_float:
+                if grp_ind == 0:
                     suitable_grp.append(grp)
-                    break
-                elif t_diam > grp_float:
-                    suitable_grp.append(grp)
-                elif t_diam < grp_float:
-                    if grp_ind == 0:
-                        suitable_grp.append(grp)
-                    break
-
-            return suitable_grp[-1]
-        except:
-            return "None"
+                break
+        return suitable_grp[-1]
 
     # CALCULATIONS FOR CUT DATA CATALOGUE
+    def has_cutting_data(self, material: str) -> bool:
+        """Return whether the catalog declares a material group."""
+        return material in self.catalog_cut_data
+
     def calc_cut_data_for_all_material_groups(self):
         for key_iso_material in config.lst_of_iso_material_groups:
+            if not self.has_cutting_data(key_iso_material):
+                logger.warning(
+                    '%s: no cutting data for %s; defaults remain zero',
+                    self.tool_data['tool_name_str'], key_iso_material,
+                )
+                continue
 
             for fin_or_rough in self.finishing_roughing_options:
                 tool_surface_speed = self.get_vc(
@@ -317,46 +314,31 @@ class BaseTool:
                               * k_Ae, ndigits=config.NDIGITS_RADIAL_FEED)
 
     def calc_rpm(self, Vc: int | float) -> float:
-        try:
-            rpm = 1000 * Vc / (pi * self.tool_data["tool_diam_float"])
-            return round(rpm, ndigits=config.NDIGITS_SPINDLE)
-        except:
-            return 0
+        rpm = 1000 * Vc / (pi * self.tool_data["tool_diam_float"])
+        return round(rpm, ndigits=config.NDIGITS_SPINDLE)
 
     def calc_feed_per_unit(self, key_iso_material, fin_or_rough: str) -> float:
-        try:
-            feed_multiplier = self.finishing_roughing_options[fin_or_rough]["feed_rate_multiplier"]
-            F = self.catalog_cut_data[key_iso_material][config.key_f][self.tool_data["cut_data_diam_group"]]
-            RPM = self.tool_data["cut_data"][key_iso_material][fin_or_rough]["TOOL_SPINDLE_RPM"]
-            fz = F / RPM / self.tool_data["NUM_OF_TEETH"] * feed_multiplier
-            return round(fz, ndigits=config.NDIGITS_FEED_PER_UNIT)
-        except:
-            return 0
+        feed_multiplier = self.finishing_roughing_options[fin_or_rough]["feed_rate_multiplier"]
+        F = self.catalog_cut_data[key_iso_material][config.key_f][self.tool_data["cut_data_diam_group"]]
+        RPM = self.tool_data["cut_data"][key_iso_material][fin_or_rough]["TOOL_SPINDLE_RPM"]
+        fz = F / RPM / self.tool_data["NUM_OF_TEETH"] * feed_multiplier
+        return round(fz, ndigits=config.NDIGITS_FEED_PER_UNIT)
 
     def calc_feed_rate(self, key_iso_material, RPM, fin_or_rough) -> float:
-        try:
-            Fn = self.catalog_cut_data[key_iso_material][config.key_fn][self.tool_data["cut_data_diam_group"]]
-            feed_multiplier = self.finishing_roughing_options[fin_or_rough]["feed_rate_multiplier"]
-            Fn = Fn * RPM * feed_multiplier
-            return round(Fn, ndigits=config.NDIGITS_FEED)
-        except:
-            return 0
+        Fn = self.catalog_cut_data[key_iso_material][config.key_fn][self.tool_data["cut_data_diam_group"]]
+        feed_multiplier = self.finishing_roughing_options[fin_or_rough]["feed_rate_multiplier"]
+        Fn = Fn * RPM * feed_multiplier
+        return round(Fn, ndigits=config.NDIGITS_FEED)
 
     def calc_axial_depth(self, key_iso_material) -> float:
-        try:
-            axial_depth = float(
-                self.tool_data["CUTTER_DIAM"]) * self.axial_depth_modifiyers[key_iso_material]
-            return round(axial_depth, ndigits=config.NDIGITS_AXIAL_FEED)
-        except:
-            return 0
+        axial_depth = float(
+            self.tool_data["CUTTER_DIAM"]) * self.axial_depth_modifiyers[key_iso_material]
+        return round(axial_depth, ndigits=config.NDIGITS_AXIAL_FEED)
 
     def calc_radial_depth(self, key_iso_material):
-        try:
-            radial_depth = float(
-                self.tool_data["CUTTER_DIAM"]) * self.radial_depth_modifiyers[key_iso_material]
-            return round(radial_depth, ndigits=config.NDIGITS_RADIAL_FEED)
-        except:
-            return 0
+        radial_depth = float(
+            self.tool_data["CUTTER_DIAM"]) * self.radial_depth_modifiyers[key_iso_material]
+        return round(radial_depth, ndigits=config.NDIGITS_RADIAL_FEED)
 
     def calc_nut_diam(self) -> int:
         cut_d = float(self.tool_data.get("CUTTER_DIAM"))
@@ -372,12 +354,9 @@ class BaseTool:
 
 
     def calc_len_out_of_holder(self):
-        try:
-            length = round(float(
-                self.tool_data["FLUTE_LENGTH"]) + float(self.tool_data["CUTTER_DIAM"]), ndigits=0, )
-            return length
-        except:
-            return 0
+        length = round(float(
+            self.tool_data["FLUTE_LENGTH"]) + float(self.tool_data["CUTTER_DIAM"]), ndigits=0, )
+        return length
 
     # FORMATTING RECENTLY EXISTING/EXTRACTED DATA
     def create_tool_name_for_geom_catalogue(self):
@@ -440,7 +419,7 @@ class BaseTool:
                     continue
             if rev_new_pt:
                 new_str += sep + rev_new_pt[::-1]
-        except:
+        except IndexError:
             pass
         return new_str
     # FILE OPERATIONS

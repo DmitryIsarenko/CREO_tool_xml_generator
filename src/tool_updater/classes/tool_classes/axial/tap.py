@@ -125,26 +125,18 @@ class Tap(BaseTool):
             else:
                 new_str += sep + "0"
 
-        except:
+        except IndexError:
             pass
         return new_str
 
     def calc_feed_rate(self, key_iso_material, RPM, fin_or_rough) -> float:
-        try:
-            Fn = self.calc_feed_per_unit(key_iso_material=key_iso_material, fin_or_rough=fin_or_rough)
-            F = Fn * RPM
-            return round(F, ndigits=config.NDIGITS_FEED)
-        except:
-            # logger.critical(f"{self.tool_data["tool_name_str"]} - feed per min not calculated")
-            return 0
+        Fn = self.calc_feed_per_unit(key_iso_material=key_iso_material, fin_or_rough=fin_or_rough)
+        F = Fn * RPM
+        return round(F, ndigits=config.NDIGITS_FEED)
 
     def calc_feed_per_unit(self, key_iso_material, fin_or_rough: str) -> float:
-        try:
-            Fn = self.calc_thread_pitch()
-            return round(Fn, ndigits=config.NDIGITS_FEED_PER_UNIT)
-        except:
-#             logger.critical(f"{self.tool_data["tool_name_str"]} - feed per unit not calculated")
-            return 0
+        Fn = self.calc_thread_pitch()
+        return round(Fn, ndigits=config.NDIGITS_FEED_PER_UNIT)
 
     def calc_thread_pitch(self):
         try:

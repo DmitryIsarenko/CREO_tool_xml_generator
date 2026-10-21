@@ -19,6 +19,7 @@ class ToolGenerator:
                      file_name_prefix: str,
                      file_name_suffix: str,
                      debug_mode: int,
+                     overwrite: bool = False,
                      ) -> None:
         """Read catalogs and write XML files to the target directory."""
         with Path(path_to_catalog_geometry).open(encoding=TEXT_ENCODING) as f:
@@ -64,8 +65,26 @@ class ToolGenerator:
             print(tool.tool_data['tool_name_str'])
 
         target_directory = Path(target_path)
-        target_directory.mkdir(parents=True, exist_ok=True)
-
+        names: set[str] = set()
         for tool in tools:
+            name = (
+                f'{tool.tool_data["file_name"]}{tool.tool_file_extension}'
+            )
+            if '/' in name or '\\' in name or Path(name).name != name:
+                raise ValueError(f'Invalid output filename: {name!r}')
+            normalized = name.casefold()
+            if normalized in names:
+                raise ValueError(f'Duplicate output filename: {name}')
+            names.add(normalized)
+            output_file = target_directory / name
+            if output_file.exists() and not overwrite:
+                raise FileExistsError(
+                    f'{output_file}: use overwrite=True to replace it'
+                )
+            if output_file.is_dir():
+                raise IsADirectoryError(output_file)
             tool.set_tool_xml()
-            tool.write_new_file(path=target_directory)
+
+        target_directory.mkdir(parents=True, exist_ok=True)
+        for tool in tools:
+            tool.write_new_file(path=target_directory, overwrite=overwrite)

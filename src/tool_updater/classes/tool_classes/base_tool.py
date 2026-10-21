@@ -424,13 +424,17 @@ class BaseTool:
         return new_str
     # FILE OPERATIONS
 
-    def write_new_file(self, path: str | Path) -> None:
+    def write_new_file(
+        self, path: str | Path, *, overwrite: bool = False,
+    ) -> None:
         """Write tool XML and let the caller handle file errors."""
         file_name = (
             f'{self.tool_data["file_name"]}{self.tool_file_extension}'
         )
         output_file = Path(path) / file_name
-        output_file.write_text(self.tool_xml, encoding=config.TEXT_ENCODING)
+        mode = 'w' if overwrite else 'x'
+        with output_file.open(mode, encoding=config.TEXT_ENCODING) as file:
+            file.write(self.tool_xml)
 
     # DEFAULT TOOL DICT
     def set_default_tool_data(self):

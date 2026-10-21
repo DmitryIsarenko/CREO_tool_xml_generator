@@ -1,28 +1,32 @@
 import logging
+from pathlib import Path
 
-format_string_logfile = "%(asctime)s %(levelname)-8s --- %(message)s --- %(name)s:%(lineno)s"
-format_string_console = "%(asctime)s %(levelname)-8s --- %(message)-80s --- %(name)s:%(lineno)s"
-date_format = "%Y-%m-%d %H:%M:%S"
 
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.DEBUG)
+def configure_logging() -> None:
+    """Configure package logging once without clearing previous records."""
+    logger = logging.getLogger(__name__)
+    if logger.handlers:
+        return
 
-console_handler = logging.StreamHandler()
-# logfile_handler = logging.FileHandler(filename="../logs/log.log", mode="w")
-logfile_handler = logging.FileHandler(filename="./src/logs/log.log", mode="w")
-
-console_formatter = logging.Formatter(
-    fmt=format_string_console, datefmt=date_format)
-logfile_formatter = logging.Formatter(
-    fmt=format_string_logfile, datefmt=date_format)
-
-console_handler.setFormatter(console_formatter)
-logfile_handler.setFormatter(logfile_formatter)
-
-console_handler.setLevel(level=logging.DEBUG)
-logfile_handler.setLevel(level=logging.DEBUG)
-
-logger.addHandler(console_handler)
-logger.addHandler(logfile_handler)
-
-logger.info(f"Logger <<{__name__}>> started.")
+    log_directory = Path(__file__).resolve().parent / 'logs'
+    log_directory.mkdir(parents=True, exist_ok=True)
+    logfile_handler = logging.FileHandler(
+        log_directory / 'log.log', mode='a', encoding='utf-8'
+    )
+    console_handler = logging.StreamHandler()
+    date_format = '%Y-%m-%d %H:%M:%S'
+    logfile_handler.setFormatter(logging.Formatter(
+        '%(asctime)s %(levelname)-8s --- %(message)s --- '
+        '%(name)s:%(lineno)s',
+        datefmt=date_format,
+    ))
+    console_handler.setFormatter(logging.Formatter(
+        '%(asctime)s %(levelname)-8s --- %(message)-80s --- '
+        '%(name)s:%(lineno)s',
+        datefmt=date_format,
+    ))
+    logger.setLevel(logging.DEBUG)
+    for handler in (console_handler, logfile_handler):
+        handler.setLevel(logging.DEBUG)
+        logger.addHandler(handler)
+    logger.info('Logger <<%s>> started.', __name__)

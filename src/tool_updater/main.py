@@ -1,5 +1,7 @@
 import logging
 
+from src import configure_logging
+
 from src.tool_updater.config import abs_path_to_dir_where_to_create_tool_xmls, abs_path_to_dir_where_project_is_located
 
 from src.tool_updater.classes.tool_classes.base_tool import BaseTool
@@ -2328,6 +2330,7 @@ def gen_index_mills():
 
 
 def main():
+    configure_logging()
     # # VHMs
     # gen_endmills()
     # gen_toroidmills()

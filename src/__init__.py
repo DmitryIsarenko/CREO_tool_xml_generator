@@ -15,16 +15,20 @@ def configure_logging() -> None:
     )
     console_handler = logging.StreamHandler()
     date_format = '%Y-%m-%d %H:%M:%S'
-    logfile_handler.setFormatter(logging.Formatter(
-        '%(asctime)s %(levelname)-8s --- %(message)s --- '
-        '%(name)s:%(lineno)s',
-        datefmt=date_format,
-    ))
-    console_handler.setFormatter(logging.Formatter(
-        '%(asctime)s %(levelname)-8s --- %(message)-80s --- '
-        '%(name)s:%(lineno)s',
-        datefmt=date_format,
-    ))
+    logfile_handler.setFormatter(
+        logging.Formatter(
+            '%(asctime)s %(levelname)-8s --- %(message)s --- '
+            '%(name)s:%(lineno)s',
+            datefmt=date_format,
+        )
+    )
+    console_handler.setFormatter(
+        logging.Formatter(
+            '%(asctime)s %(levelname)-8s --- %(message)-80s --- '
+            '%(name)s:%(lineno)s',
+            datefmt=date_format,
+        )
+    )
     logger.setLevel(logging.DEBUG)
     for handler in (console_handler, logfile_handler):
         handler.setLevel(logging.DEBUG)

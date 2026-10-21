@@ -57,6 +57,7 @@ from src.tool_updater.jobs.ugloviye import ugloviye
 from src.tool_updater.jobs.vnutr_rad_mills import vnutr_rad_mills
 from src.tool_updater.jobs.zenkovki import zenkovki
 
+
 JOB_BUILDERS: dict[str, Callable[[], list[GenerationJob]]] = {
     'drills': drills,
     'turn_mill_drills': turn_mill_drills,

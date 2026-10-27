@@ -1,0 +1,27 @@
+# Только новый CLI серий для обычных свёрл.
+# Значения повторяют текущие настройки класса Drill.
+
+[roughing]
+vc_multiplier = 1.0
+feed_multiplier = 0.6
+
+[finishing]
+vc_multiplier = 1.0
+feed_multiplier = 0.6
+
+[axial]
+iso_P = 0.25
+iso_M = 0.25
+iso_K = 0.25
+iso_N = 0.25
+iso_S = 0.25
+iso_H = 0.25
+
+# Старый класс Drill всегда записывает Ae = 0.
+[radial]
+iso_P = 0
+iso_M = 0
+iso_K = 0
+iso_N = 0
+iso_S = 0
+iso_H = 0

@@ -7,11 +7,12 @@ from pathlib import Path
 import sys
 from tempfile import NamedTemporaryFile
 
+from src.tool_updater.classes.tool_classes.base_tool import BaseTool
 from src.tool_updater.config import MAX_RPM, OUTPUT_DIR
 from src.tool_updater.series import (
     SERIES_DIR,
-    SETTINGS_FILE,
-    SeriesBallMill,
+    SERIES_TYPES,
+    SETTINGS_FILES,
     create_series,
     load_machining,
     load_series,
@@ -20,7 +21,7 @@ from src.tool_updater.series import (
 
 
 def write_tools(
-    tools: list[SeriesBallMill], directory: Path, *, overwrite: bool
+    tools: list[BaseTool], directory: Path, *, overwrite: bool
 ) -> None:
     """Publish complete files without truncating existing output."""
     targets = [
@@ -50,7 +51,7 @@ def write_tools(
                 temporary.unlink(missing_ok=True)
 
 
-def _print_tools(tools: list[SeriesBallMill]) -> None:
+def _print_tools(tools: list[BaseTool]) -> None:
     for tool in tools:
         data = tool.tool_data
         print(f'\n{data["file_name"]}.xml')
@@ -94,7 +95,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     )
     init.add_argument(
         '--type',
-        choices=['ballmill'],
+        choices=SERIES_TYPES,
         default='ballmill',
         help='тип инструмента',
     )
@@ -110,8 +111,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         subparser.add_argument(
             '--settings',
             type=Path,
-            default=SETTINGS_FILE,
-            help='файл множителей (по умолчанию settings/machining.toml)',
+            help='файл множителей; по умолчанию — для типа серии',
         )
         if command == 'generate':
             subparser.add_argument(
@@ -126,9 +126,11 @@ def main(argv: Sequence[str] | None = None) -> int:
         return 0
     try:
         if args.command == 'types':
-            print('ballmill — сферическая фреза, стандартная сборка BallMill')
+            print('ballmill — сферическая фреза, стандартная сборка')
+            print('drill — спиральное сверло, стандартная сборка')
+            print('endmill — концевая фреза, стандартная сборка')
         elif args.command == 'init':
-            directory = create_series(args.catalogs, args.series)
+            directory = create_series(args.catalogs, args.series, args.type)
             print(
                 f'Создано: {directory}\n'
                 'Заполните series.toml, geometry.csv, cutting.csv, source.txt.'
@@ -152,11 +154,12 @@ def main(argv: Sequence[str] | None = None) -> int:
             return 1 if invalid else 0
         else:
             series = load_series(args.catalogs, args.series)
-            machining = load_machining(args.settings)
+            settings = args.settings or SETTINGS_FILES[series.tool_type]
+            machining = load_machining(settings)
             tools = prepare_tools(series, machining)
             print(f'{series.name}: проверено инструментов — {len(tools)}.')
             if args.command == 'show':
-                print(f'Настройки: {args.settings.resolve()}')
+                print(f'Настройки: {settings.resolve()}')
                 print(f'Множители: {machining.modes}')
                 print(f'Коэффициенты Ap: {machining.axial}')
                 print(f'Коэффициенты Ae: {machining.radial}')

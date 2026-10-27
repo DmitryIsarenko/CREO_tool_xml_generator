@@ -11,6 +11,7 @@ import pytest
 from src.tool_updater.classes.tool_classes.milling.sphere_mill import BallMill
 from src.tool_updater.series import (
     CUTTING_COLUMNS,
+    DRILL_GEOMETRY_COLUMNS,
     GEOMETRY_COLUMNS,
     MATERIALS,
     SETTINGS_FILE,
@@ -278,3 +279,82 @@ def test_default_settings_preserve_legacy_calculations(
     tool = prepare_tools(series, load_machining(SETTINGS_FILE))[0]
     assert tool.tool_data['cut_data'] == legacy.tool_data['cut_data']
     assert tool.tool_data['LENGTH'] == legacy.tool_data['LENGTH']
+
+
+@pytest.mark.parametrize(
+    ('tool_type', 'geometry_columns', 'geometry_row', 'xml_parameter'),
+    [
+        (
+            'drill',
+            DRILL_GEOMETRY_COLUMNS,
+            '6;20;70;DRILL & TEST;135',
+            'POINT_ANGLE',
+        ),
+        (
+            'endmill',
+            GEOMETRY_COLUMNS,
+            '6;20;70;ENDMILL & TEST',
+            'NUM_OF_TEETH',
+        ),
+    ],
+)
+def test_drill_and_endmill_workflows(
+    tmp_path: Path,
+    tool_type: str,
+    geometry_columns: tuple[str, ...],
+    geometry_row: str,
+    xml_parameter: str,
+) -> None:
+    """Create each new type with its own table and default settings."""
+    root = tmp_path / 'catalogs'
+    directory = create_series(root, tool_type, tool_type)
+    (directory / 'series.toml').write_text(
+        f'name = "{tool_type}"\ntype = "{tool_type}"\nteeth = 2\n',
+        encoding='utf-8',
+    )
+    (directory / 'geometry.csv').write_text(
+        ';'.join(geometry_columns) + f'\n{geometry_row}\n',
+        encoding='utf-8',
+    )
+    (directory / 'cutting.csv').write_text(
+        ';'.join(CUTTING_COLUMNS)
+        + '\n'
+        + ''.join(f'{material};6;100;F;300\n' for material in MATERIALS),
+        encoding='utf-8',
+    )
+    series = load_series(root, tool_type)
+    tools = prepare_tools(series, load_machining(series_settings(tool_type)))
+    assert len(tools) == 1
+    tools[0].set_tool_xml()
+    root_xml = ElementTree.fromstring(tools[0].tool_xml)
+    parameter = root_xml.find(f'.//MfgParam[@Name="{xml_parameter}"]')
+    assert parameter is not None
+    if tool_type == 'drill':
+        assert parameter.get('Value') == '135.0'
+        assert (
+            tools[0].tool_data['cut_data']['iso_P']['roughing'][
+                'TOOL_RADIAL_DEPTH'
+            ]
+            == 0
+        )
+
+
+def series_settings(tool_type: str) -> Path:
+    """Return the default settings file for one user series type."""
+    from src.tool_updater.series import SETTINGS_FILES
+
+    return SETTINGS_FILES[tool_type]
+
+
+def test_drill_requires_point_angle(tmp_path: Path) -> None:
+    """Reject a drill table that uses the generic geometry header."""
+    root = tmp_path / 'catalogs'
+    directory = create_series(root, 'drill', 'drill')
+    (directory / 'series.toml').write_text(
+        'name = "Drill"\ntype = "drill"\nteeth = 2\n', encoding='utf-8'
+    )
+    (directory / 'geometry.csv').write_text(
+        ';'.join(GEOMETRY_COLUMNS) + '\n6;20;70;test\n', encoding='utf-8'
+    )
+    with pytest.raises(ValueError, match='point_angle_deg'):
+        read_catalogs(load_series(root, 'drill'))

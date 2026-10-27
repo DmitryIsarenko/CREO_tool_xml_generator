@@ -2,9 +2,16 @@
 
 ## Что готово
 
-Новый сценарий поддерживает **сферическую фрезу** (`ballmill`) со стандартной
-сборкой существующего класса BallMill. Токарно-фрезерные оправки и другие
-типы пока доступны только через прежние задания. Они не перенесены в CSV.
+Новый сценарий поддерживает три типа со стандартными сборками:
+
+| Код `--type` | Тип |
+| --- | --- |
+| `ballmill` | Сферическая фреза |
+| `drill` | Обычное спиральное сверло |
+| `endmill` | Обычная концевая фреза |
+
+Токарно-фрезерные оправки и другие типы пока доступны только через прежние
+задания. Они не перенесены в CSV.
 
 Новая серия — это папка с четырьмя файлами. Python редактировать не нужно.
 Серия содержит по одному варианту длины для каждого диаметра и одинаковое
@@ -48,14 +55,14 @@ uv run python -m src.tool_updater generate --series demo_ballmill
 
 ## 2. Создать серию
 
-Пример имени папки: `my_ballmill`. Используйте строчные латинские буквы,
+Пример имени папки: `my_tool`. Используйте строчные латинские буквы,
 цифры и `_`, первый символ — буква. Максимум 60 символов.
 
 ```bash
-uv run python -m src.tool_updater init --series my_ballmill --type ballmill
+uv run python -m src.tool_updater init --series my_tool --type ballmill
 ```
 
-Создаётся папка `catalogs/my_ballmill/`:
+Создаётся папка `catalogs/my_tool/`:
 
 | Файл | Что внести |
 | --- | --- |
@@ -68,7 +75,7 @@ uv run python -m src.tool_updater init --series my_ballmill --type ballmill
 
 ## 3. Заполнить описание
 
-В `catalogs/my_ballmill/series.toml` замените название и число зубьев:
+В `catalogs/my_tool/series.toml` замените название и число зубьев:
 
 ```toml
 name = "Производитель — обозначение серии"
@@ -77,11 +84,14 @@ teeth = 2
 ```
 
 В заготовке `teeth = 0`: это преднамеренная блокировка генерации, пока вы
-не укажете настоящее число зубьев. Строку `type` пока не меняйте.
+не укажете настоящее число зубьев. Строку `type` не меняйте после `init`:
+она определяет таблицу размеров и расчётный класс.
 
 ## 4. Перенести таблицу размеров
 
-Откройте `catalogs/my_ballmill/geometry.csv`. Не меняйте заголовок:
+Заголовок `geometry.csv` зависит от типа. Не меняйте его.
+
+Для `ballmill` и `endmill`:
 
 ```text
 diameter_mm;flute_length_mm;length_mm;order_no
@@ -94,11 +104,24 @@ diameter_mm;flute_length_mm;length_mm;order_no
 | `length_mm` | Общая длина инструмента, мм |
 | `order_no` | Артикул или комментарий; можно оставить пустым |
 
+Для `drill` добавляется угол при вершине:
+
+```text
+diameter_mm;flute_length_mm;length_mm;order_no;point_angle_deg
+```
+
+| Дополнительный столбец | Значение |
+| --- | --- |
+| `point_angle_deg` | Угол при вершине сверла в градусах, больше 0 и меньше 180 |
+
 Одна строка — один типоразмер. Рабочая длина должна быть меньше общей.
 В этом сценарии вылет рассчитывается старым методом: рабочая длина плюс
 диаметр с округлением. Если он больше общей длины, проверка остановится.
-Отдельного поля диаметра хвостовика пока нет: модель сборки наследуется
-от BallMill и требует проверки в CREO.
+Для `endmill` PDF часто содержит диаметр хвостовика. Обычный старый класс
+EndMill в текущем XML не использует это значение. Поэтому такого столбца
+нет: не создавайте поле, которое не влияет на результат. Проверьте сборку
+и хвостовик в CREO. Для типов со специальным хвостовиком нужен отдельный
+сценарий, а не подмена значения в этой таблице.
 
 ## 5. Перенести таблицу режимов
 
@@ -143,8 +166,8 @@ material;diameter_mm;vc_m_min;feed_kind;feed_value
 
 ```bash
 uv run python -m src.tool_updater list
-uv run python -m src.tool_updater check --series my_ballmill
-uv run python -m src.tool_updater show --series my_ballmill
+uv run python -m src.tool_updater check --series my_tool
+uv run python -m src.tool_updater show --series my_tool
 ```
 
 `list` показывает описания, а не подтверждённую готовность данных.
@@ -156,15 +179,15 @@ uv run python -m src.tool_updater show --series my_ballmill
 ## 7. Получить XML
 
 ```bash
-uv run python -m src.tool_updater generate --series my_ballmill
+uv run python -m src.tool_updater generate --series my_tool
 ```
 
-Результат: `generated_xmls/series/my_ballmill/`, один XML на диаметр.
+Результат: `generated_xmls/series/my_tool/`, один XML на диаметр.
 В конце программа печатает полный путь результата.
 По умолчанию существующие XML не заменяются. Для повторной генерации:
 
 ```bash
-uv run python -m src.tool_updater generate --series my_ballmill --overwrite
+uv run python -m src.tool_updater generate --series my_tool --overwrite
 ```
 
 Перед записью проверяются все данные и XML. Каждый файл сначала записывается
@@ -176,7 +199,13 @@ uv run python -m src.tool_updater generate --series my_ballmill --overwrite
 
 ## 8. Изменить множители
 
-Редактируйте `settings/machining.toml`, а не Python-классы.
+Редактируйте файл настроек типа, а не Python-классы:
+
+| Тип | Файл |
+| --- | --- |
+| `ballmill` | `settings/machining.toml` |
+| `drill` | `settings/drill.toml` |
+| `endmill` | `settings/endmill.toml` |
 
 | Раздел/параметр | Что изменяет |
 | --- | --- |
@@ -190,8 +219,8 @@ uv run python -m src.tool_updater generate --series my_ballmill --overwrite
 Порядок: Fz/Fn преобразуются в F при исходной Vc и числе зубьев; затем
 старый расчёт применяет множители и ограничение оборотов. Изменение Vc
 само по себе не означает пропорционального изменения F. Исходные Ap/Ae
-из PDF в этом этапе не загружаются: они рассчитываются из диаметра.
-
+Исходные Ap/Ae из PDF в этом этапе не загружаются: они рассчитываются из
+диаметра. Для `drill` старый расчёт всегда задаёт `Ae = 0`.
 Сохранено прежнее поведение при ограничении 18000 об/мин: уменьшаются
 скорость, подача и глубины. Дополнительные материалы (пластики, латунь)
 по-прежнему вычисляются из ISO-групп. Эти правила и сборки пока находятся
@@ -209,7 +238,7 @@ uv run python -m src.tool_updater generate --series my_ballmill --overwrite
 | --- | --- | --- |
 | `--help` | Везде | Справка; например `generate --help` |
 | `--series NAME` | `init`, `check`, `show`, `generate` | Имя папки серии |
-| `--type ballmill` | `init` | Пока единственный поддерживаемый тип |
+| `--type TYPE` | `init` | `ballmill`, `drill` или `endmill` |
 | `--settings PATH` | `check`, `show`, `generate` | Другой файл множителей |
 | `--output PATH` | `generate` | Итоговая папка, без автоматической подпапки серии |
 | `--overwrite` | `generate` | Разрешить замену одноимённых XML |

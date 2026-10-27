@@ -1,5 +1,6 @@
 """Read user series without changing legacy catalog jobs."""
 
+from collections.abc import Callable
 import csv
 from dataclasses import dataclass
 from decimal import Decimal, InvalidOperation
@@ -10,6 +11,9 @@ import tomllib
 from xml.etree import ElementTree
 from xml.sax.saxutils import escape
 
+from src.tool_updater.classes.tool_classes.axial.drill import Drill
+from src.tool_updater.classes.tool_classes.base_tool import BaseTool
+from src.tool_updater.classes.tool_classes.milling.endmill import EndMill
 from src.tool_updater.classes.tool_classes.milling.sphere_mill import BallMill
 from src.tool_updater.config import PROJECT_DIR
 from src.tool_updater.data_types import Catalog
@@ -17,8 +21,15 @@ from src.tool_updater.data_types import Catalog
 
 SERIES_DIR = PROJECT_DIR / 'catalogs'
 SETTINGS_FILE = PROJECT_DIR / 'settings' / 'machining.toml'
+SETTINGS_FILES = {
+    'ballmill': SETTINGS_FILE,
+    'drill': PROJECT_DIR / 'settings' / 'drill.toml',
+    'endmill': PROJECT_DIR / 'settings' / 'endmill.toml',
+}
+SERIES_TYPES = tuple(SETTINGS_FILES)
 MATERIALS = ('iso_P', 'iso_M', 'iso_K', 'iso_N', 'iso_S', 'iso_H')
 GEOMETRY_COLUMNS = ('diameter_mm', 'flute_length_mm', 'length_mm', 'order_no')
+DRILL_GEOMETRY_COLUMNS = (*GEOMETRY_COLUMNS, 'point_angle_deg')
 CUTTING_COLUMNS = (
     'material',
     'diameter_mm',
@@ -30,10 +41,11 @@ CUTTING_COLUMNS = (
 
 @dataclass(frozen=True)
 class Series:
-    """Describe one user-managed ball mill series."""
+    """Describe one user-managed tool series."""
 
     directory: Path
     name: str
+    tool_type: str
     teeth: int
 
     @property
@@ -84,9 +96,10 @@ def load_series(root: Path, identifier: str) -> Series:
     data = read_toml(path)
     if set(data) != {'name', 'type', 'teeth'}:
         raise ValueError(f'{path}: нужны только поля name, type, teeth.')
-    if data['type'] != 'ballmill':
+    tool_type = data['type']
+    if tool_type not in SERIES_TYPES:
         raise ValueError(
-            f'{path}: пока поддерживается только type="ballmill".'
+            f'{path}: type должен быть одним из {", ".join(SERIES_TYPES)}.'
         )
     name = data['name']
     teeth = data['teeth']
@@ -94,12 +107,14 @@ def load_series(root: Path, identifier: str) -> Series:
         raise ValueError(f'{path}: name — непустое название серии.')
     if type(teeth) is not int or teeth <= 0:
         raise ValueError(f'{path}: teeth — целое число больше нуля.')
-    return Series(directory, name, teeth)
+    return Series(directory, name, tool_type, teeth)
 
 
-def _positive(value: object, location: str) -> float:
+def _number(
+    value: object, location: str, *, allow_zero: bool = False
+) -> float:
     if isinstance(value, bool) or not isinstance(value, (str, int, float)):
-        raise ValueError(f'{location}: нужно положительное число.')
+        raise ValueError(f'{location}: нужно число.')
     try:
         number = float(
             value.replace(',', '.') if isinstance(value, str) else value
@@ -108,11 +123,15 @@ def _positive(value: object, location: str) -> float:
         raise ValueError(
             f'{location}: нужно число, получено {value!r}.'
         ) from exc
-    if not isfinite(number) or number <= 0:
-        raise ValueError(
-            f'{location}: число должно быть конечным и больше нуля.'
-        )
+    if not isfinite(number) or number < 0 or (number == 0 and not allow_zero):
+        limit = 'не меньше нуля' if allow_zero else 'больше нуля'
+        raise ValueError(f'{location}: число должно быть конечным и {limit}.')
     return number
+
+
+def _positive(value: object, location: str) -> float:
+    """Read a finite number greater than zero."""
+    return _number(value, location)
 
 
 def load_machining(path: Path) -> Machining:
@@ -135,10 +154,11 @@ def load_machining(path: Path) -> Machining:
             raise ValueError(
                 f'{path}, [{section}]: нужны поля {sorted(keys)}.'
             )
-        sections[section] = {
-            key: _positive(value, f'{path}, [{section}].{key}')
-            for key, value in values.items()
-        }
+        sections[section] = {}
+        for key, value in values.items():
+            location = f'{path}, [{section}].{key}'
+            number = _number(value, location, allow_zero=section == 'radial')
+            sections[section][key] = number
     modes = {
         mode: {
             'vc_modifier': sections[mode]['vc_multiplier'],
@@ -196,7 +216,12 @@ def read_catalogs(series: Series) -> tuple[Catalog, Catalog]:
     """Convert checked CSV tables to the legacy calculation input."""
     geometry: Catalog = {}
     geometry_path = series.directory / 'geometry.csv'
-    for line, row in _rows(geometry_path, GEOMETRY_COLUMNS):
+    columns = (
+        DRILL_GEOMETRY_COLUMNS
+        if series.tool_type == 'drill'
+        else GEOMETRY_COLUMNS
+    )
+    for line, row in _rows(geometry_path, columns):
         location = f'{geometry_path}, строка {line}'
         diameter = _diameter(row['diameter_mm'], f'{location}, diameter_mm')
         if diameter in geometry:
@@ -211,13 +236,24 @@ def read_catalogs(series: Series) -> tuple[Catalog, Catalog]:
             raise ValueError(
                 f'{location}: рабочая длина должна быть меньше общей.'
             )
-        geometry[diameter] = {
+        record: Catalog = {
             'flute_diam': float(diameter),
             'flute_len': flute,
             'full_body_len': length,
             'full_body_diam': float(diameter),
             'order_no': row['order_no'],
         }
+        if series.tool_type == 'drill':
+            point_angle = _positive(
+                row['point_angle_deg'], f'{location}, point_angle_deg'
+            )
+            if point_angle >= 180:
+                raise ValueError(
+                    f'{location}, point_angle_deg: угол должен '
+                    'быть меньше 180.'
+                )
+            record['point_angle'] = point_angle
+        geometry[diameter] = record
 
     # Each diameter has its own Vc; legacy BallMill expects one Vc per catalog.
     cutting: Catalog = {}
@@ -241,15 +277,22 @@ def read_catalogs(series: Series) -> tuple[Catalog, Catalog]:
         feed = _positive(row['feed_value'], f'{location}, feed_value')
         kind = row['feed_kind'].strip()
         rpm = 1000 * speed / (pi * float(diameter))
-        if kind == 'Fz':
-            feed *= rpm * series.teeth
-        elif kind == 'Fn':
-            feed *= rpm
-        elif kind != 'F':
+        if kind not in {'F', 'Fz', 'Fn'}:
             raise ValueError(
                 f'{location}: feed_kind должен быть F, Fz или Fn.'
             )
-        values[material] = {'Vc': speed, 'F': {diameter: feed}}
+        if series.tool_type == 'drill':
+            if kind == 'F':
+                feed /= rpm
+            elif kind == 'Fz':
+                feed *= series.teeth
+            values[material] = {'Vc': speed, 'Fn': {diameter: feed}}
+        else:
+            if kind == 'Fz':
+                feed *= rpm * series.teeth
+            elif kind == 'Fn':
+                feed *= rpm
+            values[material] = {'Vc': speed, 'F': {diameter: feed}}
     for diameter in geometry:
         missing = set(MATERIALS) - set(cutting.get(diameter, {}))
         if missing:
@@ -262,7 +305,7 @@ def read_catalogs(series: Series) -> tuple[Catalog, Catalog]:
 
 
 class SeriesBallMill(BallMill):
-    """Use per-run settings without changing legacy class defaults."""
+    """Build a user-managed ball mill."""
 
     def __init__(
         self,
@@ -297,16 +340,96 @@ class SeriesBallMill(BallMill):
         )
 
 
-def prepare_tools(
-    series: Series, machining: Machining
-) -> list[SeriesBallMill]:
+class SeriesDrill(Drill):
+    """Build a user-managed drill."""
+
+    def __init__(
+        self,
+        series: Series,
+        geometry: Catalog,
+        cutting: Catalog,
+        diameter: str,
+        machining: Machining,
+    ) -> None:
+        self.finishing_roughing_options = machining.modes
+        self.axial_depth_modifiyers = machining.axial
+        self.radial_depth_modifiyers = machining.radial
+        super().__init__(
+            tool_size_from_geom_catalogue=diameter,
+            catalog_tool_cut_data=cutting,
+            catalog_tool_geometry=geometry,
+            teeth_num=series.teeth,
+            file_name_prefix=f'{series.identifier}_',
+            file_name_suffix='',
+            debug_mode=0,
+        )
+
+    def get_tool_comment(self) -> str:
+        """Escape a user comment before legacy XML interpolation."""
+        return escape(super().get_tool_comment(), {'"': '&quot;'})
+
+    def create_tool_name_for_xml(self) -> str:
+        """Keep identifiers unique without legacy decimal normalization."""
+        return (
+            f'{self.tool_data["file_name_prefix"].upper()}'
+            f'D{self.tool_data["tool_name_str"].replace(".", "-")}'
+        )
+
+
+class SeriesEndMill(EndMill):
+    """Build a user-managed end mill."""
+
+    def __init__(
+        self,
+        series: Series,
+        geometry: Catalog,
+        cutting: Catalog,
+        diameter: str,
+        machining: Machining,
+    ) -> None:
+        self.finishing_roughing_options = machining.modes
+        self.axial_depth_modifiyers = machining.axial
+        self.radial_depth_modifiyers = machining.radial
+        super().__init__(
+            tool_size_from_geom_catalogue=diameter,
+            catalog_tool_cut_data=cutting,
+            catalog_tool_geometry=geometry,
+            teeth_num=series.teeth,
+            file_name_prefix=f'{series.identifier}_',
+            file_name_suffix='',
+            debug_mode=0,
+        )
+
+    def get_tool_comment(self) -> str:
+        """Escape a user comment before legacy XML interpolation."""
+        return escape(super().get_tool_comment(), {'"': '&quot;'})
+
+    def create_tool_name_for_xml(self) -> str:
+        """Keep identifiers unique without legacy decimal normalization."""
+        return (
+            f'{self.tool_data["file_name_prefix"].upper()}'
+            f'D{self.tool_data["tool_name_str"].replace(".", "-")}'
+        )
+
+
+ToolFactory = Callable[[Series, Catalog, Catalog, str, Machining], BaseTool]
+
+
+TOOL_CLASSES: dict[str, ToolFactory] = {
+    'ballmill': SeriesBallMill,
+    'drill': SeriesDrill,
+    'endmill': SeriesEndMill,
+}
+
+
+def prepare_tools(series: Series, machining: Machining) -> list[BaseTool]:
     """Validate all input, calculations and XML without writing files."""
     geometry, cutting = read_catalogs(series)
-    tools = []
+    tools: list[BaseTool] = []
     identifiers: set[str] = set()
     for diameter in geometry:
         try:
-            tool = SeriesBallMill(
+            tool = TOOL_CLASSES[series.tool_type](
                 series, geometry, cutting[diameter], diameter, machining
             )
             if tool.tool_data['len_out_of_holder'] > tool.tool_data['LENGTH']:
@@ -317,7 +440,9 @@ def prepare_tools(
                 for parameters in material.values():
                     for name, value in parameters.items():
                         if isinstance(value, (int, float)) and (
-                            not isfinite(value) or value <= 0
+                            not isfinite(value)
+                            or (value < 0)
+                            or (name != 'TOOL_RADIAL_DEPTH' and value == 0)
                         ):
                             raise ValueError(
                                 f'{name}: недопустимый результат {value}.'
@@ -342,18 +467,27 @@ def prepare_tools(
     return tools
 
 
-def create_series(root: Path, identifier: str) -> Path:
+def create_series(
+    root: Path, identifier: str, tool_type: str = 'ballmill'
+) -> Path:
     """Create empty tables; never supply synthetic machining parameters."""
     validate_identifier(identifier)
+    if tool_type not in SERIES_TYPES:
+        raise ValueError(f'Неизвестный type: {tool_type}.')
     directory = root / identifier
     directory.mkdir(parents=True, exist_ok=False)
     (directory / 'series.toml').write_text(
         '# Название серии и число зубьев замените своими значениями.\n'
-        'name = "Новая серия"\ntype = "ballmill"\nteeth = 0\n',
+        f'name = "Новая серия"\ntype = "{tool_type}"\nteeth = 0\n',
         encoding='utf-8',
     )
     for name, columns in (
-        ('geometry.csv', GEOMETRY_COLUMNS),
+        (
+            'geometry.csv',
+            DRILL_GEOMETRY_COLUMNS
+            if tool_type == 'drill'
+            else GEOMETRY_COLUMNS,
+        ),
         ('cutting.csv', CUTTING_COLUMNS),
     ):
         (directory / name).write_text(

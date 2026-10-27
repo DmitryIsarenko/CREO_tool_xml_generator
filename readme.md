@@ -17,32 +17,34 @@
 В текущей рабочей копии полный путь:
 `d:/PROJ/CREO_tool_xml_generator/docs/operator-guide.md`.
 
-Новый сценарий пока поддерживает сферическую фрезу (`ballmill`) со стандартной
-сборкой. Он не заменяет прежние задания для остальных типов и оправок.
+Новый сценарий поддерживает сферическую фрезу (`ballmill`), обычное сверло
+(`drill`) и обычную концевую фрезу (`endmill`) со стандартными сборками.
+Он не заменяет прежние задания для остальных типов и оправок.
 
 ```bash
 uv sync --locked
 uv run python -m src.tool_updater types
 uv run python -m src.tool_updater list
-uv run python -m src.tool_updater init --series my_ballmill
+uv run python -m src.tool_updater init --series my_drill --type drill
 ```
 
-Заполните созданные файлы в `catalogs/my_ballmill/`: `series.toml`,
+Заполните созданные файлы в `catalogs/my_drill/`: `series.toml`,
 `geometry.csv`, `cutting.csv`, `source.txt`. Затем:
 
 ```bash
-uv run python -m src.tool_updater check --series my_ballmill
-uv run python -m src.tool_updater show --series my_ballmill
-uv run python -m src.tool_updater generate --series my_ballmill
+uv run python -m src.tool_updater check --series my_drill
+uv run python -m src.tool_updater show --series my_drill
+uv run python -m src.tool_updater generate --series my_drill
 ```
 
-Результат: `generated_xmls/series/my_ballmill/`. Множители находятся в
-`settings/machining.toml`; они действуют только в новом сценарии.
+Результат: `generated_xmls/series/my_drill/`. Настройки лежат в
+`settings/machining.toml`, `settings/drill.toml` и `settings/endmill.toml`;
+они действуют только в новом сценарии.
 Все пути считаются от корня проекта. Извлечения данных из PDF нет:
 таблицы нужно привести к столбцам CSV из инструкции.
 
 Есть готовая учебная серия `demo_ballmill`. Её данные искусственные:
-не используйте результат на станке. Новый сценарий пока требует все шесть
+не используйте результат на станке. Новый сценарий требует все шесть
 групп ISO для каждого диаметра. Если данных нет, не подставляйте выдуманные
 режимы. Ограничения, единицы, порядок расчётов и все флаги описаны в инструкции.
 

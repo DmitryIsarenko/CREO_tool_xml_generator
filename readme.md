@@ -11,6 +11,43 @@
 Целевая система — CREO Parametric 8 и выше. Совместимость с отдельными
 версиями CREO в рамках текущих проверок не подтверждена.
 
+## Для программиста ЧПУ: добавить серию без изменения Python
+
+Начните с пошаговой инструкции в `docs/operator-guide.md`.
+В текущей рабочей копии полный путь:
+`d:/PROJ/CREO_tool_xml_generator/docs/operator-guide.md`.
+
+Новый сценарий пока поддерживает сферическую фрезу (`ballmill`) со стандартной
+сборкой. Он не заменяет прежние задания для остальных типов и оправок.
+
+```bash
+uv sync --locked
+uv run python -m src.tool_updater types
+uv run python -m src.tool_updater list
+uv run python -m src.tool_updater init --series my_ballmill
+```
+
+Заполните созданные файлы в `catalogs/my_ballmill/`: `series.toml`,
+`geometry.csv`, `cutting.csv`, `source.txt`. Затем:
+
+```bash
+uv run python -m src.tool_updater check --series my_ballmill
+uv run python -m src.tool_updater show --series my_ballmill
+uv run python -m src.tool_updater generate --series my_ballmill
+```
+
+Результат: `generated_xmls/series/my_ballmill/`. Множители находятся в
+`settings/machining.toml`; они действуют только в новом сценарии.
+Все пути считаются от корня проекта. Извлечения данных из PDF нет:
+таблицы нужно привести к столбцам CSV из инструкции.
+
+Есть готовая учебная серия `demo_ballmill`. Её данные искусственные:
+не используйте результат на станке. Новый сценарий пока требует все шесть
+групп ISO для каждого диаметра. Если данных нет, не подставляйте выдуманные
+режимы. Ограничения, единицы, порядок расчётов и все флаги описаны в инструкции.
+
+Разделы ниже описывают прежний JSON-сценарий и команды разработчика.
+
 ## Требования
 
 - Проверенная среда — Windows. Пути собираются через `pathlib.Path`;

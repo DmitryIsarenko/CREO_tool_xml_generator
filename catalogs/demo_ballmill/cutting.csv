@@ -1,0 +1,7 @@
+material;diameter_mm;vc_m_min;feed_kind;feed_value
+iso_P;6;100;F;300
+iso_M;6;60;F;200
+iso_K;6;90;F;250
+iso_N;6;150;F;400
+iso_S;6;40;F;100
+iso_H;6;50;F;150

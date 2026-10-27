@@ -1,0 +1,30 @@
+# Только новый CLI серий. Старые Python-задания используют прежние настройки.
+# Значения повторяют текущие настройки BallMill. Это не рекомендации для станка.
+# roughing — черновая обработка; finishing — чистовая.
+# vc_multiplier умножает Vc; feed_multiplier умножает исходную подачу.
+
+[roughing]
+vc_multiplier = 1.0
+feed_multiplier = 0.6
+
+[finishing]
+vc_multiplier = 1.2
+feed_multiplier = 0.4
+
+# Глубины: диаметр инструмента * указанный коэффициент, в мм.
+# Это коэффициенты диаметра, а не множители табличных Ap и Ae.
+[axial]
+iso_P = 0.5
+iso_M = 0.3
+iso_K = 0.5
+iso_N = 0.8
+iso_S = 0.3
+iso_H = 0.1
+
+[radial]
+iso_P = 0.01875
+iso_M = 0.01875
+iso_K = 0.01875
+iso_N = 0.01875
+iso_S = 0.01875
+iso_H = 0.01875

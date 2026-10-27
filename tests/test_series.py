@@ -10,6 +10,7 @@ import pytest
 
 from src.tool_updater.classes.tool_classes.milling.sphere_mill import BallMill
 from src.tool_updater.series import (
+    COUNTERBORE_GEOMETRY_COLUMNS,
     COUNTERSINK_GEOMETRY_COLUMNS,
     CUTTING_COLUMNS,
     DRILL_GEOMETRY_COLUMNS,
@@ -303,6 +304,12 @@ def test_default_settings_preserve_legacy_calculations(
             '10;8;45;COUNTERSINK & TEST;4;90',
             'POINT_DIAMETER',
         ),
+        (
+            'counterbore',
+            COUNTERBORE_GEOMETRY_COLUMNS,
+            '10;8;45;COUNTERBORE & TEST;4;3;10',
+            'TIP_OFFSET',
+        ),
     ],
 )
 def test_drill_and_endmill_workflows(
@@ -357,6 +364,11 @@ def test_drill_and_endmill_workflows(
             ]
             == 0.05655
         )
+    if tool_type == 'counterbore':
+        assert parameter.get('Value') == '3.0'
+        point = root_xml.find('.//MfgParam[@Name="POINT_DIAMETER"]')
+        assert point is not None and point.get('Value') == '4.0'
+        assert tools[0].tool_data['len_out_of_holder'] == 35
 
 
 def series_settings(tool_type: str) -> Path:

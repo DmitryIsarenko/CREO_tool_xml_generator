@@ -2,11 +2,12 @@
 
 ## Что готово
 
-Новый сценарий поддерживает четыре типа со стандартными сборками:
+Новый сценарий поддерживает пять типов со стандартными сборками:
 
 | Код `--type` | Тип |
 | --- | --- |
 | `ballmill` | Сферическая фреза |
+| `counterbore` | Цековка |
 | `countersink` | Зенковка |
 | `drill` | Обычное спиральное сверло |
 | `endmill` | Обычная концевая фреза |
@@ -120,6 +121,16 @@ diameter_mm;flute_length_mm;length_mm;order_no;point_diameter_mm;point_angle_deg
 `point_diameter_mm` — диаметр площадки у вершины. Он должен быть меньше
 `diameter_mm`. `point_angle_deg` — угол зенковки, меньше 180°.
 
+Для `counterbore` задаются направляющая и длина зажима:
+
+```text
+diameter_mm;flute_length_mm;length_mm;order_no;point_diameter_mm;tip_offset_mm;tail_holding_length_mm
+```
+
+`point_diameter_mm` — диаметр направляющей, меньше `diameter_mm`.
+`tip_offset_mm` — длина направляющей. `tail_holding_length_mm` — часть
+общей длины в зажиме; она должна быть меньше `length_mm`.
+
 | Дополнительный столбец | Значение |
 | --- | --- |
 | `point_angle_deg` | Угол при вершине сверла в градусах, больше 0 и меньше 180 |
@@ -214,6 +225,7 @@ uv run python -m src.tool_updater generate --series my_tool --overwrite
 | Тип | Файл |
 | --- | --- |
 | `ballmill` | `settings/machining.toml` |
+| `counterbore` | `settings/counterbore.toml` |
 | `countersink` | `settings/countersink.toml` |
 | `drill` | `settings/drill.toml` |
 | `endmill` | `settings/endmill.toml` |
@@ -231,7 +243,8 @@ uv run python -m src.tool_updater generate --series my_tool --overwrite
 старый расчёт применяет множители и ограничение оборотов. Изменение Vc
 само по себе не означает пропорционального изменения F. Исходные Ap/Ae
 из PDF в этом этапе не загружаются: они рассчитываются из диаметра.
-Для `drill` и `countersink` старый расчёт всегда задаёт `Ae = 0`.
+Для `counterbore`, `drill` и `countersink` старый расчёт всегда задаёт
+`Ae = 0`.
 Сохранено прежнее поведение при ограничении 18000 об/мин: уменьшаются
 скорость, подача и глубины. Дополнительные материалы (пластики, латунь)
 по-прежнему вычисляются из ISO-групп. Эти правила и сборки пока находятся
@@ -249,7 +262,7 @@ uv run python -m src.tool_updater generate --series my_tool --overwrite
 | --- | --- | --- |
 | `--help` | Везде | Справка; например `generate --help` |
 | `--series NAME` | `init`, `check`, `show`, `generate` | Имя папки серии |
-| `--type TYPE` | `init` | `ballmill`, `countersink`, `drill` или `endmill` |
+| `--type TYPE` | `init` | `ballmill`, `counterbore`, `countersink`, `drill` или `endmill` |
 | `--settings PATH` | `check`, `show`, `generate` | Другой файл множителей |
 | `--output PATH` | `generate` | Итоговая папка, без автоматической подпапки серии |
 | `--overwrite` | `generate` | Разрешить замену одноимённых XML |

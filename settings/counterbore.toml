@@ -1,0 +1,27 @@
+# Только новый CLI серий для обычных цековок.
+# Значения повторяют текущие настройки класса CounterBore.
+
+[roughing]
+vc_multiplier = 1.0
+feed_multiplier = 0.6
+
+[finishing]
+vc_multiplier = 1.0
+feed_multiplier = 0.6
+
+[axial]
+iso_P = 1.0
+iso_M = 1.0
+iso_K = 1.0
+iso_N = 1.0
+iso_S = 1.0
+iso_H = 1.0
+
+# Старый класс CounterBore всегда записывает Ae = 0.
+[radial]
+iso_P = 0
+iso_M = 0
+iso_K = 0
+iso_N = 0
+iso_S = 0
+iso_H = 0

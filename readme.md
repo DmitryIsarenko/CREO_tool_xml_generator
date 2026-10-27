@@ -17,9 +17,9 @@
 В текущей рабочей копии полный путь:
 `d:/PROJ/CREO_tool_xml_generator/docs/operator-guide.md`.
 
-Новый сценарий поддерживает сферическую фрезу (`ballmill`), зенковку
-(`countersink`), обычное сверло (`drill`) и обычную концевую фрезу
-(`endmill`) со стандартными сборками.
+Новый сценарий поддерживает сферическую фрезу (`ballmill`), цековку
+(`counterbore`), зенковку (`countersink`), обычное сверло (`drill`) и
+обычную концевую фрезу (`endmill`) со стандартными сборками.
 Он не заменяет прежние задания для остальных типов и оправок.
 
 ```bash
@@ -39,9 +39,9 @@ uv run python -m src.tool_updater generate --series my_drill
 ```
 
 Результат: `generated_xmls/series/my_drill/`. Настройки лежат в
-`settings/machining.toml`, `settings/countersink.toml`,
-`settings/drill.toml` и `settings/endmill.toml`; они действуют только в
-новом сценарии.
+`settings/machining.toml`, `settings/counterbore.toml`,
+`settings/countersink.toml`, `settings/drill.toml` и
+`settings/endmill.toml`; они действуют только в новом сценарии.
 Все пути считаются от корня проекта. Извлечения данных из PDF нет:
 таблицы нужно привести к столбцам CSV из инструкции.
 

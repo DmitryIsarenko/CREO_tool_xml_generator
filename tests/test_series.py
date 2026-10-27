@@ -67,7 +67,7 @@ def test_operator_workflow(
     assert 'Учебная серия' in capsys.readouterr().out
     assert main([*args, 'check', '--series', 'sample']) == 0
     assert main([*args, 'show', '--series', 'sample']) == 0
-    assert 'F=180.0' in capsys.readouterr().out
+    assert 'F=300.0' in capsys.readouterr().out
     output = tmp_path / 'xml'
     assert not output.exists()
     generate = [
@@ -92,7 +92,7 @@ def test_operator_workflow(
 
 @pytest.mark.parametrize('kind', ['F', 'Fz', 'Fn'])
 def test_feed_units(series_root: Path, kind: str) -> None:
-    """Normalize explicit feed units before applying mode multipliers."""
+    """Normalize explicit feed units without hidden mode multipliers."""
     directory = series_root / 'sample'
     value = {'F': 300, 'Fz': 0.03, 'Fn': 0.06}[kind]
     (directory / 'cutting.csv').write_text(
@@ -108,7 +108,7 @@ def test_feed_units(series_root: Path, kind: str) -> None:
     )
     expected = 300 if kind == 'F' else 0.06 * 1000 * 100 / (pi * 6)
     parameters = tools[0].tool_data['cut_data']['iso_P']['roughing']
-    assert parameters['TOOL_FEED_RATE'] == round(expected * 0.6, 3)
+    assert parameters['TOOL_FEED_RATE'] == round(expected, 3)
 
 
 @pytest.mark.parametrize(
@@ -135,11 +135,6 @@ def test_feed_units(series_root: Path, kind: str) -> None:
             'geometry.csv',
             ';'.join(GEOMETRY_COLUMNS) + '\n6;12;60;x\n6;12;60;y\n',
             'повторно',
-        ),
-        (
-            'cutting.csv',
-            ';'.join(CUTTING_COLUMNS) + '\niso_P;6;100;F;300\n',
-            'нет групп',
         ),
         (
             'cutting.csv',
@@ -174,8 +169,10 @@ def test_new_template_requires_configuration(tmp_path: Path) -> None:
     )
 
 
-def test_legacy_defaults_unchanged(series_root: Path) -> None:
-    """Keep user settings isolated from legacy class attributes."""
+def test_series_uses_catalog_values_without_multipliers(
+    series_root: Path,
+) -> None:
+    """Use the source feed without changing legacy class attributes."""
     before = {
         key: value.copy()
         for key, value in BallMill.finishing_roughing_options.items()
@@ -185,7 +182,7 @@ def test_legacy_defaults_unchanged(series_root: Path) -> None:
     tools = prepare_tools(load_series(series_root, 'sample'), machining)
     assert (
         tools[0].tool_data['cut_data']['iso_P']['roughing']['TOOL_FEED_RATE']
-        == 60
+        == 300
     )
     assert BallMill.finishing_roughing_options == before
 
@@ -209,15 +206,30 @@ def test_write_failure_preserves_previous_file(
 
 
 def test_settings_reject_unknown_keys(tmp_path: Path) -> None:
-    """Reject misspelled multiplier names instead of ignoring them."""
+    """Reject invalid coefficient values instead of ignoring them."""
     settings = tmp_path / 'machining.toml'
     settings.write_text(
         SETTINGS_FILE.read_text(encoding='utf-8').replace(
-            'feed_multiplier', 'feed_multipler'
+            'iso_P = 0.5', 'iso_P = "bad"'
+        ),
+        'utf-8',
+    )
+    with pytest.raises(ValueError, match='нужно число'):
+        load_machining(settings)
+
+
+def test_settings_reject_non_unit_cutting_multipliers(
+    tmp_path: Path,
+) -> None:
+    """Reject feed multipliers that the series CLI does not apply."""
+    settings = tmp_path / 'machining.toml'
+    settings.write_text(
+        SETTINGS_FILE.read_text(encoding='utf-8').replace(
+            'feed_multiplier = 1.0', 'feed_multiplier = 0.6', 1
         ),
         encoding='utf-8',
     )
-    with pytest.raises(ValueError, match='нужны поля'):
+    with pytest.raises(ValueError, match='множитель должен быть 1'):
         load_machining(settings)
 
 
@@ -270,7 +282,7 @@ def test_publication_race_does_not_replace_file(
     assert files[0].read_bytes() == b'concurrent output'
 
 
-def test_default_settings_preserve_legacy_calculations(
+def test_default_settings_keep_legacy_defaults_isolated(
     series_root: Path,
 ) -> None:
     """Match the existing BallMill calculations with default settings."""
@@ -286,7 +298,14 @@ def test_default_settings_preserve_legacy_calculations(
         debug_mode=0,
     )
     tool = prepare_tools(series, load_machining(SETTINGS_FILE))[0]
-    assert tool.tool_data['cut_data'] == legacy.tool_data['cut_data']
+    assert (
+        tool.tool_data['cut_data']['iso_P']['roughing']['TOOL_FEED_RATE']
+        == 300
+    )
+    assert (
+        legacy.tool_data['cut_data']['iso_P']['roughing']['TOOL_FEED_RATE']
+        == 180
+    )
     assert tool.tool_data['LENGTH'] == legacy.tool_data['LENGTH']
 
 
@@ -417,7 +436,7 @@ def test_drill_and_endmill_workflows(
             tools[0].tool_data['cut_data']['iso_P']['roughing'][
                 'TOOL_FEED_PER_UNIT'
             ]
-            == 0.05655
+            == 0.09425
         )
     if tool_type == 'counterbore':
         assert parameter.get('Value') == '3.0'
@@ -453,7 +472,7 @@ def test_drill_and_endmill_workflows(
             tools[0].tool_data['cut_data']['iso_P']['roughing'][
                 'TOOL_FEED_PER_UNIT'
             ]
-            == 0.01131
+            == 0.01885
         )
     if tool_type == 'threadmill':
         assert parameter.get('Value') == '0.0015'
@@ -465,6 +484,12 @@ def test_drill_and_endmill_workflows(
         assert shank is not None and shank.get('Value') == '10.0'
         cut_length = root_xml.find('.//MfgParam[@Name="CUT_LENGTH"]')
         assert cut_length is not None and cut_length.get('Value') == '1.6'
+        assert (
+            tools[0].tool_data['cut_data']['iso_P']['roughing'][
+                'TOOL_FEED_PER_UNIT'
+            ]
+            == 0.04241
+        )
 
 
 def series_settings(tool_type: str) -> Path:

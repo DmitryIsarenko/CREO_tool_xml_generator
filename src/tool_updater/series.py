@@ -11,6 +11,7 @@ import tomllib
 from xml.etree import ElementTree
 from xml.sax.saxutils import escape
 
+from src.tool_updater import config
 from src.tool_updater.classes.tool_classes.axial.centerdrill import CenterDrill
 from src.tool_updater.classes.tool_classes.axial.counterbore import CounterBore
 from src.tool_updater.classes.tool_classes.axial.countersink import CounterSink
@@ -237,7 +238,7 @@ def _positive(value: object, location: str) -> float:
 
 
 def load_machining(path: Path) -> Machining:
-    """Validate every setting and reject unknown keys."""
+    """Load depth coefficients; cutting speeds and feeds are authoritative."""
     data = read_toml(path)
     expected = {'roughing', 'finishing', 'axial', 'radial'}
     if set(data) != expected:
@@ -260,12 +261,14 @@ def load_machining(path: Path) -> Machining:
         for key, value in values.items():
             location = f'{path}, [{section}].{key}'
             number = _number(value, location, allow_zero=section == 'radial')
+            if section in {'roughing', 'finishing'} and number != 1:
+                raise ValueError(
+                    f'{location}: новый CLI использует режимы из каталога; '
+                    'множитель должен быть 1.'
+                )
             sections[section][key] = number
     modes = {
-        mode: {
-            'vc_modifier': sections[mode]['vc_multiplier'],
-            'feed_rate_multiplier': sections[mode]['feed_multiplier'],
-        }
+        mode: {'vc_modifier': 1.0, 'feed_rate_multiplier': 1.0}
         for mode in ('roughing', 'finishing')
     }
     return Machining(modes, sections['axial'], sections['radial'])
@@ -314,6 +317,19 @@ def _diameter(value: str, location: str) -> str:
     return f'{diameter:.2f}'
 
 
+def _legacy_catalog_key(value: object) -> str:
+    """Format a numeric geometry key as the legacy catalog expects."""
+    try:
+        number = Decimal(str(value).replace(',', '.'))
+    except InvalidOperation as exc:
+        raise ValueError(
+            f'Размер должен быть конечным числом, получено {value!r}.'
+        ) from exc
+    if not number.is_finite() or number <= 0:
+        raise ValueError('Размер должен быть конечным числом больше нуля.')
+    return f'{number:.2f}'
+
+
 def read_catalogs(series: Series) -> tuple[Catalog, Catalog]:
     """Convert checked CSV tables to the legacy calculation input."""
     geometry: Catalog = {}
@@ -340,10 +356,27 @@ def read_catalogs(series: Series) -> tuple[Catalog, Catalog]:
             'centerdrill': 'drill_diameter_mm',
             'diskmill': 'diameter_mm',
             'internalradiusmill': 'cutter_diameter_mm',
+            'toroidmill': 'diameter_mm',
         }.get(series.tool_type, 'diameter_mm')
-        diameter = _diameter(
-            row[diameter_column], f'{location}, {diameter_column}'
-        )
+        if series.tool_type == 'diskmill':
+            diameter = _diameter(
+                row[diameter_column], f'{location}, {diameter_column}'
+            )
+        else:
+            try:
+                diameter = _legacy_catalog_key(row[diameter_column])
+            except ValueError as exc:
+                raise ValueError(
+                    f'{location}, {diameter_column}: {exc}'
+                ) from exc
+            raw_diameter = Decimal(row[diameter_column].replace(',', '.'))
+            if series.tool_type != 'toroidmill' and (
+                raw_diameter != raw_diameter.quantize(Decimal('0.01'))
+            ):
+                raise ValueError(
+                    f'{location}, {diameter_column}: размер поддерживает '
+                    'не более двух знаков после запятой.'
+                )
         if diameter in geometry:
             raise ValueError(
                 f'{location}: диаметр {diameter} указан повторно.'
@@ -369,7 +402,10 @@ def read_catalogs(series: Series) -> tuple[Catalog, Catalog]:
             else 'length_mm'
         )
         length = _positive(row[length_column], f'{location}, {length_column}')
-        if flute >= length:
+        if flute >= length and series.tool_type not in {
+            'internalradiusmill',
+            'toroidmill',
+        }:
             raise ValueError(
                 f'{location}: рабочая длина должна быть меньше общей.'
             )
@@ -412,7 +448,10 @@ def read_catalogs(series: Series) -> tuple[Catalog, Catalog]:
                     'меньше длины канавки.'
                 )
             record['drill_diameter'] = drill_diameter
+            record['point_diameter'] = drill_diameter
             record['cutter_diam'] = cutter_diameter
+            record['flute_diam'] = cutter_diameter
+            record['full_body_diam'] = cutter_diameter
             record['point_angle'] = int(point_angle)
             record['csink_angle'] = countersink_angle
             record['drill_length'] = drill_length
@@ -450,6 +489,7 @@ def read_catalogs(series: Series) -> tuple[Catalog, Catalog]:
                 )
             record['point_diameter'] = point_diameter
             record['point_angle'] = int(point_angle)
+            record['cutter_diam'] = float(diameter)
         elif series.tool_type == 'counterbore':
             point_diameter = _positive(
                 row['point_diameter_mm'],
@@ -476,6 +516,7 @@ def read_catalogs(series: Series) -> tuple[Catalog, Catalog]:
             record['point_len'] = tip_offset
             record['tail_for_hold'] = tail_holding_length
             record['cutter_diam'] = float(diameter)
+            record['point_angle'] = 90
         elif series.tool_type == 'reamer':
             length_out_of_holder = _positive(
                 row['length_out_of_holder_mm'],
@@ -492,6 +533,7 @@ def read_catalogs(series: Series) -> tuple[Catalog, Catalog]:
                 f'{location}, corner_chamfer_mm',
             )
             record['teeth_num'] = series.teeth
+            record['point_angle'] = 90
         elif series.tool_type in {'tap_blind', 'tap_through'}:
             point_diameter = _positive(
                 row['point_diameter_mm'],
@@ -520,24 +562,29 @@ def read_catalogs(series: Series) -> tuple[Catalog, Catalog]:
                     'меньше половины диаметра.'
                 )
             record['corner_radius'] = corner_radius
+            record['cutting_edge_rad'] = corner_radius
+            record['flute_diam'] = float(diameter)
         elif series.tool_type == 'chamfermill':
             shank_diameter = _positive(
                 row['shank_diameter_mm'], f'{location}, shank_diameter_mm'
             )
             angle = _positive(row['angle_deg'], f'{location}, angle_deg')
-            if angle >= 180:
+            if flute >= length:
                 raise ValueError(
                     f'{location}, angle_deg: угол должен быть меньше 180.'
                 )
             record['flute_diam'] = shank_diameter
-            record['tip_diam'] = float(diameter)
             record['side_angle'] = angle / 2
         elif series.tool_type == 'threadmill':
             record['cutter_len'] = flute
+            record['flute_diam'] = _positive(
+                row['diameter_mm'], f'{location}, diameter_mm'
+            )
             record['thread_pitch'] = _positive(
                 row['thread_pitch_mm'], f'{location}, thread_pitch_mm'
             )
             record['feathers_num'] = series.teeth
+            record['num_of_teeth'] = series.teeth
         elif series.tool_type == 'internalradiusmill':
             corner_radius = _positive(
                 row['corner_radius_mm'], f'{location}, corner_radius_mm'
@@ -548,7 +595,10 @@ def read_catalogs(series: Series) -> tuple[Catalog, Catalog]:
             record['cutter_diam'] = float(diameter)
             record['shank_diam'] = shank_diameter
             record['corner_radius'] = corner_radius
+            record['cutting_edge_rad'] = corner_radius
+            record['full_body_diam'] = float(diameter)
             record['tip_length'] = 0.0
+            record['full_body_len'] = length
         elif series.tool_type == 'diskmill':
             cutter_width = _positive(
                 row['cutter_width_mm'], f'{location}, cutter_width_mm'
@@ -594,7 +644,7 @@ def read_catalogs(series: Series) -> tuple[Catalog, Catalog]:
             record['num_of_teeth'] = int(teeth)
         geometry[diameter] = record
 
-    # Each diameter has its own Vc; legacy BallMill expects one Vc per catalog.
+    # The CSV schema defines explicit rates for each material and size.
     cutting: Catalog = {}
     cutting_path = series.directory / 'cutting.csv'
     cutting_columns = (
@@ -608,7 +658,8 @@ def read_catalogs(series: Series) -> tuple[Catalog, Catalog]:
         material = row['material'].strip()
         if diameter not in geometry:
             raise ValueError(
-                f'{location}: диаметр {diameter} отсутствует в geometry.csv.'
+                f'{location}: ключ размера {diameter} отсутствует '
+                'в geometry.csv.'
             )
         if material not in MATERIALS:
             raise ValueError(
@@ -618,6 +669,14 @@ def read_catalogs(series: Series) -> tuple[Catalog, Catalog]:
         if material in values:
             raise ValueError(f'{location}: повтор пары материал/диаметр.')
         speed = _positive(row['vc_m_min'], f'{location}, vc_m_min')
+        if series.tool_type in {'tap_blind', 'tap_through'}:
+            previous_speed = values.get('Vc')
+            if previous_speed is not None and previous_speed != speed:
+                raise ValueError(
+                    f'{location}: Vc метчика должна совпадать для всех '
+                    'материалов этого размера.'
+                )
+            values['Vc'] = speed
         feed = _positive(row['feed_value'], f'{location}, feed_value')
         kind = row['feed_kind'].strip()
         rpm = 1000 * speed / (pi * float(diameter))
@@ -657,11 +716,21 @@ def read_catalogs(series: Series) -> tuple[Catalog, Catalog]:
             'tap_blind',
             'tap_through',
         }:
-            if kind == 'F':
+            if series.tool_type in {'tap_blind', 'tap_through'}:
+                values[material] = {
+                    'Vc': speed,
+                    'Fn': {
+                        diameter: float(
+                            str(geometry[diameter]['thread_pitch'])
+                        )
+                    },
+                }
+            elif kind == 'F':
                 feed /= rpm
             elif kind == 'Fz':
                 feed *= series.teeth
-            values[material] = {'Vc': speed, 'Fn': {diameter: feed}}
+            if series.tool_type not in {'tap_blind', 'tap_through'}:
+                values[material] = {'Vc': speed, 'Fn': {diameter: feed}}
         elif series.tool_type in {'internalradiusmill', 'threadmill'}:
             if kind == 'F':
                 feed /= rpm * series.teeth
@@ -675,18 +744,50 @@ def read_catalogs(series: Series) -> tuple[Catalog, Catalog]:
                 feed *= rpm
             values[material] = {'Vc': speed, 'F': {diameter: feed}}
     for diameter in geometry:
-        missing = set(MATERIALS) - set(cutting.get(diameter, {}))
-        if missing:
+        if not cutting.get(diameter):
             raise ValueError(
-                f'{cutting_path}: для диаметра {diameter} нет групп '
-                f'{", ".join(sorted(missing))}. '
-                'Не подставляйте выдуманные режимы.'
+                f'{cutting_path}: для диаметра {diameter} нет режимов резания.'
             )
     return geometry, cutting
 
 
 class SeriesBallMill(BallMill):
     """Build a user-managed ball mill."""
+
+    finishing_roughing_options = {
+        mode: {'vc_modifier': 1.0, 'feed_rate_multiplier': 1.0}
+        for mode in ('roughing', 'finishing')
+    }
+
+    def get_mfg_materials(self) -> dict[str, str]:
+        """Return only manufacturing materials declared by this series."""
+        return {
+            name: material
+            for name, material in config.mfg_materials_dict.items()
+            if material in self.catalog_cut_data
+        }
+
+    def has_cutting_data(self, material: str) -> bool:
+        """Check whether this series declares the ISO material group."""
+        return material in self.catalog_cut_data
+
+    def calc_cut_data_for_all_material_groups(self) -> None:
+        """Calculate only the material groups declared in this series."""
+        for material in self.catalog_cut_data:
+            for mode in self.finishing_roughing_options:
+                speed = self.get_vc(material, mode)
+                rpm = self.calc_rpm(speed)
+                data = self.tool_data['cut_data'][material][mode]
+                data['TOOL_SURFACE_SPEED'] = speed
+                data['TOOL_SPINDLE_RPM'] = rpm
+                data['TOOL_FEED_PER_UNIT'] = self.calc_feed_per_unit(
+                    material, mode
+                )
+                data['TOOL_FEED_RATE'] = self.calc_feed_rate(
+                    material, rpm, mode
+                )
+                data['TOOL_AXIAL_DEPTH'] = self.calc_axial_depth(material)
+                data['TOOL_RADIAL_DEPTH'] = self.calc_radial_depth(material)
 
     def __init__(
         self,
@@ -696,7 +797,10 @@ class SeriesBallMill(BallMill):
         diameter: str,
         machining: Machining,
     ) -> None:
-        self.finishing_roughing_options = machining.modes
+        self.finishing_roughing_options = {
+            mode: {'vc_modifier': 1.0, 'feed_rate_multiplier': 1.0}
+            for mode in machining.modes
+        }
         self.axial_depth_modifiyers = machining.axial
         self.radial_depth_modifiyers = machining.radial
         super().__init__(
@@ -724,6 +828,32 @@ class SeriesBallMill(BallMill):
 class SeriesDrill(Drill):
     """Build a user-managed drill."""
 
+    finishing_roughing_options = SeriesBallMill.finishing_roughing_options
+
+    def get_full_tool_length(self) -> float:
+        """Return the full length from the geometry table."""
+        return float(
+            self.catalog_tool_geometry[self.tool_size_from_geom_catalogue][
+                'full_body_len'
+            ]
+        )
+
+    def get_tool_flute_length(self) -> float:
+        """Return the flute length from the geometry table."""
+        return float(
+            self.catalog_tool_geometry[self.tool_size_from_geom_catalogue][
+                'flute_len'
+            ]
+        )
+
+    def get_tool_point_diameter(self) -> int:
+        """Return the point diameter from the matching geometry record."""
+        return int(
+            self.catalog_tool_geometry[
+                self.create_tool_name_for_geom_catalogue()
+            ]['point_diameter']
+        )
+
     def __init__(
         self,
         series: Series,
@@ -732,7 +862,9 @@ class SeriesDrill(Drill):
         diameter: str,
         machining: Machining,
     ) -> None:
-        self.finishing_roughing_options = machining.modes
+        self.finishing_roughing_options = (
+            SeriesBallMill.finishing_roughing_options
+        )
         self.axial_depth_modifiyers = machining.axial
         self.radial_depth_modifiyers = machining.radial
         super().__init__(
@@ -760,6 +892,65 @@ class SeriesDrill(Drill):
 class SeriesCenterDrill(CenterDrill):
     """Build a user-managed center drill."""
 
+    finishing_roughing_options = SeriesBallMill.finishing_roughing_options
+
+    def get_full_tool_length(self) -> float:
+        """Return the full length from the geometry table."""
+        return float(
+            self.catalog_tool_geometry[
+                self.create_tool_name_for_geom_catalogue()
+            ]['full_body_len']
+        )
+
+    def get_tool_flute_length(self) -> float:
+        """Return the flute length from the geometry table."""
+        return float(
+            self.catalog_tool_geometry[
+                self.create_tool_name_for_geom_catalogue()
+            ]['flute_len']
+        )
+
+    def create_tool_name_for_geom_catalogue(self) -> str:
+        """Use the original drill diameter to find the geometry record."""
+        return f'{float(self.tool_size_from_geom_catalogue):.2f}'
+
+    def get_tool_cutter_diam(self) -> float:
+        """Return the cutter diameter entered in the CSV geometry row."""
+        return float(
+            self.catalog_tool_geometry[
+                self.create_tool_name_for_geom_catalogue()
+            ]['cutter_diam']
+        )
+
+    def get_tool_drill_diameter(self) -> float:
+        """Return the drill diameter entered in the CSV geometry row."""
+        return float(
+            self.catalog_tool_geometry[
+                self.create_tool_name_for_geom_catalogue()
+            ]['drill_diameter']
+        )
+
+    def get_tool_drill_length(self) -> float:
+        """Return the drill length entered in the CSV geometry row."""
+        return float(
+            self.catalog_tool_geometry[
+                self.create_tool_name_for_geom_catalogue()
+            ]['drill_length']
+        )
+
+    def calc_feed_per_unit(
+        self, key_iso_material: str, fin_or_rough: str
+    ) -> float:
+        """Return the source feed per revolution without legacy multipliers."""
+        return round(
+            float(
+                self.catalog_cut_data[key_iso_material]['Fn'][
+                    self.tool_data['cut_data_diam_group']
+                ]
+            ),
+            5,
+        )
+
     def __init__(
         self,
         series: Series,
@@ -768,7 +959,9 @@ class SeriesCenterDrill(CenterDrill):
         diameter: str,
         machining: Machining,
     ) -> None:
-        self.finishing_roughing_options = machining.modes
+        self.finishing_roughing_options = (
+            SeriesBallMill.finishing_roughing_options
+        )
         self.axial_depth_modifiyers = machining.axial
         self.radial_depth_modifiyers = machining.radial
         super().__init__(
@@ -796,6 +989,33 @@ class SeriesCenterDrill(CenterDrill):
 class SeriesCounterSink(CounterSink):
     """Build a user-managed countersink."""
 
+    finishing_roughing_options = SeriesBallMill.finishing_roughing_options
+
+    def create_tool_name_for_geom_catalogue(self) -> str:
+        """Use the formatted cutter diameter for the geometry lookup."""
+        return f'{float(self.tool_size_from_geom_catalogue):.2f}'
+
+    def get_full_tool_length(self) -> float:
+        """Return full tool length from the geometry table."""
+        return float(
+            self.catalog_tool_geometry[
+                self.create_tool_name_for_geom_catalogue()
+            ]['full_body_len']
+        )
+
+    def get_tool_flute_length(self) -> float:
+        """Return flute length from the geometry table."""
+        return float(
+            self.catalog_tool_geometry[
+                self.create_tool_name_for_geom_catalogue()
+            ]['flute_len']
+        )
+
+    @staticmethod
+    def get_tool_point_angle() -> int:
+        """Return the countersink point angle."""
+        return 90
+
     def __init__(
         self,
         series: Series,
@@ -804,7 +1024,9 @@ class SeriesCounterSink(CounterSink):
         diameter: str,
         machining: Machining,
     ) -> None:
-        self.finishing_roughing_options = machining.modes
+        self.finishing_roughing_options = (
+            SeriesBallMill.finishing_roughing_options
+        )
         self.axial_depth_modifiyers = machining.axial
         self.radial_depth_modifiyers = machining.radial
         super().__init__(
@@ -834,6 +1056,20 @@ class SeriesCounterSink(CounterSink):
 class SeriesCounterBore(CounterBore):
     """Build a user-managed counterbore."""
 
+    finishing_roughing_options = SeriesBallMill.finishing_roughing_options
+
+    def get_side_angle(self) -> float:
+        """Return the right-angle point geometry used by a counterbore."""
+        return 90.0
+
+    def get_full_tool_length(self) -> float:
+        """Return full tool length from the geometry table."""
+        return float(
+            self.catalog_tool_geometry[self.tool_size_from_geom_catalogue][
+                'full_body_len'
+            ]
+        )
+
     def __init__(
         self,
         series: Series,
@@ -842,7 +1078,9 @@ class SeriesCounterBore(CounterBore):
         diameter: str,
         machining: Machining,
     ) -> None:
-        self.finishing_roughing_options = machining.modes
+        self.finishing_roughing_options = {
+            mode: values.copy() for mode, values in machining.modes.items()
+        }
         self.axial_depth_modifiyers = machining.axial
         self.radial_depth_modifiyers = machining.radial
         super().__init__(
@@ -882,6 +1120,16 @@ class SeriesCounterBore(CounterBore):
 class SeriesReamer(Reamer):
     """Build a user-managed reamer."""
 
+    finishing_roughing_options = SeriesBallMill.finishing_roughing_options
+
+    def get_tool_corner_chamfer(self) -> float:
+        """Return the corner chamfer entered in the CSV geometry row."""
+        return float(
+            self.catalog_tool_geometry[self.tool_size_from_geom_catalogue][
+                'corner_chamfer'
+            ]
+        )
+
     def __init__(
         self,
         series: Series,
@@ -890,7 +1138,9 @@ class SeriesReamer(Reamer):
         diameter: str,
         machining: Machining,
     ) -> None:
-        self.finishing_roughing_options = machining.modes
+        self.finishing_roughing_options = {
+            mode: values.copy() for mode, values in machining.modes.items()
+        }
         self.axial_depth_modifiyers = machining.axial
         self.radial_depth_modifiyers = machining.radial
         super().__init__(
@@ -918,6 +1168,41 @@ class SeriesReamer(Reamer):
 class SeriesTapBlind(TapBlind):
     """Build a user-managed blind-hole tap."""
 
+    finishing_roughing_options = SeriesBallMill.finishing_roughing_options
+
+    def has_cutting_data(self, material: str) -> bool:
+        """Check for a declared material before legacy tap calculation."""
+        return material in self.catalog_cut_data
+
+    def get_vc(self, *args: object, **kwargs: object) -> float:
+        """Return the source cutting speed for the declared material."""
+        material = str(args[0] if args else kwargs['key_iso_material'])
+        return float(str(self.catalog_cut_data[material]['Vc']))
+
+    def calc_feed_rate(
+        self, key_iso_material: str, RPM: float, fin_or_rough: str
+    ) -> float:
+        """Calculate feed rate from thread pitch and source rpm."""
+        return round(self.calc_thread_pitch() * RPM, 3)
+
+    def calc_rpm(self, *args: object, **kwargs: object) -> float:
+        """Calculate spindle speed from source cutting speed."""
+        raw_vc = args[0] if args else kwargs['Vc']
+        Vc = float(str(raw_vc))
+        return round(1000 * Vc / (pi * self.get_cutter_diam()), 2)
+
+    def calc_thread_pitch(self) -> float:
+        """Return the thread pitch from the user geometry table."""
+        return float(
+            self.catalog_tool_geometry[self.tool_size_from_geom_catalogue][
+                'thread_pitch'
+            ]
+        )
+
+    def calc_diam_group_name(self) -> str:
+        """Use the thread geometry key for cutting-data lookup."""
+        return self.tool_size_from_geom_catalogue
+
     def __init__(
         self,
         series: Series,
@@ -926,7 +1211,9 @@ class SeriesTapBlind(TapBlind):
         diameter: str,
         machining: Machining,
     ) -> None:
-        self.finishing_roughing_options = machining.modes
+        self.finishing_roughing_options = {
+            mode: values.copy() for mode, values in machining.modes.items()
+        }
         self.axial_depth_modifiyers = machining.axial
         self.radial_depth_modifiyers = machining.radial
         super().__init__(
@@ -962,6 +1249,49 @@ class SeriesTapBlind(TapBlind):
 class SeriesTapThrough(TapThrough):
     """Build a user-managed through-hole tap."""
 
+    finishing_roughing_options = SeriesBallMill.finishing_roughing_options
+
+    def has_cutting_data(self, material: str) -> bool:
+        """Check for a declared material before legacy tap calculation."""
+        return material in self.catalog_cut_data
+
+    def get_vc(self, *args: object, **kwargs: object) -> float:
+        """Return the source cutting speed for the declared material."""
+        material = str(args[0] if args else kwargs['key_iso_material'])
+        return float(str(self.catalog_cut_data[material]['Vc']))
+
+    def calc_feed_rate(
+        self, key_iso_material: str, RPM: float, fin_or_rough: str
+    ) -> float:
+        """Calculate feed rate from thread pitch and source rpm."""
+        return round(self.calc_thread_pitch() * RPM, 3)
+
+    def calc_rpm(self, *args: object, **kwargs: object) -> float:
+        """Calculate spindle speed from source cutting speed."""
+        raw_vc = args[0] if args else kwargs['Vc']
+        Vc = float(str(raw_vc))
+        return round(1000 * Vc / (pi * self.get_cutter_diam()), 2)
+
+    def get_cutter_diam(self) -> float:
+        """Return cutter diameter from the CSV tool geometry."""
+        return float(
+            self.catalog_tool_geometry[self.tool_size_from_geom_catalogue][
+                'flute_diam'
+            ]
+        )
+
+    def calc_thread_pitch(self) -> float:
+        """Return the thread pitch from the user geometry table."""
+        return float(
+            self.catalog_tool_geometry[self.tool_size_from_geom_catalogue][
+                'thread_pitch'
+            ]
+        )
+
+    def calc_diam_group_name(self) -> str:
+        """Use the thread geometry key for cutting-data lookup."""
+        return self.tool_size_from_geom_catalogue
+
     def __init__(
         self,
         series: Series,
@@ -970,7 +1300,9 @@ class SeriesTapThrough(TapThrough):
         diameter: str,
         machining: Machining,
     ) -> None:
-        self.finishing_roughing_options = machining.modes
+        self.finishing_roughing_options = {
+            mode: values.copy() for mode, values in machining.modes.items()
+        }
         self.axial_depth_modifiyers = machining.axial
         self.radial_depth_modifiyers = machining.radial
         super().__init__(
@@ -1006,6 +1338,41 @@ class SeriesTapThrough(TapThrough):
 class SeriesToroidMill(ToroidMill):
     """Build a user-managed toroid mill."""
 
+    finishing_roughing_options = SeriesBallMill.finishing_roughing_options
+
+    def get_tool_diam_float(self) -> float:
+        """Return the CSV cutter diameter, not a parsed catalog key."""
+        return float(
+            self.catalog_tool_geometry[self.complex_size_name]['flute_diam']
+        )
+
+    def calc_diam_group_name(self) -> str:
+        """Return the size key used in the user cutting table."""
+        return self.complex_size_name
+
+    def get_tool_flute_diam_from_complex_size(self) -> str:
+        """Return the CSV cutter diameter."""
+        return self.complex_size_name
+
+    def get_tool_corner_rad_from_complex_size(self) -> str:
+        """Return the CSV corner radius."""
+        return str(
+            self.catalog_tool_geometry[self.complex_size_name]['corner_radius']
+        )
+
+    def calc_feed_rate(
+        self, key_iso_material: str, RPM: float, fin_or_rough: str
+    ) -> float:
+        """Return the explicit source feed rate."""
+        return round(
+            float(
+                self.catalog_cut_data[key_iso_material]['F'][
+                    self.tool_data['cut_data_diam_group']
+                ]
+            ),
+            3,
+        )
+
     def __init__(
         self,
         series: Series,
@@ -1014,7 +1381,9 @@ class SeriesToroidMill(ToroidMill):
         diameter: str,
         machining: Machining,
     ) -> None:
-        self.finishing_roughing_options = machining.modes
+        self.finishing_roughing_options = {
+            mode: values.copy() for mode, values in machining.modes.items()
+        }
         self.axial_depth_modifiyers = machining.axial
         self.radial_depth_modifiyers = machining.radial
         super().__init__(
@@ -1025,16 +1394,6 @@ class SeriesToroidMill(ToroidMill):
             file_name_prefix=f'{series.identifier}_',
             file_name_suffix='',
             debug_mode=0,
-        )
-
-    def get_tool_flute_diam_from_complex_size(self) -> str:
-        """Return the simple CSV diameter instead of a legacy compound key."""
-        return self.complex_size_name
-
-    def get_tool_corner_rad_from_complex_size(self) -> str:
-        """Return the CSV corner radius for legacy XML assembly."""
-        return str(
-            self.catalog_tool_geometry[self.complex_size_name]['corner_radius']
         )
 
     def get_tool_comment(self) -> str:
@@ -1052,6 +1411,8 @@ class SeriesToroidMill(ToroidMill):
 class SeriesChamferMill(ChamferMill):
     """Build a user-managed chamfer mill."""
 
+    finishing_roughing_options = SeriesBallMill.finishing_roughing_options
+
     def __init__(
         self,
         series: Series,
@@ -1060,7 +1421,9 @@ class SeriesChamferMill(ChamferMill):
         diameter: str,
         machining: Machining,
     ) -> None:
-        self.finishing_roughing_options = machining.modes
+        self.finishing_roughing_options = {
+            mode: values.copy() for mode, values in machining.modes.items()
+        }
         self.axial_depth_modifiyers = machining.axial
         self.radial_depth_modifiyers = machining.radial
         super().__init__(
@@ -1088,6 +1451,30 @@ class SeriesChamferMill(ChamferMill):
 class SeriesThreadMill(ThreadMill):
     """Build a user-managed thread mill."""
 
+    finishing_roughing_options = SeriesBallMill.finishing_roughing_options
+
+    def calc_feed_per_unit(
+        self, key_iso_material: str, fin_or_rough: str
+    ) -> float:
+        """Return the explicit source feed per tooth."""
+        return float(
+            self.catalog_cut_data[key_iso_material]['Fz'][
+                self.tool_data['cut_data_diam_group']
+            ]
+        )
+
+    def get_tool_diam_float(self) -> float:
+        """Return the cutter diameter from the thread geometry row."""
+        return float(
+            self.catalog_tool_geometry[self.tool_size_from_geom_catalogue][
+                'flute_diam'
+            ]
+        )
+
+    def calc_diam_group_name(self) -> str:
+        """Use the geometry key for the explicit thread-mill rates."""
+        return self.tool_size_from_geom_catalogue
+
     def __init__(
         self,
         series: Series,
@@ -1096,7 +1483,9 @@ class SeriesThreadMill(ThreadMill):
         diameter: str,
         machining: Machining,
     ) -> None:
-        self.finishing_roughing_options = machining.modes
+        self.finishing_roughing_options = {
+            mode: values.copy() for mode, values in machining.modes.items()
+        }
         self.axial_depth_modifiyers = machining.axial
         self.radial_depth_modifiyers = machining.radial
         super().__init__(
@@ -1124,6 +1513,49 @@ class SeriesThreadMill(ThreadMill):
 class SeriesInternalRadiusMill(VnutrRadMill):
     """Build a user-managed internal-radius mill."""
 
+    finishing_roughing_options = SeriesBallMill.finishing_roughing_options
+
+    def calc_feed_per_unit(
+        self, key_iso_material: str, fin_or_rough: str
+    ) -> float:
+        """Return the explicit source feed per tooth."""
+        feed = float(
+            self.catalog_tool_cut_data[key_iso_material]['Fz'][
+                self.tool_data['cut_data_diam_group']
+            ]
+        )
+        return round(feed, 5)
+
+    def calc_feed_rate(
+        self, key_iso_material: str, RPM: float, fin_or_rough: str
+    ) -> float:
+        """Calculate feed from the source feed per tooth and flute count."""
+        return round(
+            self.calc_feed_per_unit(key_iso_material, fin_or_rough)
+            * self.teeth_num
+            * RPM,
+            3,
+        )
+
+    def calc_len_out_of_holder(self) -> float:
+        """Use the effective length defined by the CSV geometry row."""
+        return (
+            float(
+                self.catalog_tool_geometry[self.tool_size_from_geom_catalogue][
+                    'full_body_len'
+                ]
+            )
+            / 2
+        )
+
+    def calc_axial_depth(self, key_iso_material: str) -> float:
+        """Return the catalog corner radius as the legacy axial depth."""
+        return float(
+            self.catalog_tool_geometry[self.tool_size_from_geom_catalogue][
+                'corner_radius'
+            ]
+        )
+
     def __init__(
         self,
         series: Series,
@@ -1132,7 +1564,9 @@ class SeriesInternalRadiusMill(VnutrRadMill):
         diameter: str,
         machining: Machining,
     ) -> None:
-        self.finishing_roughing_options = machining.modes
+        self.finishing_roughing_options = {
+            mode: values.copy() for mode, values in machining.modes.items()
+        }
         self.axial_depth_modifiyers = machining.axial
         self.radial_depth_modifiyers = machining.radial
         super().__init__(
@@ -1168,6 +1602,8 @@ class SeriesInternalRadiusMill(VnutrRadMill):
 class SeriesDiskMill(DiskOtreznoiFlat):
     """Build a user-managed disk mill without a holder JSON catalog."""
 
+    finishing_roughing_options = SeriesBallMill.finishing_roughing_options
+
     def __init__(
         self,
         series: Series,
@@ -1176,7 +1612,9 @@ class SeriesDiskMill(DiskOtreznoiFlat):
         diameter: str,
         machining: Machining,
     ) -> None:
-        self.finishing_roughing_options = machining.modes
+        self.finishing_roughing_options = {
+            mode: values.copy() for mode, values in machining.modes.items()
+        }
         self.axial_depth_modifiyers = machining.axial
         self.radial_depth_modifiyers = machining.radial
         super().__init__(
@@ -1281,6 +1719,8 @@ class SeriesDiskMill(DiskOtreznoiFlat):
 class SeriesEndMill(EndMill):
     """Build a user-managed end mill."""
 
+    finishing_roughing_options = SeriesBallMill.finishing_roughing_options
+
     def __init__(
         self,
         series: Series,
@@ -1289,7 +1729,9 @@ class SeriesEndMill(EndMill):
         diameter: str,
         machining: Machining,
     ) -> None:
-        self.finishing_roughing_options = machining.modes
+        self.finishing_roughing_options = {
+            mode: values.copy() for mode, values in machining.modes.items()
+        }
         self.axial_depth_modifiyers = machining.axial
         self.radial_depth_modifiyers = machining.radial
         super().__init__(

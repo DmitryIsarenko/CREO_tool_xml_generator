@@ -3,11 +3,11 @@
 
 [roughing]
 vc_multiplier = 1.0
-feed_multiplier = 0.6
+feed_multiplier = 1.0
 
 [finishing]
 vc_multiplier = 1.0
-feed_multiplier = 0.6
+feed_multiplier = 1.0
 
 [axial]
 iso_P = 1.0

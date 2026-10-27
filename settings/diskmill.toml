@@ -1,13 +1,14 @@
 # Только новый CLI серий для дисковых фрез.
-# Значения повторяют текущие настройки класса DiskOtreznoiFlat.
+# Режимы резания задаются напрямую в cutting.csv.
+# Глубины соответствуют пользовательской серии, не рекомендации для станка.
 
 [roughing]
 vc_multiplier = 1.0
-feed_multiplier = 0.6
+feed_multiplier = 1.0
 
 [finishing]
-vc_multiplier = 1.1
-feed_multiplier = 0.5
+vc_multiplier = 1.0
+feed_multiplier = 1.0
 
 [axial]
 iso_P = 1.0

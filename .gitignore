@@ -20,3 +20,5 @@ venv/
 
 # Local project context
 /memory-bank/
+catalogs/*/
+!catalogs/demo_ballmill

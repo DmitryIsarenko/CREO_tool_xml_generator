@@ -226,6 +226,10 @@ class BaseTool:
         return suitable_grp[-1]
 
     # CALCULATIONS FOR CUT DATA CATALOGUE
+    def get_mfg_materials(self) -> dict[str, str]:
+        """Return the manufacturing-material XML mapping."""
+        return config.mfg_materials_dict
+
     def has_cutting_data(self, material: str) -> bool:
         """Return whether the catalog declares a material group."""
         return material in self.catalog_cut_data
@@ -1025,7 +1029,7 @@ class BaseTool:
     def set_xml_body_tool_cut_data(self) -> str:
         """Set xml body tool cut data."""
         total_string = ''
-        for material_name, mat_iso_name in config.mfg_materials_dict.items():
+        for material_name, mat_iso_name in self.get_mfg_materials().items():
             xml_part_str = (
                 '        <ToolCutData>\n'
                 '                <Material>\n'

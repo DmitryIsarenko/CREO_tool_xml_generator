@@ -131,6 +131,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             print('countersink — зенковка, стандартная сборка')
             print('drill — спиральное сверло, стандартная сборка')
             print('endmill — концевая фреза, стандартная сборка')
+            print('reamer — развёртка, стандартная сборка')
         elif args.command == 'init':
             directory = create_series(args.catalogs, args.series, args.type)
             print(

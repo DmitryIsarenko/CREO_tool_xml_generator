@@ -16,6 +16,7 @@ from src.tool_updater.series import (
     DRILL_GEOMETRY_COLUMNS,
     GEOMETRY_COLUMNS,
     MATERIALS,
+    REAMER_GEOMETRY_COLUMNS,
     SETTINGS_FILE,
     create_series,
     load_machining,
@@ -310,6 +311,12 @@ def test_default_settings_preserve_legacy_calculations(
             '10;8;45;COUNTERBORE & TEST;4;3;10',
             'TIP_OFFSET',
         ),
+        (
+            'reamer',
+            REAMER_GEOMETRY_COLUMNS,
+            '10;20;60;REAMER & TEST;50;0.5',
+            'CORNER_CHAMFER',
+        ),
     ],
 )
 def test_drill_and_endmill_workflows(
@@ -369,6 +376,9 @@ def test_drill_and_endmill_workflows(
         point = root_xml.find('.//MfgParam[@Name="POINT_DIAMETER"]')
         assert point is not None and point.get('Value') == '4.0'
         assert tools[0].tool_data['len_out_of_holder'] == 35
+    if tool_type == 'reamer':
+        assert parameter.get('Value') == '0.5'
+        assert tools[0].tool_data['len_out_of_holder'] == 50
 
 
 def series_settings(tool_type: str) -> Path:

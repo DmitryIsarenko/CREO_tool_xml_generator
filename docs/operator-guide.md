@@ -2,7 +2,7 @@
 
 ## Что готово
 
-Новый сценарий поддерживает пять типов со стандартными сборками:
+Новый сценарий поддерживает шесть типов со стандартными сборками:
 
 | Код `--type` | Тип |
 | --- | --- |
@@ -11,6 +11,7 @@
 | `countersink` | Зенковка |
 | `drill` | Обычное спиральное сверло |
 | `endmill` | Обычная концевая фреза |
+| `reamer` | Развёртка |
 
 Токарно-фрезерные оправки и другие типы пока доступны только через прежние
 задания. Они не перенесены в CSV.
@@ -131,6 +132,15 @@ diameter_mm;flute_length_mm;length_mm;order_no;point_diameter_mm;tip_offset_mm;t
 `tip_offset_mm` — длина направляющей. `tail_holding_length_mm` — часть
 общей длины в зажиме; она должна быть меньше `length_mm`.
 
+Для `reamer` задаются вылет и фаска:
+
+```text
+diameter_mm;flute_length_mm;length_mm;order_no;length_out_of_holder_mm;corner_chamfer_mm
+```
+
+`length_out_of_holder_mm` — вылет развёртки, не больше `length_mm`.
+`corner_chamfer_mm` записывается в XML как фаска режущей части.
+
 | Дополнительный столбец | Значение |
 | --- | --- |
 | `point_angle_deg` | Угол при вершине сверла в градусах, больше 0 и меньше 180 |
@@ -229,6 +239,7 @@ uv run python -m src.tool_updater generate --series my_tool --overwrite
 | `countersink` | `settings/countersink.toml` |
 | `drill` | `settings/drill.toml` |
 | `endmill` | `settings/endmill.toml` |
+| `reamer` | `settings/reamer.toml` |
 
 | Раздел/параметр | Что изменяет |
 | --- | --- |
@@ -243,8 +254,8 @@ uv run python -m src.tool_updater generate --series my_tool --overwrite
 старый расчёт применяет множители и ограничение оборотов. Изменение Vc
 само по себе не означает пропорционального изменения F. Исходные Ap/Ae
 из PDF в этом этапе не загружаются: они рассчитываются из диаметра.
-Для `counterbore`, `drill` и `countersink` старый расчёт всегда задаёт
-`Ae = 0`.
+Для `counterbore`, `drill`, `countersink` и `reamer` старый расчёт всегда
+задаёт `Ae = 0`.
 Сохранено прежнее поведение при ограничении 18000 об/мин: уменьшаются
 скорость, подача и глубины. Дополнительные материалы (пластики, латунь)
 по-прежнему вычисляются из ISO-групп. Эти правила и сборки пока находятся
@@ -262,7 +273,7 @@ uv run python -m src.tool_updater generate --series my_tool --overwrite
 | --- | --- | --- |
 | `--help` | Везде | Справка; например `generate --help` |
 | `--series NAME` | `init`, `check`, `show`, `generate` | Имя папки серии |
-| `--type TYPE` | `init` | `ballmill`, `counterbore`, `countersink`, `drill` или `endmill` |
+| `--type TYPE` | `init` | `ballmill`, `counterbore`, `countersink`, `drill`, `endmill` или `reamer` |
 | `--settings PATH` | `check`, `show`, `generate` | Другой файл множителей |
 | `--output PATH` | `generate` | Итоговая папка, без автоматической подпапки серии |
 | `--overwrite` | `generate` | Разрешить замену одноимённых XML |

@@ -20,6 +20,7 @@ from src.tool_updater.series import (
     REAMER_GEOMETRY_COLUMNS,
     SETTINGS_FILE,
     TAP_GEOMETRY_COLUMNS,
+    THREADMILL_GEOMETRY_COLUMNS,
     TOROIDMILL_GEOMETRY_COLUMNS,
     create_series,
     load_machining,
@@ -344,6 +345,12 @@ def test_default_settings_preserve_legacy_calculations(
             '0.2;10;5;35;CHAMFER & TEST;90',
             'SIDE_ANGLE',
         ),
+        (
+            'threadmill',
+            THREADMILL_GEOMETRY_COLUMNS,
+            '10;20;60;THREAD & TEST;1.5',
+            'END_OFFSET',
+        ),
     ],
 )
 def test_drill_and_endmill_workflows(
@@ -422,6 +429,10 @@ def test_drill_and_endmill_workflows(
         assert parameter.get('Value') == '45.0'
         shank = root_xml.find('.//MfgParam[@Name="SHANK_DIAM"]')
         assert shank is not None and shank.get('Value') == '10.0'
+    if tool_type == 'threadmill':
+        assert parameter.get('Value') == '0.0015'
+        insert = root_xml.find('.//MfgParam[@Name="INSERT_LENGTH"]')
+        assert insert is not None and insert.get('Value') == '20.0'
 
 
 def series_settings(tool_type: str) -> Path:

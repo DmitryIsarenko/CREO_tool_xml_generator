@@ -23,6 +23,7 @@
 сборками, а также метчики для глухих (`tap_blind`) и сквозных
 (`tap_through`) отверстий и тороидальную фрезу (`toroidmill`).
 Также поддерживается угловая фасочная фреза (`chamfermill`).
+Поддерживается и резьбовая фреза (`threadmill`).
 Он не заменяет прежние задания для остальных типов и оправок.
 
 ```bash
@@ -46,7 +47,8 @@ uv run python -m src.tool_updater generate --series my_drill
 `settings/countersink.toml`, `settings/drill.toml` и
 `settings/endmill.toml`, `settings/reamer.toml`, `settings/tap.toml`,
 `settings/toroidmill.toml` и `settings/chamfermill.toml`. Эти файлы
-действуют только в новом сценарии.
+действуют только в новом сценарии. Для резьбовой фрезы используется
+`settings/threadmill.toml`.
 Все пути считаются от корня проекта. Извлечения данных из PDF нет:
 таблицы нужно привести к столбцам CSV из инструкции.
 

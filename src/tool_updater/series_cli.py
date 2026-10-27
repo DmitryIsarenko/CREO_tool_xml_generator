@@ -136,6 +136,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             print('tap_through — метчик для сквозного отверстия')
             print('toroidmill — тороидальная фреза')
             print('chamfermill — угловая фасочная фреза')
+            print('threadmill — резьбовая фреза')
         elif args.command == 'init':
             directory = create_series(args.catalogs, args.series, args.type)
             print(

@@ -81,8 +81,14 @@ class DiskOtreznoiFlat(BaseTool):
         self.file_name_suffix = file_name_suffix
         self.debug_mode = debug_mode
 
-        with self.path_to_holder_geometry_catalog.open(encoding='utf-8') as f:
-            self.catalog_holder_geometry = json.load(f)
+        holder_geometry = kwargs.get('catalog_holder_geometry')
+        if isinstance(holder_geometry, dict):
+            self.catalog_holder_geometry = holder_geometry
+        else:
+            with self.path_to_holder_geometry_catalog.open(
+                encoding='utf-8'
+            ) as stream:
+                self.catalog_holder_geometry = json.load(stream)
 
         super().__init__(
             tool_size_from_geom_catalogue=self.complex_size_name,

@@ -24,6 +24,9 @@ from src.tool_updater.classes.tool_classes.base_tool import BaseTool
 from src.tool_updater.classes.tool_classes.milling.chamfer_mill import (
     ChamferMill,
 )
+from src.tool_updater.classes.tool_classes.milling.disk_mill import (
+    DiskOtreznoiFlat,
+)
 from src.tool_updater.classes.tool_classes.milling.endmill import EndMill
 from src.tool_updater.classes.tool_classes.milling.sphere_mill import BallMill
 from src.tool_updater.classes.tool_classes.milling.threadmill import ThreadMill
@@ -42,6 +45,7 @@ SETTINGS_FILE = PROJECT_DIR / 'settings' / 'machining.toml'
 SETTINGS_FILES = {
     'ballmill': SETTINGS_FILE,
     'centerdrill': PROJECT_DIR / 'settings' / 'centerdrill.toml',
+    'diskmill': PROJECT_DIR / 'settings' / 'diskmill.toml',
     'counterbore': PROJECT_DIR / 'settings' / 'counterbore.toml',
     'drill': PROJECT_DIR / 'settings' / 'drill.toml',
     'endmill': PROJECT_DIR / 'settings' / 'endmill.toml',
@@ -100,12 +104,33 @@ CHAMFERMILL_GEOMETRY_COLUMNS = (
     'angle_deg',
 )
 THREADMILL_GEOMETRY_COLUMNS = (*GEOMETRY_COLUMNS, 'thread_pitch_mm')
+DISKMILL_GEOMETRY_COLUMNS = (
+    'diameter_mm',
+    'cutter_width_mm',
+    'corner_radius_mm',
+    'corner_chamfer_mm',
+    'corner_chamfer_angle_deg',
+    'flute_length_mm',
+    'holder_length_mm',
+    'holder_min_length_mm',
+    'shank_diameter_mm',
+    'teeth_num',
+    'order_no',
+)
 INTERNAL_RADIUS_MILL_GEOMETRY_COLUMNS = (
     'cutter_diameter_mm',
     'shank_diameter_mm',
     'length_mm',
     'order_no',
     'corner_radius_mm',
+)
+DISKMILL_CUTTING_COLUMNS = (
+    'material',
+    'diameter_mm',
+    'vc_m_min',
+    'feed_kind',
+    'feed_value',
+    'radial_depth_mm',
 )
 CUTTING_COLUMNS = (
     'material',
@@ -296,6 +321,7 @@ def read_catalogs(series: Series) -> tuple[Catalog, Catalog]:
     geometry_columns = {
         'chamfermill': CHAMFERMILL_GEOMETRY_COLUMNS,
         'centerdrill': CENTERDRILL_GEOMETRY_COLUMNS,
+        'diskmill': DISKMILL_GEOMETRY_COLUMNS,
         'counterbore': COUNTERBORE_GEOMETRY_COLUMNS,
         'drill': DRILL_GEOMETRY_COLUMNS,
         'countersink': COUNTERSINK_GEOMETRY_COLUMNS,
@@ -312,6 +338,7 @@ def read_catalogs(series: Series) -> tuple[Catalog, Catalog]:
         diameter_column = {
             'chamfermill': 'tip_diameter_mm',
             'centerdrill': 'drill_diameter_mm',
+            'diskmill': 'diameter_mm',
             'internalradiusmill': 'cutter_diameter_mm',
         }.get(series.tool_type, 'diameter_mm')
         diameter = _diameter(
@@ -325,6 +352,10 @@ def read_catalogs(series: Series) -> tuple[Catalog, Catalog]:
             flute = _positive(
                 row['corner_radius_mm'], f'{location}, corner_radius_mm'
             )
+        elif series.tool_type == 'diskmill':
+            flute = _positive(
+                row['flute_length_mm'], f'{location}, flute_length_mm'
+            )
         else:
             flute_column = (
                 'cut_length_mm'
@@ -332,7 +363,12 @@ def read_catalogs(series: Series) -> tuple[Catalog, Catalog]:
                 else 'flute_length_mm'
             )
             flute = _positive(row[flute_column], f'{location}, {flute_column}')
-        length = _positive(row['length_mm'], f'{location}, length_mm')
+        length_column = (
+            'holder_length_mm'
+            if series.tool_type == 'diskmill'
+            else 'length_mm'
+        )
+        length = _positive(row[length_column], f'{location}, {length_column}')
         if flute >= length:
             raise ValueError(
                 f'{location}: рабочая длина должна быть меньше общей.'
@@ -513,12 +549,60 @@ def read_catalogs(series: Series) -> tuple[Catalog, Catalog]:
             record['shank_diam'] = shank_diameter
             record['corner_radius'] = corner_radius
             record['tip_length'] = 0.0
+        elif series.tool_type == 'diskmill':
+            cutter_width = _positive(
+                row['cutter_width_mm'], f'{location}, cutter_width_mm'
+            )
+            holder_length = _positive(
+                row['holder_length_mm'], f'{location}, holder_length_mm'
+            )
+            holder_min_length = _positive(
+                row['holder_min_length_mm'],
+                f'{location}, holder_min_length_mm',
+            )
+            shank_diameter = _positive(
+                row['shank_diameter_mm'], f'{location}, shank_diameter_mm'
+            )
+            teeth = _positive(row['teeth_num'], f'{location}, teeth_num')
+            if not teeth.is_integer():
+                raise ValueError(f'{location}, teeth_num: нужно целое число.')
+            if holder_min_length > holder_length:
+                raise ValueError(
+                    f'{location}, holder_min_length_mm: длина не может быть '
+                    'больше holder_length_mm.'
+                )
+            record['cutter_width'] = cutter_width
+            record['corner_radius'] = _number(
+                row['corner_radius_mm'],
+                f'{location}, corner_radius_mm',
+                allow_zero=True,
+            )
+            record['corner_chamfer'] = _number(
+                row['corner_chamfer_mm'],
+                f'{location}, corner_chamfer_mm',
+                allow_zero=True,
+            )
+            record['corner_chamfer_angle'] = _number(
+                row['corner_chamfer_angle_deg'],
+                f'{location}, corner_chamfer_angle_deg',
+                allow_zero=True,
+            )
+            record['holder_len'] = holder_length
+            record['holder_min_len'] = holder_min_length
+            record['shank_diam'] = shank_diameter
+            record['teeth_num'] = int(teeth)
+            record['num_of_teeth'] = int(teeth)
         geometry[diameter] = record
 
     # Each diameter has its own Vc; legacy BallMill expects one Vc per catalog.
     cutting: Catalog = {}
     cutting_path = series.directory / 'cutting.csv'
-    for line, row in _rows(cutting_path, CUTTING_COLUMNS):
+    cutting_columns = (
+        DISKMILL_CUTTING_COLUMNS
+        if series.tool_type == 'diskmill'
+        else CUTTING_COLUMNS
+    )
+    for line, row in _rows(cutting_path, cutting_columns):
         location = f'{cutting_path}, строка {line}'
         diameter = _diameter(row['diameter_mm'], f'{location}, diameter_mm')
         material = row['material'].strip()
@@ -541,7 +625,30 @@ def read_catalogs(series: Series) -> tuple[Catalog, Catalog]:
             raise ValueError(
                 f'{location}: feed_kind должен быть F, Fz или Fn.'
             )
-        if series.tool_type in {
+        if series.tool_type == 'diskmill':
+            width = _positive(
+                geometry[diameter]['cutter_width'],
+                f'{location}, cutter_width_mm',
+            )
+            radial_depth = _positive(
+                row['radial_depth_mm'], f'{location}, radial_depth_mm'
+            )
+            if kind == 'F':
+                feed_per_tooth = feed / (rpm * series.teeth)
+                feed_per_revolution = feed / rpm
+            elif kind == 'Fz':
+                feed_per_tooth = feed
+                feed_per_revolution = feed * series.teeth
+            else:
+                feed_per_revolution = feed
+                feed_per_tooth = feed / series.teeth
+            values[material] = {
+                'Vc': speed,
+                'Fz': {str(width): feed_per_tooth},
+                'Fn': {str(width): feed_per_revolution},
+                'Ae': {str(width): radial_depth},
+            }
+        elif series.tool_type in {
             'centerdrill',
             'counterbore',
             'drill',
@@ -1058,6 +1165,119 @@ class SeriesInternalRadiusMill(VnutrRadMill):
         )
 
 
+class SeriesDiskMill(DiskOtreznoiFlat):
+    """Build a user-managed disk mill without a holder JSON catalog."""
+
+    def __init__(
+        self,
+        series: Series,
+        geometry: Catalog,
+        cutting: Catalog,
+        diameter: str,
+        machining: Machining,
+    ) -> None:
+        self.finishing_roughing_options = machining.modes
+        self.axial_depth_modifiyers = machining.axial
+        self.radial_depth_modifiyers = machining.radial
+        super().__init__(
+            tool_size_from_geom_catalogue=diameter,
+            catalog_tool_cut_data=cutting,
+            catalog_tool_geometry=geometry,
+            teeth_num=series.teeth,
+            file_name_prefix=f'{series.identifier}_',
+            file_name_suffix='',
+            debug_mode=0,
+            catalog_holder_geometry={diameter: geometry[diameter]},
+        )
+
+    def get_tool_flute_diam_from_complex_size(self) -> str:
+        """Return the CSV disk diameter."""
+        return self.complex_size_name
+
+    def get_tool_cutter_width_from_complex_size(self) -> str:
+        """Return the CSV cutter width."""
+        return str(
+            self.catalog_tool_geometry[self.complex_size_name]['cutter_width']
+        )
+
+    def get_tool_corner_radius_from_complex_size(self) -> str:
+        """Return the CSV corner radius."""
+        return str(
+            self.catalog_tool_geometry[self.complex_size_name]['corner_radius']
+        )
+
+    def get_tool_corner_chamfer_from_complex_size(self) -> str:
+        """Return the CSV corner chamfer."""
+        return str(
+            self.catalog_tool_geometry[self.complex_size_name][
+                'corner_chamfer'
+            ]
+        )
+
+    def get_tool_corner_chamfer_angle_from_complex_size(self) -> str:
+        """Return the CSV corner chamfer angle."""
+        return str(
+            self.catalog_tool_geometry[self.complex_size_name][
+                'corner_chamfer_angle'
+            ]
+        )
+
+    def get_tool_shank_diam(self) -> float:
+        """Return the CSV holder shank diameter."""
+        return float(
+            self.catalog_tool_geometry[self.complex_size_name]['shank_diam']
+        )
+
+    def get_tool_holder_size(self) -> str:
+        """Return the CSV disk diameter as the holder key."""
+        return self.complex_size_name
+
+    def get_holder_len(self) -> float:
+        """Return the CSV holder length."""
+        return float(
+            self.catalog_tool_geometry[self.complex_size_name]['holder_len']
+        )
+
+    def get_full_tool_length(self) -> float:
+        """Return the CSV holder length."""
+        return self.get_holder_len()
+
+    def get_tool_flute_length(self) -> float:
+        """Return the CSV flute length."""
+        return float(
+            self.catalog_tool_geometry[self.complex_size_name]['flute_len']
+        )
+
+    def calc_len_out_of_holder(self) -> float:
+        """Calculate the effective disk length from CSV holder data."""
+        geometry = self.catalog_tool_geometry[self.complex_size_name]
+        return max(
+            float(geometry['holder_len']) / 2,
+            float(geometry['holder_min_len']),
+        )
+
+    def calc_diam_group_name(self) -> str:
+        """Use cutter width for the disk cutting-data lookup."""
+        return self.get_tool_cutter_width_from_complex_size()
+
+    def get_tool_teeth_num(self) -> int:
+        """Return the per-row tooth count from CSV."""
+        return int(
+            self.catalog_tool_geometry[self.complex_size_name]['teeth_num']
+        )
+
+    def get_tool_comment(self) -> str:
+        """Escape a user comment before legacy XML interpolation."""
+        return escape(super().get_tool_comment(), {'"': '&quot;'})
+
+    def create_tool_name_for_xml(self) -> str:
+        """Keep identifiers unique without legacy decimal normalization."""
+        return (
+            f'{self.tool_data["file_name_prefix"].upper()}'
+            f'D{self.tool_data["tool_name_str"].replace(".", "-")}'
+        )
+
+
 class SeriesEndMill(EndMill):
     """Build a user-managed end mill."""
 
@@ -1100,6 +1320,7 @@ ToolFactory = Callable[[Series, Catalog, Catalog, str, Machining], BaseTool]
 TOOL_CLASSES: dict[str, ToolFactory] = {
     'ballmill': SeriesBallMill,
     'centerdrill': SeriesCenterDrill,
+    'diskmill': SeriesDiskMill,
     'counterbore': SeriesCounterBore,
     'countersink': SeriesCounterSink,
     'drill': SeriesDrill,
@@ -1184,6 +1405,7 @@ def create_series(
             {
                 'counterbore': COUNTERBORE_GEOMETRY_COLUMNS,
                 'centerdrill': CENTERDRILL_GEOMETRY_COLUMNS,
+                'diskmill': DISKMILL_GEOMETRY_COLUMNS,
                 'drill': DRILL_GEOMETRY_COLUMNS,
                 'countersink': COUNTERSINK_GEOMETRY_COLUMNS,
                 'reamer': REAMER_GEOMETRY_COLUMNS,
@@ -1195,7 +1417,12 @@ def create_series(
                 'internalradiusmill': INTERNAL_RADIUS_MILL_GEOMETRY_COLUMNS,
             }.get(tool_type, GEOMETRY_COLUMNS),
         ),
-        ('cutting.csv', CUTTING_COLUMNS),
+        (
+            'cutting.csv',
+            DISKMILL_CUTTING_COLUMNS
+            if tool_type == 'diskmill'
+            else CUTTING_COLUMNS,
+        ),
     ):
         (directory / name).write_text(
             ';'.join(columns) + '\n', encoding='utf-8-sig'

@@ -128,6 +128,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         if args.command == 'types':
             print('ballmill — сферическая фреза, стандартная сборка')
             print('centerdrill — центровка, стандартная сборка')
+            print('diskmill — дисковая фреза, стандартная сборка')
             print('counterbore — цековка, стандартная сборка')
             print('countersink — зенковка, стандартная сборка')
             print('drill — спиральное сверло, стандартная сборка')

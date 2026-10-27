@@ -8,6 +8,7 @@
 | --- | --- |
 | `ballmill` | Сферическая фреза |
 | `centerdrill` | Центровка |
+| `diskmill` | Дисковая фреза |
 | `counterbore` | Цековка |
 | `countersink` | Зенковка |
 | `drill` | Обычное спиральное сверло |
@@ -118,6 +119,24 @@ drill_diameter_mm;cutter_diameter_mm;flute_length_mm;length_mm;order_no;point_an
 наружный диаметр центровки. `point_angle_deg` и
 `countersink_angle_deg` должны быть больше 0 и меньше 180°. Длина
 `drill_length_mm` должна быть меньше `flute_length_mm`.
+
+Для `diskmill` задаются параметры диска, хвостовика и встроенной оправки:
+
+```text
+diameter_mm;cutter_width_mm;corner_radius_mm;corner_chamfer_mm;corner_chamfer_angle_deg;flute_length_mm;holder_length_mm;holder_min_length_mm;shank_diameter_mm;teeth_num;order_no
+```
+
+`diameter_mm` — диаметр диска. `cutter_width_mm` — ширина диска и ключ
+поиска режимов резания. `flute_length_mm` — рабочая длина. Для дисковой
+фрезы `holder_length_mm` используется как общая длина legacy-инструмента.
+`holder_min_length_mm` — минимальный вылет; он не должен быть больше
+`holder_length_mm`. `shank_diameter_mm` — диаметр хвостовика. Поля
+`corner_radius_mm`, `corner_chamfer_mm` и `corner_chamfer_angle_deg` могут
+быть равны нулю. `teeth_num` задаёт число зубьев строки.
+
+В новом CSV-сценарии данные оправки берутся из этой строки, а не из
+legacy-файла `holders_for_SGSF.json`. XML и BOM всё равно создаются
+существующим классом дисковой фрезы; проверьте названия сборок в CREO.
 
 | Столбец | Значение |
 | --- | --- |
@@ -231,6 +250,15 @@ EndMill в текущем XML не использует это значение.
 material;diameter_mm;vc_m_min;feed_kind;feed_value
 ```
 
+Для `diskmill` добавьте глубину резания по радиусу:
+
+```text
+material;diameter_mm;vc_m_min;feed_kind;feed_value;radial_depth_mm
+```
+
+`radial_depth_mm` — Ae в миллиметрах. Это значение сохраняется в XML для
+дисковой фрезы; остальные типы используют общую схему без этого столбца.
+
 | Столбец | Значение |
 | --- | --- |
 | `material` | Группа: `iso_P`, `iso_M`, `iso_K`, `iso_N`, `iso_S`, `iso_H` |
@@ -238,6 +266,7 @@ material;diameter_mm;vc_m_min;feed_kind;feed_value
 | `vc_m_min` | Скорость резания Vc, м/мин |
 | `feed_kind` | `F` — мм/мин; `Fz` — мм/зуб; `Fn` — мм/оборот |
 | `feed_value` | Значение подачи именно в выбранных единицах |
+| `radial_depth_mm` | Ae, только для `diskmill`, мм |
 
 Одна строка — одна пара «группа материала + диаметр».
 Не вставляйте интервалы `80–120`, единицы `мм` или формулы в числовые поля.
@@ -304,6 +333,7 @@ uv run python -m src.tool_updater generate --series my_tool --overwrite
 | Тип | Файл |
 | --- | --- |
 | `ballmill` | `settings/machining.toml` |
+| `diskmill` | `settings/diskmill.toml` |
 | `counterbore` | `settings/counterbore.toml` |
 | `countersink` | `settings/countersink.toml` |
 | `drill` | `settings/drill.toml` |
@@ -349,7 +379,7 @@ uv run python -m src.tool_updater generate --series my_tool --overwrite
 | --- | --- | --- |
 | `--help` | Везде | Справка; например `generate --help` |
 | `--series NAME` | `init`, `check`, `show`, `generate` | Имя папки серии |
-| `--type TYPE` | `init` | `ballmill`, `chamfermill`, `counterbore`, `countersink`, `drill`, `endmill`, `internalradiusmill`, `reamer`, `tap_blind`, `tap_through`, `threadmill` или `toroidmill` |
+| `--type TYPE` | `init` | `ballmill`, `centerdrill`, `chamfermill`, `counterbore`, `countersink`, `diskmill`, `drill`, `endmill`, `internalradiusmill`, `reamer`, `tap_blind`, `tap_through`, `threadmill` или `toroidmill` |
 | `--settings PATH` | `check`, `show`, `generate` | Другой файл множителей |
 | `--output PATH` | `generate` | Итоговая папка, без автоматической подпапки серии |
 | `--overwrite` | `generate` | Разрешить замену одноимённых XML |

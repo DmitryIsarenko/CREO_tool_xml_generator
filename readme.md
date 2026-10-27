@@ -20,6 +20,7 @@
 Новый сценарий поддерживает следующие типы со стандартными сборками:
 
 - сферическая фреза (`ballmill`);
+- дисковая фреза (`diskmill`);
 - центровка (`centerdrill`);
 - цековка (`counterbore`);
 - зенковка (`countersink`);
@@ -63,6 +64,7 @@ uv run python -m src.tool_updater generate --series my_drill
 
 - `settings/machining.toml`;
 - `settings/counterbore.toml`;
+- `settings/diskmill.toml`;
 - `settings/countersink.toml`;
 - `settings/drill.toml`;
 - `settings/endmill.toml`;

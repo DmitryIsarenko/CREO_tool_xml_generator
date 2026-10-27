@@ -11,6 +11,7 @@ import tomllib
 from xml.etree import ElementTree
 from xml.sax.saxutils import escape
 
+from src.tool_updater.classes.tool_classes.axial.countersink import CounterSink
 from src.tool_updater.classes.tool_classes.axial.drill import Drill
 from src.tool_updater.classes.tool_classes.base_tool import BaseTool
 from src.tool_updater.classes.tool_classes.milling.endmill import EndMill
@@ -25,11 +26,17 @@ SETTINGS_FILES = {
     'ballmill': SETTINGS_FILE,
     'drill': PROJECT_DIR / 'settings' / 'drill.toml',
     'endmill': PROJECT_DIR / 'settings' / 'endmill.toml',
+    'countersink': PROJECT_DIR / 'settings' / 'countersink.toml',
 }
 SERIES_TYPES = tuple(SETTINGS_FILES)
 MATERIALS = ('iso_P', 'iso_M', 'iso_K', 'iso_N', 'iso_S', 'iso_H')
 GEOMETRY_COLUMNS = ('diameter_mm', 'flute_length_mm', 'length_mm', 'order_no')
 DRILL_GEOMETRY_COLUMNS = (*GEOMETRY_COLUMNS, 'point_angle_deg')
+COUNTERSINK_GEOMETRY_COLUMNS = (
+    *GEOMETRY_COLUMNS,
+    'point_diameter_mm',
+    'point_angle_deg',
+)
 CUTTING_COLUMNS = (
     'material',
     'diameter_mm',
@@ -216,11 +223,11 @@ def read_catalogs(series: Series) -> tuple[Catalog, Catalog]:
     """Convert checked CSV tables to the legacy calculation input."""
     geometry: Catalog = {}
     geometry_path = series.directory / 'geometry.csv'
-    columns = (
-        DRILL_GEOMETRY_COLUMNS
-        if series.tool_type == 'drill'
-        else GEOMETRY_COLUMNS
-    )
+    geometry_columns = {
+        'drill': DRILL_GEOMETRY_COLUMNS,
+        'countersink': COUNTERSINK_GEOMETRY_COLUMNS,
+    }
+    columns = geometry_columns.get(series.tool_type, GEOMETRY_COLUMNS)
     for line, row in _rows(geometry_path, columns):
         location = f'{geometry_path}, строка {line}'
         diameter = _diameter(row['diameter_mm'], f'{location}, diameter_mm')
@@ -253,6 +260,30 @@ def read_catalogs(series: Series) -> tuple[Catalog, Catalog]:
                     'быть меньше 180.'
                 )
             record['point_angle'] = point_angle
+        elif series.tool_type == 'countersink':
+            point_diameter = _positive(
+                row['point_diameter_mm'],
+                f'{location}, point_diameter_mm',
+            )
+            if point_diameter >= float(diameter):
+                raise ValueError(
+                    f'{location}, point_diameter_mm: диаметр должен быть '
+                    'меньше диаметра инструмента.'
+                )
+            point_angle = _positive(
+                row['point_angle_deg'], f'{location}, point_angle_deg'
+            )
+            if point_angle >= 180:
+                raise ValueError(
+                    f'{location}, point_angle_deg: угол должен '
+                    'быть меньше 180.'
+                )
+            if not point_angle.is_integer():
+                raise ValueError(
+                    f'{location}, point_angle_deg: нужен целый угол.'
+                )
+            record['point_diameter'] = point_diameter
+            record['point_angle'] = int(point_angle)
         geometry[diameter] = record
 
     # Each diameter has its own Vc; legacy BallMill expects one Vc per catalog.
@@ -281,7 +312,7 @@ def read_catalogs(series: Series) -> tuple[Catalog, Catalog]:
             raise ValueError(
                 f'{location}: feed_kind должен быть F, Fz или Fn.'
             )
-        if series.tool_type == 'drill':
+        if series.tool_type in {'drill', 'countersink'}:
             if kind == 'F':
                 feed /= rpm
             elif kind == 'Fz':
@@ -376,6 +407,44 @@ class SeriesDrill(Drill):
         )
 
 
+class SeriesCounterSink(CounterSink):
+    """Build a user-managed countersink."""
+
+    def __init__(
+        self,
+        series: Series,
+        geometry: Catalog,
+        cutting: Catalog,
+        diameter: str,
+        machining: Machining,
+    ) -> None:
+        self.finishing_roughing_options = machining.modes
+        self.axial_depth_modifiyers = machining.axial
+        self.radial_depth_modifiyers = machining.radial
+        super().__init__(
+            tool_size_from_geom_catalogue=diameter,
+            catalog_tool_cut_data=cutting,
+            catalog_tool_geometry=geometry,
+            teeth_num=series.teeth,
+            file_name_prefix=f'{series.identifier}_',
+            file_name_suffix='',
+            debug_mode=0,
+        )
+        self.point_angle = int(geometry[diameter]['point_angle'])
+        self.set_tool_xml()
+
+    def get_tool_comment(self) -> str:
+        """Escape a user comment before legacy XML interpolation."""
+        return escape(super().get_tool_comment(), {'"': '&quot;'})
+
+    def create_tool_name_for_xml(self) -> str:
+        """Keep identifiers unique without legacy decimal normalization."""
+        return (
+            f'{self.tool_data["file_name_prefix"].upper()}'
+            f'D{self.tool_data["tool_name_str"].replace(".", "-")}'
+        )
+
+
 class SeriesEndMill(EndMill):
     """Build a user-managed end mill."""
 
@@ -417,6 +486,7 @@ ToolFactory = Callable[[Series, Catalog, Catalog, str, Machining], BaseTool]
 
 TOOL_CLASSES: dict[str, ToolFactory] = {
     'ballmill': SeriesBallMill,
+    'countersink': SeriesCounterSink,
     'drill': SeriesDrill,
     'endmill': SeriesEndMill,
 }
@@ -484,9 +554,10 @@ def create_series(
     for name, columns in (
         (
             'geometry.csv',
-            DRILL_GEOMETRY_COLUMNS
-            if tool_type == 'drill'
-            else GEOMETRY_COLUMNS,
+            {
+                'drill': DRILL_GEOMETRY_COLUMNS,
+                'countersink': COUNTERSINK_GEOMETRY_COLUMNS,
+            }.get(tool_type, GEOMETRY_COLUMNS),
         ),
         ('cutting.csv', CUTTING_COLUMNS),
     ):

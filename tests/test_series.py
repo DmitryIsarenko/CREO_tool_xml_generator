@@ -10,6 +10,7 @@ import pytest
 
 from src.tool_updater.classes.tool_classes.milling.sphere_mill import BallMill
 from src.tool_updater.series import (
+    COUNTERSINK_GEOMETRY_COLUMNS,
     CUTTING_COLUMNS,
     DRILL_GEOMETRY_COLUMNS,
     GEOMETRY_COLUMNS,
@@ -296,6 +297,12 @@ def test_default_settings_preserve_legacy_calculations(
             '6;20;70;ENDMILL & TEST',
             'NUM_OF_TEETH',
         ),
+        (
+            'countersink',
+            COUNTERSINK_GEOMETRY_COLUMNS,
+            '10;8;45;COUNTERSINK & TEST;4;90',
+            'POINT_DIAMETER',
+        ),
     ],
 )
 def test_drill_and_endmill_workflows(
@@ -316,10 +323,13 @@ def test_drill_and_endmill_workflows(
         ';'.join(geometry_columns) + f'\n{geometry_row}\n',
         encoding='utf-8',
     )
+    diameter = geometry_row.split(';', maxsplit=1)[0]
     (directory / 'cutting.csv').write_text(
         ';'.join(CUTTING_COLUMNS)
         + '\n'
-        + ''.join(f'{material};6;100;F;300\n' for material in MATERIALS),
+        + ''.join(
+            f'{material};{diameter};100;F;300\n' for material in MATERIALS
+        ),
         encoding='utf-8',
     )
     series = load_series(root, tool_type)
@@ -336,6 +346,16 @@ def test_drill_and_endmill_workflows(
                 'TOOL_RADIAL_DEPTH'
             ]
             == 0
+        )
+    if tool_type == 'countersink':
+        assert parameter.get('Value') == '4.0'
+        angle = root_xml.find('.//MfgParam[@Name="POINT_ANGLE"]')
+        assert angle is not None and angle.get('Value') == '90'
+        assert (
+            tools[0].tool_data['cut_data']['iso_P']['roughing'][
+                'TOOL_FEED_PER_UNIT'
+            ]
+            == 0.05655
         )
 
 

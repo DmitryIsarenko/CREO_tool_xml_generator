@@ -2,11 +2,12 @@
 
 ## Что готово
 
-Новый сценарий поддерживает двенадцать типов со стандартными сборками:
+Новый сценарий поддерживает тринадцать типов со стандартными сборками:
 
 | Код `--type` | Тип |
 | --- | --- |
 | `ballmill` | Сферическая фреза |
+| `centerdrill` | Центровка |
 | `counterbore` | Цековка |
 | `countersink` | Зенковка |
 | `drill` | Обычное спиральное сверло |
@@ -105,6 +106,18 @@ teeth = 2
 ```text
 diameter_mm;flute_length_mm;length_mm;order_no
 ```
+
+Для `centerdrill` задаются оба диаметра, длина сверления и два угла:
+
+```text
+drill_diameter_mm;cutter_diameter_mm;flute_length_mm;length_mm;order_no;point_angle_deg;countersink_angle_deg;drill_length_mm
+```
+
+`drill_diameter_mm` — диаметр сверления. Он используется для режимов
+резания и должен быть меньше `cutter_diameter_mm`. `cutter_diameter_mm` —
+наружный диаметр центровки. `point_angle_deg` и
+`countersink_angle_deg` должны быть больше 0 и меньше 180°. Длина
+`drill_length_mm` должна быть меньше `flute_length_mm`.
 
 | Столбец | Значение |
 | --- | --- |

@@ -10,6 +10,7 @@ import pytest
 
 from src.tool_updater.classes.tool_classes.milling.sphere_mill import BallMill
 from src.tool_updater.series import (
+    CENTERDRILL_GEOMETRY_COLUMNS,
     CHAMFERMILL_GEOMETRY_COLUMNS,
     COUNTERBORE_GEOMETRY_COLUMNS,
     COUNTERSINK_GEOMETRY_COLUMNS,
@@ -347,6 +348,12 @@ def test_default_settings_preserve_legacy_calculations(
             'SIDE_ANGLE',
         ),
         (
+            'centerdrill',
+            CENTERDRILL_GEOMETRY_COLUMNS,
+            '2;6;15;50;CENTER & TEST;118;60;3',
+            'DRILL_DIAMETER',
+        ),
+        (
             'threadmill',
             THREADMILL_GEOMETRY_COLUMNS,
             '10;20;60;THREAD & TEST;1.5',
@@ -436,6 +443,18 @@ def test_drill_and_endmill_workflows(
         assert parameter.get('Value') == '45.0'
         shank = root_xml.find('.//MfgParam[@Name="SHANK_DIAM"]')
         assert shank is not None and shank.get('Value') == '10.0'
+    if tool_type == 'centerdrill':
+        assert parameter.get('Value') == '2.0'
+        cutter = root_xml.find('.//MfgParam[@Name="CUTTER_DIAM"]')
+        assert cutter is not None and cutter.get('Value') == '6.0'
+        angle = root_xml.find('.//MfgParam[@Name="CSINK_ANGLE"]')
+        assert angle is not None and angle.get('Value') == '60.0'
+        assert (
+            tools[0].tool_data['cut_data']['iso_P']['roughing'][
+                'TOOL_FEED_PER_UNIT'
+            ]
+            == 0.01131
+        )
     if tool_type == 'threadmill':
         assert parameter.get('Value') == '0.0015'
         insert = root_xml.find('.//MfgParam[@Name="INSERT_LENGTH"]')

@@ -11,6 +11,7 @@ import tomllib
 from xml.etree import ElementTree
 from xml.sax.saxutils import escape
 
+from src.tool_updater.classes.tool_classes.axial.centerdrill import CenterDrill
 from src.tool_updater.classes.tool_classes.axial.counterbore import CounterBore
 from src.tool_updater.classes.tool_classes.axial.countersink import CounterSink
 from src.tool_updater.classes.tool_classes.axial.drill import Drill
@@ -40,6 +41,7 @@ SERIES_DIR = PROJECT_DIR / 'catalogs'
 SETTINGS_FILE = PROJECT_DIR / 'settings' / 'machining.toml'
 SETTINGS_FILES = {
     'ballmill': SETTINGS_FILE,
+    'centerdrill': PROJECT_DIR / 'settings' / 'centerdrill.toml',
     'counterbore': PROJECT_DIR / 'settings' / 'counterbore.toml',
     'drill': PROJECT_DIR / 'settings' / 'drill.toml',
     'endmill': PROJECT_DIR / 'settings' / 'endmill.toml',
@@ -56,6 +58,16 @@ SERIES_TYPES = tuple(SETTINGS_FILES)
 MATERIALS = ('iso_P', 'iso_M', 'iso_K', 'iso_N', 'iso_S', 'iso_H')
 GEOMETRY_COLUMNS = ('diameter_mm', 'flute_length_mm', 'length_mm', 'order_no')
 DRILL_GEOMETRY_COLUMNS = (*GEOMETRY_COLUMNS, 'point_angle_deg')
+CENTERDRILL_GEOMETRY_COLUMNS = (
+    'drill_diameter_mm',
+    'cutter_diameter_mm',
+    'flute_length_mm',
+    'length_mm',
+    'order_no',
+    'point_angle_deg',
+    'countersink_angle_deg',
+    'drill_length_mm',
+)
 COUNTERSINK_GEOMETRY_COLUMNS = (
     *GEOMETRY_COLUMNS,
     'point_diameter_mm',
@@ -283,6 +295,7 @@ def read_catalogs(series: Series) -> tuple[Catalog, Catalog]:
     geometry_path = series.directory / 'geometry.csv'
     geometry_columns = {
         'chamfermill': CHAMFERMILL_GEOMETRY_COLUMNS,
+        'centerdrill': CENTERDRILL_GEOMETRY_COLUMNS,
         'counterbore': COUNTERBORE_GEOMETRY_COLUMNS,
         'drill': DRILL_GEOMETRY_COLUMNS,
         'countersink': COUNTERSINK_GEOMETRY_COLUMNS,
@@ -298,6 +311,7 @@ def read_catalogs(series: Series) -> tuple[Catalog, Catalog]:
         location = f'{geometry_path}, строка {line}'
         diameter_column = {
             'chamfermill': 'tip_diameter_mm',
+            'centerdrill': 'drill_diameter_mm',
             'internalradiusmill': 'cutter_diameter_mm',
         }.get(series.tool_type, 'diameter_mm')
         diameter = _diameter(
@@ -330,7 +344,43 @@ def read_catalogs(series: Series) -> tuple[Catalog, Catalog]:
             'full_body_diam': float(diameter),
             'order_no': row['order_no'],
         }
-        if series.tool_type == 'drill':
+        if series.tool_type == 'centerdrill':
+            drill_diameter = _positive(
+                row['drill_diameter_mm'],
+                f'{location}, drill_diameter_mm',
+            )
+            cutter_diameter = _positive(
+                row['cutter_diameter_mm'],
+                f'{location}, cutter_diameter_mm',
+            )
+            if drill_diameter >= cutter_diameter:
+                raise ValueError(
+                    f'{location}, drill_diameter_mm: диаметр должен быть '
+                    'меньше диаметра фрезерования.'
+                )
+            point_angle = _positive(
+                row['point_angle_deg'], f'{location}, point_angle_deg'
+            )
+            countersink_angle = _positive(
+                row['countersink_angle_deg'],
+                f'{location}, countersink_angle_deg',
+            )
+            if point_angle >= 180 or countersink_angle >= 180:
+                raise ValueError(f'{location}: углы должны быть меньше 180.')
+            drill_length = _positive(
+                row['drill_length_mm'], f'{location}, drill_length_mm'
+            )
+            if drill_length >= record['flute_len']:
+                raise ValueError(
+                    f'{location}, drill_length_mm: длина должна быть '
+                    'меньше длины канавки.'
+                )
+            record['drill_diameter'] = drill_diameter
+            record['cutter_diam'] = cutter_diameter
+            record['point_angle'] = int(point_angle)
+            record['csink_angle'] = countersink_angle
+            record['drill_length'] = drill_length
+        elif series.tool_type == 'drill':
             point_angle = _positive(
                 row['point_angle_deg'], f'{location}, point_angle_deg'
             )
@@ -492,6 +542,7 @@ def read_catalogs(series: Series) -> tuple[Catalog, Catalog]:
                 f'{location}: feed_kind должен быть F, Fz или Fn.'
             )
         if series.tool_type in {
+            'centerdrill',
             'counterbore',
             'drill',
             'countersink',
@@ -565,6 +616,42 @@ class SeriesBallMill(BallMill):
 
 class SeriesDrill(Drill):
     """Build a user-managed drill."""
+
+    def __init__(
+        self,
+        series: Series,
+        geometry: Catalog,
+        cutting: Catalog,
+        diameter: str,
+        machining: Machining,
+    ) -> None:
+        self.finishing_roughing_options = machining.modes
+        self.axial_depth_modifiyers = machining.axial
+        self.radial_depth_modifiyers = machining.radial
+        super().__init__(
+            tool_size_from_geom_catalogue=diameter,
+            catalog_tool_cut_data=cutting,
+            catalog_tool_geometry=geometry,
+            teeth_num=series.teeth,
+            file_name_prefix=f'{series.identifier}_',
+            file_name_suffix='',
+            debug_mode=0,
+        )
+
+    def get_tool_comment(self) -> str:
+        """Escape a user comment before legacy XML interpolation."""
+        return escape(super().get_tool_comment(), {'"': '&quot;'})
+
+    def create_tool_name_for_xml(self) -> str:
+        """Keep identifiers unique without legacy decimal normalization."""
+        return (
+            f'{self.tool_data["file_name_prefix"].upper()}'
+            f'D{self.tool_data["tool_name_str"].replace(".", "-")}'
+        )
+
+
+class SeriesCenterDrill(CenterDrill):
+    """Build a user-managed center drill."""
 
     def __init__(
         self,
@@ -1012,6 +1099,7 @@ ToolFactory = Callable[[Series, Catalog, Catalog, str, Machining], BaseTool]
 
 TOOL_CLASSES: dict[str, ToolFactory] = {
     'ballmill': SeriesBallMill,
+    'centerdrill': SeriesCenterDrill,
     'counterbore': SeriesCounterBore,
     'countersink': SeriesCounterSink,
     'drill': SeriesDrill,
@@ -1095,6 +1183,7 @@ def create_series(
             'geometry.csv',
             {
                 'counterbore': COUNTERBORE_GEOMETRY_COLUMNS,
+                'centerdrill': CENTERDRILL_GEOMETRY_COLUMNS,
                 'drill': DRILL_GEOMETRY_COLUMNS,
                 'countersink': COUNTERSINK_GEOMETRY_COLUMNS,
                 'reamer': REAMER_GEOMETRY_COLUMNS,

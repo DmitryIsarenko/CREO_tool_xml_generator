@@ -22,12 +22,12 @@ class CenterDrill(BaseTool):
     tool_type = 'CENTER-DRILLING'
     finishing_roughing_options = {
         'roughing': {
-            'vc_modifier': 1,  # Множитель для подачи (и на зуб, и на оборот)
-            'feed_rate_multiplier': 0.6,  # Множитель для скорости резания
+            'vc_modifier': 1,
+            'feed_rate_multiplier': 1,
         },
         'finishing': {
             'vc_modifier': 1,
-            'feed_rate_multiplier': 0.6,
+            'feed_rate_multiplier': 1,
         },
     }
 
@@ -220,25 +220,18 @@ class CenterDrill(BaseTool):
         Fn = self.catalog_cut_data[key_iso_material][config.key_fn][
             self.tool_data['cut_data_diam_group']
         ]
-        feed_multiplier = self.finishing_roughing_options[fin_or_rough][
-            'feed_rate_multiplier'
-        ]
-        Fn = Fn * RPM * feed_multiplier
+        Fn = Fn * RPM
         return cast(float, round(Fn, ndigits=config.NDIGITS_FEED))
 
     def calc_feed_per_unit(
         self, key_iso_material: str, fin_or_rough: str
     ) -> float:
         """Calculate feed per unit."""
-        feed_multiplier = self.finishing_roughing_options[fin_or_rough][
-            'feed_rate_multiplier'
-        ]
         Fn = self.catalog_cut_data[key_iso_material][config.key_fn][
             self.tool_data['cut_data_diam_group']
         ]
         # RPM = self.tool_data["cut_data"][key_iso_material][fin_or_rough]["TOO
         # L_SPINDLE_RPM"]
-        Fn = Fn * feed_multiplier
         return cast(float, round(Fn, ndigits=config.NDIGITS_FEED_PER_UNIT))
 
     def calc_radial_depth(self, key_iso_material: str) -> float:

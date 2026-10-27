@@ -2,7 +2,7 @@
 
 ## Что готово
 
-Новый сценарий поддерживает одиннадцать типов со стандартными сборками:
+Новый сценарий поддерживает двенадцать типов со стандартными сборками:
 
 | Код `--type` | Тип |
 | --- | --- |
@@ -17,6 +17,7 @@
 | `toroidmill` | Тороидальная фреза |
 | `chamfermill` | Угловая фасочная фреза |
 | `threadmill` | Резьбовая фреза |
+| `internalradiusmill` | Фреза внутреннего радиуса |
 
 Токарно-фрезерные оправки и другие типы пока доступны только через прежние
 задания. Они не перенесены в CSV.
@@ -186,6 +187,16 @@ diameter_mm;flute_length_mm;length_mm;order_no;thread_pitch_mm
 Расчёт класса использует подачу на зуб: значения `F` и `Fn` из
 `cutting.csv` автоматически приводятся к `Fz`.
 
+Для `internalradiusmill` используется отдельная схема:
+
+```text
+cutter_diameter_mm;shank_diameter_mm;length_mm;order_no;corner_radius_mm
+```
+
+`cutter_diameter_mm` — диаметр режущей части, `shank_diameter_mm` —
+диаметр хвостовика. `corner_radius_mm` задаёт радиус и расчётную длину
+режущей части. Режимы приводятся к подаче на зуб (`Fz`).
+
 | Дополнительный столбец | Значение |
 | --- | --- |
 | `point_angle_deg` | Угол при вершине сверла в градусах, больше 0 и меньше 180 |
@@ -289,6 +300,7 @@ uv run python -m src.tool_updater generate --series my_tool --overwrite
 | `toroidmill` | `settings/toroidmill.toml` |
 | `chamfermill` | `settings/chamfermill.toml` |
 | `threadmill` | `settings/threadmill.toml` |
+| `internalradiusmill` | `settings/internalradiusmill.toml` |
 
 | Раздел/параметр | Что изменяет |
 | --- | --- |
@@ -324,7 +336,7 @@ uv run python -m src.tool_updater generate --series my_tool --overwrite
 | --- | --- | --- |
 | `--help` | Везде | Справка; например `generate --help` |
 | `--series NAME` | `init`, `check`, `show`, `generate` | Имя папки серии |
-| `--type TYPE` | `init` | `ballmill`, `chamfermill`, `counterbore`, `countersink`, `drill`, `endmill`, `reamer`, `tap_blind`, `tap_through`, `threadmill` или `toroidmill` |
+| `--type TYPE` | `init` | `ballmill`, `chamfermill`, `counterbore`, `countersink`, `drill`, `endmill`, `internalradiusmill`, `reamer`, `tap_blind`, `tap_through`, `threadmill` или `toroidmill` |
 | `--settings PATH` | `check`, `show`, `generate` | Другой файл множителей |
 | `--output PATH` | `generate` | Итоговая папка, без автоматической подпапки серии |
 | `--overwrite` | `generate` | Разрешить замену одноимённых XML |

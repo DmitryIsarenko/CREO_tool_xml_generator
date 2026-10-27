@@ -29,6 +29,9 @@ from src.tool_updater.classes.tool_classes.milling.threadmill import ThreadMill
 from src.tool_updater.classes.tool_classes.milling.toroid_mill import (
     ToroidMill,
 )
+from src.tool_updater.classes.tool_classes.milling.vnutr_rad_mill import (
+    VnutrRadMill,
+)
 from src.tool_updater.config import PROJECT_DIR
 from src.tool_updater.data_types import Catalog
 
@@ -46,6 +49,7 @@ SETTINGS_FILES = {
     'toroidmill': PROJECT_DIR / 'settings' / 'toroidmill.toml',
     'chamfermill': PROJECT_DIR / 'settings' / 'chamfermill.toml',
     'threadmill': PROJECT_DIR / 'settings' / 'threadmill.toml',
+    'internalradiusmill': PROJECT_DIR / 'settings' / 'internalradiusmill.toml',
     'countersink': PROJECT_DIR / 'settings' / 'countersink.toml',
 }
 SERIES_TYPES = tuple(SETTINGS_FILES)
@@ -84,6 +88,13 @@ CHAMFERMILL_GEOMETRY_COLUMNS = (
     'angle_deg',
 )
 THREADMILL_GEOMETRY_COLUMNS = (*GEOMETRY_COLUMNS, 'thread_pitch_mm')
+INTERNAL_RADIUS_MILL_GEOMETRY_COLUMNS = (
+    'cutter_diameter_mm',
+    'shank_diameter_mm',
+    'length_mm',
+    'order_no',
+    'corner_radius_mm',
+)
 CUTTING_COLUMNS = (
     'material',
     'diameter_mm',
@@ -280,15 +291,15 @@ def read_catalogs(series: Series) -> tuple[Catalog, Catalog]:
         'tap_through': TAP_GEOMETRY_COLUMNS,
         'toroidmill': TOROIDMILL_GEOMETRY_COLUMNS,
         'threadmill': THREADMILL_GEOMETRY_COLUMNS,
+        'internalradiusmill': INTERNAL_RADIUS_MILL_GEOMETRY_COLUMNS,
     }
     columns = geometry_columns.get(series.tool_type, GEOMETRY_COLUMNS)
     for line, row in _rows(geometry_path, columns):
         location = f'{geometry_path}, строка {line}'
-        diameter_column = (
-            'tip_diameter_mm'
-            if series.tool_type == 'chamfermill'
-            else 'diameter_mm'
-        )
+        diameter_column = {
+            'chamfermill': 'tip_diameter_mm',
+            'internalradiusmill': 'cutter_diameter_mm',
+        }.get(series.tool_type, 'diameter_mm')
         diameter = _diameter(
             row[diameter_column], f'{location}, {diameter_column}'
         )
@@ -296,12 +307,17 @@ def read_catalogs(series: Series) -> tuple[Catalog, Catalog]:
             raise ValueError(
                 f'{location}: диаметр {diameter} указан повторно.'
             )
-        flute_column = (
-            'cut_length_mm'
-            if series.tool_type == 'chamfermill'
-            else 'flute_length_mm'
-        )
-        flute = _positive(row[flute_column], f'{location}, {flute_column}')
+        if series.tool_type == 'internalradiusmill':
+            flute = _positive(
+                row['corner_radius_mm'], f'{location}, corner_radius_mm'
+            )
+        else:
+            flute_column = (
+                'cut_length_mm'
+                if series.tool_type == 'chamfermill'
+                else 'flute_length_mm'
+            )
+            flute = _positive(row[flute_column], f'{location}, {flute_column}')
         length = _positive(row['length_mm'], f'{location}, length_mm')
         if flute >= length:
             raise ValueError(
@@ -436,6 +452,17 @@ def read_catalogs(series: Series) -> tuple[Catalog, Catalog]:
                 row['thread_pitch_mm'], f'{location}, thread_pitch_mm'
             )
             record['feathers_num'] = series.teeth
+        elif series.tool_type == 'internalradiusmill':
+            corner_radius = _positive(
+                row['corner_radius_mm'], f'{location}, corner_radius_mm'
+            )
+            shank_diameter = _positive(
+                row['shank_diameter_mm'], f'{location}, shank_diameter_mm'
+            )
+            record['cutter_diam'] = float(diameter)
+            record['shank_diam'] = shank_diameter
+            record['corner_radius'] = corner_radius
+            record['tip_length'] = 0.0
         geometry[diameter] = record
 
     # Each diameter has its own Vc; legacy BallMill expects one Vc per catalog.
@@ -477,7 +504,7 @@ def read_catalogs(series: Series) -> tuple[Catalog, Catalog]:
             elif kind == 'Fz':
                 feed *= series.teeth
             values[material] = {'Vc': speed, 'Fn': {diameter: feed}}
-        elif series.tool_type == 'threadmill':
+        elif series.tool_type in {'internalradiusmill', 'threadmill'}:
             if kind == 'F':
                 feed /= rpm * series.teeth
             elif kind == 'Fn':
@@ -900,6 +927,50 @@ class SeriesThreadMill(ThreadMill):
         )
 
 
+class SeriesInternalRadiusMill(VnutrRadMill):
+    """Build a user-managed internal-radius mill."""
+
+    def __init__(
+        self,
+        series: Series,
+        geometry: Catalog,
+        cutting: Catalog,
+        diameter: str,
+        machining: Machining,
+    ) -> None:
+        self.finishing_roughing_options = machining.modes
+        self.axial_depth_modifiyers = machining.axial
+        self.radial_depth_modifiyers = machining.radial
+        super().__init__(
+            tool_size_from_geom_catalogue=diameter,
+            catalog_tool_cut_data=cutting,
+            catalog_tool_geometry=geometry,
+            teeth_num=series.teeth,
+            file_name_prefix=f'{series.identifier}_',
+            file_name_suffix='',
+            debug_mode=0,
+        )
+
+    def get_tool_diam_float(self) -> float:
+        """Return the cutter diameter from the CSV geometry row."""
+        return self.get_cutter_diam()
+
+    def get_tool_flute_length(self) -> float:
+        """Return the effective cutting length from the corner radius."""
+        return self.get_cut_length()
+
+    def get_tool_comment(self) -> str:
+        """Escape a user comment before legacy XML interpolation."""
+        return escape(super().get_tool_comment(), {'"': '&quot;'})
+
+    def create_tool_name_for_xml(self) -> str:
+        """Keep identifiers unique without legacy decimal normalization."""
+        return (
+            f'{self.tool_data["file_name_prefix"].upper()}'
+            f'D{self.tool_data["tool_name_str"].replace(".", "-")}'
+        )
+
+
 class SeriesEndMill(EndMill):
     """Build a user-managed end mill."""
 
@@ -951,6 +1022,7 @@ TOOL_CLASSES: dict[str, ToolFactory] = {
     'toroidmill': SeriesToroidMill,
     'chamfermill': SeriesChamferMill,
     'threadmill': SeriesThreadMill,
+    'internalradiusmill': SeriesInternalRadiusMill,
 }
 
 
@@ -1031,6 +1103,7 @@ def create_series(
                 'toroidmill': TOROIDMILL_GEOMETRY_COLUMNS,
                 'chamfermill': CHAMFERMILL_GEOMETRY_COLUMNS,
                 'threadmill': THREADMILL_GEOMETRY_COLUMNS,
+                'internalradiusmill': INTERNAL_RADIUS_MILL_GEOMETRY_COLUMNS,
             }.get(tool_type, GEOMETRY_COLUMNS),
         ),
         ('cutting.csv', CUTTING_COLUMNS),

@@ -24,6 +24,7 @@
 (`tap_through`) отверстий и тороидальную фрезу (`toroidmill`).
 Также поддерживается угловая фасочная фреза (`chamfermill`).
 Поддерживается и резьбовая фреза (`threadmill`).
+Поддерживается фреза внутреннего радиуса (`internalradiusmill`).
 Он не заменяет прежние задания для остальных типов и оправок.
 
 ```bash
@@ -48,7 +49,8 @@ uv run python -m src.tool_updater generate --series my_drill
 `settings/endmill.toml`, `settings/reamer.toml`, `settings/tap.toml`,
 `settings/toroidmill.toml` и `settings/chamfermill.toml`. Эти файлы
 действуют только в новом сценарии. Для резьбовой фрезы используется
-`settings/threadmill.toml`.
+`settings/threadmill.toml`, для фрезы внутреннего радиуса —
+`settings/internalradiusmill.toml`.
 Все пути считаются от корня проекта. Извлечения данных из PDF нет:
 таблицы нужно привести к столбцам CSV из инструкции.
 

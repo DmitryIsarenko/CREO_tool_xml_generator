@@ -18,6 +18,7 @@ from src.tool_updater.series import (
     MATERIALS,
     REAMER_GEOMETRY_COLUMNS,
     SETTINGS_FILE,
+    TAP_GEOMETRY_COLUMNS,
     create_series,
     load_machining,
     load_series,
@@ -317,6 +318,18 @@ def test_default_settings_preserve_legacy_calculations(
             '10;20;60;REAMER & TEST;50;0.5',
             'CORNER_CHAMFER',
         ),
+        (
+            'tap_blind',
+            TAP_GEOMETRY_COLUMNS,
+            '10;20;60;TAP BLIND & TEST;8.5;3;1.5',
+            'CHAMFER_LENGTH',
+        ),
+        (
+            'tap_through',
+            TAP_GEOMETRY_COLUMNS,
+            '10;20;60;TAP THROUGH & TEST;8.5;1.5;1.5',
+            'CHAMFER_LENGTH',
+        ),
     ],
 )
 def test_drill_and_endmill_workflows(
@@ -379,6 +392,16 @@ def test_drill_and_endmill_workflows(
     if tool_type == 'reamer':
         assert parameter.get('Value') == '0.5'
         assert tools[0].tool_data['len_out_of_holder'] == 50
+    if tool_type.startswith('tap_'):
+        assert parameter.get('Value') in {'1.5', '3.0'}
+        point = root_xml.find('.//MfgParam[@Name="POINT_DIAMETER"]')
+        assert point is not None and point.get('Value') == '8.5'
+        assembly = root_xml.find('.//ModelInfo')
+        assert assembly is not None
+        expected = (
+            'TAP_BLIND_ASM' if tool_type == 'tap_blind' else 'TAP_THROUGH_ASM'
+        )
+        assert assembly.get('FamilyName') == expected
 
 
 def series_settings(tool_type: str) -> Path:

@@ -15,6 +15,10 @@ from src.tool_updater.classes.tool_classes.axial.counterbore import CounterBore
 from src.tool_updater.classes.tool_classes.axial.countersink import CounterSink
 from src.tool_updater.classes.tool_classes.axial.drill import Drill
 from src.tool_updater.classes.tool_classes.axial.reamer import Reamer
+from src.tool_updater.classes.tool_classes.axial.tap import (
+    TapBlind,
+    TapThrough,
+)
 from src.tool_updater.classes.tool_classes.base_tool import BaseTool
 from src.tool_updater.classes.tool_classes.milling.endmill import EndMill
 from src.tool_updater.classes.tool_classes.milling.sphere_mill import BallMill
@@ -30,6 +34,8 @@ SETTINGS_FILES = {
     'drill': PROJECT_DIR / 'settings' / 'drill.toml',
     'endmill': PROJECT_DIR / 'settings' / 'endmill.toml',
     'reamer': PROJECT_DIR / 'settings' / 'reamer.toml',
+    'tap_blind': PROJECT_DIR / 'settings' / 'tap.toml',
+    'tap_through': PROJECT_DIR / 'settings' / 'tap.toml',
     'countersink': PROJECT_DIR / 'settings' / 'countersink.toml',
 }
 SERIES_TYPES = tuple(SETTINGS_FILES)
@@ -51,6 +57,12 @@ REAMER_GEOMETRY_COLUMNS = (
     *GEOMETRY_COLUMNS,
     'length_out_of_holder_mm',
     'corner_chamfer_mm',
+)
+TAP_GEOMETRY_COLUMNS = (
+    *GEOMETRY_COLUMNS,
+    'point_diameter_mm',
+    'chamfer_length_mm',
+    'thread_pitch_mm',
 )
 CUTTING_COLUMNS = (
     'material',
@@ -243,6 +255,8 @@ def read_catalogs(series: Series) -> tuple[Catalog, Catalog]:
         'drill': DRILL_GEOMETRY_COLUMNS,
         'countersink': COUNTERSINK_GEOMETRY_COLUMNS,
         'reamer': REAMER_GEOMETRY_COLUMNS,
+        'tap_blind': TAP_GEOMETRY_COLUMNS,
+        'tap_through': TAP_GEOMETRY_COLUMNS,
     }
     columns = geometry_columns.get(series.tool_type, GEOMETRY_COLUMNS)
     for line, row in _rows(geometry_path, columns):
@@ -343,6 +357,24 @@ def read_catalogs(series: Series) -> tuple[Catalog, Catalog]:
                 f'{location}, corner_chamfer_mm',
             )
             record['teeth_num'] = series.teeth
+        elif series.tool_type in {'tap_blind', 'tap_through'}:
+            point_diameter = _positive(
+                row['point_diameter_mm'],
+                f'{location}, point_diameter_mm',
+            )
+            if point_diameter >= float(diameter):
+                raise ValueError(
+                    f'{location}, point_diameter_mm: диаметр должен быть '
+                    'меньше диаметра инструмента.'
+                )
+            record['tapping_hole_diam'] = point_diameter
+            record['chamfer_length'] = _positive(
+                row['chamfer_length_mm'],
+                f'{location}, chamfer_length_mm',
+            )
+            record['thread_pitch'] = _positive(
+                row['thread_pitch_mm'], f'{location}, thread_pitch_mm'
+            )
         geometry[diameter] = record
 
     # Each diameter has its own Vc; legacy BallMill expects one Vc per catalog.
@@ -376,6 +408,8 @@ def read_catalogs(series: Series) -> tuple[Catalog, Catalog]:
             'drill',
             'countersink',
             'reamer',
+            'tap_blind',
+            'tap_through',
         }:
             if kind == 'F':
                 feed /= rpm
@@ -593,6 +627,94 @@ class SeriesReamer(Reamer):
         )
 
 
+class SeriesTapBlind(TapBlind):
+    """Build a user-managed blind-hole tap."""
+
+    def __init__(
+        self,
+        series: Series,
+        geometry: Catalog,
+        cutting: Catalog,
+        diameter: str,
+        machining: Machining,
+    ) -> None:
+        self.finishing_roughing_options = machining.modes
+        self.axial_depth_modifiyers = machining.axial
+        self.radial_depth_modifiyers = machining.radial
+        super().__init__(
+            tool_size_from_geom_catalogue=diameter,
+            catalog_tool_cut_data=cutting,
+            catalog_tool_geometry=geometry,
+            teeth_num=series.teeth,
+            file_name_prefix=f'{series.identifier}_',
+            file_name_suffix='',
+            debug_mode=0,
+        )
+
+    def get_tool_comment(self) -> str:
+        """Escape a user comment before legacy XML interpolation."""
+        return escape(super().get_tool_comment(), {'"': '&quot;'})
+
+    def get_chamfer_length(self) -> float:
+        """Return the chamfer length entered in the CSV geometry row."""
+        return float(
+            self.catalog_tool_geometry[self.tool_size_from_geom_catalogue][
+                'chamfer_length'
+            ]
+        )
+
+    def create_tool_name_for_xml(self) -> str:
+        """Keep identifiers unique without legacy decimal normalization."""
+        return (
+            f'{self.tool_data["file_name_prefix"].upper()}'
+            f'D{self.tool_data["tool_name_str"].replace(".", "-")}'
+        )
+
+
+class SeriesTapThrough(TapThrough):
+    """Build a user-managed through-hole tap."""
+
+    def __init__(
+        self,
+        series: Series,
+        geometry: Catalog,
+        cutting: Catalog,
+        diameter: str,
+        machining: Machining,
+    ) -> None:
+        self.finishing_roughing_options = machining.modes
+        self.axial_depth_modifiyers = machining.axial
+        self.radial_depth_modifiyers = machining.radial
+        super().__init__(
+            tool_size_from_geom_catalogue=diameter,
+            catalog_tool_cut_data=cutting,
+            catalog_tool_geometry=geometry,
+            teeth_num=series.teeth,
+            file_name_prefix=f'{series.identifier}_',
+            file_name_suffix='',
+            debug_mode=0,
+        )
+
+    def get_tool_comment(self) -> str:
+        """Escape a user comment before legacy XML interpolation."""
+        return escape(super().get_tool_comment(), {'"': '&quot;'})
+
+    def get_chamfer_length(self) -> float:
+        """Return the chamfer length entered in the CSV geometry row."""
+        return float(
+            self.catalog_tool_geometry[self.tool_size_from_geom_catalogue][
+                'chamfer_length'
+            ]
+        )
+
+    def create_tool_name_for_xml(self) -> str:
+        """Keep identifiers unique without legacy decimal normalization."""
+        return (
+            f'{self.tool_data["file_name_prefix"].upper()}'
+            f'D{self.tool_data["tool_name_str"].replace(".", "-")}'
+        )
+
+
 class SeriesEndMill(EndMill):
     """Build a user-managed end mill."""
 
@@ -639,6 +761,8 @@ TOOL_CLASSES: dict[str, ToolFactory] = {
     'drill': SeriesDrill,
     'endmill': SeriesEndMill,
     'reamer': SeriesReamer,
+    'tap_blind': SeriesTapBlind,
+    'tap_through': SeriesTapThrough,
 }
 
 
@@ -659,10 +783,15 @@ def prepare_tools(series: Series, machining: Machining) -> list[BaseTool]:
             for material in tool.tool_data['cut_data'].values():
                 for parameters in material.values():
                     for name, value in parameters.items():
+                        allows_zero = name == 'TOOL_RADIAL_DEPTH' or (
+                            name == 'TOOL_AXIAL_DEPTH'
+                            and series.tool_type
+                            in {'tap_blind', 'tap_through'}
+                        )
                         if isinstance(value, (int, float)) and (
                             not isfinite(value)
                             or (value < 0)
-                            or (name != 'TOOL_RADIAL_DEPTH' and value == 0)
+                            or (not allows_zero and value == 0)
                         ):
                             raise ValueError(
                                 f'{name}: недопустимый результат {value}.'
@@ -709,6 +838,8 @@ def create_series(
                 'drill': DRILL_GEOMETRY_COLUMNS,
                 'countersink': COUNTERSINK_GEOMETRY_COLUMNS,
                 'reamer': REAMER_GEOMETRY_COLUMNS,
+                'tap_blind': TAP_GEOMETRY_COLUMNS,
+                'tap_through': TAP_GEOMETRY_COLUMNS,
             }.get(tool_type, GEOMETRY_COLUMNS),
         ),
         ('cutting.csv', CUTTING_COLUMNS),

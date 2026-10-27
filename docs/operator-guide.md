@@ -2,7 +2,7 @@
 
 ## Что готово
 
-Новый сценарий поддерживает шесть типов со стандартными сборками:
+Новый сценарий поддерживает восемь типов со стандартными сборками:
 
 | Код `--type` | Тип |
 | --- | --- |
@@ -12,6 +12,8 @@
 | `drill` | Обычное спиральное сверло |
 | `endmill` | Обычная концевая фреза |
 | `reamer` | Развёртка |
+| `tap_blind` | Метчик для глухого отверстия |
+| `tap_through` | Метчик для сквозного отверстия |
 
 Токарно-фрезерные оправки и другие типы пока доступны только через прежние
 задания. Они не перенесены в CSV.
@@ -141,6 +143,18 @@ diameter_mm;flute_length_mm;length_mm;order_no;length_out_of_holder_mm;corner_ch
 `length_out_of_holder_mm` — вылет развёртки, не больше `length_mm`.
 `corner_chamfer_mm` записывается в XML как фаска режущей части.
 
+Для `tap_blind` и `tap_through` используется одна схема:
+
+```text
+diameter_mm;flute_length_mm;length_mm;order_no;point_diameter_mm;chamfer_length_mm;thread_pitch_mm
+```
+
+`point_diameter_mm` — диаметр отверстия под резьбу, меньше диаметра
+метчика. `chamfer_length_mm` — длина заходной фаски. `thread_pitch_mm` —
+шаг резьбы: старый расчёт использует его как подачу на оборот. Выберите
+`tap_blind` или `tap_through` по виду отверстия: XML ссылается на разные
+сборки CREO.
+
 | Дополнительный столбец | Значение |
 | --- | --- |
 | `point_angle_deg` | Угол при вершине сверла в градусах, больше 0 и меньше 180 |
@@ -240,6 +254,7 @@ uv run python -m src.tool_updater generate --series my_tool --overwrite
 | `drill` | `settings/drill.toml` |
 | `endmill` | `settings/endmill.toml` |
 | `reamer` | `settings/reamer.toml` |
+| `tap_blind`, `tap_through` | `settings/tap.toml` |
 
 | Раздел/параметр | Что изменяет |
 | --- | --- |
@@ -256,6 +271,8 @@ uv run python -m src.tool_updater generate --series my_tool --overwrite
 из PDF в этом этапе не загружаются: они рассчитываются из диаметра.
 Для `counterbore`, `drill`, `countersink` и `reamer` старый расчёт всегда
 задаёт `Ae = 0`.
+Для `tap_blind` и `tap_through` старый класс также задаёт `Ap = 0`; это
+сохранённое legacy-поведение, а не технологическая рекомендация.
 Сохранено прежнее поведение при ограничении 18000 об/мин: уменьшаются
 скорость, подача и глубины. Дополнительные материалы (пластики, латунь)
 по-прежнему вычисляются из ISO-групп. Эти правила и сборки пока находятся
@@ -273,7 +290,7 @@ uv run python -m src.tool_updater generate --series my_tool --overwrite
 | --- | --- | --- |
 | `--help` | Везде | Справка; например `generate --help` |
 | `--series NAME` | `init`, `check`, `show`, `generate` | Имя папки серии |
-| `--type TYPE` | `init` | `ballmill`, `counterbore`, `countersink`, `drill`, `endmill` или `reamer` |
+| `--type TYPE` | `init` | `ballmill`, `counterbore`, `countersink`, `drill`, `endmill`, `reamer`, `tap_blind` или `tap_through` |
 | `--settings PATH` | `check`, `show`, `generate` | Другой файл множителей |
 | `--output PATH` | `generate` | Итоговая папка, без автоматической подпапки серии |
 | `--overwrite` | `generate` | Разрешить замену одноимённых XML |

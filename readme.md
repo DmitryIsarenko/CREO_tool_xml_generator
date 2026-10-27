@@ -17,14 +17,21 @@
 В текущей рабочей копии полный путь:
 `d:/PROJ/CREO_tool_xml_generator/docs/operator-guide.md`.
 
-Новый сценарий поддерживает сферическую фрезу (`ballmill`), цековку
-(`counterbore`), зенковку (`countersink`), обычное сверло (`drill`) и
-обычную концевую фрезу (`endmill`) и развёртку (`reamer`) со стандартными
-сборками, а также метчики для глухих (`tap_blind`) и сквозных
-(`tap_through`) отверстий и тороидальную фрезу (`toroidmill`).
-Также поддерживается угловая фасочная фреза (`chamfermill`).
-Поддерживается и резьбовая фреза (`threadmill`).
-Поддерживается фреза внутреннего радиуса (`internalradiusmill`).
+Новый сценарий поддерживает следующие типы со стандартными сборками:
+
+- сферическая фреза (`ballmill`);
+- цековка (`counterbore`);
+- зенковка (`countersink`);
+- обычное сверло (`drill`);
+- обычная концевая фреза (`endmill`);
+- развёртка (`reamer`);
+- метчик для глухих отверстий (`tap_blind`);
+- метчик для сквозных отверстий (`tap_through`);
+- тороидальная фреза (`toroidmill`);
+- угловая фасочная фреза (`chamfermill`);
+- резьбовая фреза (`threadmill`);
+- фреза внутреннего радиуса (`internalradiusmill`).
+
 Он не заменяет прежние задания для остальных типов и оправок.
 
 ```bash
@@ -34,8 +41,14 @@ uv run python -m src.tool_updater list
 uv run python -m src.tool_updater init --series my_drill --type drill
 ```
 
-Заполните созданные файлы в `catalogs/my_drill/`: `series.toml`,
-`geometry.csv`, `cutting.csv`, `source.txt`. Затем:
+Заполните созданные файлы в `catalogs/my_drill/`:
+
+- `series.toml`;
+- `geometry.csv`;
+- `cutting.csv`;
+- `source.txt`.
+
+Затем:
 
 ```bash
 uv run python -m src.tool_updater check --series my_drill
@@ -43,14 +56,23 @@ uv run python -m src.tool_updater show --series my_drill
 uv run python -m src.tool_updater generate --series my_drill
 ```
 
-Результат: `generated_xmls/series/my_drill/`. Настройки лежат в
-`settings/machining.toml`, `settings/counterbore.toml`,
-`settings/countersink.toml`, `settings/drill.toml` и
-`settings/endmill.toml`, `settings/reamer.toml`, `settings/tap.toml`,
-`settings/toroidmill.toml` и `settings/chamfermill.toml`. Эти файлы
-действуют только в новом сценарии. Для резьбовой фрезы используется
-`settings/threadmill.toml`, для фрезы внутреннего радиуса —
-`settings/internalradiusmill.toml`.
+Результат: `generated_xmls/series/my_drill/`.
+
+Настройки нового сценария:
+
+- `settings/machining.toml`;
+- `settings/counterbore.toml`;
+- `settings/countersink.toml`;
+- `settings/drill.toml`;
+- `settings/endmill.toml`;
+- `settings/reamer.toml`;
+- `settings/tap.toml`;
+- `settings/toroidmill.toml`;
+- `settings/chamfermill.toml`;
+- `settings/threadmill.toml`;
+- `settings/internalradiusmill.toml`.
+
+Эти файлы действуют только в новом сценарии.
 Все пути считаются от корня проекта. Извлечения данных из PDF нет:
 таблицы нужно привести к столбцам CSV из инструкции.
 
@@ -112,8 +134,13 @@ XML и разбирает его XML-парсером. Затем перенос
 ## Окружение и проверки
 
 uv использует локальное окружение `.venv`; его не нужно добавлять в Git.
-Версия Python указана в `.python-version`, зависимости — в
-`pyproject.toml`, разрешённые версии — в `uv.lock`.
+
+Файлы окружения:
+
+- `.python-version` содержит версию Python;
+- `pyproject.toml` содержит зависимости;
+- `uv.lock` содержит разрешённые версии.
+
 Сборка и установка самого проекта отключены: запуск остаётся модульным.
 Команды `python -m ...` ниже можно запускать как `uv run python -m ...`.
 
@@ -129,17 +156,30 @@ uv run pytest
 используйте `uv run ruff format путь_к_файлу`.
 
 Весь Python-код проходит Ruff check и Ruff format.
-При уборке проверено совпадение 565 заданий, данных и XML для первого
-типоразмера каждого задания; существующие ошибки данных также совпали.
+
+При уборке для первого типоразмера каждого задания проверено совпадение:
+
+- 565 заданий;
+- данных;
+- XML;
+- существующих ошибок данных.
+
 Полная производственная генерация не выполнялась.
 Весь исходный код также проходит настроенные строгие проверки mypy.
 Общие параметры инструмента, коэффициенты материалов и оправки описаны
 типами. Разные форматы старых JSON-каталогов пока остаются динамической
 границей (`Catalog`); аннотации и `cast` не заменяют проверку схем данных.
 В `tests/test_basics.py` есть компактный набор из 14 проверок:
-расчёты demo-инструмента, ограничения длин, создание XML и overwrite,
-контекст ошибок каталога, безопасное копирование, CLI и 37 групп /
-565 заданий. Запись в тестах идёт только во временные каталоги pytest.
+
+- расчётов demo-инструмента;
+- ограничений длин;
+- создания XML и overwrite;
+- контекста ошибок каталога;
+- безопасного копирования;
+- CLI;
+- 37 групп и 565 заданий.
+
+Запись в тестах идёт только во временные каталоги pytest.
 Для проверки типов тестов вместе с исходным кодом:
 `uv run mypy src tests`.
 Тесты не подтверждают режимы обработки и импорт XML в CREO.
@@ -213,9 +253,16 @@ OUTPUT_DIR = PROJECT_DIR / 'generated_xmls'
    `src/tool_updater/catalogs/`.
    Существующие подпапки разделены по типу, производителю и серии.
    Среди файлов есть черновики и шаблоны, не все из них — корректный JSON.
-5. В подходящем модуле `src/tool_updater/jobs/` добавьте
-   `GenerationJob`: класс инструмента, оба входных пути, выходной путь,
-   число зубьев, префикс и суффикс имени. Для XML — `debug_mode=0`.
+5. В подходящем модуле `src/tool_updater/jobs/` добавьте `GenerationJob`
+   со следующими параметрами:
+
+   - класс инструмента;
+   - оба входных пути;
+   - выходной путь;
+   - число зубьев;
+   - префикс и суффикс имени;
+   - `debug_mode=0` для XML.
+
    Собирайте входные пути через `CATALOGS_DIR / 'подпапка' / 'файл.json'`,
    выходные — через `OUTPUT_DIR / 'подпапка'`. Не склеивайте разделители
    вручную. Генератор принимает `Path` и строки; JSON читается как UTF-8.
@@ -239,9 +286,17 @@ OUTPUT_DIR = PROJECT_DIR / 'generated_xmls'
    python -m src.tool_updater.main --group ballmills
    ```
 
-9. Проверьте файлы и журнал. Затем проверьте импорт в CREO, геометрию,
-   сборки, единицы измерения и режимы резания. Проверку должен выполнять
-   специалист до применения результата на станке.
+9. Проверьте:
+
+   - файлы;
+   - журнал;
+   - импорт в CREO;
+   - геометрию;
+   - сборки;
+   - единицы измерения;
+   - режимы резания.
+
+   Проверку должен выполнять специалист до применения результата на станке.
 
 Производственный запуск со всеми сериями в текущей проверке не выполнялся.
 В отличие от demo, он не проверяет созданные XML автоматически.
@@ -296,9 +351,20 @@ OUTPUT_DIR = PROJECT_DIR / 'generated_xmls'
 python -m src.tool_updater.classes.tool_renamer generated_xmls/demo generated_xmls/renamed
 ```
 
-Для записи добавьте `--write`. Доступны `--prefix`, `--suffix`
-(по умолчанию `_B`), `--register` (по умолчанию `2`) и `--overwrite`.
-Изменяются имя файла, атрибуты `Tool Id` и все атрибуты `Register`.
+Для записи добавьте `--write`.
+
+Доступны параметры:
+
+- `--prefix`;
+- `--suffix` (по умолчанию `_B`);
+- `--register` (по умолчанию `2`);
+- `--overwrite`.
+
+Изменяются:
+
+- имя файла;
+- атрибуты `Tool Id`;
+- все атрибуты `Register`.
 Имена с несколькими точками сохраняются; обрабатываются только XML
 непосредственно в исходной папке. Подпапки не обходятся.
 

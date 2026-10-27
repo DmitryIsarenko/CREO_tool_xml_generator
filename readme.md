@@ -44,9 +44,9 @@ uv run python -m src.tool_updater generate --series my_drill
 Результат: `generated_xmls/series/my_drill/`. Настройки лежат в
 `settings/machining.toml`, `settings/counterbore.toml`,
 `settings/countersink.toml`, `settings/drill.toml` и
-`settings/endmill.toml`, `settings/reamer.toml`, `settings/tap.toml`; они
-`settings/toroidmill.toml` и `settings/chamfermill.toml` действуют только
-в новом сценарии.
+`settings/endmill.toml`, `settings/reamer.toml`, `settings/tap.toml`,
+`settings/toroidmill.toml` и `settings/chamfermill.toml`. Эти файлы
+действуют только в новом сценарии.
 Все пути считаются от корня проекта. Извлечения данных из PDF нет:
 таблицы нужно привести к столбцам CSV из инструкции.
 

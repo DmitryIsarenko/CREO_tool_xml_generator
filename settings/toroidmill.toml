@@ -1,0 +1,26 @@
+# Только новый CLI серий для обычных тороидальных фрез.
+# Значения повторяют текущие настройки класса ToroidMill.
+
+[roughing]
+vc_multiplier = 1.0
+feed_multiplier = 0.6
+
+[finishing]
+vc_multiplier = 1.2
+feed_multiplier = 0.4
+
+[axial]
+iso_P = 1.5
+iso_M = 1.5
+iso_K = 1.5
+iso_N = 1.5
+iso_S = 1.5
+iso_H = 1.5
+
+[radial]
+iso_P = 0.15
+iso_M = 0.1
+iso_K = 0.1
+iso_N = 0.2
+iso_S = 0.1
+iso_H = 0.025

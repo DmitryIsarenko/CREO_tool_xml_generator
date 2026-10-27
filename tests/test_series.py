@@ -19,6 +19,7 @@ from src.tool_updater.series import (
     REAMER_GEOMETRY_COLUMNS,
     SETTINGS_FILE,
     TAP_GEOMETRY_COLUMNS,
+    TOROIDMILL_GEOMETRY_COLUMNS,
     create_series,
     load_machining,
     load_series,
@@ -330,6 +331,12 @@ def test_default_settings_preserve_legacy_calculations(
             '10;20;60;TAP THROUGH & TEST;8.5;1.5;1.5',
             'CHAMFER_LENGTH',
         ),
+        (
+            'toroidmill',
+            TOROIDMILL_GEOMETRY_COLUMNS,
+            '10;20;60;TOROID & TEST;2',
+            'CORNER_RADIUS',
+        ),
     ],
 )
 def test_drill_and_endmill_workflows(
@@ -402,6 +409,8 @@ def test_drill_and_endmill_workflows(
             'TAP_BLIND_ASM' if tool_type == 'tap_blind' else 'TAP_THROUGH_ASM'
         )
         assert assembly.get('FamilyName') == expected
+    if tool_type == 'toroidmill':
+        assert parameter.get('Value') == '2.0'
 
 
 def series_settings(tool_type: str) -> Path:

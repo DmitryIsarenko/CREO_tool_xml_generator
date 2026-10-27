@@ -22,6 +22,9 @@ from src.tool_updater.classes.tool_classes.axial.tap import (
 from src.tool_updater.classes.tool_classes.base_tool import BaseTool
 from src.tool_updater.classes.tool_classes.milling.endmill import EndMill
 from src.tool_updater.classes.tool_classes.milling.sphere_mill import BallMill
+from src.tool_updater.classes.tool_classes.milling.toroid_mill import (
+    ToroidMill,
+)
 from src.tool_updater.config import PROJECT_DIR
 from src.tool_updater.data_types import Catalog
 
@@ -36,6 +39,7 @@ SETTINGS_FILES = {
     'reamer': PROJECT_DIR / 'settings' / 'reamer.toml',
     'tap_blind': PROJECT_DIR / 'settings' / 'tap.toml',
     'tap_through': PROJECT_DIR / 'settings' / 'tap.toml',
+    'toroidmill': PROJECT_DIR / 'settings' / 'toroidmill.toml',
     'countersink': PROJECT_DIR / 'settings' / 'countersink.toml',
 }
 SERIES_TYPES = tuple(SETTINGS_FILES)
@@ -64,6 +68,7 @@ TAP_GEOMETRY_COLUMNS = (
     'chamfer_length_mm',
     'thread_pitch_mm',
 )
+TOROIDMILL_GEOMETRY_COLUMNS = (*GEOMETRY_COLUMNS, 'corner_radius_mm')
 CUTTING_COLUMNS = (
     'material',
     'diameter_mm',
@@ -257,6 +262,7 @@ def read_catalogs(series: Series) -> tuple[Catalog, Catalog]:
         'reamer': REAMER_GEOMETRY_COLUMNS,
         'tap_blind': TAP_GEOMETRY_COLUMNS,
         'tap_through': TAP_GEOMETRY_COLUMNS,
+        'toroidmill': TOROIDMILL_GEOMETRY_COLUMNS,
     }
     columns = geometry_columns.get(series.tool_type, GEOMETRY_COLUMNS)
     for line, row in _rows(geometry_path, columns):
@@ -375,6 +381,16 @@ def read_catalogs(series: Series) -> tuple[Catalog, Catalog]:
             record['thread_pitch'] = _positive(
                 row['thread_pitch_mm'], f'{location}, thread_pitch_mm'
             )
+        elif series.tool_type == 'toroidmill':
+            corner_radius = _positive(
+                row['corner_radius_mm'], f'{location}, corner_radius_mm'
+            )
+            if corner_radius >= float(diameter) / 2:
+                raise ValueError(
+                    f'{location}, corner_radius_mm: радиус должен быть '
+                    'меньше половины диаметра.'
+                )
+            record['corner_radius'] = corner_radius
         geometry[diameter] = record
 
     # Each diameter has its own Vc; legacy BallMill expects one Vc per catalog.
@@ -715,6 +731,52 @@ class SeriesTapThrough(TapThrough):
         )
 
 
+class SeriesToroidMill(ToroidMill):
+    """Build a user-managed toroid mill."""
+
+    def __init__(
+        self,
+        series: Series,
+        geometry: Catalog,
+        cutting: Catalog,
+        diameter: str,
+        machining: Machining,
+    ) -> None:
+        self.finishing_roughing_options = machining.modes
+        self.axial_depth_modifiyers = machining.axial
+        self.radial_depth_modifiyers = machining.radial
+        super().__init__(
+            tool_size_from_geom_catalogue=diameter,
+            catalog_tool_cut_data=cutting,
+            catalog_tool_geometry=geometry,
+            teeth_num=series.teeth,
+            file_name_prefix=f'{series.identifier}_',
+            file_name_suffix='',
+            debug_mode=0,
+        )
+
+    def get_tool_flute_diam_from_complex_size(self) -> str:
+        """Return the simple CSV diameter instead of a legacy compound key."""
+        return self.complex_size_name
+
+    def get_tool_corner_rad_from_complex_size(self) -> str:
+        """Return the CSV corner radius for legacy XML assembly."""
+        return str(
+            self.catalog_tool_geometry[self.complex_size_name]['corner_radius']
+        )
+
+    def get_tool_comment(self) -> str:
+        """Escape a user comment before legacy XML interpolation."""
+        return escape(super().get_tool_comment(), {'"': '&quot;'})
+
+    def create_tool_name_for_xml(self) -> str:
+        """Keep identifiers unique without legacy decimal normalization."""
+        return (
+            f'{self.tool_data["file_name_prefix"].upper()}'
+            f'D{self.tool_data["tool_name_str"].replace(".", "-")}'
+        )
+
+
 class SeriesEndMill(EndMill):
     """Build a user-managed end mill."""
 
@@ -763,6 +825,7 @@ TOOL_CLASSES: dict[str, ToolFactory] = {
     'reamer': SeriesReamer,
     'tap_blind': SeriesTapBlind,
     'tap_through': SeriesTapThrough,
+    'toroidmill': SeriesToroidMill,
 }
 
 
@@ -840,6 +903,7 @@ def create_series(
                 'reamer': REAMER_GEOMETRY_COLUMNS,
                 'tap_blind': TAP_GEOMETRY_COLUMNS,
                 'tap_through': TAP_GEOMETRY_COLUMNS,
+                'toroidmill': TOROIDMILL_GEOMETRY_COLUMNS,
             }.get(tool_type, GEOMETRY_COLUMNS),
         ),
         ('cutting.csv', CUTTING_COLUMNS),

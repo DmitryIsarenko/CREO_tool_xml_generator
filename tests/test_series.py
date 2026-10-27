@@ -10,6 +10,7 @@ import pytest
 
 from src.tool_updater.classes.tool_classes.milling.sphere_mill import BallMill
 from src.tool_updater.series import (
+    CHAMFERMILL_GEOMETRY_COLUMNS,
     COUNTERBORE_GEOMETRY_COLUMNS,
     COUNTERSINK_GEOMETRY_COLUMNS,
     CUTTING_COLUMNS,
@@ -337,6 +338,12 @@ def test_default_settings_preserve_legacy_calculations(
             '10;20;60;TOROID & TEST;2',
             'CORNER_RADIUS',
         ),
+        (
+            'chamfermill',
+            CHAMFERMILL_GEOMETRY_COLUMNS,
+            '0.2;10;5;35;CHAMFER & TEST;90',
+            'SIDE_ANGLE',
+        ),
     ],
 )
 def test_drill_and_endmill_workflows(
@@ -411,6 +418,10 @@ def test_drill_and_endmill_workflows(
         assert assembly.get('FamilyName') == expected
     if tool_type == 'toroidmill':
         assert parameter.get('Value') == '2.0'
+    if tool_type == 'chamfermill':
+        assert parameter.get('Value') == '45.0'
+        shank = root_xml.find('.//MfgParam[@Name="SHANK_DIAM"]')
+        assert shank is not None and shank.get('Value') == '10.0'
 
 
 def series_settings(tool_type: str) -> Path:

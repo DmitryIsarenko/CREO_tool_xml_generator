@@ -2,7 +2,7 @@
 
 ## Что готово
 
-Новый сценарий поддерживает девять типов со стандартными сборками:
+Новый сценарий поддерживает десять типов со стандартными сборками:
 
 | Код `--type` | Тип |
 | --- | --- |
@@ -15,6 +15,7 @@
 | `tap_blind` | Метчик для глухого отверстия |
 | `tap_through` | Метчик для сквозного отверстия |
 | `toroidmill` | Тороидальная фреза |
+| `chamfermill` | Угловая фасочная фреза |
 
 Токарно-фрезерные оправки и другие типы пока доступны только через прежние
 задания. Они не перенесены в CSV.
@@ -164,6 +165,16 @@ diameter_mm;flute_length_mm;length_mm;order_no;corner_radius_mm
 
 `corner_radius_mm` должен быть больше 0 и меньше половины диаметра.
 
+Для `chamfermill` используется отдельная схема размеров:
+
+```text
+tip_diameter_mm;shank_diameter_mm;cut_length_mm;length_mm;order_no;angle_deg
+```
+
+`tip_diameter_mm` — диаметр кончика, `shank_diameter_mm` — диаметр
+хвостовика, `cut_length_mm` — рабочая длина. `angle_deg` — полный угол
+фрезы, больше 0 и меньше 180°.
+
 | Дополнительный столбец | Значение |
 | --- | --- |
 | `point_angle_deg` | Угол при вершине сверла в градусах, больше 0 и меньше 180 |
@@ -265,6 +276,7 @@ uv run python -m src.tool_updater generate --series my_tool --overwrite
 | `reamer` | `settings/reamer.toml` |
 | `tap_blind`, `tap_through` | `settings/tap.toml` |
 | `toroidmill` | `settings/toroidmill.toml` |
+| `chamfermill` | `settings/chamfermill.toml` |
 
 | Раздел/параметр | Что изменяет |
 | --- | --- |
@@ -300,7 +312,7 @@ uv run python -m src.tool_updater generate --series my_tool --overwrite
 | --- | --- | --- |
 | `--help` | Везде | Справка; например `generate --help` |
 | `--series NAME` | `init`, `check`, `show`, `generate` | Имя папки серии |
-| `--type TYPE` | `init` | `ballmill`, `counterbore`, `countersink`, `drill`, `endmill`, `reamer`, `tap_blind`, `tap_through` или `toroidmill` |
+| `--type TYPE` | `init` | `ballmill`, `chamfermill`, `counterbore`, `countersink`, `drill`, `endmill`, `reamer`, `tap_blind`, `tap_through` или `toroidmill` |
 | `--settings PATH` | `check`, `show`, `generate` | Другой файл множителей |
 | `--output PATH` | `generate` | Итоговая папка, без автоматической подпапки серии |
 | `--overwrite` | `generate` | Разрешить замену одноимённых XML |
